@@ -8,25 +8,26 @@
       padding
       class="rounded-borders text-primary"
     >
-      <router-link
+      <!-- <div
+        replace
+      > -->
+      <q-item
         v-for="(menu,i) in menus"
         :key="i"
-        :to="`${menu.link}`"
-        replace
+        v-ripple
         class="menu"
         :active-class="activated(true)"
+        :to="`${menu.link}`"
+        clickable
+        exact
       >
-        <q-item
-          v-ripple
-          clickable
-        >
-          <q-item-section avatar>
-            <q-icon :name="menu.icon" />
-          </q-item-section>
+        <q-item-section avatar>
+          <q-icon :name="menu.icon" />
+        </q-item-section>
 
-          <q-item-section>{{ menu.name }}</q-item-section>
-        </q-item>
-      </router-link>
+        <q-item-section>{{ menu.name }}</q-item-section>
+      </q-item>
+      <!-- </div> -->
     </q-list>
   </div>
 </template>
@@ -39,6 +40,7 @@ const props = defineProps({
     default: false
   }
 })
+
 const menus = ref([
   { id: 1, name: 'Satuan', icon: 'icon-mat-gas_meter', link: 'satuan' },
   { id: 2, name: 'Produk', icon: 'icon-mat-workspaces', link: 'produk' },
@@ -47,6 +49,7 @@ const menus = ref([
 
 ])
 function activated(val) {
+  console.log('val ', val, ' dark ', props.dark)
   if (val) {
     if (props.dark) {
       return 'page-dark text-white'
