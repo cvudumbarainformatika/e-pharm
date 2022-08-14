@@ -65,9 +65,11 @@ const props = defineProps({
 })
 
 const menus = ref([
-  { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard' }
-  // { id: 2, name: 'surveyor', icon: 'icon-mat-supervisor_account' }
-  // { id: 3, name: 'pelayanan', icon: 'icon-mat-medical_information' }
+  { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard' },
+  { id: 2, name: 'master', icon: 'icon-mat-dataset' },
+  { id: 3, name: 'transaksi', icon: 'icon-mat-sync_alt' },
+  { id: 4, name: 'laporan', icon: 'icon-mat-donut_large' },
+  { id: 4, name: 'setting', icon: 'icon-mat-settings' }
 ])
 
 function activated(val) {

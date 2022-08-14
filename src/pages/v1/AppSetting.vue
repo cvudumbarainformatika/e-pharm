@@ -1,3 +1,5 @@
 <template>
-  halaman setting
+  <q-page>
+    halaman setting
+  </q-page>
 </template>
