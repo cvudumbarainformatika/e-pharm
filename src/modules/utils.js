@@ -24,15 +24,27 @@ const notifErr = (resp) => {
   if (status === 422) {
     const msgs = resp.data
     for (const key in msgs) {
-      Notify.create({
-        message: msgs[key][0],
-        icon: 'icon-eva-message-circle-outline',
-        position: 'bottom-right',
-        color: 'negative',
-        actions: [
-          { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
-        ]
-      })
+      if (key === 'error') {
+        Notify.create({
+          message: msgs.error,
+          icon: 'icon-eva-message-circle-outline',
+          position: 'bottom-right',
+          color: 'negative',
+          actions: [
+            { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
+          ]
+        })
+      } else {
+        Notify.create({
+          message: msgs[key][0],
+          icon: 'icon-eva-message-circle-outline',
+          position: 'bottom-right',
+          color: 'negative',
+          actions: [
+            { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
+          ]
+        })
+      }
     }
   } else {
     Notify.create({
