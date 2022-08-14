@@ -18,7 +18,7 @@ const routes = [
         name: 'profile',
         component: () =>
           import(
-          /* webpackChunkName: "profile" */ 'pages/v1/profile/IndexPage.vue'
+            /* webpackChunkName: "profile" */ 'pages/v1/profile/IndexPage.vue'
           )
       },
       {
@@ -27,7 +27,41 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: "master" */ 'pages/v1/master/IndexPage.vue'
-          )
+          ),
+        children: [
+          {
+            path: '/satuan',
+            name: 'satuan',
+            component: () =>
+              import(
+                /* webpackChunkName: "satuan" */ 'pages/v1/master/menu/SatuanPage.vue'
+              )
+          },
+          {
+            path: '/kategori',
+            name: 'kategori',
+            component: () =>
+              import(
+                /* webpackChunkName: "kategori" */ 'pages/v1/master/menu/KategoriPage.vue'
+              )
+          },
+          {
+            path: '/produk',
+            name: 'produk',
+            component: () =>
+              import(
+                /* webpackChunkName: "produk" */ 'pages/v1/master/menu/ProdukPage.vue'
+              )
+          },
+          {
+            path: '/rak',
+            name: 'rak',
+            component: () =>
+              import(
+                /* webpackChunkName: "rak" */ 'pages/v1/master/menu/RakPage.vue'
+              )
+          }
+        ]
       },
       {
         path: '/laporan',
@@ -49,9 +83,7 @@ const routes = [
         path: '/setting',
         name: 'setting',
         component: () =>
-          import(
-            /* webpackChunkName: "setting" */ 'pages/v1/AppSetting.vue'
-          )
+          import(/* webpackChunkName: "setting" */ 'pages/v1/AppSetting.vue')
       }
     ]
   },

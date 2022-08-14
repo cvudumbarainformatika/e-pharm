@@ -1,7 +1,7 @@
 <template>
   <div
-    class="q-pa-md"
-    style="max-width: 250px"
+    class="q-pa-sm "
+    style="max-width: 150px"
   >
     <q-list
       bordered
@@ -11,7 +11,9 @@
       <router-link
         v-for="(menu,i) in menus"
         :key="i"
-        :to="`${menu.name}`"
+        :to="`${menu.link}`"
+        replace
+        class="menu"
         :active-class="activated(true)"
       >
         <q-item
@@ -38,10 +40,10 @@ const props = defineProps({
   }
 })
 const menus = ref([
-  { id: 1, name: 'satuan', icon: 'icon-mat-gas_meter' },
-  { id: 2, name: 'produk', icon: 'icon-mat-workspaces' },
-  { id: 3, name: 'rak', icon: 'icon-mat-table_rows' },
-  { id: 4, name: 'kategori', icon: 'icon-mat-category' }
+  { id: 1, name: 'Satuan', icon: 'icon-mat-gas_meter', link: 'satuan' },
+  { id: 2, name: 'Produk', icon: 'icon-mat-workspaces', link: 'produk' },
+  { id: 3, name: 'Rak', icon: 'icon-mat-table_rows', link: 'rak' },
+  { id: 4, name: 'Kategori', icon: 'icon-mat-category', link: 'kategori' }
 
 ])
 function activated(val) {
@@ -49,22 +51,35 @@ function activated(val) {
     if (props.dark) {
       return 'page-dark text-white'
     } else {
-      return 'bg-grey-4 text-primary'
+      return 'bg-cyan-1 text-secondary'
     }
   }
-  return 'text-grey-5'
+  return 'text-grey-5 bg-white'
 }
 </script>
 
 <style lang="scss" scoped>
-.my-menu-link{
-  color: white;
-  background: #35df25;
-}
 
 .my-card {
   width: 150px;
   height: 200px;
   margin: 10px;
 }
+
+.container{
+  width: calc(100% - 90px);
+  height:60px;
+}
+
+a.menu{
+  text-decoration: none;
+  color:$grey-5;
+}
+
+a.router-link-active, a.router-link-exact-active {
+    margin-left: 10px;
+    border-radius: 10px 0px 0px 10px;
+    border-left: 3px solid $primary;
+  }
+
 </style>
