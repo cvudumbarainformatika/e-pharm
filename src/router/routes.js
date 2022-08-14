@@ -21,48 +21,7 @@ const routes = [
             /* webpackChunkName: "profile" */ 'pages/v1/profile/IndexPage.vue'
           )
       },
-      {
-        path: '/master',
-        name: 'master',
-        component: () =>
-          import(
-            /* webpackChunkName: "master" */ 'pages/v1/master/IndexPage.vue'
-          ),
-        children: [
-          {
-            path: '/satuan',
-            name: 'satuan',
-            component: () =>
-              import(
-                /* webpackChunkName: "satuan" */ 'pages/v1/master/menu/SatuanPage.vue'
-              )
-          },
-          {
-            path: '/kategori',
-            name: 'kategori',
-            component: () =>
-              import(
-                /* webpackChunkName: "kategori" */ 'pages/v1/master/menu/KategoriPage.vue'
-              )
-          },
-          {
-            path: '/produk',
-            name: 'produk',
-            component: () =>
-              import(
-                /* webpackChunkName: "produk" */ 'pages/v1/master/menu/ProdukPage.vue'
-              )
-          },
-          {
-            path: '/rak',
-            name: 'rak',
-            component: () =>
-              import(
-                /* webpackChunkName: "rak" */ 'pages/v1/master/menu/RakPage.vue'
-              )
-          }
-        ]
-      },
+
       {
         path: '/laporan',
         name: 'laporan',
@@ -84,6 +43,54 @@ const routes = [
         name: 'setting',
         component: () =>
           import(/* webpackChunkName: "setting" */ 'pages/v1/AppSetting.vue')
+      }
+    ]
+  },
+  {
+    path: '/master',
+    component: () => import('layouts/Master/MasterLayout.vue'),
+    meta: { requireAuth: true },
+    children: [
+      {
+        path: '',
+        name: 'master',
+        component: () =>
+          import(
+            /* webpackChunkName: "master" */ 'pages/v1/master/IndexPage.vue'
+          )
+
+      },
+      {
+        path: '/satuan',
+        name: 'satuan',
+        component: () =>
+          import(
+            /* webpackChunkName: "satuan" */ 'pages/v1/master/menu/SatuanPage.vue'
+          )
+      },
+      {
+        path: '/kategori',
+        name: 'kategori',
+        component: () =>
+          import(
+            /* webpackChunkName: "kategori" */ 'pages/v1/master/menu/KategoriPage.vue'
+          )
+      },
+      {
+        path: '/produk',
+        name: 'produk',
+        component: () =>
+          import(
+            /* webpackChunkName: "produk" */ 'pages/v1/master/menu/ProdukPage.vue'
+          )
+      },
+      {
+        path: '/rak',
+        name: 'rak',
+        component: () =>
+          import(
+            /* webpackChunkName: "rak" */ 'pages/v1/master/menu/RakPage.vue'
+          )
       }
     ]
   },

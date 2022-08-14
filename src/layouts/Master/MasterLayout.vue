@@ -3,6 +3,11 @@
     view="lHh LpR lFr"
     :class="dark?'':'page-light'"
   >
+    <LeftDrawer
+      v-if="!mobile"
+      v-model="leftDrawerOpen"
+      :dark="dark"
+    />
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -29,9 +34,15 @@
 <script setup>
 
 import { useQuasar } from 'quasar'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
+
+import LeftDrawer from './LeftDrawer.vue'
+// import MasterHeader from './MasterHeader.vue'
+// import MobileFooterMenu from './AdmFooterMenu.vue'
 
 const $q = useQuasar()
+
+const leftDrawerOpen = ref(false)
 
 const dark = computed(() => {
   return $q.dark.isActive

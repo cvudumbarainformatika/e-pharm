@@ -1,7 +1,7 @@
 <template>
   <q-drawer
     show-if-above
-    :width="70"
+    :width="170"
   >
     <!-- logo -->
     <div class="absolute-top">
@@ -18,7 +18,7 @@
         class="fit"
         style="height:calc(100%-50px) ;padding-top:50px"
       > -->
-    <div
+    <!-- <div
       class="flex column flex-center full-height"
       style="height:calc(100%-60px) "
     >
@@ -30,7 +30,6 @@
         class="sidebar flex flex-center"
         :active-class="activated(true)"
       >
-        <!-- :class="!dark?'page-light':'page-dark'" -->
         <q-tooltip
           class="bg-primary"
           anchor="center right"
@@ -38,7 +37,7 @@
           :offset="[5, 5]"
         >
           <strong class="">{{ menu.name }}</strong>
-          <!-- <em>right</em> -->
+
           (<q-icon name="icon-mat-keyboard_arrow_right" />)
         </q-tooltip>
         <q-icon
@@ -46,9 +45,39 @@
           size="25px"
         />
       </router-link>
-    </div>
+    </div> -->
     <!-- </q-scroll-area> -->
 
+    <div
+      class="q-pa-sm flex column flex-center full-height"
+      style="height:calc(100%-50px) ;padding-top:50px"
+    >
+      <q-list
+        padding
+        class="rounded-borders text-primary"
+      >
+        <!-- <div
+        replace
+      > -->
+        <q-item
+          v-for="(menu,i) in menus"
+          :key="i"
+          v-ripple
+          class="menu"
+          :active-class="activated(true)"
+          :to="`${menu.link}`"
+          clickable
+          exact
+        >
+          <q-item-section avatar>
+            <q-icon :name="menu.icon" />
+          </q-item-section>
+
+          <q-item-section>{{ menu.name }}</q-item-section>
+        </q-item>
+      <!-- </div> -->
+      </q-list>
+    </div>
     <div class="just-shadow absolute-full overflow-hidden no-pointer-events" />
   </q-drawer>
 </template>
@@ -65,11 +94,10 @@ const props = defineProps({
 })
 
 const menus = ref([
-  { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard' },
-  { id: 2, name: 'master', icon: 'icon-mat-dataset' },
-  { id: 3, name: 'transaksi', icon: 'icon-mat-sync_alt' },
-  { id: 4, name: 'laporan', icon: 'icon-mat-donut_large' },
-  { id: 5, name: 'setting', icon: 'icon-mat-settings' }
+  { id: 1, name: 'Satuan', icon: 'icon-mat-gas_meter', link: 'satuan' },
+  { id: 2, name: 'Produk', icon: 'icon-mat-workspaces', link: 'produk' },
+  { id: 3, name: 'Rak', icon: 'icon-mat-table_rows', link: 'rak' },
+  { id: 4, name: 'Kategori', icon: 'icon-mat-category', link: 'kategori' }
 ])
 
 function activated(val) {
