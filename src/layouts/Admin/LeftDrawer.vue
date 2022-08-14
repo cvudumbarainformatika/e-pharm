@@ -69,7 +69,7 @@ const menus = ref([
   { id: 2, name: 'master', icon: 'icon-mat-dataset' },
   { id: 3, name: 'transaksi', icon: 'icon-mat-sync_alt' },
   { id: 4, name: 'laporan', icon: 'icon-mat-donut_large' },
-  { id: 4, name: 'setting', icon: 'icon-mat-settings' }
+  { id: 5, name: 'setting', icon: 'icon-mat-settings' }
 ])
 
 function activated(val) {
