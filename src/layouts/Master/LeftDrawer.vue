@@ -9,7 +9,17 @@
         class=" flex flex-center"
         style="height: 60px;"
       >
-        <q-avatar size="40px">
+        <q-btn
+          round
+          color="primary"
+          icon="icon-mat-arrow_back"
+          style="margin: 16px;"
+          to="\dashboard"
+        />
+        <q-avatar
+          size="40px"
+          style="margin: 16px;"
+        >
           <img src="~assets/logos/logo.png">
         </q-avatar>
       </div>

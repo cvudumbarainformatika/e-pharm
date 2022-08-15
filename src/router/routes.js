@@ -14,6 +14,48 @@ const routes = [
       },
       // { path: '/surveyor', name: 'surveyor', component: () => import('pages/v1/surveyor/IndexPage.vue') },
       {
+        path: '/master',
+        name: 'master',
+        component: () =>
+          import(
+            /* webpackChunkName: "master" */ 'pages/v1/master/IndexPage.vue'
+          ),
+        children: [
+          {
+            path: '/satuan',
+            name: 'satuan',
+            component: () =>
+              import(
+                /* webpackChunkName: "satuan" */ 'pages/v1/master/satuan/IndexPage.vue'
+              )
+          },
+          {
+            path: '/kategori',
+            name: 'kategori',
+            component: () =>
+              import(
+                /* webpackChunkName: "kategori" */ 'pages/v1/master/kategori/IndexPage.vue'
+              )
+          },
+          {
+            path: '/produk',
+            name: 'produk',
+            component: () =>
+              import(
+                /* webpackChunkName: "produk" */ 'pages/v1/master/produk/IndexPage.vue'
+              )
+          },
+          {
+            path: '/rak',
+            name: 'rak',
+            component: () =>
+              import(
+                /* webpackChunkName: "rak" */ 'pages/v1/master/rak/IndexPage.vue'
+              )
+          }
+        ]
+      },
+      {
         path: '/profile',
         name: 'profile',
         component: () =>
@@ -46,54 +88,14 @@ const routes = [
       }
     ]
   },
-  {
-    path: '/master',
-    component: () => import('layouts/Master/MasterLayout.vue'),
-    meta: { requireAuth: true },
-    children: [
-      {
-        path: '',
-        name: 'master',
-        component: () =>
-          import(
-            /* webpackChunkName: "master" */ 'pages/v1/master/IndexPage.vue'
-          )
+  // {
+  //   path: '/master',
+  //   component: () => import('layouts/Master/MasterLayout.vue'),
+  //   meta: { requireAuth: true },
+  //   children: [
 
-      },
-      {
-        path: '/satuan',
-        name: 'satuan',
-        component: () =>
-          import(
-            /* webpackChunkName: "satuan" */ 'pages/v1/master/menu/SatuanPage.vue'
-          )
-      },
-      {
-        path: '/kategori',
-        name: 'kategori',
-        component: () =>
-          import(
-            /* webpackChunkName: "kategori" */ 'pages/v1/master/menu/KategoriPage.vue'
-          )
-      },
-      {
-        path: '/produk',
-        name: 'produk',
-        component: () =>
-          import(
-            /* webpackChunkName: "produk" */ 'pages/v1/master/menu/ProdukPage.vue'
-          )
-      },
-      {
-        path: '/rak',
-        name: 'rak',
-        component: () =>
-          import(
-            /* webpackChunkName: "rak" */ 'pages/v1/master/menu/RakPage.vue'
-          )
-      }
-    ]
-  },
+  //   ]
+  // },
 
   // login
   {
