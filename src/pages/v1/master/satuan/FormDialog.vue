@@ -17,6 +17,7 @@
                 v-model="store.form.name"
                 label="Nama*"
                 outlined
+                autofocus
               />
             </div>
           </div>
