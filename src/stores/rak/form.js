@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { notifSuccess } from 'src/modules/utils'
 import { api } from 'boot/axios'
-import { useKategoriTable } from './table'
+import { useRakTable } from './table'
 
-export const useKategoriFormStore = defineStore('kategori_form', {
+export const useRakFormStore = defineStore('rak_form', {
   state: () => ({
     isOpen: false,
     form: {
@@ -56,11 +56,11 @@ export const useKategoriFormStore = defineStore('kategori_form', {
       this.loading = true
       return new Promise((resolve, reject) => {
         api
-          .post('v1/kategori/store', this.form)
+          .post('v1/rak/store', this.form)
           .then((resp) => {
             console.log('save data', resp)
             notifSuccess(resp)
-            const table = useKategoriTable()
+            const table = useRakTable()
             table.getDataTable()
             this.loading = false
             this.isOpen = false

@@ -14,9 +14,10 @@
           <div class="row q-col-gutter-md">
             <div class="col-md-6 col-xs-12">
               <app-input
-                v-model="store.form.name"
+                v-model="store.form.nama"
                 label="Nama*"
                 outlined
+                autofocus
               />
             </div>
           </div>
