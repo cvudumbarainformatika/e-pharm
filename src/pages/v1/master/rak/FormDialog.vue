@@ -2,8 +2,8 @@
   <q-dialog>
     <app-card
       class="my-card"
-      title="Form Kategori"
-      desc="Input data Kategori"
+      title="Form Rak"
+      desc="Input data Rak"
     >
       <template #content>
         <q-form

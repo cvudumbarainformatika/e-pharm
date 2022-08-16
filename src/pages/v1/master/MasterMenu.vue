@@ -43,9 +43,11 @@ const props = defineProps({
 
 const menus = ref([
   { id: 1, name: 'Satuan', icon: 'icon-mat-gas_meter', link: 'satuan' },
-  { id: 2, name: 'Produk', icon: 'icon-mat-workspaces', link: 'produk' },
-  { id: 3, name: 'Rak', icon: 'icon-mat-table_rows', link: 'rak' },
-  { id: 4, name: 'Kategori', icon: 'icon-mat-category', link: 'kategori' }
+  { id: 2, name: 'Rak', icon: 'icon-mat-table_rows', link: 'rak' },
+  { id: 3, name: 'Kategori', icon: 'icon-mat-category', link: 'kategori' },
+  { id: 4, name: 'Supplier', icon: 'icon-mat-rv_hookup', link: 'supplier' },
+  { id: 5, name: 'Dokter', icon: 'icon-mat-medication', link: 'dokter' },
+  { id: 6, name: 'Produk', icon: 'icon-mat-workspaces', link: 'produk' }
 
 ])
 function activated(val) {

@@ -46,6 +46,22 @@ const routes = [
               )
           },
           {
+            path: '/supplier',
+            name: 'supplier',
+            component: () =>
+              import(
+                /* webpackChunkName: "supplier" */ 'pages/v1/master/supplier/IndexPage.vue'
+              )
+          },
+          {
+            path: '/dokter',
+            name: 'dokter',
+            component: () =>
+              import(
+                /* webpackChunkName: "dokter" */ 'pages/v1/master/dokter/IndexPage.vue'
+              )
+          },
+          {
             path: '/rak',
             name: 'rak',
             component: () =>
