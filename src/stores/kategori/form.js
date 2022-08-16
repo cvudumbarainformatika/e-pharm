@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { notifSuccess } from 'src/modules/utils'
 import { api } from 'boot/axios'
-import { useSatuanStore } from './crud'
+import { useKategoriTable } from './table'
 
-export const useSatuanFormStore = defineStore('satuan_form', {
+export const useKategoriFormStore = defineStore('kategori_form', {
   state: () => ({
     isOpen: false,
     form: {
-      name: ''
+      nama: ''
     },
     loading: false
   }),
@@ -15,14 +15,11 @@ export const useSatuanFormStore = defineStore('satuan_form', {
     // local related actions
     resetFORM() {
       this.form = {}
-      const columns = [
-        'name'
-
-      ]
+      const columns = ['nama']
       for (let i = 0; i < columns.length; i++) {
         this.setForm(columns[i], '')
       }
-      this.setForm('name', '')
+      this.setForm('nama', '')
     },
     setToday() {
       const date = new Date()
@@ -59,12 +56,12 @@ export const useSatuanFormStore = defineStore('satuan_form', {
       this.loading = true
       return new Promise((resolve, reject) => {
         api
-          .post('v1/satuan/store', this.form)
+          .post('v1/kategori/store', this.form)
           .then((resp) => {
             console.log('save data', resp)
             notifSuccess(resp)
-            const table = useSatuanStore()
-            table.getSatuan()
+            const table = useKategoriTable()
+            table.getDataTable()
             this.loading = false
             this.isOpen = false
             resolve(resp)
