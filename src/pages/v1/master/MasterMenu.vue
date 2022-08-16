@@ -1,34 +1,36 @@
 <template>
   <div
     class="q-pa-sm "
-    style="max-width: 150px"
   >
-    <q-list
-      bordered
-      padding
-      class="rounded-borders text-primary"
-    >
-      <!-- <div
+    <!-- style="max-width: 150px" -->
+    <q-card>
+      <q-list
+        bordered
+        padding
+        class="rounded-borders text-primary"
+      >
+        <!-- <div
         replace
       > -->
-      <q-item
-        v-for="(menu,i) in menus"
-        :key="i"
-        v-ripple
-        class="menu"
-        :active-class="activated(true)"
-        :to="`${menu.link}`"
-        clickable
-        exact
-      >
-        <q-item-section avatar>
-          <q-icon :name="menu.icon" />
-        </q-item-section>
+        <q-item
+          v-for="(menu,i) in menus"
+          :key="i"
+          v-ripple
+          class="menu"
+          :active-class="activated(true)"
+          :to="`${menu.link}`"
+          clickable
+          exact
+        >
+          <q-item-section avatar>
+            <q-icon :name="menu.icon" />
+          </q-item-section>
 
-        <q-item-section>{{ menu.name }}</q-item-section>
-      </q-item>
+          <q-item-section>{{ menu.name }}</q-item-section>
+        </q-item>
       <!-- </div> -->
-    </q-list>
+      </q-list>
+    </q-card>
   </div>
 </template>
 <script setup>
@@ -56,7 +58,7 @@ function activated(val) {
     if (props.dark) {
       return 'page-dark text-white'
     } else {
-      return 'bg-cyan-1 text-secondary'
+      return 'bg-grey-4 text-primary'
     }
   }
   return 'text-grey-5 bg-white'

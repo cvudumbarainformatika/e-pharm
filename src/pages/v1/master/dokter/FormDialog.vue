@@ -11,7 +11,7 @@
           @submit="onSubmit"
           @reset="onReset"
         >
-          <div class="row q-col-gutter-md">
+          <div class="row q-col-gutter-md q-my-sm">
             <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.nama"
@@ -20,17 +20,6 @@
                 autofocus
               />
             </div>
-          </div>
-          <div class="row q-col-gutter-md">
-            <div class="col-md-6 col-xs-12">
-              <app-input
-                v-model="store.form.alamat"
-                label="Alamat*"
-                outlined
-              />
-            </div>
-          </div>
-          <div class="row q-col-gutter-md">
             <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.kontak"
@@ -39,6 +28,18 @@
               />
             </div>
           </div>
+          <div class="row q-col-gutter-md q-my-sm">
+            <div class="col-md-12 col-xs-12">
+              <app-input
+                v-model="store.form.alamat"
+                label="Alamat*"
+                outlined
+              />
+            </div>
+          </div>
+          <!-- <div class="row q-col-gutter-md">
+
+          </div> -->
           <q-separator class="q-my-md" />
           <div class="text-right">
             <app-btn

@@ -14,6 +14,7 @@
             :sort="table.params.sort"
             :loading="table.loading"
             :to-search="table.params.q"
+            row-image="image"
             @goto="table.setPage"
             @set-row="table.setPerPage"
             @refresh="table.refreshTable"
@@ -24,7 +25,6 @@
             @delete="table.deletesData"
           />
           <!--
-            row-image="image"
             @delete-ids="table.deletesData"
             -->
         </template>
