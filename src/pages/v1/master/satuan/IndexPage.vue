@@ -22,7 +22,11 @@
             @new-data="store.newData"
             @edit-data="store.editData"
             @delete="table.deletesData"
-          />
+          >
+            <template #col-name>
+              <div>nama</div>
+            </template>
+          </app-table>
           <!--
             row-image="image"
             @delete-ids="table.deletesData"

@@ -14,11 +14,6 @@
 </template>
 <script setup>
 import MasterMenu from './MasterMenu.vue'
-import { onMounted } from 'vue'
-
-onMounted(() => {
-  console.log('History', window.history.length)
-})
 
 // import MasterMenu from './MasterMenu.vue'
 </script>

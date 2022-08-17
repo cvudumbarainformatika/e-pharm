@@ -16,7 +16,7 @@ export const useRakTable = defineStore('rak_table', {
       sort: 'desc'
     },
     columns: [],
-    columnHide: ['id', 'uuid', 'created_at']
+    columnHide: ['id', 'uuid', 'created_at', 'updated_at']
   }),
   getters: {
     getterColumns(state) {

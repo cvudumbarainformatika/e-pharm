@@ -17,6 +17,9 @@
     :autofocus="autofocus"
     :disable="disable"
     :readonly="readonly"
+    :input-class="currency?'text-right':''"
+    :mask="currency?mask:''"
+    :reverse-fill-mask="currency"
   >
     <template
       v-if="error"
@@ -69,7 +72,7 @@ const props = defineProps({
   },
   mask: {
     type: String,
-    default: '#.##'
+    default: '#.###.###.###.###.###'
   },
   fillMask: {
     type: String,
@@ -88,6 +91,7 @@ const props = defineProps({
   disable: { type: Boolean, default: false },
   readonly: { type: Boolean, default: false },
   reverseFillMask: { type: Boolean, default: false },
+  currency: { type: Boolean, default: false },
   errMessage: { type: String, default: 'error, data tidak valid' }
 })
 

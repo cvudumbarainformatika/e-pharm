@@ -19,6 +19,9 @@ export const useProdukFormStore = defineStore('produk_form', {
       rak_id: null,
       kategori_id: null
     },
+    rak: [],
+    satuan: [],
+    kategori: [],
     loading: false
   }),
   actions: {

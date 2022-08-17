@@ -32,9 +32,11 @@
             <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.harga_beli"
+                prefix="Rp"
                 label="Harga Beli*"
                 outlined
                 number
+                currency
               />
             </div>
             <div class="col-md-6 col-xs-12">
@@ -43,6 +45,8 @@
                 label="Harga Jual Umum*"
                 outlined
                 number
+                currency
+                prefix="Rp"
               />
             </div>
           </div>
@@ -53,6 +57,8 @@
                 label="Harga Jual Resep*"
                 outlined
                 number
+                currency
+                prefix="Rp"
               />
             </div>
             <div class="col-md-6 col-xs-12">
@@ -61,6 +67,8 @@
                 label="Harga Jual Customer*"
                 outlined
                 number
+                currency
+                prefix="Rp"
               />
             </div>
           </div>
@@ -83,11 +91,23 @@
           </div>
           <div class="row q-col-gutter-md q-mt-sm">
             <div class="col-md-4 col-xs-12">
-              <app-input
+              <!-- <app-input
                 v-model="store.form.rak_id"
                 label="Posisi Rak*"
                 outlined
+              /> -->
+              <app-autocomplete
+                v-model="store.form.rak_id"
+                outlined
+                style="width:90%"
+                label="Rak"
+                autocomplete="nama"
+                option-value="id"
+                option-label="nama"
               />
+              <!-- :source="formData.jurusans"
+                                            @setModel="(val)=>formData.setForm('jurusan_id', val)"
+                                            @onEnter="formData.addJurusan" -->
             </div>
             <div class="col-md-4 col-xs-12">
               <app-input
@@ -104,8 +124,7 @@
               />
             </div>
           </div>
-          <!-- <div class="row q-col-gutter-md">
-          </div> -->
+
           <q-separator class="q-my-md" />
           <div class="text-right">
             <app-btn
@@ -130,7 +149,19 @@ import { useProdukFormStore } from 'src/stores/produk/form'
 import { ref } from 'vue'
 
 const store = useProdukFormStore()
-
+// const price = ref(null)
+// const maskedPrice = ref(null)
+// const hitung = () => {
+//   console.log('price', price.value, 'masked', maskedPrice.value)
+// }
+// const moneyFormatForDirective = ref({
+//   decimal: '.',
+//   thousands: ',',
+//   prefix: 'Rp ',
+//   suffix: ' #',
+//   precision: 2,
+//   masked: true /* doesn't work with directive */
+// })
 const formReff = ref(null)
 const onSubmit = () => {
   store.saveForm().then(() => {

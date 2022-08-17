@@ -53,7 +53,6 @@ const menus = ref([
 
 ])
 function activated(val) {
-  console.log('val ', val, ' dark ', props.dark)
   if (val) {
     if (props.dark) {
       return 'page-dark text-white'
