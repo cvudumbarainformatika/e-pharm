@@ -23,9 +23,9 @@
             @edit-data="store.editData"
             @delete="table.deletesData"
           >
-            <template #col-name>
+            <!-- <template #col-name>
               <div>nama</div>
-            </template>
+            </template> -->
           </app-table>
           <!--
             row-image="image"

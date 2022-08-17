@@ -20,6 +20,7 @@ const routes = [
           import(
             /* webpackChunkName: "master" */ 'pages/v1/master/IndexPage.vue'
           ),
+        meta: { requireAuth: true },
         children: [
           {
             path: '/satuan',

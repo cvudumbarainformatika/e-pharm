@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { notifSuccess } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { useRakTable } from './table'
+import { hurufBesar } from 'src/modules/formatter'
 
 export const useRakFormStore = defineStore('rak_form', {
   state: () => ({
@@ -54,9 +55,10 @@ export const useRakFormStore = defineStore('rak_form', {
     // tambah
     saveForm() {
       this.loading = true
+      const param = { nama: hurufBesar(this.form.nama) }
       return new Promise((resolve, reject) => {
         api
-          .post('v1/rak/store', this.form)
+          .post('v1/rak/store', param)
           .then((resp) => {
             console.log('save data', resp)
             notifSuccess(resp)

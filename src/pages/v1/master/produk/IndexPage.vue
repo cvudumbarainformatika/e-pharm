@@ -39,7 +39,7 @@
               <div>harga harga jual customer</div>
             </template>
             <template #cell-satuan="{row}">
-              <div>{{ row.satuan ? row.satuan.name : 'tidak ada' }}</div>
+              <div>{{ row.satuan ? row.satuan.nama : 'tidak ada' }}</div>
             </template>
             <template #cell-rak="{row}">
               <div>{{ row.rak.nama }}</div>

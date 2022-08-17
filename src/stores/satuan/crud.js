@@ -73,8 +73,8 @@ export const useSatuanStore = defineStore('satuan', {
               this.items = resp.data.data
               this.meta = resp.data.meta
               this.setColumns(resp.data.data)
+              resolve(resp.data.data)
             }
-            resolve(resp)
           })
           .catch((err) => {
             console.log(err)

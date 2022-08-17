@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { notifSuccess } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { useKategoriTable } from './table'
+import { hurufBesar } from 'src/modules/formatter'
 
 export const useKategoriFormStore = defineStore('kategori_form', {
   state: () => ({
@@ -54,9 +55,11 @@ export const useKategoriFormStore = defineStore('kategori_form', {
     // tambah
     saveForm() {
       this.loading = true
+      const data = hurufBesar(this.form.nama)
+      const param = { nama: data }
       return new Promise((resolve, reject) => {
         api
-          .post('v1/kategori/store', this.form)
+          .post('v1/kategori/store', param)
           .then((resp) => {
             console.log('save data', resp)
             notifSuccess(resp)

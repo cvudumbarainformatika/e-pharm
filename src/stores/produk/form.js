@@ -2,6 +2,10 @@ import { defineStore } from 'pinia'
 import { notifSuccess } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { useProdukTable } from './table'
+import { useRakTable } from '../rak/table'
+import { useSatuanStore } from '../satuan/crud'
+import { useKategoriTable } from '../kategori/table'
+import { olahUang } from 'src/modules/formatter'
 
 export const useProdukFormStore = defineStore('produk_form', {
   state: () => ({
@@ -17,14 +21,39 @@ export const useProdukFormStore = defineStore('produk_form', {
       harga_jual_cust: 0,
       stok_awal: 0,
       rak_id: null,
-      kategori_id: null
+      kategori_id: null,
+      expired: null
     },
-    rak: [],
-    satuan: [],
-    kategori: [],
+    raks: [],
+    satuans: [],
+    kategoris: [],
     loading: false
   }),
+
   actions: {
+    // ambil data dari tabel lain
+    ambilDataRak() {
+      const getRak = useRakTable()
+      getRak.getDataTable().then(resp => {
+        this.data = resp
+        this.raks = resp
+        console.log('reks', resp)
+      })
+    },
+    ambilDataSatuan() {
+      const getSat = useSatuanStore()
+      getSat.getSatuan().then(resp => {
+        this.satuans = resp
+        console.log('satuan', resp)
+      })
+    },
+    ambilDatakategori() {
+      const getKate = useKategoriTable()
+      getKate.getDataTable().then(resp => {
+        this.kategoris = resp
+        console.log('kategori', resp)
+      })
+    },
     // local related actions
     resetFORM() {
       this.form = {}
@@ -39,7 +68,8 @@ export const useProdukFormStore = defineStore('produk_form', {
         'harga_jual_cust',
         'stok_awal',
         'rak_id',
-        'kategori_id'
+        'kategori_id',
+        'expired'
       ]
       for (let i = 0; i < columns.length; i++) {
         this.setForm(columns[i], '')
@@ -74,10 +104,21 @@ export const useProdukFormStore = defineStore('produk_form', {
       // kecuali yang ada di object user
       this.isOpen = !this.isOpen
     },
+
     // api related actions
 
     // tambah
     saveForm() {
+      const beli = olahUang(this.form.harga_beli)
+      const umum = olahUang(this.form.harga_jual_umum)
+      const resep = olahUang(this.form.harga_jual_resep)
+      const cust = olahUang(this.form.harga_jual_cust)
+
+      // console.log('beli ', beli, ' umum ', umum, ' resep ', resep, ' cust ', cust)
+      this.form.harga_beli = beli
+      this.form.harga_jual_cust = cust
+      this.form.harga_jual_resep = resep
+      this.form.harga_jual_umum = umum
       this.loading = true
       return new Promise((resolve, reject) => {
         api

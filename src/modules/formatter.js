@@ -37,6 +37,19 @@ function formatMoney(amount, decimalCount = 2, decimal = '.', thousands = ',') {
   } catch (e) {
     console.log(e)
   }
-};
+}
 
-export { dateDbFormat, formatRp, formatDouble, formatMoney }
+const hurufBesar = (val) => {
+  return val.toUpperCase()
+}
+
+const olahUang = (val) => {
+  let data = ''
+  const array = val.split(',')
+  for (let i = 0; i < array.length; i++) {
+    data += array[i]
+  }
+  return data
+}
+
+export { dateDbFormat, formatRp, formatDouble, formatMoney, hurufBesar, olahUang }

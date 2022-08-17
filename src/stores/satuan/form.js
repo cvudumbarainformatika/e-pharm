@@ -2,12 +2,13 @@ import { defineStore } from 'pinia'
 import { notifSuccess } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { useSatuanStore } from './crud'
+import { hurufBesar } from 'src/modules/formatter'
 
 export const useSatuanFormStore = defineStore('satuan_form', {
   state: () => ({
     isOpen: false,
     form: {
-      name: ''
+      nama: ''
     },
     loading: false
   }),
@@ -16,13 +17,13 @@ export const useSatuanFormStore = defineStore('satuan_form', {
     resetFORM() {
       this.form = {}
       const columns = [
-        'name'
+        'nama'
 
       ]
       for (let i = 0; i < columns.length; i++) {
         this.setForm(columns[i], '')
       }
-      this.setForm('name', '')
+      this.setForm('nama', '')
     },
     setToday() {
       const date = new Date()
@@ -32,8 +33,8 @@ export const useSatuanFormStore = defineStore('satuan_form', {
       const formatDb = year + '-' + month + '-' + day
       this.form.tanggal_lahir = formatDb
     },
-    setForm(name, val) {
-      this.form[name] = val
+    setForm(nama, val) {
+      this.form[nama] = val
     },
     setOpen() {
       this.isOpen = !this.isOpen
@@ -57,9 +58,10 @@ export const useSatuanFormStore = defineStore('satuan_form', {
     // tambah
     saveForm() {
       this.loading = true
+      const param = { nama: hurufBesar(this.form.nama) }
       return new Promise((resolve, reject) => {
         api
-          .post('v1/satuan/store', this.form)
+          .post('v1/satuan/store', param)
           .then((resp) => {
             console.log('save data', resp)
             notifSuccess(resp)
