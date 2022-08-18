@@ -29,6 +29,9 @@
             <template #col-saldo_awal_hutang>
               <div>saldo awal hutang</div>
             </template>
+            <template #cell-saldo_awal_hutang="{row}">
+              <div>{{ formatter.formatRp(row.saldo_awal_hutang) }}</div>
+            </template>
           </app-table>
           <!--
             row-image="image"
@@ -44,6 +47,7 @@
 <script setup>
 import { useSupplierTable } from 'src/stores/supplier/table'
 import { useSupplierFormStore } from 'src/stores/supplier/form'
+import * as formatter from 'src/modules/formatter'
 import formDialog from './FormDialog.vue'
 
 const table = useSupplierTable()
