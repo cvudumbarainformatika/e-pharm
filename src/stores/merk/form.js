@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
-import { notifSuccess, waitLoad } from 'src/modules/utils'
+import { notifSuccess } from 'src/modules/utils'
 import { api } from 'boot/axios'
-import { useKategoriTable } from './table'
+import { useMerkTable } from './table'
 import { hurufBesar } from 'src/modules/formatter'
-import { Dialog } from 'quasar'
-import { useProdukFormStore } from '../produk/form'
+// import { Dialog } from "quasar";
+// import { useProdukFormStore } from "../produk/form";
 
-export const useKategoriFormStore = defineStore('kategori_form', {
+export const useMerkFormStore = defineStore('merk_form', {
   state: () => ({
     isOpen: false,
     form: {
@@ -46,6 +46,7 @@ export const useKategoriFormStore = defineStore('kategori_form', {
     editData(val) {
       this.edited = true
       const keys = Object.keys(val)
+      console.log(keys)
       keys.forEach((key, index) => {
         this.setForm(key, val[key])
       })
@@ -54,30 +55,32 @@ export const useKategoriFormStore = defineStore('kategori_form', {
     },
     // api related actions
     // dari autocomplete
-    addKategori(val) {
-      Dialog.create({
-        title: 'Konfirmasi',
-        message: `Apakah <strong>Kategori: ${val}</strong> Akan ditambahkan?`,
-        cancel: true,
-        html: true
-        // persistent: true
-      })
-        .onOk(() => {
-          waitLoad('show')
-          this.setForm('nama', val)
-          const produk = useProdukFormStore()
-          this.saveForm().then(() => {
-            produk.ambilDatakategori()
-            waitLoad('done')
-          }).catch(() => {
-            waitLoad('done')
-          })
-        })
-        .onCancel(() => {
-          console.log('Cancel')
-        })
-      console.log('val kategori', val)
-    },
+    // addKategori(val) {
+    //   Dialog.create({
+    //     title: "Konfirmasi",
+    //     message: `Apakah <strong>Kategori: ${val}</strong> Akan ditambahkan?`,
+    //     cancel: true,
+    //     html: true,
+    //     // persistent: true
+    //   })
+    //     .onOk(() => {
+    //       waitLoad("show");
+    //       this.setForm("nama", val);
+    //       const produk = useProdukFormStore();
+    //       this.saveForm()
+    //         .then(() => {
+    //           produk.ambilDatakategori();
+    //           waitLoad("done");
+    //         })
+    //         .catch(() => {
+    //           waitLoad("done");
+    //         });
+    //     })
+    //     .onCancel(() => {
+    //       console.log("Cancel");
+    //     });
+    //   console.log("val kategori", val);
+    // },
     // -------------------
 
     // tambah
@@ -87,11 +90,11 @@ export const useKategoriFormStore = defineStore('kategori_form', {
       this.form.nama = data
       return new Promise((resolve, reject) => {
         api
-          .post('v1/kategori/store', this.form)
+          .post('v1/merk/store', this.form)
           .then((resp) => {
             console.log('save data', resp)
             notifSuccess(resp)
-            const table = useKategoriTable()
+            const table = useMerkTable()
             table.getDataTable()
             this.loading = false
             this.isOpen = false

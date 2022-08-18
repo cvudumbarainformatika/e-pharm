@@ -84,10 +84,11 @@ export const useRakFormStore = defineStore('rak_form', {
     // tambah
     saveForm() {
       this.loading = true
-      const param = { nama: hurufBesar(this.form.nama) }
+      const param = hurufBesar(this.form.nama)
+      this.form.nama = param
       return new Promise((resolve, reject) => {
         api
-          .post('v1/rak/store', param)
+          .post('v1/rak/store', this.form)
           .then((resp) => {
             console.log('save data', resp)
             notifSuccess(resp)
