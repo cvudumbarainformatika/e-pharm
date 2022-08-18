@@ -6,6 +6,7 @@ import { useRakTable } from '../rak/table'
 import { useSatuanStore } from '../satuan/crud'
 import { useKategoriTable } from '../kategori/table'
 import { olahUang } from 'src/modules/formatter'
+import { useMerkTable } from '../merk/table'
 
 export const useProdukFormStore = defineStore('produk_form', {
   state: () => ({
@@ -27,6 +28,7 @@ export const useProdukFormStore = defineStore('produk_form', {
     raks: [],
     satuans: [],
     kategoris: [],
+    merks: [],
     loading: false
   }),
 
@@ -52,6 +54,12 @@ export const useProdukFormStore = defineStore('produk_form', {
       getKate.getDataTable().then(resp => {
         this.kategoris = resp
         // console.log('kategori', resp)
+      })
+    },
+    ambilDataMerk() {
+      const getMerk = useMerkTable()
+      getMerk.getDataTable().then(resp => {
+        this.merks = resp
       })
     },
     // local related actions

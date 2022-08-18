@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
-import { notifSuccess } from 'src/modules/utils'
+import { notifSuccess, waitLoad } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { useMerkTable } from './table'
 import { hurufBesar } from 'src/modules/formatter'
-// import { Dialog } from "quasar";
-// import { useProdukFormStore } from "../produk/form";
+import { Dialog } from 'quasar'
+import { useProdukFormStore } from '../produk/form'
 
 export const useMerkFormStore = defineStore('merk_form', {
   state: () => ({
@@ -55,32 +55,32 @@ export const useMerkFormStore = defineStore('merk_form', {
     },
     // api related actions
     // dari autocomplete
-    // addKategori(val) {
-    //   Dialog.create({
-    //     title: "Konfirmasi",
-    //     message: `Apakah <strong>Kategori: ${val}</strong> Akan ditambahkan?`,
-    //     cancel: true,
-    //     html: true,
-    //     // persistent: true
-    //   })
-    //     .onOk(() => {
-    //       waitLoad("show");
-    //       this.setForm("nama", val);
-    //       const produk = useProdukFormStore();
-    //       this.saveForm()
-    //         .then(() => {
-    //           produk.ambilDatakategori();
-    //           waitLoad("done");
-    //         })
-    //         .catch(() => {
-    //           waitLoad("done");
-    //         });
-    //     })
-    //     .onCancel(() => {
-    //       console.log("Cancel");
-    //     });
-    //   console.log("val kategori", val);
-    // },
+    addMerk(val) {
+      Dialog.create({
+        title: 'Konfirmasi',
+        message: `Apakah <strong>Merk: ${val}</strong> Akan ditambahkan?`,
+        cancel: true,
+        html: true
+        // persistent: true
+      })
+        .onOk(() => {
+          waitLoad('show')
+          this.setForm('nama', val)
+          const produk = useProdukFormStore()
+          this.saveForm()
+            .then(() => {
+              produk.ambilDataMerk()
+              waitLoad('done')
+            })
+            .catch(() => {
+              waitLoad('done')
+            })
+        })
+        .onCancel(() => {
+          console.log('Cancel')
+        })
+      console.log('val kategori', val)
+    },
     // -------------------
 
     // tambah
