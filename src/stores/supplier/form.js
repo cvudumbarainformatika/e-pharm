@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { notifSuccess } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { useSupplierTable } from './table'
+import { usePerusahaanTable } from '../perusahaan/table'
 
 export const useSupplierFormStore = defineStore('supplier_form', {
   state: () => ({
@@ -13,9 +14,18 @@ export const useSupplierFormStore = defineStore('supplier_form', {
       kontak: '',
       saldo_awal_hutang: 0
     },
+    perusahaans: [],
     loading: false
   }),
   actions: {
+    // ambil data dari tabel lain
+    ambilDataPerusahaan() {
+      const getPerus = usePerusahaanTable()
+      getPerus.getDataTable().then(resp => {
+        this.perusahaans = resp
+        console.log('perusahaan', resp)
+      })
+    },
     // local related actions
     resetFORM() {
       this.form = {}

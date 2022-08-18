@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
-import { notifSuccess } from 'src/modules/utils'
+import { notifSuccess, waitLoad } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { usePerusahaanTable } from './table'
 import { hurufBesar } from 'src/modules/formatter'
-// import { Dialog } from 'quasar'
-// import { useProdukFormStore } from '../produk/form'
+import { Dialog } from 'quasar'
+import { useSupplierFormStore } from '../supplier/form'
 
 export const usePerusahaanFormStore = defineStore('perusahaan_form', {
   state: () => ({
@@ -54,32 +54,32 @@ export const usePerusahaanFormStore = defineStore('perusahaan_form', {
     },
     // api related actions
     // dari autocomplete
-    // addKategori(val) {
-    //   Dialog.create({
-    //     title: "Konfirmasi",
-    //     message: `Apakah <strong>Kategori: ${val}</strong> Akan ditambahkan?`,
-    //     cancel: true,
-    //     html: true,
-    //     // persistent: true
-    //   })
-    //     .onOk(() => {
-    //       waitLoad("show");
-    //       this.setForm("nama", val);
-    //       const produk = useProdukFormStore();
-    //       this.saveForm()
-    //         .then(() => {
-    //           produk.ambilDatakategori();
-    //           waitLoad("done");
-    //         })
-    //         .catch(() => {
-    //           waitLoad("done");
-    //         });
-    //     })
-    //     .onCancel(() => {
-    //       console.log("Cancel");
-    //     });
-    //   console.log("val kategori", val);
-    // },
+    addPerusahaan(val) {
+      Dialog.create({
+        title: 'Konfirmasi',
+        message: `Apakah <strong>Perusahaan: ${val}</strong> Akan ditambahkan?`,
+        cancel: true,
+        html: true
+        // persistent: true
+      })
+        .onOk(() => {
+          waitLoad('show')
+          this.setForm('nama', val)
+          const supplier = useSupplierFormStore()
+          this.saveForm()
+            .then(() => {
+              supplier.ambilDataPerusahaan()
+              waitLoad('done')
+            })
+            .catch(() => {
+              waitLoad('done')
+            })
+        })
+        .onCancel(() => {
+          console.log('Cancel')
+        })
+      console.log('val Perusahaan', val)
+    },
     // -------------------
 
     // tambah

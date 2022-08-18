@@ -32,11 +32,42 @@
           </div> -->
           <div class="row q-col-gutter-md q-my-sm">
             <div class="col-md-6 col-xs-12">
-              <app-input
+              <!-- <app-input
                 v-model="store.form.perusahaan"
                 label="Perusahaan*"
                 outlined
-              />
+              /> -->
+              <div class="row items-center">
+                <app-autocomplete-new
+                  v-model="store.form.perusahaan_id"
+                  outlined
+                  style="width:90%"
+                  label="Perusahaan"
+                  autocomplete="nama"
+                  option-value="id"
+                  option-label="nama"
+                  :source="store.perusahaans"
+                  @on-enter="perusahaan.addPerusahaan"
+                />
+                <q-icon
+                  size="16px"
+                  name="icon-mat-help_outline"
+                  color="info"
+                  class="cursor-pointer"
+                >
+                  <q-tooltip
+                    anchor="top middle"
+                    self="bottom middle"
+                    :offset="[10, 10]"
+                  >
+                    <strong>Untuk Masukkan data ?</strong> <br>
+                    <em>ketik data yang akan di input</em><br>
+                    <em>contoh</em><br>
+                    <strong>PT. Maju Jaya</strong><br>
+                    <em>Lalu tekan Enter </em>
+                  </q-tooltip>
+                </q-icon>
+              </div>
             </div>
             <div class="col-md-6 col-xs-12">
               <app-input
@@ -78,11 +109,17 @@
 </template>
 
 <script setup>
+import { usePerusahaanFormStore } from 'src/stores/perusahaan/form'
 import { useSupplierFormStore } from 'src/stores/supplier/form'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const store = useSupplierFormStore()
 
+const perusahaan = usePerusahaanFormStore()
+
+onMounted(() => {
+  store.ambilDataPerusahaan()
+})
 const formReff = ref(null)
 const onSubmit = () => {
   store.saveForm().then(() => {
