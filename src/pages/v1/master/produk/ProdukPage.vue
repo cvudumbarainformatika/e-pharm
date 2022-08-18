@@ -24,34 +24,34 @@
             @delete="table.deletesData"
           >
             <template #col-stok_awal>
-              <div>Stok Awal</div>
+              <div>stok awal</div>
             </template>
             <template #col-limit_stok>
-              <div>Limit Stok</div>
+              <div>limit stok</div>
             </template>
             <template #col-harga_beli>
-              <div>Harga Beli</div>
+              <div>harga beli</div>
             </template>
             <template #col-harga_jual_umum>
-              <div>Harga Jual Umum</div>
+              <div>harga jual umum</div>
             </template>
             <template #col-harga_jual_resep>
-              <div>Harga Jual Resep</div>
+              <div>harga jual resep</div>
             </template>
             <template #col-harga_jual_cust>
-              <div>Harga Jual Customer</div>
+              <div>harga jual customer</div>
             </template>
-            <template #cell-Satuan="{row}">
-              <div>{{ row.Satuan.nama }}</div>
+            <template #cell-satuan="{row}">
+              <div>{{ row.satuan.nama }}</div>
             </template>
-            <template #cell-Merk="{row}">
-              <div>{{ row.Merk.nama }}</div>
+            <template #cell-merk="{row}">
+              <div>{{ row.merk.nama }}</div>
             </template>
-            <template #cell-Rak="{row}">
-              <div>{{ row.Rak.nama }}</div>
+            <template #cell-rak="{row}">
+              <div>{{ row.rak.nama }}</div>
             </template>
-            <template #cell-Kategori="{row}">
-              <div>{{ row.Kategori.nama }}</div>
+            <template #cell-kategori="{row}">
+              <div>{{ row.kategori.nama }}</div>
             </template>
             <template #cell-harga_beli="{row}">
               <div>{{ formatter.formatRp(row.harga_beli) }}</div>

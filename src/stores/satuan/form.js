@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
-import { notifSuccess } from 'src/modules/utils'
+import { notifSuccess, waitLoad } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { useSatuanStore } from './crud'
 import { hurufBesar } from 'src/modules/formatter'
+import { Dialog } from 'quasar'
+import { useProdukFormStore } from '../produk/form'
 
 export const useSatuanFormStore = defineStore('satuan_form', {
   state: () => ({
@@ -54,7 +56,32 @@ export const useSatuanFormStore = defineStore('satuan_form', {
       this.isOpen = !this.isOpen
     },
     // api related actions
-
+    // tambah dari autocomplete
+    addSatuan(val) {
+      Dialog.create({
+        title: 'Konfirmasi',
+        message: `Apakah <strong>Satuan: ${val}</strong> Akan ditambahkan?`,
+        cancel: true,
+        html: true
+        // persistent: true
+      })
+        .onOk(() => {
+          waitLoad('show')
+          const produk = useProdukFormStore()
+          this.setForm('nama', val)
+          this.saveForm().then(() => {
+            produk.ambilDataSatuan()
+            waitLoad('done')
+          }).catch(() => {
+            waitLoad('done')
+          })
+        })
+        .onCancel(() => {
+          console.log('Cancel')
+        })
+      console.log('val', val)
+    },
+    /// ///////////////////////
     // tambah
     saveForm() {
       this.loading = true

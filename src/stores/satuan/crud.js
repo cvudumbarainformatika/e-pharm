@@ -68,7 +68,7 @@ export const useSatuanStore = defineStore('satuan', {
           .get('v1/satuan/index', params)
           .then((resp) => {
             waitLoad('done')
-            console.log(resp)
+            // console.log(resp)
             if (resp.status === 200) {
               this.items = resp.data.data
               this.meta = resp.data.meta

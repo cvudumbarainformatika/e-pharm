@@ -23,11 +23,11 @@
             @edit-data="store.editData"
             @delete="table.deletesData"
           >
-            <template #cell-Perusahaan="{row}">
-              <div>{{ row.Perusahaan.nama }}</div>
+            <template #cell-perusahaan="{row}">
+              <div>{{ row.perusahaan.nama }}</div>
             </template>
             <template #col-saldo_awal_hutang>
-              <div>Saldo Awal Hutang</div>
+              <div>saldo awal hutang</div>
             </template>
           </app-table>
           <!--

@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
-import { notifSuccess } from 'src/modules/utils'
+import { notifSuccess, waitLoad } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { useRakTable } from './table'
 import { hurufBesar } from 'src/modules/formatter'
+import { Dialog } from 'quasar'
+import { useProdukFormStore } from '../produk/form'
 
 export const useRakFormStore = defineStore('rak_form', {
   state: () => ({
@@ -51,6 +53,33 @@ export const useRakFormStore = defineStore('rak_form', {
       this.isOpen = !this.isOpen
     },
     // api related actions
+
+    // dari Auto complete
+    addRak(val) {
+      Dialog.create({
+        title: 'Konfirmasi',
+        message: `Apakah <strong>Rak: ${val}</strong> Akan ditambahkan?`,
+        cancel: true,
+        html: true
+        // persistent: true
+      })
+        .onOk(() => {
+          waitLoad('show')
+          this.setForm('nama', val)
+          const produk = useProdukFormStore()
+          this.saveForm().then(() => {
+            produk.ambilDataRak()
+            waitLoad('done')
+          }).catch(() => {
+            waitLoad('done')
+          })
+        })
+        .onCancel(() => {
+          console.log('Cancel')
+        })
+      console.log('val rak ', val)
+    },
+    // -------------------
 
     // tambah
     saveForm() {

@@ -141,7 +141,7 @@
                   option-value="id"
                   option-label="nama"
                   :source="store.raks"
-                  @on-enter="seveRak"
+                  @on-enter="rak.addRak"
                 />
                 <q-icon
                   size="16px"
@@ -183,7 +183,7 @@
                   option-value="id"
                   option-label="nama"
                   :source="store.satuans"
-                  @on-enter="seveSatuan"
+                  @on-enter="satuan.addSatuan"
                 />
                 <q-icon
                   size="16px"
@@ -222,7 +222,7 @@
                   option-value="id"
                   option-label="nama"
                   :source="store.kategoris"
-                  @on-enter="seveKategori"
+                  @on-enter="kategori.addKategori"
                 />
                 <q-icon
                   size="16px"
@@ -271,80 +271,80 @@ import { useProdukFormStore } from 'src/stores/produk/form'
 import { useRakFormStore } from 'src/stores/rak/form'
 import { useSatuanFormStore } from 'src/stores/satuan/form'
 import { ref, onMounted } from 'vue'
-import { Dialog } from 'quasar'
-import { waitLoad } from 'src/modules/utils'
+// import { Dialog } from 'quasar'
+// import { waitLoad } from 'src/modules/utils'
 
 const store = useProdukFormStore()
 
 const rak = useRakFormStore()
-const seveRak = (val) => {
-  Dialog.create({
-    title: 'Konfirmasi',
-    message: `Apakah <strong>Rak: ${val}</strong> Akan ditambahkan?`,
-    cancel: true,
-    html: true
-    // persistent: true
-  })
-    .onOk(() => {
-      waitLoad('show')
-      rak.setForm('nama', val)
-      rak.saveForm().then(() => {
-        store.ambilDataRak()
-        waitLoad('done')
-      }).catch(() => {
-        waitLoad('done')
-      })
-    })
-    .onCancel(() => {
-      console.log('Cancel')
-    })
-}
+// const seveRak = (val) => {
+//   Dialog.create({
+//     title: 'Konfirmasi',
+//     message: `Apakah <strong>Rak: ${val}</strong> Akan ditambahkan?`,
+//     cancel: true,
+//     html: true
+//     // persistent: true
+//   })
+//     .onOk(() => {
+//       waitLoad('show')
+//       rak.setForm('nama', val)
+//       rak.saveForm().then(() => {
+//         store.ambilDataRak()
+//         waitLoad('done')
+//       }).catch(() => {
+//         waitLoad('done')
+//       })
+//     })
+//     .onCancel(() => {
+//       console.log('Cancel')
+//     })
+// }
 const satuan = useSatuanFormStore()
-const seveSatuan = (val) => {
-  Dialog.create({
-    title: 'Konfirmasi',
-    message: `Apakah <strong>Satuan: ${val}</strong> Akan ditambahkan?`,
-    cancel: true,
-    html: true
-    // persistent: true
-  })
-    .onOk(() => {
-      waitLoad('show')
-      satuan.setForm('nama', val)
-      satuan.saveForm().then(() => {
-        store.ambilDataSatuan()
-        waitLoad('done')
-      }).catch(() => {
-        waitLoad('done')
-      })
-    })
-    .onCancel(() => {
-      console.log('Cancel')
-    })
-}
+// const seveSatuan = (val) => {
+//   Dialog.create({
+//     title: 'Konfirmasi',
+//     message: `Apakah <strong>Satuan: ${val}</strong> Akan ditambahkan?`,
+//     cancel: true,
+//     html: true
+//     // persistent: true
+//   })
+//     .onOk(() => {
+//       waitLoad('show')
+//       satuan.setForm('nama', val)
+//       satuan.saveForm().then(() => {
+//         store.ambilDataSatuan()
+//         waitLoad('done')
+//       }).catch(() => {
+//         waitLoad('done')
+//       })
+//     })
+//     .onCancel(() => {
+//       console.log('Cancel')
+//     })
+// }
 const kategori = useKategoriFormStore()
-const seveKategori = (val) => {
-  Dialog.create({
-    title: 'Konfirmasi',
-    message: `Apakah <strong>Kategori: ${val}</strong> Akan ditambahkan?`,
-    cancel: true,
-    html: true
-    // persistent: true
-  })
-    .onOk(() => {
-      waitLoad('show')
-      kategori.setForm('nama', val)
-      kategori.saveForm().then(() => {
-        store.ambilDatakategori()
-        waitLoad('done')
-      }).catch(() => {
-        waitLoad('done')
-      })
-    })
-    .onCancel(() => {
-      console.log('Cancel')
-    })
-}
+// const seveKategori = (val) => {
+//   Dialog.create({
+//     title: 'Konfirmasi',
+//     message: `Apakah <strong>Kategori: ${val}</strong> Akan ditambahkan?`,
+//     cancel: true,
+//     html: true
+//     // persistent: true
+//   })
+//     .onOk(() => {
+//       waitLoad('show')
+//       kategori.setForm('nama', val)
+//       kategori.saveForm().then(() => {
+//         store.ambilDatakategori()
+//         waitLoad('done')
+//       }).catch(() => {
+//         waitLoad('done')
+//       })
+//     })
+//     .onCancel(() => {
+//       console.log('Cancel')
+//     })
+// }
 
 onMounted(() => {
   store.ambilDataRak()

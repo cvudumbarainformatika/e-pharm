@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia'
-import { notifSuccess } from 'src/modules/utils'
+import { notifSuccess, waitLoad } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { useKategoriTable } from './table'
 import { hurufBesar } from 'src/modules/formatter'
+import { Dialog } from 'quasar'
+import { useProdukFormStore } from '../produk/form'
 
 export const useKategoriFormStore = defineStore('kategori_form', {
   state: () => ({
@@ -51,6 +53,32 @@ export const useKategoriFormStore = defineStore('kategori_form', {
       this.isOpen = !this.isOpen
     },
     // api related actions
+    // dari autocomplete
+    addKategori(val) {
+      Dialog.create({
+        title: 'Konfirmasi',
+        message: `Apakah <strong>Kategori: ${val}</strong> Akan ditambahkan?`,
+        cancel: true,
+        html: true
+        // persistent: true
+      })
+        .onOk(() => {
+          waitLoad('show')
+          this.setForm('nama', val)
+          const produk = useProdukFormStore()
+          this.saveForm().then(() => {
+            produk.ambilDatakategori()
+            waitLoad('done')
+          }).catch(() => {
+            waitLoad('done')
+          })
+        })
+        .onCancel(() => {
+          console.log('Cancel')
+        })
+      console.log('val kategori', val)
+    },
+    // -------------------
 
     // tambah
     saveForm() {

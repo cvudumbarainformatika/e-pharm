@@ -37,21 +37,21 @@ export const useProdukFormStore = defineStore('produk_form', {
       getRak.getDataTable().then(resp => {
         this.data = resp
         this.raks = resp
-        console.log('reks', resp)
+        // console.log('reks', resp)
       })
     },
     ambilDataSatuan() {
       const getSat = useSatuanStore()
       getSat.getSatuan().then(resp => {
         this.satuans = resp
-        console.log('satuan', resp)
+        // console.log('satuan', resp)
       })
     },
     ambilDatakategori() {
       const getKate = useKategoriTable()
       getKate.getDataTable().then(resp => {
         this.kategoris = resp
-        console.log('kategori', resp)
+        // console.log('kategori', resp)
       })
     },
     // local related actions

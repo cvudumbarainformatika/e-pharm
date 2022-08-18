@@ -68,7 +68,7 @@ export const useKategoriTable = defineStore('kategori_table', {
           .get('v1/kategori/index', params)
           .then((resp) => {
             waitLoad('done')
-            console.log(resp)
+            // console.log(resp)
             if (resp.status === 200) {
               this.items = resp.data.data
               this.meta = resp.data.meta
