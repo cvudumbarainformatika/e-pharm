@@ -27,7 +27,7 @@ const routes = [
             name: 'satuan',
             component: () =>
               import(
-                /* webpackChunkName: "satuan" */ 'pages/v1/master/satuan/IndexPage.vue'
+                /* webpackChunkName: "satuan" */ 'src/pages/v1/master/satuan/SatuanPage.vue'
               )
           },
           {
@@ -35,7 +35,7 @@ const routes = [
             name: 'kategori',
             component: () =>
               import(
-                /* webpackChunkName: "kategori" */ 'pages/v1/master/kategori/IndexPage.vue'
+                /* webpackChunkName: "kategori" */ 'src/pages/v1/master/kategori/KategoriPage.vue'
               )
           },
           {
@@ -43,7 +43,7 @@ const routes = [
             name: 'produk',
             component: () =>
               import(
-                /* webpackChunkName: "produk" */ 'pages/v1/master/produk/IndexPage.vue'
+                /* webpackChunkName: "produk" */ 'src/pages/v1/master/produk/ProdukPage.vue'
               )
           },
           {
@@ -51,7 +51,7 @@ const routes = [
             name: 'supplier',
             component: () =>
               import(
-                /* webpackChunkName: "supplier" */ 'pages/v1/master/supplier/IndexPage.vue'
+                /* webpackChunkName: "supplier" */ 'src/pages/v1/master/supplier/SupplierPage.vue'
               )
           },
           {
@@ -59,7 +59,7 @@ const routes = [
             name: 'dokter',
             component: () =>
               import(
-                /* webpackChunkName: "dokter" */ 'pages/v1/master/dokter/IndexPage.vue'
+                /* webpackChunkName: "dokter" */ 'src/pages/v1/master/dokter/DokterPage.vue'
               )
           },
           {
@@ -67,7 +67,7 @@ const routes = [
             name: 'rak',
             component: () =>
               import(
-                /* webpackChunkName: "rak" */ 'pages/v1/master/rak/IndexPage.vue'
+                /* webpackChunkName: "rak" */ 'src/pages/v1/master/rak/RakPage.vue'
               )
           }
         ]

@@ -24,28 +24,28 @@
             @delete="table.deletesData"
           >
             <template #col-stok_awal>
-              <div>stok awal</div>
+              <div>Stok Awal</div>
             </template>
             <template #col-harga_beli>
-              <div>harga beli</div>
+              <div>Harga Beli</div>
             </template>
             <template #col-harga_jual_umum>
-              <div>harga jual umum</div>
+              <div>Harga Jual Umum</div>
             </template>
             <template #col-harga_jual_resep>
-              <div>harga jual resep</div>
+              <div>Harga Jual Resep</div>
             </template>
             <template #col-harga_jual_cust>
-              <div>harga harga jual customer</div>
+              <div>Harga Jual Customer</div>
             </template>
-            <template #cell-satuan="{row}">
-              <div>{{ row.satuan ? row.satuan.nama : 'tidak ada' }}</div>
+            <template #cell-Satuan="{row}">
+              <div>{{ row.Satuan.nama }}</div>
             </template>
-            <template #cell-rak="{row}">
-              <div>{{ row.rak.nama }}</div>
+            <template #cell-Rak="{row}">
+              <div>{{ row.Rak.nama }}</div>
             </template>
-            <template #cell-kategori="{row}">
-              <div>{{ row.kategori.nama }}</div>
+            <template #cell-Kategori="{row}">
+              <div>{{ row.Kategori.nama }}</div>
             </template>
             <template #cell-harga_beli="{row}">
               <div>{{ formatter.formatRp(row.harga_beli) }}</div>
