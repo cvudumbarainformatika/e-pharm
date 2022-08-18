@@ -1,0 +1,3 @@
+<template>
+  halaman beban
+</template>

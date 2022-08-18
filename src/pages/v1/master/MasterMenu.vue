@@ -49,7 +49,11 @@ const menus = ref([
   { id: 3, name: 'Kategori', icon: 'icon-mat-category', link: 'kategori' },
   { id: 4, name: 'Supplier', icon: 'icon-mat-rv_hookup', link: 'supplier' },
   { id: 5, name: 'Dokter', icon: 'icon-mat-medication', link: 'dokter' },
-  { id: 6, name: 'Produk', icon: 'icon-mat-workspaces', link: 'produk' }
+  { id: 6, name: 'Produk', icon: 'icon-mat-workspaces', link: 'produk' },
+  { id: 7, name: 'Beban', icon: 'icon-mat-workspaces', link: 'beban' },
+  { id: 8, name: 'Customer', icon: 'icon-mat-workspaces', link: 'customer' },
+  { id: 9, name: 'Merk', icon: 'icon-mat-workspaces', link: 'merk' },
+  { id: 10, name: 'Perusahaan', icon: 'icon-mat-workspaces', link: 'perusahaan' }
 
 ])
 function activated(val) {

@@ -63,6 +63,38 @@ const routes = [
               )
           },
           {
+            path: '/beban',
+            name: 'beban',
+            component: () =>
+              import(
+                /* webpackChunkName: "beban" */ 'src/pages/v1/master/beban/BebanPage.vue'
+              )
+          },
+          {
+            path: '/customer',
+            name: 'customer',
+            component: () =>
+              import(
+                /* webpackChunkName: "customer" */ 'src/pages/v1/master/customer/CustomerPage.vue'
+              )
+          },
+          {
+            path: '/merk',
+            name: 'merk',
+            component: () =>
+              import(
+                /* webpackChunkName: "merk" */ 'src/pages/v1/master/merk/MerkPage.vue'
+              )
+          },
+          {
+            path: '/perusahaan',
+            name: 'perusahaan',
+            component: () =>
+              import(
+                /* webpackChunkName: "perusahaan" */ 'src/pages/v1/master/perusahaan/PerusahaanPage.vue'
+              )
+          },
+          {
             path: '/rak',
             name: 'rak',
             component: () =>
