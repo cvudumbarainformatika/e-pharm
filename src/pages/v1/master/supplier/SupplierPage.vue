@@ -22,7 +22,14 @@
             @new-data="store.newData"
             @edit-data="store.editData"
             @delete="table.deletesData"
-          />
+          >
+            <template #cell-Perusahaan="{row}">
+              <div>{{ row.Perusahaan.nama }}</div>
+            </template>
+            <template #col-saldo_awal_hutang>
+              <div>Saldo Awal Hutang</div>
+            </template>
+          </app-table>
           <!--
             row-image="image"
             @delete-ids="table.deletesData"

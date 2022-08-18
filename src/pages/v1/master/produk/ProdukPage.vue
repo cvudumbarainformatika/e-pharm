@@ -26,6 +26,9 @@
             <template #col-stok_awal>
               <div>Stok Awal</div>
             </template>
+            <template #col-limit_stok>
+              <div>Limit Stok</div>
+            </template>
             <template #col-harga_beli>
               <div>Harga Beli</div>
             </template>
@@ -40,6 +43,9 @@
             </template>
             <template #cell-Satuan="{row}">
               <div>{{ row.Satuan.nama }}</div>
+            </template>
+            <template #cell-Merk="{row}">
+              <div>{{ row.Merk.nama }}</div>
             </template>
             <template #cell-Rak="{row}">
               <div>{{ row.Rak.nama }}</div>
