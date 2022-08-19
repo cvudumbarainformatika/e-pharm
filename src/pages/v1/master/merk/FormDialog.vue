@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { useMerkFormStore } from 'src/stores/merk/form'
+import { useMerkFormStore } from 'src/stores/master/merk/form'
 import { ref } from 'vue'
 
 const store = useMerkFormStore()

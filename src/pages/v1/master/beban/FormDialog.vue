@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { useBebanFormStore } from 'src/stores/beban/form'
+import { useBebanFormStore } from 'src/stores/master/beban/form'
 import { ref } from 'vue'
 
 const store = useBebanFormStore()

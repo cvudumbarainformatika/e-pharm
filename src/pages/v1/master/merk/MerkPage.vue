@@ -35,8 +35,8 @@
   </q-page>
 </template>
 <script setup>
-import { useMerkTable } from 'src/stores/merk/table'
-import { useMerkFormStore } from 'src/stores/merk/form'
+import { useMerkTable } from 'src/stores/master/merk/table'
+import { useMerkFormStore } from 'src/stores/master/merk/form'
 import formDialog from './FormDialog.vue'
 
 const table = useMerkTable()

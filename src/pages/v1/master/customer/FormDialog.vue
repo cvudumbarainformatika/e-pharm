@@ -79,7 +79,7 @@
 </template>
 
 <script setup>
-import { useCustomerFormStore } from 'src/stores/customer/form'
+import { useCustomerFormStore } from 'src/stores/master/customer/form'
 import { ref } from 'vue'
 
 const store = useCustomerFormStore()

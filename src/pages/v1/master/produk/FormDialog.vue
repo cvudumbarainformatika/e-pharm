@@ -72,9 +72,9 @@
               />
             </div>
             <div class="col-md-6 col-xs-12">
+              <!-- filled -->
               <q-input
                 v-model="store.form.expired"
-                filled
                 dense
                 label="expired"
                 mask="date"
@@ -305,11 +305,11 @@
 </template>
 
 <script setup>
-import { useKategoriFormStore } from 'src/stores/kategori/form'
-import { useMerkFormStore } from 'src/stores/merk/form'
-import { useProdukFormStore } from 'src/stores/produk/form'
-import { useRakFormStore } from 'src/stores/rak/form'
-import { useSatuanFormStore } from 'src/stores/satuan/form'
+import { useKategoriFormStore } from 'src/stores/master/kategori/form'
+import { useMerkFormStore } from 'src/stores/master/merk/form'
+import { useProdukFormStore } from 'src/stores/master/produk/form'
+import { useRakFormStore } from 'src/stores/master/rak/form'
+import { useSatuanFormStore } from 'src/stores/master/satuan/form'
 import { ref, onMounted } from 'vue'
 // import { Dialog } from 'quasar'
 // import { waitLoad } from 'src/modules/utils'

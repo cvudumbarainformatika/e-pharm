@@ -35,8 +35,8 @@
   </q-page>
 </template>
 <script setup>
-import { usePerusahaanTable } from 'src/stores/perusahaan/table'
-import { usePerusahaanFormStore } from 'src/stores/perusahaan/form'
+import { usePerusahaanTable } from 'src/stores/master/perusahaan/table'
+import { usePerusahaanFormStore } from 'src/stores/master/perusahaan/form'
 import formDialog from './FormDialog.vue'
 
 const table = usePerusahaanTable()

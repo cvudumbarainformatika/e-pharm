@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { useSatuanFormStore } from 'src/stores/satuan/form'
+import { useSatuanFormStore } from 'src/stores/master/satuan/form'
 import { ref } from 'vue'
 
 const store = useSatuanFormStore()

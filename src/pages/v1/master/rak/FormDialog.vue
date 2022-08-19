@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { useRakFormStore } from 'src/stores/rak/form'
+import { useRakFormStore } from 'src/stores/master/rak/form'
 import { ref } from 'vue'
 
 const store = useRakFormStore()

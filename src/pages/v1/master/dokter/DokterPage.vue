@@ -35,8 +35,8 @@
   </q-page>
 </template>
 <script setup>
-import { useDokterTable } from 'src/stores/dokter/table'
-import { useDokterFormStore } from 'src/stores/dokter/form'
+import { useDokterTable } from 'src/stores/master/dokter/table'
+import { useDokterFormStore } from 'src/stores/master/dokter/form'
 import formDialog from './FormDialog.vue'
 
 const table = useDokterTable()

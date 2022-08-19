@@ -60,7 +60,7 @@
 </template>
 
 <script setup>
-import { useDokterFormStore } from 'src/stores/dokter/form'
+import { useDokterFormStore } from 'src/stores/master/dokter/form'
 import { ref } from 'vue'
 
 const store = useDokterFormStore()

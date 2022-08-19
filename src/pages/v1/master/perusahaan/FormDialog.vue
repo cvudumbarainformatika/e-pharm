@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { usePerusahaanFormStore } from 'src/stores/perusahaan/form'
+import { usePerusahaanFormStore } from 'src/stores/master/perusahaan/form'
 import { ref } from 'vue'
 
 const store = usePerusahaanFormStore()

@@ -45,8 +45,8 @@
   </q-page>
 </template>
 <script setup>
-import { useSupplierTable } from 'src/stores/supplier/table'
-import { useSupplierFormStore } from 'src/stores/supplier/form'
+import { useSupplierTable } from 'src/stores/master/supplier/table'
+import { useSupplierFormStore } from 'src/stores/master/supplier/form'
 import * as formatter from 'src/modules/formatter'
 import formDialog from './FormDialog.vue'
 

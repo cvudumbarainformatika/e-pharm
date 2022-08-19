@@ -118,8 +118,8 @@
   </q-page>
 </template>
 <script setup>
-import { useProdukTable } from 'src/stores/produk/table'
-import { useProdukFormStore } from 'src/stores/produk/form'
+import { useProdukTable } from 'src/stores/master/produk/table'
+import { useProdukFormStore } from 'src/stores/master/produk/form'
 import * as formatter from 'src/modules/formatter'
 import formDialog from './FormDialog.vue'
 

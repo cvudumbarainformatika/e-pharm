@@ -39,8 +39,8 @@
   </q-page>
 </template>
 <script setup>
-import { useSatuanStore } from 'src/stores/satuan/crud'
-import { useSatuanFormStore } from 'src/stores/satuan/form'
+import { useSatuanStore } from 'src/stores/master/satuan/crud'
+import { useSatuanFormStore } from 'src/stores/master/satuan/form'
 import formDialog from './FormDialog.vue'
 
 const table = useSatuanStore()

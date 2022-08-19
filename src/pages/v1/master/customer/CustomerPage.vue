@@ -45,8 +45,8 @@
   </q-page>
 </template>
 <script setup>
-import { useCustomerTable } from 'src/stores/customer/table'
-import { useCustomerFormStore } from 'src/stores/customer/form'
+import { useCustomerTable } from 'src/stores/master/customer/table'
+import { useCustomerFormStore } from 'src/stores/master/customer/form'
 import * as formatter from 'src/modules/formatter'
 import formDialog from './FormDialog.vue'
 

@@ -35,8 +35,8 @@
   </q-page>
 </template>
 <script setup>
-import { useKategoriTable } from 'src/stores/kategori/table'
-import { useKategoriFormStore } from 'src/stores/kategori/form'
+import { useKategoriTable } from 'src/stores/master/kategori/table'
+import { useKategoriFormStore } from 'src/stores/master/kategori/form'
 import formDialog from './FormDialog.vue'
 
 const table = useKategoriTable()

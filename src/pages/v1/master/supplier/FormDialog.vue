@@ -110,8 +110,8 @@
 </template>
 
 <script setup>
-import { usePerusahaanFormStore } from 'src/stores/perusahaan/form'
-import { useSupplierFormStore } from 'src/stores/supplier/form'
+import { usePerusahaanFormStore } from 'src/stores/master/perusahaan/form'
+import { useSupplierFormStore } from 'src/stores/master/supplier/form'
 import { ref, onMounted } from 'vue'
 
 const store = useSupplierFormStore()

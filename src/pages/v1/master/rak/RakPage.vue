@@ -35,8 +35,8 @@
   </q-page>
 </template>
 <script setup>
-import { useRakTable } from 'src/stores/rak/table'
-import { useRakFormStore } from 'src/stores/rak/form'
+import { useRakTable } from 'src/stores/master/rak/table'
+import { useRakFormStore } from 'src/stores/master/rak/form'
 import formDialog from './FormDialog.vue'
 
 const table = useRakTable()

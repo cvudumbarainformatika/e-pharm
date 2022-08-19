@@ -35,8 +35,8 @@
   </q-page>
 </template>
 <script setup>
-import { useBebanTable } from 'src/stores/beban/table'
-import { useBebanFormStore } from 'src/stores/beban/form'
+import { useBebanTable } from 'src/stores//master/beban/table'
+import { useBebanFormStore } from 'src/stores/master/beban/form'
 import formDialog from './FormDialog.vue'
 
 const table = useBebanTable()

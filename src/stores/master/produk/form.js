@@ -4,9 +4,9 @@ import { api } from 'boot/axios'
 import { useProdukTable } from './table'
 import { useRakTable } from '../rak/table'
 import { useSatuanStore } from '../satuan/crud'
-import { useKategoriTable } from '../kategori/table'
 import { olahUang } from 'src/modules/formatter'
 import { useMerkTable } from '../merk/table'
+import { useKategoriTable } from '../kategori/table'
 
 export const useProdukFormStore = defineStore('produk_form', {
   state: () => ({

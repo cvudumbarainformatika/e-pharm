@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { useKategoriFormStore } from 'src/stores/kategori/form'
+import { useKategoriFormStore } from 'src/stores/master/kategori/form'
 import { ref } from 'vue'
 
 const store = useKategoriFormStore()
