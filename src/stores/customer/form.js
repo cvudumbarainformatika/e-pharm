@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { notifSuccess } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { useCustomerTable } from './table'
+import { olahUang } from 'src/modules/formatter'
 
 export const useCustomerFormStore = defineStore('customer_form', {
   state: () => ({
@@ -63,6 +64,9 @@ export const useCustomerFormStore = defineStore('customer_form', {
 
     // tambah
     saveForm() {
+      const piutang = olahUang(this.form.saldo_awal_piutang)
+
+      this.form.saldo_awal_piutang = piutang
       this.loading = true
       return new Promise((resolve, reject) => {
         api

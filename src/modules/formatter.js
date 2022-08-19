@@ -44,12 +44,14 @@ const hurufBesar = (val) => {
 }
 
 const olahUang = (val) => {
-  let data = ''
-  const array = val.split(',')
-  for (let i = 0; i < array.length; i++) {
-    data += array[i]
-  }
-  return data
+  if (typeof val === 'string') {
+    let data = ''
+    const array = val.split(',')
+    for (let i = 0; i < array.length; i++) {
+      data += array[i]
+    }
+    return data
+  } else { return val }
 }
 
 export { dateDbFormat, formatRp, formatDouble, formatMoney, hurufBesar, olahUang }

@@ -45,7 +45,7 @@
               <div>{{ row.satuan.nama }}</div>
             </template>
             <template #cell-merk="{row}">
-              <div>{{ row.merk.nama }}</div>
+              <div>{{ row.merk==null ? '' : row.merk.nama }}</div>
             </template>
             <template #cell-rak="{row}">
               <div>{{ row.rak.nama }}</div>

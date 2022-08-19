@@ -86,6 +86,7 @@
                 label="Saldo Awal Hutang*"
                 outlined
                 number
+                currency
               />
             </div>
           </div>
@@ -123,8 +124,8 @@ onMounted(() => {
 const formReff = ref(null)
 const onSubmit = () => {
   store.saveForm().then(() => {
-    console.log('form', formReff)
-    formReff.value.resetValidation()
+    // console.log('form', formReff)
+    if (formReff.value != null) { formReff.value.resetValidation() }
   })
 }
 

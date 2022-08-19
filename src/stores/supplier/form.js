@@ -3,6 +3,7 @@ import { notifSuccess } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { useSupplierTable } from './table'
 import { usePerusahaanTable } from '../perusahaan/table'
+import { olahUang } from 'src/modules/formatter'
 
 export const useSupplierFormStore = defineStore('supplier_form', {
   state: () => ({
@@ -67,6 +68,8 @@ export const useSupplierFormStore = defineStore('supplier_form', {
 
     // tambah
     saveForm() {
+      const hutang = olahUang(this.form.saldo_awal_hutang)
+      this.form.saldo_awal_hutang = hutang
       this.loading = true
       return new Promise((resolve, reject) => {
         api
