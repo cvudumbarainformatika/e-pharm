@@ -1,0 +1,3 @@
+<template>
+  Halaman History
+</template>

@@ -327,6 +327,13 @@ onMounted(() => {
   store.ambilDatakategori()
   store.ambilDataMerk()
 })
+//   const id = uniqueId()
+//   console.log(id)
+// const uniqueId = () => {
+//   const dateString = Date.now().toString(36)
+//   const randomness = Math.random().toString(36).substring(2, 7)
+//   return dateString + randomness
+// }
 const formReff = ref(null)
 const onSubmit = () => {
   store.saveForm().then(() => {

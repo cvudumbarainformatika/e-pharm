@@ -127,13 +127,73 @@ const routes = [
         component: () =>
           import(
             /* webpackChunkName: "transaksi" */ 'pages/v1/transaksi/IndexPage.vue'
-          )
+          ),
+        children: [
+          {
+            path: '/bayar hutang',
+            name: 'bayar hutang',
+            component: () =>
+              import(
+                /* webpackChunkName: "bayar hutang" */ 'src/pages/v1/transaksi/bayar hutang/BayarHutangPage.vue'
+              )
+          },
+          {
+            path: '/biaya',
+            name: 'biaya',
+            component: () =>
+              import(
+                /* webpackChunkName: "biaya" */ 'src/pages/v1/transaksi/biaya/BiayaPage.vue'
+              )
+          },
+          {
+            path: '/history',
+            name: 'history',
+            component: () =>
+              import(
+                /* webpackChunkName: "history" */ 'src/pages/v1/transaksi/history/HistoryPage.vue'
+              )
+          },
+          {
+            path: '/pembelian',
+            name: 'pembelian',
+            component: () =>
+              import(
+                /* webpackChunkName: "pembelian" */ 'src/pages/v1/transaksi/pembelian/PembelianPage.vue'
+              )
+          },
+          {
+            path: '/penerimaan kas',
+            name: 'penerimaan kas',
+            component: () =>
+              import(
+                /* webpackChunkName: "penerimaan kas" */ 'src/pages/v1/transaksi/penerimaan kas/PenerimaanKasPage.vue'
+              )
+          },
+          {
+            path: '/penjualan',
+            name: 'penjualan',
+            component: () =>
+              import(
+                /* webpackChunkName: "penjualan" */ 'src/pages/v1/transaksi/penjualan/PenjualanPage.vue'
+              )
+          },
+          {
+            path: '/retur',
+            name: 'retur',
+            component: () =>
+              import(
+                /* webpackChunkName: "retur" */ 'src/pages/v1/transaksi/retur/ReturPage.vue'
+              )
+          }
+        ]
       },
       {
         path: '/setting',
         name: 'setting',
         component: () =>
-          import(/* webpackChunkName: "setting" */ 'pages/v1/setting/AppSetting.vue')
+          import(
+            /* webpackChunkName: "setting" */ 'pages/v1/setting/AppSetting.vue'
+          )
       }
     ]
   },

@@ -1,5 +1,9 @@
 <template>
-  <router-view />
+  <router-view v-slot="{ Component }">
+    <transition name="route">
+      <component :is="Component" />
+    </transition>
+  </router-view>
 </template>
 
 <script>
