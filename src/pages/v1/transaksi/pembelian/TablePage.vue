@@ -48,7 +48,7 @@
         </div>
         <div class="col-3">
           <div class="text-h6 text-right">
-            Total
+            Total : {{ table.form.total }}
           </div>
         </div>
       </template>
@@ -57,7 +57,7 @@
           <!-- <q-td /> -->
           <q-td colspan="2">
             <app-autocomplete-new
-              v-model="table.form.produk_id"
+              v-model="table.form.product_id"
               dense
               label=" "
               autocomplete="nama"
@@ -160,5 +160,5 @@ import * as formatter from 'src/modules/formatter'
 import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
 
 const table = usePembelianTable()
-table.getDataTable()
+table.getDetailTransaksi()
 </script>
