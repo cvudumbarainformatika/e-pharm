@@ -94,5 +94,10 @@ const waitLoad = (cond) => {
     Loading.hide()
   }
 }
+const uniqueId = () => {
+  const dateString = Date.now().toString(36)
+  const randomness = Math.random().toString(36).substring(2, 7)
+  return dateString + randomness
+}
 
-export { notifSuccess, notifErr, notifErrVue, waitLoad }
+export { notifSuccess, notifErr, notifErrVue, waitLoad, uniqueId }

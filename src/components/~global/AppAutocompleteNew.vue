@@ -19,6 +19,7 @@
     clearable
     map-options
     emit-value
+    @update:model-value="selected"
     @filter="filterFn"
     @new-value="createValue"
     @input-value="inputValue"
@@ -35,7 +36,7 @@
 
 <script setup>
 import { ref } from 'vue'
-const emits = defineEmits(['on-enter', 'getSource', 'set-model', 'buang'])
+const emits = defineEmits(['on-enter', 'getSource', 'set-model', 'buang', 'on-select'])
 const props = defineProps({
   source: { type: Array, default: () => [] },
   label: { type: String, default: 'Label' },
@@ -55,6 +56,9 @@ function fetchData () {
   if (props.source.length > 0) {
     optionx.value = props.source
   }
+}
+const selected = (val) => {
+  emits('on-select', val)
 }
 fetchData()
 function filterFn (val, update) {

@@ -68,13 +68,13 @@ export const useProdukTable = defineStore('produk_table', {
           .get('v1/produk/index', params)
           .then((resp) => {
             waitLoad('done')
-            console.log(resp)
+            // console.log(resp)
             if (resp.status === 200) {
               this.items = resp.data.data
               this.meta = resp.data.meta
               this.setColumns(resp.data.data)
+              resolve(resp.data.data)
             }
-            resolve(resp)
           })
           .catch((err) => {
             waitLoad('done')

@@ -75,46 +75,6 @@
     </div>
     <!-- dialog -->
     <formDialog v-model="store.isOpen" />
-    <!-- <div class="row q-col-gutter-md q-mt-sm">
-      <div class="col-md-6 col-xs-12">
-        <q-field
-          v-model="price"
-          filled
-          label="Price with v-money directive"
-          hint="Mask: $ #,###.00 #"
-        >
-          <template #control="{ id, floatingLabel, modelValue, emitValue }">
-            <input
-              v-show="floatingLabel"
-              :id="id"
-              v-money="moneyFormatForDirective"
-              class="q-field__input text-right"
-              :value="modelValue"
-              @change="e => emitValue(e.target.value)"
-            >
-          </template>
-        </q-field>
-      </div>
-      <div class="col-md-6 col-xs-12">
-        <q-input
-          ref="nominal"
-          v-model="price"
-          prefix="Rp"
-          filled
-          dense
-          color="primary"
-          :placeholder="label"
-          :label="label"
-          :bg-color="standout ? 'white' : ''"
-          :standout="standout ? 'bg-white text-primary' : ''"
-          input-class="text-right"
-          mask="#.###.###.###.###.###"
-          reverse-fill-mask
-          :rules="[isValid]"
-          debounce="300"
-        />
-      </div>
-    </div> -->
   </q-page>
 </template>
 <script setup>
@@ -127,29 +87,6 @@ import formDialog from './FormDialog.vue'
 
 const table = useProdukTable()
 const store = useProdukFormStore()
-
-// const price = ref(null)
-// const maskedPrice = ref(null)
-// const hitung = () => {
-//   console.log('price', price.value, 'masked', maskedPrice.value)
-// }
-// const moneyFormatForDirective = ref({
-//   decimal: '.',
-//   thousands: ',',
-//   prefix: 'Rp ',
-//   suffix: ' #',
-//   precision: 2,
-//   masked: true /* doesn't work with directive */
-// })
-
-// const formatRp = (value) => {
-//   console.log('nilai', value)
-//   if (value !== null) {
-//     return Number(value)
-//       .toFixed(0)
-//       .replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1.')
-//   }
-// }
 
 table.getDataTable()
 </script>
