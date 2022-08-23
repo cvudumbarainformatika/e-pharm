@@ -22,7 +22,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       faktur: '',
       reff: '',
       product_id: '',
-      transaction_id: 1, // sementara untuk percobaan
+      transaction_id: 0, // sementara untuk percobaan
       harga_beli: 0,
       harga_jual_umum: 0,
       harga_jual_resep: 0,

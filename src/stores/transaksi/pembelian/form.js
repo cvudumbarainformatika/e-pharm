@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { olahUang } from 'src/modules/formatter'
+import { notifSuccess } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
 import { usePembelianTable } from './table'
 
@@ -8,19 +9,20 @@ export const usePembelianDialog = defineStore('pembelian_store', {
   state: () => ({
     isOpen: false,
     form: {
-      faktur: '',
-      reff: '',
-      tanggal: '',
-      nama: '',
-      jenis: '',
+      faktur: null,
+      reff: null,
+      tanggal: null,
+      nama: null,
+      jenis: null,
       total: 0,
       ongkir: 0,
       potongan: 0,
       bayar: 0,
       kembali: 0,
-      tempo: '',
-      kasir_id: '',
-      supplier_id: ''
+      tempo: null,
+      kasir_id: null,
+      supplier_id: null,
+      status: 0
     },
     totalSemua: 0,
     jenises: [
@@ -123,8 +125,29 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       this.form.potongan = potongan
       this.form.bayar = bayar
       this.form.kembali = kembali
+      this.form.id = 1
+      this.form.status = 1
 
       console.log('form', this.form)
+      this.loading = true
+      return new Promise((resolve, reject) => {
+        api
+          .post('v1/transaksi/store', this.form)
+          .then((resp) => {
+            this.loading = false
+            console.log('transaksi ', resp)
+            if (resp.status === 201) {
+              notifSuccess(resp)
+            }
+            this.isOpen = false
+            resolve(resp.data)
+          })
+          .catch((err) => {
+            this.loading = false
+            this.isOpen = false
+            reject(err)
+          })
+      })
     }
   }
 })

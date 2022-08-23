@@ -189,7 +189,7 @@ import { notifErrVue } from 'src/modules/utils'
 
 const table = usePembelianTable()
 const store = usePembelianDialog()
-table.getDetailTransaksi()
+// table.getDetailTransaksi()
 const cekRequired = () => {
   if (table.form.faktur) {
     store.openDialog()
