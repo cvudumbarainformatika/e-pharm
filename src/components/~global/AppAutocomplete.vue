@@ -20,6 +20,7 @@
     :loading="loading"
     lazy-rules
     :rules="[anotherValid]"
+    @update:model-value="selected"
     @filter="filterFn"
     @focus="getFocus"
     @input-value="setModel"
@@ -37,7 +38,7 @@
 
 <script setup>
 import { ref } from 'vue'
-const emits = defineEmits(['getSource', 'setModel', 'onEnter', 'setSearch'])
+const emits = defineEmits(['getSource', 'set-model', 'onEnter', 'setSearch', 'on-select'])
 const props = defineProps({
   source: { type: Array, default: () => [] },
   label: { type: String, default: 'Label' },
@@ -58,6 +59,9 @@ function getFocus () {
     console.log('getData from server')
     emits('getSource')
   }
+}
+const selected = (val) => {
+  emits('on-select', val)
 }
 function filterFn (val, update) {
   update(() => {
@@ -87,7 +91,7 @@ function filterFn (val, update) {
   })
 }
 function setModel (val) {
-  emits('setModel', val)
+  emits('set-model', val)
 }
 
 function anotherValid (val) {

@@ -44,13 +44,15 @@ const hurufBesar = (val) => {
 }
 
 const olahUang = (val) => {
+  // console.log('olah uang type', typeof val)
   if (typeof val === 'string') {
     let data = ''
     const array = val.split(',')
     for (let i = 0; i < array.length; i++) {
       data += array[i]
     }
-    return data
+    // console.log('olah uang return', parseFloat(data))
+    return parseFloat(data)
   } else { return val }
 }
 

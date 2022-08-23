@@ -1,8 +1,5 @@
 <template>
   <q-page class="q-pa-sm">
-    <!-- <div class="row">
-      <CobaPage />
-    </div> -->
     <div class="row">
       <TablePage />
     </div>
@@ -12,7 +9,6 @@
 import { onMounted } from 'vue'
 import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
 import { uniqueId } from 'src/modules/utils'
-// import CobaPage from './CobaPage.vue'
 import TablePage from './TablePage.vue'
 
 // const uId = ref('')

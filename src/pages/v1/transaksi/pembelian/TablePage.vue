@@ -137,28 +137,64 @@
               </div> -->
         </q-td>
       </template>
-      <!-- <template #body-cell-harga="props">
-        <q-td :props="props">
-          <div>
-            <q-icon
-              color="negative"
-              name="icon-mat-delete_filled"
-            />
+      <!-- no data slot -->
+      <template #no-data="{ icon, message, filter }">
+        <div class="full-width row flex-center text-accent q-gutter-sm">
+          <div
+            class="flex column flex-center bg-loading-bg__table"
+            style="height:300px"
+          >
+            <div>
+              <q-icon
+                name="icon-mat-receipt_long"
+                color="primary"
+                size="60px"
+              />
+            </div>
           </div>
-          <div class="my-table-details">
-            {{ formatter.formatRp(formatter.olahUang(props.row.details)) }}
-          </div>
-        </q-td>
-      </template>-->
-    </q-table>
-    <!-- </template>
+          <span>
+            <div class="text-primary q-mt-sm">
+              Data Belum Ada
+            </div>
+            {{ message }}
+          </span>
+          <q-icon
+            size="2em"
+            :name="filter ? 'filter_b_and_w' : icon"
+          />
+        </div>
+      </template>
+      <!-- bottom slot -->
+      <template
+        v-if="table.rows"
+        #bottom
+      >
+        <app-btn
+          label="Lanjutkan Pembayaran"
+          @click="cekRequired"
+        />
+      </template>
+      <!-- </template>
     </q-card> -->
+    </q-table>
+    <DialogPage v-model="store.isOpen" />
   </div>
 </template>
 <script setup>
 import * as formatter from 'src/modules/formatter'
 import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
+import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
+import DialogPage from './DialogPage.vue'
+import { notifErrVue } from 'src/modules/utils'
 
 const table = usePembelianTable()
+const store = usePembelianDialog()
 table.getDetailTransaksi()
+const cekRequired = () => {
+  if (table.form.faktur) {
+    store.openDialog()
+  } else {
+    notifErrVue('Faktur harus di isi')
+  }
+}
 </script>
