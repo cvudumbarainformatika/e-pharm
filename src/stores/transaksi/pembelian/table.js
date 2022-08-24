@@ -219,7 +219,16 @@ export const usePembelianTable = defineStore('pembelian_table', {
         this.produks = resp
       })
     },
-
+    setForm(data) {
+      // const store = usePembelianDialog()
+      if (data.faktur !== '') {
+        this.form.faktur = data.faktur
+      }
+      // store.form.total = data.total
+      // store.form.jenis = data.jenis
+      // store.form.potongan = data.potongan
+      // store.form.ongkir = data.ongkir
+    },
     getDetailTransaksi() {
       this.loading = true
       this.params.reff = this.form.reff
@@ -232,6 +241,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
             console.log('pembelian ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
+                this.setForm(resp.data.data[0])
                 this.rows = resp.data.data[0].detail_transaction
                 this.setTotal()
                 this.meta = resp.data.meta

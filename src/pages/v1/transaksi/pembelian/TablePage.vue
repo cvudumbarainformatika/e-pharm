@@ -3,6 +3,7 @@
     <!-- <q-card flat>
       <template #content> -->
     <q-table
+      ref="tableReff"
       title="Input Pembelian"
       :columns="table.columns"
       :column-hide="table.columnHide"
@@ -17,7 +18,9 @@
       :to-search="table.params.q"
       binary-state-sort
     >
-      <template #top>
+      <template
+        #top
+      >
         <div class="col-3">
           <div class="row items-center">
             <app-input
@@ -183,6 +186,7 @@
   </div>
 </template>
 <script setup>
+import { ref } from 'vue'
 import * as formatter from 'src/modules/formatter'
 import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
 import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
@@ -201,5 +205,8 @@ const cekRequired = () => {
   } else {
     notifErrVue('Faktur harus di isi')
   }
+
+  const tableReff = ref(null)
+  console.log('table reff', tableReff)
 }
 </script>
