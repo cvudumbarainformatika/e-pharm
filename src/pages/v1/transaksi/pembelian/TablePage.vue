@@ -178,6 +178,8 @@
     </q-card> -->
     </q-table>
     <DialogPage v-model="store.isOpen" />
+
+    <formDialog v-model="supplier.isOpen" />
   </div>
 </template>
 <script setup>
@@ -186,6 +188,9 @@ import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
 import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
 import DialogPage from './DialogPage.vue'
 import { notifErrVue } from 'src/modules/utils'
+import { useSupplierFormStore } from 'src/stores/master/supplier/form'
+import formDialog from 'src/pages/v1/master/supplier/FormDialog.vue'
+const supplier = useSupplierFormStore()
 
 const table = usePembelianTable()
 const store = usePembelianDialog()
