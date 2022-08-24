@@ -14,18 +14,35 @@ import TablePage from './TablePage.vue'
 import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
 import { routerInstance } from 'src/boot/router'
 import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
+import { onBeforeMount } from 'vue'
 // import { uniqueId } from 'src/modules/utils'
-// import { uniqueId } from 'src/modules/utils'
+import { uniqueId } from 'src/modules/utils'
 // const coba = () => {
-// const slug = 'PBL-' + uniqueId()
 // routerInstance.currentRoute.value.params.slug = slug
-// routerInstance.replace({ name: 'transaksi.pembelian', params: { slug } })
 // }
+
 const table = usePembelianTable()
 const store = usePembelianDialog()
-table.form.reff = routerInstance.currentRoute.value.params.slug
-store.form.reff = routerInstance.currentRoute.value.params.slug
-table.getDetailTransaksi()
+
+onBeforeMount(() => {
+  const slug = 'PBL-' + uniqueId()
+  const oldSlug = routerInstance.currentRoute.value.params.slug
+
+  console.log('slug depan', slug)
+  table.getDetailTransaksi().then(data => {
+    if (data !== undefined) {
+      routerInstance.replace({ name: 'transaksi.pembelian', params: { slug: oldSlug } })
+      table.form.reff = oldSlug
+      store.form.reff = oldSlug
+    } else {
+      routerInstance.replace({ name: 'transaksi.pembelian', params: { slug } })
+      table.resetData()
+      store.resetData()
+      table.form.reff = slug
+      store.form.reff = slug
+    }
+  })
+})
 
 // const uId = ref('')
 table.ambilDataProduk()

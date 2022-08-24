@@ -5,6 +5,7 @@ import { notifErrVue, waitLoad } from 'src/modules/utils'
 import { olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
 import { usePembelianDialog } from './form'
+import { routerInstance } from 'src/boot/router'
 
 export const usePembelianTable = defineStore('pembelian_table', {
   state: () => ({
@@ -231,7 +232,8 @@ export const usePembelianTable = defineStore('pembelian_table', {
     },
     getDetailTransaksi() {
       this.loading = true
-      this.params.reff = this.form.reff
+      const slug = routerInstance.currentRoute.value.params.slug
+      this.params.reff = slug
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
         api
@@ -247,7 +249,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
                 this.meta = resp.data.meta
               }
               // this.setColumns(resp.data.data)
-              resolve(resp.data.data)
+              resolve(resp.data.data[0])
             }
           })
           .catch((err) => {
