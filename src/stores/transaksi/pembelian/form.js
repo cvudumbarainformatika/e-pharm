@@ -92,6 +92,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     setOpen() {
       this.isOpen = !this.isOpen
       this.form.jenis = ''
+      this.form.status = 1
     },
     searchSupplier(val) {
       this.ambilDataSupplier(val)
