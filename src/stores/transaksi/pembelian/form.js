@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
+import { routerInstance } from 'src/boot/router'
 import { olahUang } from 'src/modules/formatter'
-import { notifSuccess } from 'src/modules/utils'
+import { notifSuccess, uniqueId } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
 import { usePembelianTable } from './table'
 
@@ -12,8 +13,8 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       faktur: null,
       reff: null,
       tanggal: null,
-      nama: null,
-      jenis: null,
+      nama: 'PEMBELIAN',
+      jenis: 'tunai',
       total: 0,
       ongkir: 0,
       potongan: 0,
@@ -41,6 +42,23 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     loading: false
   }),
   actions: {
+    resetData() {
+      this.form.id = null
+      this.form.faktur = null
+      this.form.reff = null
+      this.form.tanggal = null
+      this.form.nama = null
+      this.form.jenis = 'tunai'
+      this.form.total = 0
+      this.form.ongkir = 0
+      this.form.potongan = 0
+      this.form.bayar = 0
+      this.form.kembali = 0
+      this.form.tempo = null
+      this.form.kasir_id = null
+      this.form.supplier_id = null
+      this.form.status = 0
+    },
     setToday() {
       const date = new Date()
       const year = date.getFullYear()
@@ -73,6 +91,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     },
     setOpen() {
       this.isOpen = !this.isOpen
+      this.form.jenis = ''
     },
     searchSupplier(val) {
       this.ambilDataSupplier(val)
@@ -125,8 +144,6 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       this.form.potongan = potongan
       this.form.bayar = bayar
       this.form.kembali = kembali
-      this.form.id = 1
-      this.form.status = 1
 
       console.log('form', this.form)
       this.loading = true
@@ -136,11 +153,23 @@ export const usePembelianDialog = defineStore('pembelian_store', {
           .then((resp) => {
             this.loading = false
             console.log('transaksi ', resp)
+            const table = usePembelianTable()
             if (resp.status === 201) {
               notifSuccess(resp)
+              table.resetData()
+              this.resetData()
+              resolve(resp.data.data)
             }
+            const slug = 'PBL-' + uniqueId()
+            routerInstance.replace({
+              name: 'transaksi.pembelian',
+              params: { slug }
+            })
+            // routerInstance.currentRoute.value.params.slug = slug
+            this.form.reff = slug
+            table.form.reff = slug
+            table.getDetailTransaksi()
             this.isOpen = false
-            resolve(resp.data)
           })
           .catch((err) => {
             this.loading = false

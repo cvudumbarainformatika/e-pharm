@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
-import { waitLoad } from 'src/modules/utils'
+import { notifErrVue, waitLoad } from 'src/modules/utils'
 import { olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
+import { usePembelianDialog } from './form'
 
 export const usePembelianTable = defineStore('pembelian_table', {
   state: () => ({
@@ -16,13 +17,13 @@ export const usePembelianTable = defineStore('pembelian_table', {
       page: 1,
       per_page: 10,
       order_by: 'created_at',
-      sort: 'desc'
+      sort: 'desc',
+      transaction_id: null
     },
     form: {
       faktur: '',
       reff: '',
       product_id: '',
-      transaction_id: 0, // sementara untuk percobaan
       harga_beli: 0,
       harga_jual_umum: 0,
       harga_jual_resep: 0,
@@ -30,7 +31,8 @@ export const usePembelianTable = defineStore('pembelian_table', {
       qty: 0,
       harga: 0,
       total: 0,
-      sub_total: 0
+      sub_total: 0,
+      nama: 'PEMBELIAN'
     },
     produks: [],
     columns: [
@@ -46,7 +48,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
         name: 'produk',
         align: 'left',
         label: 'Produk',
-        field: (row) => row.produk.nama
+        field: (row) => row.product.nama
       },
       { name: 'qty', align: 'left', label: 'Qty', field: 'qty' },
       { name: 'harga', align: 'left', label: 'Harga', field: 'harga' },
@@ -54,19 +56,19 @@ export const usePembelianTable = defineStore('pembelian_table', {
         name: 'harga_jual_umum',
         align: 'left',
         label: 'Harga Jual Umum',
-        field: (row) => row.produk.harga_jual_umum
+        field: (row) => row.product.harga_jual_umum
       },
       {
         name: 'harga_jual_resep',
         align: 'left',
         label: 'Harga Jual Resep',
-        field: (row) => row.produk.harga_jual_resep
+        field: (row) => row.product.harga_jual_resep
       },
       {
         name: 'harga_jual_cust',
         align: 'left',
         label: 'Harga Jual Customer',
-        field: (row) => row.produk.harga_jual_cust
+        field: (row) => row.product.harga_jual_cust
       },
       {
         name: 'sub_total',
@@ -100,6 +102,21 @@ export const usePembelianTable = defineStore('pembelian_table', {
 
   actions: {
     // local relaated functions
+    resetData() {
+      this.params.transaction_id = null
+      this.form.faktur = null
+      this.form.reff = null
+      this.form.product_id = ''
+      this.form.harga_beli = 0
+      this.form.harga_jual_umum = 0
+      this.form.harga_jual_resep = 0
+      this.form.harga_jual_cust = 0
+      this.form.qty = 0
+      this.form.harga = 0
+      this.form.total = 0
+      this.form.sub_total = 0
+      this.rows = []
+    },
     produkSelected(val) {
       const apem = this.produks
 
@@ -123,26 +140,31 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.qty = 0
     },
     onEnter() {
-      const data = {
-        transaction_id: this.form.transaction_id,
-        product_id: this.form.product_id,
-        harga: olahUang(this.form.harga_beli),
-        qty: this.form.qty,
-        sub_total: olahUang(this.form.qty) * olahUang(this.form.harga_beli)
+      const store = usePembelianDialog()
+      store.form.reff = this.form.reff
+      store.setToday()
+      if (this.form.faktur !== '') {
+        store.form.faktur = this.form.faktur
+        this.simpanDetailTransaksi()
+      } else {
+        notifErrVue('Faktur belum di isi')
       }
-      this.simpanDetailTransaksi(data)
-      console.log(' form ', data)
     },
 
     setTotal() {
-      const subTotal = []
-      this.rows.forEach((val, index) => { subTotal[index] = val.harga * val.qty })
-      console.log('sub total', subTotal)
-      const total = subTotal.reduce((total, num) => {
-        return total + num
-      })
-      console.log('sum total', total)
-      this.form.total = total
+      console.log('rows ', this.rows)
+      if (this.rows !== undefined) {
+        const subTotal = []
+        this.rows.forEach((val, index) => {
+          subTotal[index] = val.harga * val.qty
+        })
+        console.log('sub total', subTotal)
+        const total = subTotal.reduce((total, num) => {
+          return total + num
+        })
+        console.log('sum total', total)
+        this.form.total = total
+      }
     },
     clicked(val) {
       const params = val.row
@@ -151,9 +173,13 @@ export const usePembelianTable = defineStore('pembelian_table', {
         message: `Apakah Produk:<strong> ${params.produk.nama}</strong> dengan Qty :<strong> ${params.qty}</strong> akan di hapus?`,
         cancel: true,
         html: true
-      }).onOk(() => {
-        this.hapusDetailTransaksi(params)
-      }).onCancel(() => { console.log('cancel') })
+      })
+        .onOk(() => {
+          this.hapusDetailTransaksi(params)
+        })
+        .onCancel(() => {
+          console.log('cancel')
+        })
       console.log('params ', params)
       console.log('val ', val.row.id)
     },
@@ -196,17 +222,20 @@ export const usePembelianTable = defineStore('pembelian_table', {
 
     getDetailTransaksi() {
       this.loading = true
+      this.params.reff = this.form.reff
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
         api
-          .get('v1/detail-transaksi/index', params)
+          .get('v1/transaksi/with-detail', params)
           .then((resp) => {
             this.loading = false
-            console.log('pembelian ', resp)
+            console.log('pembelian ', resp.data.data[0])
             if (resp.status === 200) {
-              this.rows = resp.data.data
-              this.meta = resp.data.meta
-              this.setTotal()
+              if (resp.data.data[0] !== undefined) {
+                this.rows = resp.data.data[0].detail_transaction
+                this.setTotal()
+                this.meta = resp.data.meta
+              }
               // this.setColumns(resp.data.data)
               resolve(resp.data.data)
             }
@@ -217,11 +246,19 @@ export const usePembelianTable = defineStore('pembelian_table', {
           })
       })
     },
-    simpanDetailTransaksi(params) {
+    simpanDetailTransaksi() {
+      const store = usePembelianDialog()
+      const data = store.form
+
+      data.product_id = this.form.product_id
+      data.harga = olahUang(this.form.harga_beli)
+      data.qty = this.form.qty
+      data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga_beli)
+
       waitLoad('show')
       return new Promise((resolve, reject) => {
         api
-          .post('v1/detail-transaksi/store', params)
+          .post('v1/transaksi/store', data)
           .then((resp) => {
             waitLoad('done')
             console.log('save detail ', resp)

@@ -44,7 +44,7 @@
           </div>
           <div
             v-if="store.form.jenis == 'hutang'"
-            class="row q-col-gutter-md"
+            class="row q-col-gutter-md items-center"
           >
             <div class="col-md-12">
               <app-autocomplete
@@ -56,9 +56,17 @@
                 :source="store.suppliers"
                 outlined
                 :loading="store.loading"
-                @set-model="store.searchSupplier"
               />
             </div>
+            <!-- <div class="col-md-1 text-center">
+                <q-btn
+                  round
+                  color="primary"
+                  icon="icon-mat-add"
+                  size="xs"
+                  @click="supplier.setOpen"
+                />
+              </div> -->
           </div>
           <div class="row q-col-gutter-md items-center">
             <div class="col-md-4">
@@ -210,14 +218,20 @@
       </template>
     </app-card>
   </q-dialog>
+
+  <!-- <formDialog v-model="supplier.isOpen" /> -->
 </template>
 <script setup>
 // import { olahUang } from 'src/modules/formatter'
+// import { useSupplierFormStore } from 'src/stores/master/supplier/form'
 import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
 import { ref } from 'vue'
+// import formDialog from 'src/pages/v1/master/supplier/FormDialog.vue'
+// const supplier = useSupplierFormStore()
 
 const formReff = ref(null)
 const store = usePembelianDialog()
+// const supplier = useSupplierFormStore()
 store.setToday()
 const onSubmit = () => {
   store.simpanTransaksi()

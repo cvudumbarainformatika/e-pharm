@@ -154,8 +154,8 @@ const routes = [
               )
           },
           {
-            path: '/pembelian',
-            name: 'pembelian',
+            path: '/transaksi/pembelian/:slug',
+            name: 'transaksi.pembelian',
             component: () =>
               import(
                 /* webpackChunkName: "pembelian" */ 'src/pages/v1/transaksi/pembelian/PembelianPage.vue'
