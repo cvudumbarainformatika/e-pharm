@@ -1,13 +1,17 @@
 import { defineStore } from 'pinia'
 import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
-import { notifErrVue, waitLoad } from 'src/modules/utils'
+import { waitLoad } from 'src/modules/utils'
 import { olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
-import { usePembelianDialog } from './form'
+import { usePenjualanDialog } from './form'
 import { routerInstance } from 'src/boot/router'
+import { useCustomerTable } from 'src/stores/master/customer/table'
+import { useDokterTable } from 'src/stores/master/dokter/table'
+import { useCustomerFormStore } from 'src/stores/master/customer/form'
+import { useDokterFormStore } from 'src/stores/master/dokter/form'
 
-export const usePembelianTable = defineStore('pembelian_table', {
+export const usePenjualanTable = defineStore('penjualan_table', {
   state: () => ({
     items: [],
     meta: {},
@@ -18,11 +22,9 @@ export const usePembelianTable = defineStore('pembelian_table', {
       page: 1,
       per_page: 10,
       order_by: 'created_at',
-      sort: 'desc',
-      transaction_id: null
+      sort: 'desc'
     },
     form: {
-      faktur: '',
       reff: '',
       product_id: '',
       harga_beli: 0,
@@ -33,9 +35,11 @@ export const usePembelianTable = defineStore('pembelian_table', {
       harga: 0,
       total: 0,
       sub_total: 0,
-      nama: 'PEMBELIAN'
+      nama: 'PENJUALAN'
     },
     produks: [],
+    distributors: [],
+    dokters: [],
     columns: [
       {
         name: 'id',
@@ -103,9 +107,9 @@ export const usePembelianTable = defineStore('pembelian_table', {
 
   actions: {
     // local relaated functions
+
     resetData() {
       this.params.transaction_id = null
-      this.form.faktur = null
       this.form.reff = null
       this.form.product_id = ''
       this.form.harga_beli = 0
@@ -134,22 +138,17 @@ export const usePembelianTable = defineStore('pembelian_table', {
     },
     resetInput() {
       this.form.product_id = ''
-      this.form.harga_beli = 0
+      this.form.harga = 0
       this.form.harga_jual_cust = 0
       this.form.harga_jual_umum = 0
       this.form.harga_jual_resep = 0
       this.form.qty = 0
     },
     onEnter() {
-      const store = usePembelianDialog()
-      store.form.reff = this.form.reff
+      const store = usePenjualanDialog()
+      // store.form.reff = this.form.reff
       store.setToday()
-      if (this.form.faktur !== '') {
-        store.form.faktur = this.form.faktur
-        this.simpanDetailTransaksi()
-      } else {
-        notifErrVue('Faktur belum di isi')
-      }
+      this.simpanDetailTransaksi()
     },
 
     setTotal() {
@@ -220,11 +219,48 @@ export const usePembelianTable = defineStore('pembelian_table', {
         this.produks = resp
       })
     },
-    setForm(data) {
-      // const store = usePembelianDialog()
-      if (data.faktur !== '') {
-        this.form.faktur = data.faktur
-      }
+    ambilDataDistributor() {
+      const dist = useCustomerTable()
+      dist.getDataTable().then(resp => {
+        this.distributors = resp
+      })
+    },
+    ambilDataDokter() {
+      const dokter = useDokterTable()
+      dokter.getDataTable().then(resp => {
+        this.dokters = resp
+      })
+    },
+    addDistributor(val) {
+      this.loading = true
+      const store = useCustomerFormStore()
+      store.form.nama = val
+      store.saveForm().then(() => {
+        this.ambilDataDistributor()
+        this.loading = false
+      })
+      console.log('distributor ', val)
+    },
+    addDokter(val) {
+      const store = useDokterFormStore()
+      store.form.nama = val
+      // store.setOpen()
+      console.log('dokter ', val)
+    },
+    cariDistributor(val) {
+      // this.ambilDataDistributor()
+      console.log('cari Distributor ', val)
+    },
+    cariDokter(val) {
+      // this.ambilDataDokter()
+      console.log('cari Dokter ', val)
+    },
+    setForm(name, value) {
+      // const store = usePenjualanDialog()
+      // if (data.faktur !== '') {
+      //   this.form.faktur = data.faktur
+      // }
+      this.form[name] = value
       // store.form.total = data.total
       // store.form.jenis = data.jenis
       // store.form.potongan = data.potongan
@@ -240,7 +276,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
             this.loading = false
-            console.log('pembelian ', resp.data.data[0])
+            console.log('penjualan ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
                 this.setForm(resp.data.data[0])
@@ -259,13 +295,13 @@ export const usePembelianTable = defineStore('pembelian_table', {
       })
     },
     simpanDetailTransaksi() {
-      const store = usePembelianDialog()
+      const store = usePenjualanDialog()
       const data = store.form
 
       data.product_id = this.form.product_id
-      data.harga = olahUang(this.form.harga_beli)
+      data.harga = olahUang(this.form.harga)
       data.qty = this.form.qty
-      data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga_beli)
+      data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga)
 
       waitLoad('show')
       return new Promise((resolve, reject) => {
@@ -276,7 +312,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
             console.log('save detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
-            this.resetInput()
+            // this.resetInput()
           })
           .catch((err) => {
             waitLoad('done')

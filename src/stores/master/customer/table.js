@@ -73,7 +73,7 @@ export const useCustomerTable = defineStore('customer_table', {
               this.items = resp.data.data
               this.meta = resp.data.meta
               this.setColumns(resp.data.data)
-              resolve(resp.data)
+              resolve(resp.data.data)
             }
           })
           .catch((err) => {

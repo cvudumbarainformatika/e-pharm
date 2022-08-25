@@ -73,8 +73,8 @@ export const useDokterTable = defineStore('dokter_table', {
               this.items = resp.data.data
               this.meta = resp.data.meta
               this.setColumns(resp.data.data)
+              resolve(resp.data.data)
             }
-            resolve(resp)
           })
           .catch((err) => {
             waitLoad('done')

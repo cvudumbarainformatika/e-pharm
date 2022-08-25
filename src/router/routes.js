@@ -132,7 +132,7 @@ const routes = [
               import('src/pages/v1/transaksi/penerimaan kas/PenerimaanKasPage.vue')
           },
           {
-            path: '/penjualan',
+            path: '/penjualan/:slug',
             name: 'penjualan',
             component: () =>
               import('src/pages/v1/transaksi/penjualan/PenjualanPage.vue')

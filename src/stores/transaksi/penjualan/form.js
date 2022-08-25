@@ -4,16 +4,15 @@ import { routerInstance } from 'src/boot/router'
 import { olahUang } from 'src/modules/formatter'
 import { notifSuccess, uniqueId } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
-import { usePembelianTable } from './table'
+import { usePenjualanTable } from './table'
 
-export const usePembelianDialog = defineStore('pembelian_store', {
+export const usePenjualanDialog = defineStore('penjualan_store', {
   state: () => ({
     isOpen: false,
     form: {
-      faktur: null,
       reff: null,
       tanggal: null,
-      nama: 'PEMBELIAN',
+      nama: 'PENJUALAN',
       jenis: 'tunai',
       total: 0,
       ongkir: 0,
@@ -43,7 +42,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
   }),
   actions: {
     resetData() {
-      this.form.id = null
+      // this.form.id = null
       this.form.faktur = null
       this.form.reff = null
       this.form.tanggal = null
@@ -82,7 +81,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       console.log('kembali ', this.form.kembali)
     },
     openDialog() {
-      const table = usePembelianTable()
+      const table = usePenjualanTable()
       this.form.faktur = table.form.faktur
       this.form.reff = table.form.reff
       this.form.total = table.form.total
@@ -113,7 +112,9 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       // console.log('user getter', user.userGetter)
     },
     ambilDataSupplier(val) {
-      if (val !== '') { this.params.q = val }
+      if (val !== '') {
+        this.params.q = val
+      }
       this.loading = true
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
@@ -154,16 +155,16 @@ export const usePembelianDialog = defineStore('pembelian_store', {
           .then((resp) => {
             this.loading = false
             console.log('transaksi ', resp)
-            const table = usePembelianTable()
+            const table = usePenjualanTable()
             if (resp.status === 201) {
               notifSuccess(resp)
               table.resetData()
               this.resetData()
               resolve(resp.data.data)
             }
-            const slug = 'PBL-' + uniqueId()
+            const slug = 'PJL-' + uniqueId()
             routerInstance.replace({
-              name: 'pembelian',
+              name: 'penjualan',
               params: { slug }
             })
             // routerInstance.currentRoute.value.params.slug = slug

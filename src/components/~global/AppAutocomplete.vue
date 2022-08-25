@@ -38,7 +38,7 @@
 
 <script setup>
 import { ref } from 'vue'
-const emits = defineEmits(['getSource', 'set-model', 'onEnter', 'setSearch', 'on-select'])
+const emits = defineEmits(['getSource', 'set-model', 'on-enter', 'setSearch', 'on-select'])
 const props = defineProps({
   source: { type: Array, default: () => [] },
   label: { type: String, default: 'Label' },
@@ -103,7 +103,7 @@ function anotherValid (val) {
 
 function createValue (val, done) {
   if (!props.filterred) {
-    emits('onEnter', val)
+    emits('on-enter', val)
     done(val)
   }
 }
