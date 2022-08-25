@@ -31,11 +31,11 @@ onBeforeMount(() => {
   console.log('slug depan', slug)
   table.getDetailTransaksi().then(data => {
     if (data !== undefined) {
-      routerInstance.replace({ name: 'transaksi.pembelian', params: { slug: oldSlug } })
+      routerInstance.replace({ name: 'pembelian', params: { slug: oldSlug } })
       table.form.reff = oldSlug
       store.form.reff = oldSlug
     } else {
-      routerInstance.replace({ name: 'transaksi.pembelian', params: { slug } })
+      routerInstance.replace({ name: 'pembelian', params: { slug } })
       table.resetData()
       store.resetData()
       table.form.reff = slug

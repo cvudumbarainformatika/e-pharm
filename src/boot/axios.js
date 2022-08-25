@@ -4,6 +4,7 @@ import { getLocalToken } from 'src/modules/storage'
 import { notifErr } from 'src/modules/utils'
 
 const SERVER = 'http://api.eparm.test:2500/api'
+// const SERVER = 'https://api.udumbarainformatika.my.id/api'
 // const SERVER = 'http://localhost/api.si-element/public/api'
 // const SERVER = 'https://server.udumbarainformatika.my.id/api'
 

@@ -25,7 +25,7 @@
       <router-link
         v-for="(menu, i) in menus"
         :key="i"
-        :to="`/${menu.name}`"
+        :to="`/${menu.link}`"
         replace
         class="sidebar flex flex-center"
         :active-class="activated(true)"
@@ -65,11 +65,11 @@ const props = defineProps({
 })
 
 const menus = ref([
-  { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard' },
-  { id: 2, name: 'master', icon: 'icon-mat-dataset' },
-  { id: 3, name: 'transaksi', icon: 'icon-mat-sync_alt' },
-  { id: 4, name: 'laporan', icon: 'icon-mat-donut_large' },
-  { id: 5, name: 'setting', icon: 'icon-mat-settings' }
+  { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard', link: 'dashboard' },
+  { id: 2, name: 'master', icon: 'icon-mat-dataset', link: 'satuan' },
+  { id: 3, name: 'transaksi', icon: 'icon-mat-sync_alt', link: 'pembelian/pbl-' },
+  { id: 4, name: 'laporan', icon: 'icon-mat-donut_large', link: 'laporan' },
+  { id: 5, name: 'setting', icon: 'icon-mat-settings', link: 'setting' }
 ])
 
 function activated(val) {

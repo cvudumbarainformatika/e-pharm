@@ -76,7 +76,7 @@ export const useAuthStore = defineStore('auth', {
           waitLoad('done')
         })
       } catch (error) {
-        console.log(error)
+        console.log('error ', error)
         waitLoad('done')
       }
     }
