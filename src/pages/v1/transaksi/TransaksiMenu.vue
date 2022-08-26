@@ -49,8 +49,8 @@ const props = defineProps({
 })
 
 const menus = ref([
-  { id: 1, name: 'Pembelian', icon: 'icon-mat-inventory_2', link: `/pembelian/${slug}` },
-  { id: 2, name: 'Penjualan', icon: 'icon-mat-shopping_bag', link: `/penjualan/${slug}` },
+  { id: 1, name: 'Pembelian', icon: 'icon-mat-inventory_2', link: '/pembelian/PBL-' },
+  { id: 2, name: 'Penjualan', icon: 'icon-mat-shopping_bag', link: '/penjualan/PJL-' },
   { id: 3, name: 'Penerimaan Kas', icon: 'icon-mat-account_balance_wallet', link: '/penerimaan kas' },
   { id: 4, name: 'Bayar Hutang', icon: 'icon-mat-credit_score', link: '/bayar hutang' },
   { id: 5, name: 'Biaya', icon: 'icon-mat-payment', link: '/biaya' },

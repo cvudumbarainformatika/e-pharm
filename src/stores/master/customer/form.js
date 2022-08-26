@@ -8,10 +8,10 @@ export const useCustomerFormStore = defineStore('customer_form', {
   state: () => ({
     isOpen: false,
     form: {
-      nama: '',
-      alamat: '',
-      perusahaan: '',
-      kontak: '',
+      nama: null,
+      alamat: null,
+      perusahaan: null,
+      kontak: null,
       saldo_awal_piutang: 0
     },
     loading: false

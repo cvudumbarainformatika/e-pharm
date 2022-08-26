@@ -11,9 +11,34 @@
           @submit="onSubmit"
           @reset="onReset"
         >
+          <div
+            v-if="store.distributor !== ''"
+            class="row q-col-gutter-md items-center"
+          >
+            <div class="col-md-11">
+              <app-input
+                v-model="store.distributor"
+                disable
+                label="Distributor"
+              />
+            </div>
+          </div>
+          <div
+            v-if="store.dokter !== ''"
+            class="row q-col-gutter-md items-center"
+          >
+            <div class="col-md-11">
+              <app-input
+                v-model="store.dokter"
+                disable
+                label="Dokter"
+              />
+            </div>
+          </div>
           <div class="row q-col-gutter-md">
             <div class="col-md-12">
               <app-autocomplete
+                v-if="store.distributor !== ''"
                 v-model="store.form.jenis"
                 label="Pilih tunai atau hutang"
                 autocomplete="nama"
@@ -25,8 +50,8 @@
               />
             </div>
           </div>
-          <div
-            v-if="store.form.jenis == 'tunai' "
+          <!-- <div
+            v-if="store.form.piutang "
             class="row q-col-gutter-md"
           >
             <div class="col-md-12">
@@ -41,34 +66,8 @@
                 :loading="store.loading"
               />
             </div>
-          </div>
-          <div
-            v-if="store.form.jenis == 'hutang'"
-            class="row q-col-gutter-md items-center"
-          >
-            <div class="col-md-11">
-              <app-autocomplete
-                v-model="store.form.supplier_id"
-                label="pilih Supplier"
-                autocomplete="nama"
-                option-value="id"
-                option-label="nama"
-                :source="store.suppliers"
-                outlined
-                :loading="store.loading"
-                @set-model="store.searchSupplier"
-              />
-            </div>
-            <div class="col-md-1 text-center">
-              <!-- <q-btn
-                round
-                color="primary"
-                icon="icon-mat-add"
-                size="xs"
-                @click="supplier.setOpen"
-              /> -->
-            </div>
-          </div>
+          </div> -->
+
           <div class="row q-col-gutter-md items-center">
             <div class="col-md-4">
               Total Pembelian
@@ -96,6 +95,7 @@
                 outlined
                 currency
                 valid
+                disable
                 @update:model-value="store.totalSeluruhnya"
               />
             </div>
@@ -112,6 +112,7 @@
                 prefix="Rp "
                 currency
                 valid
+                disable
                 @update:model-value="store.totalSeluruhnya"
               />
             </div>
@@ -164,7 +165,7 @@
             </div>
           </div>
           <div
-            v-if="store.form.jenis == 'hutang'"
+            v-if="store.form.jenis == 'piutang'"
             class="row q-col-gutter-md items-center"
           >
             <div class="col-md-12">

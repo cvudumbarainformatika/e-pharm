@@ -51,7 +51,7 @@ const menus = ref([
   { id: 5, name: 'Dokter', icon: 'icon-mat-medication', link: 'dokter' },
   { id: 6, name: 'Produk', icon: 'icon-mat-workspaces', link: 'produk' },
   { id: 7, name: 'Beban', icon: 'icon-mat-assessment', link: 'beban' },
-  { id: 8, name: 'Customer', icon: 'icon-mat-local_shipping', link: 'customer' },
+  { id: 8, name: 'Distributor', icon: 'icon-mat-local_shipping', link: 'customer' },
   { id: 9, name: 'Merk', icon: 'icon-mat-auto_awesome_mosaic', link: 'merk' },
   { id: 10, name: 'Perusahaan', icon: 'icon-mat-business', link: 'perusahaan' }
 

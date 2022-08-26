@@ -21,7 +21,7 @@
       <template
         #top
       >
-        <div class="q-gutter-sm col-3">
+        <div class="q-gutter-sm col-4">
           <div class="row ">
             <app-autocomplete-new
               v-model="table.form.customer_id"
@@ -30,35 +30,46 @@
               option-value="id"
               option-label="nama"
               :source="table.distributors"
-              outlined
               :loading="table.loading"
+              valid
+              :disable="table.form.dokter_id === null && table.rows.length == 0 ? false: true "
               @on-enter="table.addDistributor"
-              @buang="table.cariDistributor"
+              @on-select="table.distributorSelected"
             />
+            <!-- outlined -->
+            <!-- @buang="table.cariDistributor" -->
             <!-- @set-model="store.searchSupplier" -->
           </div>
           <div class="row ">
             <app-autocomplete-new
               v-model="table.form.dokter_id"
+              :disable="table.form.customer_id === null && table.rows.length == 0 ? false : true "
               label="pilih Dokter"
               autocomplete="nama"
               option-value="id"
               option-label="nama"
               :source="table.dokters"
-              outlined
               :loading="table.loading"
+              valid
               @on-enter="table.addDokter"
-              @buang="table.cariDokter"
+              @on-select="table.dokterSelected"
             />
+            <!-- outlined -->
+            <!-- @buang="table.cariDokter" -->
             <!-- @set-model="store.searchSupplier" -->
           </div>
         </div>
         <div class="col-6">
           <div class="text-h6">
-            Nomor Nota - {{ table.form.reff }}
+            <div class="row">
+              Nomor Nota :
+            </div>
+            <div class="row">
+              {{ table.form.reff }}
+            </div>
           </div>
         </div>
-        <div class="col-3">
+        <div class="col-2">
           <div class="text-h6 text-right">
             Total : {{ table.form.total }}
           </div>
@@ -98,7 +109,7 @@
               @keyup.enter="table.onEnter"
             />
           </q-td>
-          <q-td>
+          <!-- <q-td>
             <app-input
               v-model="table.form.harga_jual_umum"
               class="text-right"
@@ -124,7 +135,7 @@
               number
               currency
             />
-          </q-td>
+          </q-td> -->
           <q-td>
             <strong>
               {{ formatter.formatRp(parseFloat(formatter.olahUang(table.form.harga)) * table.form.qty) }}
@@ -205,11 +216,14 @@ import DialogPage from './DialogPage.vue'
 // import customerForm from 'src/pages/v1/master/customer/FormDialog.vue'
 // import { useDokterFormStore } from 'src/stores/master/dokter/form'
 // import { useCustomerFormStore } from 'src/stores/master/customer/form'
-
 // const dokter = useDokterFormStore()
 // const dist = useCustomerFormStore()
+
 const table = usePenjualanTable()
 const store = usePenjualanDialog()
+
+console.log('distributor ', table.form.customer_id, ' dokter ', table.form.dokter_id)
+
 const cekRequired = () => {
   store.openDialog()
 

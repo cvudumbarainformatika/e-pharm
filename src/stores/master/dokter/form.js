@@ -7,9 +7,9 @@ export const useDokterFormStore = defineStore('dokter_form', {
   state: () => ({
     isOpen: false,
     form: {
-      nama: '',
-      alamat: '',
-      kontak: ''
+      nama: null,
+      alamat: null,
+      kontak: null
     },
     loading: false
   }),

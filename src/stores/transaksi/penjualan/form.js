@@ -22,15 +22,20 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       tempo: null,
       kasir_id: null,
       supplier_id: null,
+      dokter_id: null,
+      customer_id: null,
       status: 0
     },
+    piutang: false,
     totalSemua: 0,
     jenises: [
       { nama: 'TUNAI', value: 'tunai' },
-      { nama: 'HUTANG', value: 'hutang' }
+      { nama: 'PIUTANG', value: 'piutang' }
     ],
     kasirs: [],
     suppliers: [],
+    dokter: '',
+    ditributor: '',
     params: {
       q: '',
       page: 1,
@@ -56,6 +61,8 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.tempo = null
       this.form.kasir_id = null
       this.form.supplier_id = null
+      this.form.dokter_id = null
+      this.form.customer_id = null
       this.form.status = 0
     },
     setToday() {
@@ -82,16 +89,18 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     },
     openDialog() {
       const table = usePenjualanTable()
-      this.form.faktur = table.form.faktur
       this.form.reff = table.form.reff
       this.form.total = table.form.total
+      this.form.dokter_id = table.dokter_id
+      this.form.customer_id = table.customer_id
+      this.distributor = table.distributor
+      this.dokter = table.dokter
       this.totalSeluruhnya()
       this.setOpen()
     },
     setOpen() {
       this.isOpen = !this.isOpen
-      this.form.jenis = ''
-      this.form.status = 1
+      this.form.jenis = 'tunai'
     },
     searchSupplier(val) {
       this.ambilDataSupplier(val)
@@ -100,9 +109,9 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     jenisSelected(val) {
       console.log('jenis selected ', val)
       if (val === 'tunai') {
-        this.ambilDataKasir()
+        this.piutang = false
       } else {
-        this.ambilDataSupplier()
+        this.piutang = true
       }
     },
     ambilDataKasir() {
@@ -111,29 +120,29 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       // console.log('user ', user.user)
       // console.log('user getter', user.userGetter)
     },
-    ambilDataSupplier(val) {
-      if (val !== '') {
-        this.params.q = val
-      }
-      this.loading = true
-      const params = { params: this.params }
-      return new Promise((resolve, reject) => {
-        api
-          .get('v1/supplier/index', params)
-          .then((resp) => {
-            this.loading = false
-            console.log('suppliers ', resp)
-            if (resp.status === 200) {
-              this.suppliers = resp.data.data
-              resolve(resp.data)
-            }
-          })
-          .catch((err) => {
-            this.loading = false
-            reject(err)
-          })
-      })
-    },
+    // ambilDataSupplier(val) {
+    //   if (val !== '') {
+    //     this.params.q = val
+    //   }
+    //   this.loading = true
+    //   const params = { params: this.params }
+    //   return new Promise((resolve, reject) => {
+    //     api
+    //       .get('v1/supplier/index', params)
+    //       .then((resp) => {
+    //         this.loading = false
+    //         console.log('suppliers ', resp)
+    //         if (resp.status === 200) {
+    //           this.suppliers = resp.data.data
+    //           resolve(resp.data)
+    //         }
+    //       })
+    //       .catch((err) => {
+    //         this.loading = false
+    //         reject(err)
+    //       })
+    //   })
+    // },
     simpanTransaksi() {
       const total = olahUang(this.form.total)
       const ongkir = olahUang(this.form.ongkir)
@@ -146,7 +155,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.potongan = potongan
       this.form.bayar = bayar
       this.form.kembali = kembali
-
+      this.form.status = 1
       console.log('form', this.form)
       this.loading = true
       return new Promise((resolve, reject) => {
@@ -170,7 +179,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
             // routerInstance.currentRoute.value.params.slug = slug
             this.form.reff = slug
             table.form.reff = slug
-            table.getDetailTransaksi()
+            table.getDetailTransaksi(slug)
             this.isOpen = false
           })
           .catch((err) => {
