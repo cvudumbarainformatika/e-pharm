@@ -192,10 +192,18 @@
         v-if="table.rows"
         #bottom
       >
-        <app-btn
-          label="Lanjutkan Pembayaran"
-          @click="cekRequired"
-        />
+        <div class="q-mx-xs">
+          <app-btn
+            label="Lanjutkan Pembayaran"
+            @click="cekRequired"
+          />
+        </div>
+        <div class="q-mx-xs">
+          <app-btn
+            label="Buka Transaksi Baru"
+            @click="newTransaction"
+          />
+        </div>
       </template>
       <!-- </template>
     </q-card> -->
@@ -212,6 +220,9 @@ import * as formatter from 'src/modules/formatter'
 import { usePenjualanTable } from 'src/stores/transaksi/penjualan/table'
 import { usePenjualanDialog } from 'src/stores/transaksi/penjualan/form'
 import DialogPage from './DialogPage.vue'
+import { routerInstance } from 'src/boot/router'
+// import { Dialog } from 'quasar'
+import { uniqueId } from 'src/modules/utils'
 // import dokterForm from 'src/pages/v1/master/dokter/FormDialog.vue'
 // import customerForm from 'src/pages/v1/master/customer/FormDialog.vue'
 // import { useDokterFormStore } from 'src/stores/master/dokter/form'
@@ -226,8 +237,21 @@ const store = usePenjualanDialog()
 
 const cekRequired = () => {
   store.openDialog()
-
   const tableReff = ref(null)
   console.log('table reff', tableReff)
+}
+const newTransaction = () => {
+  // table.resetData()
+  // store.resetData()
+  const slug = 'PJL-' + uniqueId()
+  const newRoute = routerInstance.resolve({
+    name: 'penjualan',
+    params: { slug }
+  })
+  window.open(newRoute.href, '_blank')
+  table.getDetailTransaksi(slug)
+  // store.form.reff = slug
+  // table.form.reff = slug
+  console.log('save as draft')
 }
 </script>

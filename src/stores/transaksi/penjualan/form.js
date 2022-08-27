@@ -120,8 +120,6 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     ambilDataKasir() {
       const user = useAuthStore()
       this.kasirs = [user.userGetter]
-      // console.log('user ', user.user)
-      // console.log('user getter', user.userGetter)
     },
     // ambilDataSupplier(val) {
     //   if (val !== '') {

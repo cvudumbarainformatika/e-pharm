@@ -248,14 +248,22 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     },
     ambilDataDistributor() {
       const dist = useCustomerTable()
-      dist.getDataTable().then(resp => {
-        this.distributors = resp
+      return new Promise(resolve => {
+        dist.getDataTable().then(resp => {
+          this.distributors = resp
+          console.log('distributor', this.form.customer_id, ' distributors ', this.distributors)
+          resolve(resp)
+        })
       })
     },
     ambilDataDokter() {
       const dokter = useDokterTable()
-      dokter.getDataTable().then(resp => {
-        this.dokters = resp
+      return new Promise(resolve => {
+        dokter.getDataTable().then(resp => {
+          this.dokters = resp
+          console.log('dokter', this.form.dokter_id, ' dokters ', this.dokters)
+          resolve(resp)
+        })
       })
     },
     addDistributor(val) {
@@ -329,7 +337,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form = value
     },
     getDetailTransaksi(val) {
-      console.log('get detail transaksi ', val)
+      // console.log('get detail transaksi ', val)
       this.loading = true
       let slug = ''
       if (val === undefined) {

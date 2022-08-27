@@ -83,7 +83,10 @@
               />
             </div>
           </div>
-          <div class="row q-col-gutter-md items-center">
+          <div
+            class="row q-col-gutter-md items-center"
+            style="visibility: hidden;"
+          >
             <div class="col-md-4">
               Ongkir / Admin
             </div>
@@ -100,7 +103,10 @@
               />
             </div>
           </div>
-          <div class="row q-col-gutter-md items-center">
+          <div
+            class="row q-col-gutter-md items-center"
+            style="visibility: hidden;"
+          >
             <div class="col-md-4">
               Potongan
             </div>
