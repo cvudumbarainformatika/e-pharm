@@ -64,6 +64,8 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.dokter_id = null
       this.form.customer_id = null
       this.form.status = 0
+      this.ditributor = ''
+      this.dokter = ''
     },
     setToday() {
       const date = new Date()
@@ -89,10 +91,11 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     },
     openDialog() {
       const table = usePenjualanTable()
+      table.setDokterOrDistributor()
       this.form.reff = table.form.reff
       this.form.total = table.form.total
-      this.form.dokter_id = table.dokter_id
-      this.form.customer_id = table.customer_id
+      this.form.dokter_id = table.form.dokter_id
+      this.form.customer_id = table.form.customer_id
       this.distributor = table.distributor
       this.dokter = table.dokter
       this.totalSeluruhnya()

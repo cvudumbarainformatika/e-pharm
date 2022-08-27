@@ -222,7 +222,7 @@ import DialogPage from './DialogPage.vue'
 const table = usePenjualanTable()
 const store = usePenjualanDialog()
 
-console.log('distributor ', table.form.customer_id, ' dokter ', table.form.dokter_id)
+// console.log('distributor ', table.form.customer_id, ' dokter ', table.form.dokter_id)
 
 const cekRequired = () => {
   store.openDialog()

@@ -127,6 +127,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.total = 0
       this.form.sub_total = 0
       this.rows = []
+      this.dokter = ''
+      this.distributor = ''
     },
     dokterSelected(val) {
       console.log('dokter ', val)
@@ -306,6 +308,22 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     cariDokter(val) {
       // this.ambilDataDokter()
       console.log('cari Dokter ', val)
+    },
+    setDokterOrDistributor() {
+      if (this.form.dokter_id !== null) {
+        const dokter = this.dokters.filter(data => {
+          return data.id === this.form.dokter_id
+        })
+        this.dokter = dokter[0].nama
+        console.log('dokter ', dokter[0].nama)
+      }
+      if (this.form.customer_id !== null) {
+        const dist = this.distributors.filter(data => {
+          return data.id === this.form.customer_id
+        })
+        this.distributor = dist[0].nama
+        console.log('dist ', dist[0].nama)
+      }
     },
     setForm(value) {
       this.form = value
