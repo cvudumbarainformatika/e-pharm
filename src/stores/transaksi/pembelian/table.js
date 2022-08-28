@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
 import { notifErrVue, waitLoad } from 'src/modules/utils'
-import { olahUang } from 'src/modules/formatter'
+import { formatRp, olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
 import { usePembelianDialog } from './form'
 import { routerInstance } from 'src/boot/router'
@@ -33,7 +33,8 @@ export const usePembelianTable = defineStore('pembelian_table', {
       harga: 0,
       total: 0,
       sub_total: 0,
-      nama: 'PEMBELIAN'
+      nama: 'PEMBELIAN',
+      expired: null
     },
     produks: [],
     columns: [
@@ -51,31 +52,47 @@ export const usePembelianTable = defineStore('pembelian_table', {
         label: 'Produk',
         field: (row) => row.product.nama
       },
-      { name: 'qty', align: 'left', label: 'Qty', field: 'qty' },
-      { name: 'harga', align: 'left', label: 'Harga', field: 'harga' },
+      {
+        name: 'expired',
+        align: 'left',
+        label: 'Tanggal Kadalwarsa',
+        field: 'expired'
+      },
+      { name: 'qty', align: 'left', label: 'Jumlah', field: 'qty' },
+      {
+        name: 'harga',
+        align: 'right',
+        label: 'Harga ',
+        field: 'harga',
+        format: (val) => formatRp(val)
+      },
       {
         name: 'harga_jual_umum',
-        align: 'left',
-        label: 'Harga Jual Umum',
-        field: (row) => row.product.harga_jual_umum
+        align: 'right',
+        label: 'Harga Umum',
+        field: (row) => row.product.harga_jual_umum,
+        format: (val) => formatRp(val)
       },
       {
         name: 'harga_jual_resep',
-        align: 'left',
-        label: 'Harga Jual Resep',
-        field: (row) => row.product.harga_jual_resep
+        align: 'right',
+        label: 'Harga Resep',
+        field: (row) => row.product.harga_jual_resep,
+        format: (val) => formatRp(val)
       },
       {
         name: 'harga_jual_cust',
-        align: 'left',
-        label: 'Harga Jual Distributor',
-        field: (row) => row.product.harga_jual_cust
+        align: 'right',
+        label: 'Harga Distributor',
+        field: (row) => row.product.harga_jual_cust,
+        format: (val) => formatRp(val)
       },
       {
         name: 'sub_total',
-        align: 'left',
+        align: 'right',
         label: 'Sub total',
-        field: (row) => row.harga * row.qty
+        field: (row) => row.harga * row.qty,
+        format: (val) => formatRp(val)
       }
     ],
     visbleColumns: [
@@ -116,6 +133,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.harga = 0
       this.form.total = 0
       this.form.sub_total = 0
+      this.form.expired = null
       this.rows = []
     },
     produkSelected(val) {
@@ -139,6 +157,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.harga_jual_umum = 0
       this.form.harga_jual_resep = 0
       this.form.qty = 0
+      this.form.expired = null
     },
     onEnter() {
       const store = usePembelianDialog()
@@ -267,6 +286,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       const store = usePembelianDialog()
       const data = store.form
 
+      data.expired = this.form.expired
       data.product_id = this.form.product_id
       data.harga = olahUang(this.form.harga_beli)
       data.qty = this.form.qty

@@ -71,7 +71,7 @@
         </div>
         <div class="col-2">
           <div class="text-h6 text-right">
-            Total : {{ table.form.total }}
+            Total : {{ formatter.formatRp(table.form.total) }}
           </div>
         </div>
       </template>

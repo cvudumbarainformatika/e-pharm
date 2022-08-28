@@ -51,7 +51,7 @@
         </div>
         <div class="col-3">
           <div class="text-h6 text-right">
-            Total : {{ table.form.total }}
+            Total : {{ formatter.formatRp(table.form.total) }}
           </div>
         </div>
       </template>
@@ -69,6 +69,42 @@
               :source="table.produks"
               @on-select="table.produkSelected"
             />
+          </q-td>
+          <q-td>
+            <q-input
+              v-model="table.form.expired"
+              class="text-left"
+              label=" "
+            >
+              <!-- mask="date"
+              :rules="['date']" -->
+              <template #append>
+                <q-icon
+                  name="icon-mat-event"
+                  class="cursor-pointer"
+                >
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-date
+                      v-model="table.form.expired"
+                      mask="YYYY-MM-DD"
+                    >
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
           </q-td>
           <q-td>
             <app-input
@@ -89,6 +125,7 @@
               @keyup.enter="table.onEnter"
             />
           </q-td>
+
           <q-td>
             <app-input
               v-model="table.form.harga_jual_umum"

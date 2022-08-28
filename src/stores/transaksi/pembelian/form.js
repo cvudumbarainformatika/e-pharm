@@ -101,8 +101,10 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       console.log('jenis selected ', val)
       if (val === 'tunai') {
         this.ambilDataKasir()
+        this.form.supplier_id = null
       } else {
         this.ambilDataSupplier()
+        this.form.kasir_id = null
       }
     },
     ambilDataKasir() {

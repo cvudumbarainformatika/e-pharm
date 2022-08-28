@@ -77,10 +77,10 @@
                 v-model="store.form.expired"
                 dense
                 label="expired"
-                mask="date"
                 outlined
-                :rules="['date']"
               >
+                <!-- mask="date"
+                :rules="['date']" -->
                 <template #append>
                   <q-icon
                     name="icon-mat-event"
@@ -91,7 +91,10 @@
                       transition-show="scale"
                       transition-hide="scale"
                     >
-                      <q-date v-model="store.form.expired">
+                      <q-date
+                        v-model="store.form.expired"
+                        mask="YYYY-MM-DD"
+                      >
                         <div class="row items-center justify-end">
                           <q-btn
                             v-close-popup

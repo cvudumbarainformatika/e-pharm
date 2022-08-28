@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
 import { waitLoad } from 'src/modules/utils'
-import { olahUang } from 'src/modules/formatter'
+import { formatRp, olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
 import { usePenjualanDialog } from './form'
 import { routerInstance } from 'src/boot/router'
@@ -60,7 +60,13 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         field: (row) => row.product.nama
       },
       { name: 'qty', align: 'left', label: 'Qty', field: 'qty' },
-      { name: 'harga', align: 'left', label: 'Harga', field: 'harga' },
+      {
+        name: 'harga',
+        align: 'left',
+        label: 'Harga',
+        field: 'harga',
+        format: (val) => formatRp(val)
+      },
       // {
       //   name: 'harga_jual_umum',
       //   align: 'left',
@@ -83,7 +89,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         name: 'sub_total',
         align: 'left',
         label: 'Sub total',
-        field: (row) => row.harga * row.qty
+        field: (row) => row.harga * row.qty,
+        format: (val) => formatRp(val)
       }
     ],
     visbleColumns: [
@@ -186,7 +193,13 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.harga_jual_umum = produk[0].harga_jual_umum
       this.form.harga_jual_resep = produk[0].harga_jual_resep
       this.form.qty = 1
-      if (this.form.customer_id !== null) { this.form.harga = this.form.harga_jual_cust } else if (this.form.dokter_id !== null) { this.form.harga = this.form.harga_jual_resep } else { this.form.harga = this.form.harga_jual_umum }
+      if (this.form.customer_id !== null) {
+        this.form.harga = this.form.harga_jual_cust
+      } else if (this.form.dokter_id !== null) {
+        this.form.harga = this.form.harga_jual_resep
+      } else {
+        this.form.harga = this.form.harga_jual_umum
+      }
       console.log('row ', this.rows.length)
     },
     resetInput() {
@@ -248,18 +261,23 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     },
     ambilDataDistributor() {
       const dist = useCustomerTable()
-      return new Promise(resolve => {
-        dist.getDataTable().then(resp => {
+      return new Promise((resolve) => {
+        dist.getDataTable().then((resp) => {
           this.distributors = resp
-          console.log('distributor', this.form.customer_id, ' distributors ', this.distributors)
+          console.log(
+            'distributor',
+            this.form.customer_id,
+            ' distributors ',
+            this.distributors
+          )
           resolve(resp)
         })
       })
     },
     ambilDataDokter() {
       const dokter = useDokterTable()
-      return new Promise(resolve => {
-        dokter.getDataTable().then(resp => {
+      return new Promise((resolve) => {
+        dokter.getDataTable().then((resp) => {
           this.dokters = resp
           console.log('dokter', this.form.dokter_id, ' dokters ', this.dokters)
           resolve(resp)
@@ -274,15 +292,14 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         message: `Apakah Distributor:<strong> ${val}</strong> akan ditambahkan?, <strong> jangan lupa untuk melengkapi data Distributor</strong>`,
         cancel: true,
         html: true
-      }).onOk(() => {
-        this.loading = true
-        store
-          .saveForm()
-          .then(() => {
+      })
+        .onOk(() => {
+          this.loading = true
+          store.saveForm().then(() => {
             this.ambilDataDistributor()
             this.loading = false
           })
-      })
+        })
         .onCancel(() => {
           console.log('cancel')
         })
@@ -319,14 +336,14 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     },
     setDokterOrDistributor() {
       if (this.form.dokter_id !== null) {
-        const dokter = this.dokters.filter(data => {
+        const dokter = this.dokters.filter((data) => {
           return data.id === this.form.dokter_id
         })
         this.dokter = dokter[0].nama
         console.log('dokter ', dokter[0].nama)
       }
       if (this.form.customer_id !== null) {
-        const dist = this.distributors.filter(data => {
+        const dist = this.distributors.filter((data) => {
           return data.id === this.form.customer_id
         })
         this.distributor = dist[0].nama
@@ -334,6 +351,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       }
     },
     setForm(value) {
+      const store = usePenjualanDialog()
+      store.form = value
       this.form = value
     },
     getDetailTransaksi(val) {
@@ -379,6 +398,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       data.qty = this.form.qty
       data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga)
 
+      console.log('form penjualan', data)
       waitLoad('show')
       return new Promise((resolve, reject) => {
         api
