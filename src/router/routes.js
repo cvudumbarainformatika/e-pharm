@@ -141,7 +141,14 @@ const routes = [
             path: '/retur',
             name: 'retur',
             component: () =>
-              import('src/pages/v1/transaksi/retur/ReturPage.vue')
+              import('src/pages/v1/transaksi/retur/ReturPage.vue'),
+            children: [
+              {
+                path: '/retur/:slug',
+                name: 'detail.retur',
+                component: () => import('src/pages/v1/transaksi/retur/detail/DetailReturPage.vue')
+              }
+            ]
           }
         ]
       },

@@ -1,25 +1,21 @@
 import { defineStore } from 'pinia'
-import { useProdukTable } from 'src/stores/master/produk/table'
+// import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
-import { notifErrVue, waitLoad } from 'src/modules/utils'
-import { olahUang } from 'src/modules/formatter'
+// import { notifErrVue, waitLoad } from 'src/modules/utils'
+// import { olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
-import { usePembelianDialog } from './form'
 import { routerInstance } from 'src/boot/router'
+import { olahUang } from 'src/modules/formatter'
 
-export const usePembelianTable = defineStore('pembelian_table', {
+export const useReturTable = defineStore('retur_table', {
   state: () => ({
-    items: [],
+    isOpen: false,
     meta: {},
-    item: {},
     loading: false,
     params: {
       q: '',
-      page: 1,
-      per_page: 10,
       order_by: 'created_at',
-      sort: 'desc',
-      transaction_id: null
+      sort: 'desc'
     },
     form: {
       faktur: '',
@@ -33,9 +29,23 @@ export const usePembelianTable = defineStore('pembelian_table', {
       harga: 0,
       total: 0,
       sub_total: 0,
-      nama: 'PEMBELIAN'
+      nama: 'RETUR PEMBELIAN',
+      tanggal: null,
+      jenis: 'tunai',
+      ongkir: 0,
+      potongan: 0,
+      bayar: 0,
+      kembali: 0,
+      tempo: null,
+      kasir_id: null,
+      supplier_id: null,
+      status: 0
     },
-    produks: [],
+    jenises: [
+      { nama: 'TUNAI', value: 'tunai' },
+      { nama: 'HUTANG', value: 'hutang' }
+    ],
+    produk: '',
     columns: [
       {
         name: 'id',
@@ -53,24 +63,24 @@ export const usePembelianTable = defineStore('pembelian_table', {
       },
       { name: 'qty', align: 'left', label: 'Qty', field: 'qty' },
       { name: 'harga', align: 'left', label: 'Harga', field: 'harga' },
-      {
-        name: 'harga_jual_umum',
-        align: 'left',
-        label: 'Harga Jual Umum',
-        field: (row) => row.product.harga_jual_umum
-      },
-      {
-        name: 'harga_jual_resep',
-        align: 'left',
-        label: 'Harga Jual Resep',
-        field: (row) => row.product.harga_jual_resep
-      },
-      {
-        name: 'harga_jual_cust',
-        align: 'left',
-        label: 'Harga Jual Distributor',
-        field: (row) => row.product.harga_jual_cust
-      },
+      // {
+      //   name: 'harga_jual_umum',
+      //   align: 'left',
+      //   label: 'Harga Jual Umum',
+      //   field: (row) => row.product.harga_jual_umum
+      // },
+      // {
+      //   name: 'harga_jual_resep',
+      //   align: 'left',
+      //   label: 'Harga Jual Resep',
+      //   field: (row) => row.product.harga_jual_resep
+      // },
+      // {
+      //   name: 'harga_jual_cust',
+      //   align: 'left',
+      //   label: 'Harga Jual Distributor',
+      //   field: (row) => row.product.harga_jual_cust
+      // },
       {
         name: 'sub_total',
         align: 'left',
@@ -116,21 +126,18 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.harga = 0
       this.form.total = 0
       this.form.sub_total = 0
+      this.form.tanggal = null
+      this.form.nama = null
+      this.form.jenis = 'tunai'
+      this.form.ongkir = 0
+      this.form.potongan = 0
+      this.form.bayar = 0
+      this.form.kembali = 0
+      this.form.tempo = null
+      this.form.kasir_id = null
+      this.form.supplier_id = null
+      this.form.status = 0
       this.rows = []
-    },
-    produkSelected(val) {
-      const apem = this.produks
-
-      const produk = apem.filter((data) => {
-        return data.id === val
-      })
-      this.form.product_id = produk[0].id
-      this.form.harga_beli = produk[0].harga_beli
-      this.form.harga_jual_cust = produk[0].harga_jual_cust
-      this.form.harga_jual_umum = produk[0].harga_jual_umum
-      this.form.harga_jual_resep = produk[0].harga_jual_resep
-      this.form.qty = 1
-      // console.log('nama ', produk[0])
     },
     resetInput() {
       this.form.product_id = ''
@@ -140,18 +147,17 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.harga_jual_resep = 0
       this.form.qty = 0
     },
-    onEnter() {
-      const store = usePembelianDialog()
-      store.form.reff = this.form.reff
-      store.setToday()
-      if (this.form.faktur !== '') {
-        store.form.faktur = this.form.faktur
-        this.simpanDetailTransaksi()
-      } else {
-        notifErrVue('Faktur belum di isi')
-      }
+    setOpen() {
+      this.isOpen = !this.isOpen
     },
-
+    setToday() {
+      const date = new Date()
+      const year = date.getFullYear()
+      const month = ('0' + (date.getMonth() + 1)).slice(-2)
+      const day = ('0' + date.getDate()).slice(-2)
+      const formatDb = year + '-' + month + '-' + day
+      this.form.tanggal = formatDb
+    },
     setTotal() {
       console.log('rows ', this.rows)
       if (this.rows !== undefined) {
@@ -211,33 +217,28 @@ export const usePembelianTable = defineStore('pembelian_table', {
 
       console.log('columns', tTemp)
     },
-    // api related functions
-    // get from another pinia file
-    // from produk table
-    ambilDataProduk() {
-      const produk = useProdukTable()
-      produk.getDataTable().then((resp) => {
-        this.produks = resp
-      })
-    },
-    setForm(data) {
+    setFaktur(data) {
       // const store = usePembelianDialog()
       if (data.faktur !== '') {
         this.form.faktur = data.faktur
       }
-      // store.form.total = data.total
-      // store.form.jenis = data.jenis
-      // store.form.potongan = data.potongan
-      // store.form.ongkir = data.ongkir
     },
+    setForm(name, value) {
+      this.form[name] = value
+      console.log('set form', this.form[name])
+    },
+    // api related functions
+    // get from another pinia file
+    // from produk table
     getDetailTransaksi(val) {
       this.loading = true
       let slug = ''
       if (val === undefined) {
-        slug = routerInstance.currentRoute.value.params.slug
+        slug = 'R' + routerInstance.currentRoute.value.params.slug
       } else {
         slug = val
       }
+      this.form.reff = slug
       this.params.reff = slug
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
@@ -248,7 +249,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
             console.log('pembelian ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
-                this.setForm(resp.data.data[0])
+                this.setFaktur(resp.data.data[0])
                 this.rows = resp.data.data[0].detail_transaction
                 this.setTotal()
                 this.meta = resp.data.meta
@@ -264,44 +265,42 @@ export const usePembelianTable = defineStore('pembelian_table', {
       })
     },
     simpanDetailTransaksi() {
-      const store = usePembelianDialog()
-      const data = store.form
-
-      data.product_id = this.form.product_id
-      data.harga = olahUang(this.form.harga_beli)
-      data.qty = this.form.qty
-      data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga_beli)
-
-      waitLoad('show')
+      this.form.product_id = this.produk.product_id
+      this.form.harga = olahUang(this.produk.harga)
+      this.form.sub_total =
+        olahUang(this.form.qty) * olahUang(this.produk.harga)
+      const reff = 'R' + routerInstance.currentRoute.value.params.slug
+      this.form.reff = reff
+      this.loading = true
       return new Promise((resolve, reject) => {
         api
-          .post('v1/transaksi/store', data)
+          .post('v1/transaksi/store', this.form)
           .then((resp) => {
-            waitLoad('done')
+            this.loading = false
             console.log('save detail ', resp)
             resolve(resp.data.data)
-            this.getDetailTransaksi()
-            this.resetInput()
+            // this.getDetailTransaksi()
+            // this.resetInput()
           })
           .catch((err) => {
-            waitLoad('done')
+            this.loading = false
             reject(err)
           })
       })
     },
     hapusDetailTransaksi(params) {
-      waitLoad('show')
+      this.loading = true
       return new Promise((resolve, reject) => {
         api
           .post('v1/detail-transaksi/destroy', params)
           .then((resp) => {
-            waitLoad('done')
+            this.loading = false
             console.log('hapus detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
           })
           .catch((err) => {
-            waitLoad('done')
+            this.loading = false
             reject(err)
           })
       })

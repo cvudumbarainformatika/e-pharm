@@ -2,18 +2,17 @@ import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { routerInstance } from 'src/boot/router'
 import { olahUang } from 'src/modules/formatter'
-import { notifSuccess, uniqueId } from 'src/modules/utils'
-import { useAuthStore } from 'src/stores/auth'
-import { usePembelianTable } from './table'
+import { notifSuccess } from 'src/modules/utils'
+import { useReturDetailTable } from './transaction'
 
-export const usePembelianDialog = defineStore('pembelian_store', {
+export const useReturDialog = defineStore('retur_store', {
   state: () => ({
     isOpen: false,
     form: {
       faktur: null,
       reff: null,
       tanggal: null,
-      nama: 'PEMBELIAN',
+      nama: 'RETUR PEMBELIAN',
       jenis: 'tunai',
       total: 0,
       ongkir: 0,
@@ -82,7 +81,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       console.log('kembali ', this.form.kembali)
     },
     openDialog() {
-      const table = usePembelianTable()
+      const table = useReturDetailTable()
       this.form.faktur = table.form.faktur
       this.form.reff = table.form.reff
       this.form.total = table.form.total
@@ -105,33 +104,6 @@ export const usePembelianDialog = defineStore('pembelian_store', {
         this.ambilDataSupplier()
       }
     },
-    ambilDataKasir() {
-      const user = useAuthStore()
-      this.kasirs = [user.userGetter]
-      // console.log('user ', user.user)
-      // console.log('user getter', user.userGetter)
-    },
-    ambilDataSupplier(val) {
-      if (val !== '') { this.params.q = val }
-      this.loading = true
-      const params = { params: this.params }
-      return new Promise((resolve, reject) => {
-        api
-          .get('v1/supplier/index', params)
-          .then((resp) => {
-            this.loading = false
-            console.log('suppliers ', resp)
-            if (resp.status === 200) {
-              this.suppliers = resp.data.data
-              resolve(resp.data)
-            }
-          })
-          .catch((err) => {
-            this.loading = false
-            reject(err)
-          })
-      })
-    },
     simpanTransaksi() {
       const total = olahUang(this.form.total)
       const ongkir = olahUang(this.form.ongkir)
@@ -153,22 +125,19 @@ export const usePembelianDialog = defineStore('pembelian_store', {
           .then((resp) => {
             this.loading = false
             console.log('transaksi ', resp)
-            const table = usePembelianTable()
+            const table = useReturDetailTable()
             if (resp.status === 201) {
               notifSuccess(resp)
               table.resetData()
               this.resetData()
               resolve(resp.data.data)
             }
-            const slug = 'PBL-' + uniqueId()
-            routerInstance.replace({
-              name: 'pembelian',
-              params: { slug }
-            })
+            // const slug = 'PBL-' + uniqueId()
+            routerInstance.replace({ name: 'retur' })
             // routerInstance.currentRoute.value.params.slug = slug
-            this.form.reff = slug
-            table.form.reff = slug
-            table.getDetailTransaksi(slug)
+            // this.form.reff = slug
+            // table.form.reff = slug
+            // table.getDetailTransaksi(slug)
             this.isOpen = false
           })
           .catch((err) => {
