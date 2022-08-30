@@ -292,19 +292,19 @@ export const usePembelianTable = defineStore('pembelian_table', {
       data.qty = this.form.qty
       data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga_beli)
 
-      waitLoad('show')
+      this.loading = true
       return new Promise((resolve, reject) => {
         api
           .post('v1/transaksi/store', data)
           .then((resp) => {
-            waitLoad('done')
+            this.loading = false
             console.log('save detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
             this.resetInput()
           })
           .catch((err) => {
-            waitLoad('done')
+            this.loading = false
             reject(err)
           })
       })
