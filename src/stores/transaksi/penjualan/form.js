@@ -51,7 +51,6 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.faktur = null
       this.form.reff = null
       this.form.tanggal = null
-      this.form.nama = null
       this.form.jenis = 'tunai'
       this.form.total = 0
       this.form.ongkir = 0

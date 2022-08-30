@@ -47,7 +47,6 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       this.form.faktur = null
       this.form.reff = null
       this.form.tanggal = null
-      this.form.nama = null
       this.form.jenis = 'tunai'
       this.form.total = 0
       this.form.ongkir = 0
