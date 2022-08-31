@@ -8,6 +8,7 @@
       >
         <q-item>
           <q-item-section>Tanggal</q-item-section>
+          <q-item-section>Distributor</q-item-section>
           <q-item-section>Kasir</q-item-section>
           <q-item-section>Nama Penerimaan</q-item-section>
           <q-item-section>
@@ -27,6 +28,7 @@
             class="menu"
           >
             <q-item-section>{{ item.tanggal }}</q-item-section>
+            <q-item-section>{{ item.customer!==null?item.customer.nama : ' - ' }}</q-item-section>
             <q-item-section>{{ item.kasir!==null?item.kasir.name : 'owner' }}</q-item-section>
             <q-item-section>{{ item.penerimaan_transaction[0].penerimaan.nama }}</q-item-section>
             <q-item-section>

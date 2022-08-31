@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { notifSuccess, uniqueId, waitLoad } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { hurufBesar, olahUang } from 'src/modules/formatter'
+import { useCustomerTable } from 'src/stores/master/customer/table'
 
 export const usePenerimaanTransaksiFormStore = defineStore(
   'penerimaan_transaction_form',
@@ -15,6 +16,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         total: 0,
         tanggal: null,
         kasir_id: null,
+        customer_id: null,
         status: 0,
 
         sub_total: 0,
@@ -22,6 +24,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         keterangan: ''
       },
       kasirs: [],
+      customers: [],
       loading: false
     }),
     actions: {
@@ -70,7 +73,15 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         this.isOpen = !this.isOpen
       },
       // api related actions
-      // ambil data ksir
+      // ambil data customer
+      getDataDistributor() {
+        const dist = useCustomerTable()
+        dist.getDataTable().then(data => {
+          console.log('distibutor ', data)
+          this.customers = data
+        })
+      },
+      // ambil data kasir
       getDataKasirs() {
         waitLoad('show')
         return new Promise((resolve, reject) => {

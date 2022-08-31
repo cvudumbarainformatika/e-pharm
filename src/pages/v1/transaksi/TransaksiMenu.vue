@@ -52,10 +52,10 @@ const menus = ref([
   { id: 1, name: 'Pembelian', icon: 'icon-mat-inventory_2', link: '/pembelian/PBL-' },
   { id: 2, name: 'Penjualan', icon: 'icon-mat-shopping_bag', link: '/penjualan/PJL-' },
   { id: 3, name: 'Transaksi Penerimaan', icon: 'icon-mat-account_balance_wallet', link: '/transaksi/penerimaan' },
-  { id: 4, name: 'Bayar Hutang', icon: 'icon-mat-credit_score', link: '/bayar hutang' },
-  { id: 5, name: 'Beban Biaya', icon: 'icon-mat-payment', link: '/biaya' },
-  { id: 6, name: 'Retur', icon: 'icon-mat-assignment_return', link: '/retur' },
-  { id: 7, name: 'History', icon: 'icon-mat-inventory', link: '/history' }
+  { id: 4, name: 'Beban Biaya', icon: 'icon-mat-payment', link: '/biaya' },
+  { id: 5, name: 'Retur', icon: 'icon-mat-assignment_return', link: '/retur' },
+  { id: 6, name: 'History', icon: 'icon-mat-inventory', link: '/history' }
+  // { id: 7, name: 'Bayar Hutang', icon: 'icon-mat-credit_score', link: '/bayar hutang' },
 
 ])
 function activated(val) {

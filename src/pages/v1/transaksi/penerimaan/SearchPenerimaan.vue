@@ -94,6 +94,27 @@
                   clearable
                 />
               </div>
+              <div
+                v-if="isHas(model.nama,'PIUTANG').length"
+                class="col-md-3 col-xs-12"
+              >
+                Distributor
+              </div>
+              <div
+                v-if="isHas(model.nama,'PIUTANG').length"
+                class="col-md-9 col-xs-12"
+              >
+                <app-autocomplete
+                  v-model="store.form.customer_id"
+                  label="pilih Distributor"
+                  autocomplete="nama"
+                  option-value="id"
+                  option-label="nama"
+                  :source="store.customers"
+                  :loading="store.loading"
+                  clearable
+                />
+              </div>
               <div class="col-md-3 col-xs-12">
                 Keterangan
               </div>
@@ -123,6 +144,7 @@
 </template>
 <script setup>
 import { api } from 'src/boot/axios'
+import { isHas } from 'src/modules/formatter'
 import { usePenerimaanTransaksiFormStore } from 'src/stores/transaksi/penerimaan/form'
 import { ref } from 'vue'
 
@@ -132,6 +154,8 @@ const options = ref(null)
 const store = usePenerimaanTransaksiFormStore()
 const onSubmit = () => {
   store.form.penerimaan_id = model.value.id
+  // const data = isHas(model.value.nama, 'PIUTANG')
+  // console.log(isHas(model.value.nama, 'PIUTANG').length)
   store.saveForm().then(() => {
     model.value = null
   })

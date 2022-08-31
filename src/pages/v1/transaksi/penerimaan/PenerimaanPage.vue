@@ -32,6 +32,7 @@ const store = usePenerimaanTransaksiFormStore()
 onMounted(() => {
   store.getDataKasirs()
   store.getDataPenerimaan()
+  store.getDataDistributor()
 })
 // coment sik
 </script>

@@ -56,4 +56,13 @@ const olahUang = (val) => {
   } else { return val }
 }
 
-export { dateDbFormat, formatRp, formatDouble, formatMoney, hurufBesar, olahUang }
+const isHas = (test, val) => {
+  if (typeof test === 'string' && typeof val === 'string') {
+    let data = []
+    const array = test.split(' ')
+    data = array.filter(check => { return check === val })
+    return data
+  } else { return val }
+}
+
+export { dateDbFormat, formatRp, formatDouble, formatMoney, hurufBesar, olahUang, isHas }
