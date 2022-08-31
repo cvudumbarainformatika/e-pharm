@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { notifSuccess, uniqueId, waitLoad } from 'src/modules/utils'
 import { api } from 'boot/axios'
 import { hurufBesar, olahUang } from 'src/modules/formatter'
+import { useSupplierTable } from 'src/stores/master/supplier/table'
 
 export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', {
   state: () => ({
@@ -13,6 +14,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       total: 0,
       tanggal: null,
       kasir_id: null,
+      supplier_id: null,
       status: 0,
 
       sub_total: 0,
@@ -20,6 +22,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       keterangan: ''
     },
     kasirs: [],
+    suppliers: [],
     loading: false
   }),
   actions: {
@@ -68,6 +71,14 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       this.isOpen = !this.isOpen
     },
     // api related actions
+    // ambil data supplier
+    getDataSupplier() {
+      const supp = useSupplierTable()
+      supp.getDataTable().then(data => {
+        console.log('supplier ', data)
+        this.suppliers = data
+      })
+    },
     // ambil data ksir
     getDataKasirs() {
       waitLoad('show')

@@ -78,6 +78,28 @@
                   prefix="Rp"
                 />
               </div>
+              <div
+                v-if="isHas(model.nama,'HUTANG').length"
+                class="col-md-3 col-xs-12"
+              >
+                Supplier
+              </div>
+              <div
+                v-if="isHas(model.nama,'HUTANG').length"
+                class="col-md-9 col-xs-12"
+              >
+                <app-autocomplete
+                  v-model="store.form.supplier_id"
+                  label="pilih Supplier"
+                  autocomplete="nama"
+                  option-value="id"
+                  option-label="nama"
+                  :source="store.suppliers"
+                  :loading="store.loading"
+
+                  clearable
+                />
+              </div>
               <div class="col-md-3 col-xs-12">
                 Kasir
               </div>
@@ -121,6 +143,7 @@
   </q-card>
 </template>
 <script setup>
+import { isHas } from 'src/modules/formatter'
 import { api } from 'src/boot/axios'
 import { useBebanTransaksiFormStore } from 'src/stores/transaksi/biaya/form'
 import { ref } from 'vue'

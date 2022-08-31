@@ -32,6 +32,7 @@ const store = useBebanTransaksiFormStore()
 onMounted(() => {
   store.getDataKasirs()
   store.getDataBeban()
+  store.getDataSupplier()
 })
 // coment sik
 </script>
