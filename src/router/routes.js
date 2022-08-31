@@ -27,6 +27,12 @@ const routes = [
               import('src/pages/v1/master/satuan/SatuanPage.vue')
           },
           {
+            path: '/penerimaan',
+            name: 'penerimaan',
+            component: () =>
+              import('src/pages/v1/master/penerimaan/PenerimaanTable.vue')
+          },
+          {
             path: '/kategori',
             name: 'kategori',
             component: () =>
@@ -126,10 +132,10 @@ const routes = [
               import('src/pages/v1/transaksi/pembelian/PembelianPage.vue')
           },
           {
-            path: '/penerimaan kas',
-            name: 'penerimaan kas',
+            path: '/transaksi/penerimaan',
+            name: 'transaksi.penerimaan',
             component: () =>
-              import('src/pages/v1/transaksi/penerimaan kas/PenerimaanKasPage.vue')
+              import('src/pages/v1/transaksi/penerimaan/PenerimaanPage.vue')
           },
           {
             path: '/penjualan/:slug',

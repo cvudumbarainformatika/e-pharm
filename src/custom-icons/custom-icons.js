@@ -117,6 +117,9 @@ export default {
   tree: {
     icon: 'icon-mat-play_arrow'
   },
+  select: {
+    clear: 'icon-mat-clear'
+  },
   uploader: {
     done: 'icon-mat-done',
     clear: 'icon-mat-clear',

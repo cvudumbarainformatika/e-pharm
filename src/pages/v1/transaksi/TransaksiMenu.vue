@@ -37,10 +37,10 @@
 import { ref } from 'vue'
 
 // import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
-import { uniqueId } from 'src/modules/utils'
+// import { uniqueId } from 'src/modules/utils'
 // const table = usePembelianTable()
-const slug = 'PBL-' + uniqueId()
-console.log(slug)
+// const slug = 'PBL-' + uniqueId()
+// console.log(slug)
 const props = defineProps({
   dark: {
     type: Boolean,
@@ -51,9 +51,9 @@ const props = defineProps({
 const menus = ref([
   { id: 1, name: 'Pembelian', icon: 'icon-mat-inventory_2', link: '/pembelian/PBL-' },
   { id: 2, name: 'Penjualan', icon: 'icon-mat-shopping_bag', link: '/penjualan/PJL-' },
-  { id: 3, name: 'Penerimaan Kas', icon: 'icon-mat-account_balance_wallet', link: '/penerimaan kas' },
+  { id: 3, name: 'Transaksi Penerimaan', icon: 'icon-mat-account_balance_wallet', link: '/transaksi/penerimaan' },
   { id: 4, name: 'Bayar Hutang', icon: 'icon-mat-credit_score', link: '/bayar hutang' },
-  { id: 5, name: 'Beban', icon: 'icon-mat-payment', link: '/biaya' },
+  { id: 5, name: 'Beban Biaya', icon: 'icon-mat-payment', link: '/biaya' },
   { id: 6, name: 'Retur', icon: 'icon-mat-assignment_return', link: '/retur' },
   { id: 7, name: 'History', icon: 'icon-mat-inventory', link: '/history' }
 
