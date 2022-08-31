@@ -6,7 +6,7 @@
         padding
         class="rounded-borders text-primary"
       >
-        <q-item>
+        <q-item class="text-weight-bold">
           <q-item-section>Tanggal</q-item-section>
           <q-item-section>Supplier</q-item-section>
           <q-item-section>Kasir</q-item-section>
