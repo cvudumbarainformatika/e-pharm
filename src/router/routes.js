@@ -9,15 +9,13 @@ const routes = [
       {
         path: '/dashboard',
         name: 'dashboard',
-        component: () =>
-          import('pages/IndexPage.vue')
+        component: () => import('pages/IndexPage.vue')
       },
       // { path: '/surveyor', name: 'surveyor', component: () => import('pages/v1/surveyor/IndexPage.vue') },
       {
         path: '/master',
         name: 'master',
-        component: () =>
-          import('pages/v1/master/IndexPage.vue'),
+        component: () => import('pages/v1/master/IndexPage.vue'),
         meta: { requireAuth: true },
         children: [
           {
@@ -59,8 +57,7 @@ const routes = [
           {
             path: '/beban',
             name: 'beban',
-            component: () =>
-              import('src/pages/v1/master/beban/BebanPage.vue')
+            component: () => import('src/pages/v1/master/beban/BebanPage.vue')
           },
           {
             path: '/customer',
@@ -71,8 +68,7 @@ const routes = [
           {
             path: '/merk',
             name: 'merk',
-            component: () =>
-              import('src/pages/v1/master/merk/MerkPage.vue')
+            component: () => import('src/pages/v1/master/merk/MerkPage.vue')
           },
           {
             path: '/perusahaan',
@@ -83,29 +79,25 @@ const routes = [
           {
             path: '/rak',
             name: 'rak',
-            component: () =>
-              import('src/pages/v1/master/rak/RakPage.vue')
+            component: () => import('src/pages/v1/master/rak/RakPage.vue')
           }
         ]
       },
       {
         path: '/profile',
         name: 'profile',
-        component: () =>
-          import('pages/v1/profile/IndexPage.vue')
+        component: () => import('pages/v1/profile/IndexPage.vue')
       },
 
       {
         path: '/laporan',
         name: 'laporan',
-        component: () =>
-          import('pages/v1/laporan/IndexPage.vue')
+        component: () => import('pages/v1/laporan/IndexPage.vue')
       },
       {
         path: '/transaksi',
         name: 'transaksi',
-        component: () =>
-          import('pages/v1/transaksi/IndexPage.vue'),
+        component: () => import('pages/v1/transaksi/IndexPage.vue'),
         children: [
           {
             path: '/bayar hutang',
@@ -152,7 +144,10 @@ const routes = [
               {
                 path: '/retur/:slug',
                 name: 'detail.retur',
-                component: () => import('src/pages/v1/transaksi/retur/detail/DetailReturPage.vue')
+                component: () =>
+                  import(
+                    'src/pages/v1/transaksi/retur/detail/DetailReturPage.vue'
+                  )
               }
             ]
           }
@@ -161,8 +156,7 @@ const routes = [
       {
         path: '/setting',
         name: 'setting',
-        component: () =>
-          import('pages/v1/setting/AppSetting.vue')
+        component: () => import('pages/v1/setting/AppSetting.vue')
       }
     ]
   },
@@ -183,8 +177,7 @@ const routes = [
     children: [
       {
         path: '',
-        component: () =>
-          import('pages/auth/AuthPage.vue')
+        component: () => import('pages/auth/AuthPage.vue')
       }
     ]
   },
