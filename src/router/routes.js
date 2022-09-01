@@ -95,6 +95,12 @@ const routes = [
         component: () => import('pages/v1/laporan/IndexPage.vue')
       },
       {
+        path: '/history',
+        name: 'history',
+        component: () =>
+          import('src/pages/v1/history/HistoryPage.vue')
+      },
+      {
         path: '/transaksi',
         name: 'transaksi',
         component: () => import('pages/v1/transaksi/IndexPage.vue'),
@@ -110,12 +116,6 @@ const routes = [
             name: 'biaya',
             component: () =>
               import('src/pages/v1/transaksi/biaya/BiayaPage.vue')
-          },
-          {
-            path: '/history',
-            name: 'history',
-            component: () =>
-              import('src/pages/v1/transaksi/history/HistoryPage.vue')
           },
           {
             path: '/pembelian/:slug',

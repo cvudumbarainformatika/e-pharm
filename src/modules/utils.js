@@ -80,6 +80,17 @@ const notifErrVue = (msg) => {
     ]
   })
 }
+const notifCenterVue = (msg) => {
+  Notify.create({
+    message: msg,
+    icon: 'icon-eva-message-circle-outline',
+    position: 'center',
+    color: 'primary',
+    actions: [
+      { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
+    ]
+  })
+}
 
 const waitLoad = (cond) => {
   if (cond === 'show') {
@@ -100,4 +111,11 @@ const uniqueId = () => {
   return dateString + randomness
 }
 
-export { notifSuccess, notifErr, notifErrVue, waitLoad, uniqueId }
+export {
+  notifSuccess,
+  notifErr,
+  notifErrVue,
+  waitLoad,
+  uniqueId,
+  notifCenterVue
+}
