@@ -6,7 +6,7 @@
       </div>
       <div class="col-10">
         <div v-if="table.selected">
-          <router-view />
+          <TablePage />
         </div>
         <div v-else>
           <q-card>
@@ -21,5 +21,7 @@
 import { useHistoryTable } from 'src/stores/history/table'
 import MenuPage from './MenuPage.vue'
 import NoSelectPage from './NoSelectPage.vue'
+import TablePage from './TablePage.vue'
 const table = useHistoryTable()
+table.setColumns()
 </script>

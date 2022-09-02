@@ -4,6 +4,10 @@ const dateDbFormat = (val) => {
   return date.formatDate(val, 'YYYY-MM-DD')
 }
 
+const dateFormat = (val) => {
+  return date.formatDate(val, 'DD-MM-YYYY')
+}
+
 const formatRp = (value) => {
   if (value !== null) {
     return 'Rp. ' + Number(value)
@@ -65,4 +69,13 @@ const isHas = (test, val) => {
   } else { return val }
 }
 
-export { dateDbFormat, formatRp, formatDouble, formatMoney, hurufBesar, olahUang, isHas }
+export {
+  dateDbFormat,
+  formatRp,
+  formatDouble,
+  formatMoney,
+  hurufBesar,
+  olahUang,
+  isHas,
+  dateFormat
+}

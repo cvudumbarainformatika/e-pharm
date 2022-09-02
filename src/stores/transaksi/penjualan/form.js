@@ -47,7 +47,8 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
   }),
   actions: {
     resetData() {
-      // this.form.id = null
+      this.form = {}
+      this.form.nama = 'PENJUALAN'
       this.form.faktur = null
       this.form.reff = null
       this.form.tanggal = null

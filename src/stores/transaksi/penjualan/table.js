@@ -120,6 +120,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     // local relaated functions
 
     resetData() {
+      this.form = {}
+      this.form.nama = 'PENJUALAN'
       this.params.transaction_id = null
       this.form.reff = null
       this.form.customer_id = null

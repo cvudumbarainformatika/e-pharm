@@ -60,12 +60,14 @@ import LeftDrawer from './LeftDrawer.vue'
 import AdmHeader from './AdmHeader.vue'
 import AdmFooterMenu from './AdmFooterMenu.vue'
 import { useAuthStore } from 'src/stores/auth'
+import { useHistoryTable } from 'src/stores/history/table'
 
 const store = useAuthStore()
 const leftDrawerOpen = ref(false)
 const rightDrawerOpen = ref(false)
 const $q = useQuasar()
 const mobile = $q.screen.lt.md
+const history = useHistoryTable()
 
 const dark = computed(() => {
   return $q.dark.isActive
@@ -74,6 +76,7 @@ const dark = computed(() => {
 function setDark(val) {
   const x = !val
   $q.dark.set(x)
+  history.dark = x
 }
 
 function toggleLeftDrawer() {

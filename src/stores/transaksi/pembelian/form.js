@@ -43,6 +43,8 @@ export const usePembelianDialog = defineStore('pembelian_store', {
   }),
   actions: {
     resetData() {
+      this.form = {}
+      this.form.nama = 'PEMBELIAN'
       this.form.id = null
       this.form.faktur = null
       this.form.reff = null

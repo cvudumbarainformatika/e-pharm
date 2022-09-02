@@ -121,6 +121,8 @@ export const usePembelianTable = defineStore('pembelian_table', {
   actions: {
     // local relaated functions
     resetData() {
+      this.form = {}
+      this.form.nama = 'PEMBELIAN'
       this.params.transaction_id = null
       this.form.faktur = null
       this.form.reff = null
