@@ -8,6 +8,7 @@
       row-key="id"
       binary-state-sort
       :loading="table.loading"
+      hide-pagination
     >
       <!-- Top Slot -->
       <!-- <template #top>
@@ -188,7 +189,17 @@
           </div>
         </q-inner-loading>
       </template>
+      <!-- <template #pagination="scope"> -->
     </q-table>
+    <!-- Pagination -->
+    <AppPaginationTable
+      v-if="table.rows.length > 0"
+      :meta="table.meta"
+      @first="table.goTo(1)"
+      @last="table.goTo(table.meta.last_page)"
+      @next="table.goTo(table.meta.current_page + 1)"
+      @prev="table.goTo(table.meta.current_page - 1)"
+    />
   </div>
 </template>
 <script setup>

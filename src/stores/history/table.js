@@ -14,7 +14,7 @@ export const useHistoryTable = defineStore('history_table', {
     params: {
       q: '',
       page: 1,
-      per_page: 10,
+      per_page: 5,
       order_by: 'created_at',
       sort: 'desc'
     }
@@ -83,6 +83,11 @@ export const useHistoryTable = defineStore('history_table', {
       const slug = val.row.reff
       routerInstance.replace({ name, params: { slug } })
       console.log('open ', val)
+    },
+    // paginasi
+    goTo(val) {
+      this.params.page = val
+      this.getDataTransactions()
     },
     // api related function
 
