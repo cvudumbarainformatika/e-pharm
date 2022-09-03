@@ -33,11 +33,12 @@ import { ref } from 'vue'
 
 const items = ref([
   { id: 0, name: 'Seluruhnya', value: 'all', icon: 'icon-mat-density_small' },
-  { id: 1, name: 'Pembelian', value: 'PEMBELIAN', icon: 'icon-mat-inventory_2' },
-  { id: 2, name: 'Penjualan', value: 'PENJUALAN', icon: 'icon-mat-shopping_bag' },
-  { id: 3, name: 'Transaksi Penerimaan', value: 'PENERIMAAN', icon: 'icon-mat-account_balance_wallet' },
-  { id: 4, name: 'Beban Biaya', value: 'BEBAN', icon: 'icon-mat-payment' },
-  { id: 5, name: 'Retur', value: 'RETUR', icon: 'icon-mat-assignment_return' }
+  { id: 1, name: 'Draft', value: 'draft', icon: 'icon-mat-insert_drive_file' },
+  { id: 2, name: 'Pembelian', value: 'PEMBELIAN', icon: 'icon-mat-inventory_2' },
+  { id: 3, name: 'Penjualan', value: 'PENJUALAN', icon: 'icon-mat-shopping_bag' },
+  { id: 4, name: 'Transaksi Penerimaan', value: 'PENERIMAAN', icon: 'icon-mat-account_balance_wallet' },
+  { id: 5, name: 'Beban Biaya', value: 'BEBAN', icon: 'icon-mat-payment' },
+  { id: 6, name: 'Retur', value: 'RETUR', icon: 'icon-mat-assignment_return' }
 ])
 const table = useHistoryTable()
 </script>

@@ -1,6 +1,8 @@
 import { defineStore } from 'pinia'
+import { Dialog } from 'quasar'
 import { api } from 'src/boot/axios'
 import { routerInstance } from 'src/boot/router'
+import { notifSuccess } from 'src/modules/utils'
 
 export const useHistoryTable = defineStore('history_table', {
   state: () => ({
@@ -9,6 +11,7 @@ export const useHistoryTable = defineStore('history_table', {
     columns: [],
     meta: {},
     nama: '',
+    title: '',
     loading: false,
     selected: false,
     params: {
@@ -69,12 +72,27 @@ export const useHistoryTable = defineStore('history_table', {
     pilihTransaksi(val) {
       this.selected = true
       this.nama = val.value
+      this.title = val.name
       this.params.nama = val.value
       console.log('dipilih ', val)
       this.getDataTransactions()
     },
     // dari icon delete
     clicked(val) {
+      const params = val.row
+      Dialog.create({
+        title: 'Konfirmasi',
+        message: `Apakah Transaksi :<strong> ${params.nama.toLowerCase()}</strong> dengan nomor Nota :<strong> ${params.reff}</strong> akan di hapus?`,
+        cancel: true,
+        html: true
+      })
+        .onOk(() => {
+          this.rows = []
+          this.deleteTransaction(params)
+        })
+        .onCancel(() => {
+          console.log('cancel')
+        })
       console.log(val)
     },
     // dari icon buka
@@ -88,6 +106,36 @@ export const useHistoryTable = defineStore('history_table', {
     goTo(val) {
       this.params.page = val
       this.getDataTransactions()
+    },
+    // cari nama
+    cariDraft(val) {
+
+    },
+    // search
+    getSearchData() {
+      this.params.nama = 'all'
+      this.title = null
+      this.getDataTransactions().then(() => {
+        this.params.q = ''
+      })
+    },
+    // hapus draft
+    deleteDraft(val) {
+      console.log(val)
+      Dialog.create({
+        title: 'Konfirmasi',
+        message: `Apakah Semua Draft Transaksi :<strong> ${this.title}</strong> akan di hapus?`,
+        cancel: true,
+        html: true
+      })
+        .onOk(() => {
+          this.rows = []
+          const params = { params: this.params }
+          this.deleteDraftTransaction(params)
+        })
+        .onCancel(() => {
+          console.log('cancel')
+        })
     },
     // api related function
 
@@ -105,6 +153,38 @@ export const useHistoryTable = defineStore('history_table', {
               console.log('history ', resp.data)
               resolve(resp.data.data)
             }
+          })
+          .catch(err => {
+            this.loading = false
+            reject(err)
+          })
+      })
+    },
+    deleteTransaction(params) {
+      this.loading = true
+      return new Promise((resolve, reject) => {
+        api.post('v1/transaksi/destroy', params)
+          .then(resp => {
+            this.loading = false
+            notifSuccess(resp)
+            this.getDataTransactions()
+            resolve(resp)
+          })
+          .catch(err => {
+            this.loading = false
+            reject(err)
+          })
+      })
+    },
+    deleteDraftTransaction(params) {
+      this.loading = true
+      return new Promise((resolve, reject) => {
+        api.get('v1/transaksi/destroy-draft', params)
+          .then(resp => {
+            this.loading = false
+            notifSuccess(resp)
+            this.getDataTransactions()
+            resolve(resp)
           })
           .catch(err => {
             this.loading = false

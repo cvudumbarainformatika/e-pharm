@@ -11,9 +11,39 @@
       hide-pagination
     >
       <!-- Top Slot -->
-      <!-- <template #top>
-        <div />
-      </template> -->
+      <template #top>
+        <div
+          v-if="table.title!==null"
+          class="q-pl-sm"
+        >
+          <app-btn
+            color="negative"
+            :label="`Hapus Draft : ${table.title}`"
+            icon="icon-mat-delete_filled"
+            :loading="table.loading"
+            @click="table.deleteDraft(table.title)"
+          />
+        </div>
+        <div class="q-pl-sm">
+          <q-input
+            v-model="table.params.q"
+            class="search-big"
+            borderless
+            debounce="500"
+            clearable
+            dense
+            placeholder="Search..."
+            @keyup.enter="table.getSearchData"
+          >
+            <template #prepend>
+              <q-icon
+                name="icon-mat-search"
+                size="20px"
+              />
+            </template>
+          </q-input>
+        </div>
+      </template>
 
       <template #body-cell-id="props">
         <q-td

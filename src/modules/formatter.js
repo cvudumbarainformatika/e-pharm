@@ -5,7 +5,7 @@ const dateDbFormat = (val) => {
 }
 
 const dateFormat = (val) => {
-  return date.formatDate(val, 'DD-MM-YYYY')
+  return date.formatDate(val, 'DD MMM YYYY')
 }
 
 const formatRp = (value) => {
