@@ -7,6 +7,9 @@ const dateDbFormat = (val) => {
 const dateFormat = (val) => {
   return date.formatDate(val, 'DD MMM YYYY')
 }
+const dateExpire = (val) => {
+  return date.formatDate(val, 'DD MM YYYY')
+}
 
 const formatRp = (value) => {
   if (value !== null) {
@@ -77,5 +80,6 @@ export {
   hurufBesar,
   olahUang,
   isHas,
-  dateFormat
+  dateFormat,
+  dateExpire
 }

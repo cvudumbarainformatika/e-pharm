@@ -90,6 +90,18 @@
               @on-select="table.produkSelected"
             />
           </q-td>
+          <!-- expired -->
+          <!-- <q-td>
+            <app-autocomplete-new
+              v-model="table.form.expired"
+              dense
+              label=" "
+              autocomplete="name"
+              option-value="value"
+              option-label="name"
+              :source="table.expireds"
+            />
+          </q-td> -->
           <q-td>
             <app-input
               v-model="table.form.qty"

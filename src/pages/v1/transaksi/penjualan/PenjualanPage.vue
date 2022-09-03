@@ -47,6 +47,7 @@ onMounted(() => {
     })
   })
   table.ambilDataProduk()
+  // table.getDataExpired() // ambil data expired coment dulu
 })
 
 // const uId = ref('')

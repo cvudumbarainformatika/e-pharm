@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
 import { waitLoad } from 'src/modules/utils'
-import { formatRp, olahUang } from 'src/modules/formatter'
+import { dateExpire, formatRp, olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
 import { usePenjualanDialog } from './form'
 import { routerInstance } from 'src/boot/router'
@@ -37,6 +37,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       sub_total: 0,
       nama: 'PENJUALAN',
       customer_id: null,
+      expired: null,
       dokter_id: null
     },
     produks: [],
@@ -44,6 +45,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     dokters: [],
     distributor: '',
     dokter: '',
+    expireds: [],
     columns: [
       {
         name: 'id',
@@ -59,6 +61,12 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         label: 'Produk',
         field: (row) => row.product.nama
       },
+      // {
+      //   name: 'expired',
+      //   align: 'left',
+      //   label: 'Expired',
+      //   field: (row) => dateExpire(row.expired)
+      // },
       { name: 'qty', align: 'left', label: 'Qty', field: 'qty' },
       {
         name: 'harga',
@@ -132,6 +140,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.harga_jual_resep = 0
       this.form.harga_jual_cust = 0
       this.form.qty = 0
+      this.form.expired = null
       this.form.harga = 0
       this.form.total = 0
       this.form.sub_total = 0
@@ -211,6 +220,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.harga_jual_umum = 0
       this.form.harga_jual_resep = 0
       this.form.qty = 0
+      this.form.expired = ''
     },
     onEnter() {
       const store = usePenjualanDialog()
@@ -328,14 +338,6 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         })
       console.log('dokter ', val)
     },
-    cariDistributor(val) {
-      // this.ambilDataDistributor()
-      console.log('cari Distributor ', val)
-    },
-    cariDokter(val) {
-      // this.ambilDataDokter()
-      console.log('cari Dokter ', val)
-    },
     setDokterOrDistributor() {
       if (this.form.dokter_id !== null) {
         const dokter = this.dokters.filter((data) => {
@@ -357,6 +359,33 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       store.form = value
       this.form = value
     },
+    setExpire(val) {
+      const temp = []
+      val.will_expire.forEach((data, index) => {
+        temp[index] = { name: dateExpire(data), value: data }
+      })
+      this.expireds = temp
+      console.log('set expire ', temp)
+    },
+    // api related function
+    // ambil data expired
+    getDataExpired() {
+      return new Promise((resolve, reject) => {
+        api.get('v1/transaksi/expired')
+          .then(resp => {
+            console.log('expired', resp.data)
+            if (resp.status === 200) {
+              const data = resp.data
+              this.setExpire(data)
+              resolve(data)
+            }
+          })
+          .catch(err => {
+            reject(err)
+          })
+      })
+    },
+    // ambil data transaksi
     getDetailTransaksi(val) {
       // console.log('get detail transaksi ', val)
       this.loading = true
@@ -399,6 +428,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       data.harga = olahUang(this.form.harga)
       data.qty = this.form.qty
       data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga)
+      if (this.form.expired !== null) { data.expired = this.form.expired }
 
       console.log('form penjualan', data)
       waitLoad('show')
