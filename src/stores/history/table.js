@@ -74,7 +74,7 @@ export const useHistoryTable = defineStore('history_table', {
       this.nama = val.value
       this.title = val.name
       this.params.nama = val.value
-      console.log('dipilih ', val)
+      // console.log('dipilih ', val)
       this.getDataTransactions()
     },
     // dari icon delete
@@ -93,14 +93,14 @@ export const useHistoryTable = defineStore('history_table', {
         .onCancel(() => {
           console.log('cancel')
         })
-      console.log(val)
+      // console.log(val)
     },
     // dari icon buka
     openTransaction(val) {
       const name = val.row.nama.toLowerCase()
       const slug = val.row.reff
       routerInstance.replace({ name, params: { slug } })
-      console.log('open ', val)
+      // console.log('open ', val)
     },
     // paginasi
     goTo(val) {
@@ -121,7 +121,7 @@ export const useHistoryTable = defineStore('history_table', {
     },
     // hapus draft
     deleteDraft(val) {
-      console.log(val)
+      // console.log(val)
       Dialog.create({
         title: 'Konfirmasi',
         message: `Apakah Semua Draft Transaksi :<strong> ${this.title}</strong> akan di hapus?`,
@@ -134,7 +134,7 @@ export const useHistoryTable = defineStore('history_table', {
           this.deleteDraftTransaction(params)
         })
         .onCancel(() => {
-          console.log('cancel')
+          // console.log('cancel')
         })
     },
     // api related function
@@ -150,7 +150,7 @@ export const useHistoryTable = defineStore('history_table', {
             if (resp.status === 200) {
               this.rows = resp.data.data
               this.meta = resp.data.meta
-              console.log('history ', resp.data)
+              // console.log('history ', resp.data)
               resolve(resp.data.data)
             }
           })

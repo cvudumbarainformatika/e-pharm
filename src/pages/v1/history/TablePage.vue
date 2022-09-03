@@ -9,6 +9,8 @@
       binary-state-sort
       :loading="table.loading"
       hide-pagination
+      hide-header
+      separator="horizontal"
     >
       <!-- Top Slot -->
       <template #top>
@@ -43,6 +45,7 @@
             </template>
           </q-input>
         </div>
+        <q-separator />
       </template>
       <!-- body slot -->
       <template #body="props">
@@ -170,7 +173,9 @@
           :props="props"
         >
           <q-td>
-            <div class="text-left" />
+            <div class="text-left">
+              <!-- {{ props.row.nama }} -->
+            </div>
           </q-td>
 
           <q-td>
@@ -217,7 +222,7 @@
         </q-tr>
         <q-tr
           v-show="props.expand"
-          v-if="props.row.nama=== 'PENERIMAAN'"
+          v-if="props.row.nama === 'PENERIMAAN'"
           :props="props"
         >
           <q-td>
@@ -341,6 +346,7 @@ import { useHistoryTable } from 'src/stores/history/table'
 import { dateFormat, formatRp } from 'src/modules/formatter'
 
 const getTotal = (val) => {
+  if (val === undefined) { return }
   if (val.length >= 1) {
     const subTotal = []
     val.forEach((data, index) => {

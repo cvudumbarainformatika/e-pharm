@@ -64,7 +64,10 @@
           </div>
         </div>
         <q-separator class="q-my-md" />
-        <q-form @submit="onSubmit">
+        <q-form
+          @submit="onSubmit"
+          @reset="onReset"
+        >
           <div>
             <div class="row q-col-gutter-sm">
               <div class="col-md-3 col-xs-12">
@@ -130,9 +133,15 @@
           <div>
             <div class="text-right">
               <app-btn
+                type="reset"
+                color="dark"
+                label="Batal"
+                class="q-mr-md"
+              />
+              <app-btn
                 type="submit"
                 color="primary"
-                label="kirim"
+                label="Kirim"
                 :loading="store.loading"
               />
             </div>
@@ -159,6 +168,9 @@ const onSubmit = () => {
   store.saveForm().then(() => {
     model.value = null
   })
+}
+const onReset = () => {
+  model.value = null
 }
 async function filterOptions(val, update) {
   if (!val) {
