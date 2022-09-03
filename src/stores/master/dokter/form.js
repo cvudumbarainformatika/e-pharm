@@ -64,7 +64,7 @@ export const useDokterFormStore = defineStore('dokter_form', {
         api
           .post('v1/dokter/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data', resp)
             notifSuccess(resp)
             const table = useDokterTable()
             table.getDataTable()

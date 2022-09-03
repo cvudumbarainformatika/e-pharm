@@ -37,7 +37,7 @@ export const useSupplierTable = defineStore('supplier_table', {
       this.getDataTable()
     },
     setPage(payload) {
-      console.log('setPage', payload)
+      // console.log('setPage', payload)
       this.params.page = payload
       this.getDataTable()
     },
@@ -68,7 +68,7 @@ export const useSupplierTable = defineStore('supplier_table', {
           .get('v1/supplier/index', params)
           .then((resp) => {
             waitLoad('done')
-            console.log(resp)
+            // console.log(resp)
             if (resp.status === 200) {
               this.items = resp.data.data
               this.meta = resp.data.meta
@@ -90,7 +90,7 @@ export const useSupplierTable = defineStore('supplier_table', {
         api
           .post('v1/supplier/destroy', params)
           .then((resp) => {
-            console.log(resp)
+            // console.log(resp)
             notifSuccess(resp)
             this.loading = false
             this.getDataTable()

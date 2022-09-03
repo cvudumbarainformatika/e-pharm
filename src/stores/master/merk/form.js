@@ -46,7 +46,7 @@ export const useMerkFormStore = defineStore('merk_form', {
     editData(val) {
       this.edited = true
       const keys = Object.keys(val)
-      console.log(keys)
+      // console.log(keys)
       keys.forEach((key, index) => {
         this.setForm(key, val[key])
       })
@@ -79,7 +79,7 @@ export const useMerkFormStore = defineStore('merk_form', {
         .onCancel(() => {
           console.log('Cancel')
         })
-      console.log('val kategori', val)
+      // console.log('val kategori', val)
     },
     // -------------------
 
@@ -92,7 +92,7 @@ export const useMerkFormStore = defineStore('merk_form', {
         api
           .post('v1/merk/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data', resp)
             notifSuccess(resp)
             const table = useMerkTable()
             table.getDataTable()

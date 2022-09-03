@@ -79,7 +79,7 @@ export const useSatuanFormStore = defineStore('satuan_form', {
         .onCancel(() => {
           console.log('Cancel')
         })
-      console.log('val', val)
+      // console.log('val', val)
     },
     /// ///////////////////////
     // tambah
@@ -91,7 +91,7 @@ export const useSatuanFormStore = defineStore('satuan_form', {
         api
           .post('v1/satuan/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data', resp)
             notifSuccess(resp)
             const table = useSatuanStore()
             table.getSatuan()

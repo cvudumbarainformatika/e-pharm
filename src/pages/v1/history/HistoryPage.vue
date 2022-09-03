@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page class="q-mb-lg q-pb-lg">
     <div class="row">
       <div class="col-2">
         <MenuPage />

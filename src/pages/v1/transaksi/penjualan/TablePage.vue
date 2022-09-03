@@ -286,6 +286,6 @@ const newTransaction = () => {
   table.getDetailTransaksi(slug)
   // store.form.reff = slug
   // table.form.reff = slug
-  console.log('save as draft')
+  // console.log('save as draft')
 }
 </script>

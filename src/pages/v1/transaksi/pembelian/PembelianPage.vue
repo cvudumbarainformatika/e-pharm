@@ -28,7 +28,7 @@ onBeforeMount(() => {
   const slug = 'PBL-' + uniqueId()
   const oldSlug = routerInstance.currentRoute.value.params.slug
 
-  console.log('slug depan', slug)
+  // console.log('slug depan', slug)
   table.getDetailTransaksi().then(data => {
     if (data !== undefined) {
       routerInstance.replace({ name: 'pembelian', params: { slug: oldSlug } })

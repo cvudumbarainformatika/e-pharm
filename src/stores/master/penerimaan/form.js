@@ -53,33 +53,6 @@ export const usePenerimaanFormStore = defineStore('penerimaan_form', {
       this.isOpen = !this.isOpen
     },
     // api related actions
-    // dari autocomplete
-    // addKategori(val) {
-    //   Dialog.create({
-    //     title: "Konfirmasi",
-    //     message: `Apakah <strong>Kategori: ${val}</strong> Akan ditambahkan?`,
-    //     cancel: true,
-    //     html: true,
-    //     // persistent: true
-    //   })
-    //     .onOk(() => {
-    //       waitLoad("show");
-    //       this.setForm("nama", val);
-    //       const produk = useProdukFormStore();
-    //       this.saveForm()
-    //         .then(() => {
-    //           produk.ambilDatakategori();
-    //           waitLoad("done");
-    //         })
-    //         .catch(() => {
-    //           waitLoad("done");
-    //         });
-    //     })
-    //     .onCancel(() => {
-    //       console.log("Cancel");
-    //     });
-    //   console.log("val kategori", val);
-    // },
     // -------------------
 
     // tambah
@@ -91,7 +64,7 @@ export const usePenerimaanFormStore = defineStore('penerimaan_form', {
         api
           .post('v1/penerimaan/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data', resp)
             notifSuccess(resp)
             const table = usePenerimaanTable()
             table.getDataTable()

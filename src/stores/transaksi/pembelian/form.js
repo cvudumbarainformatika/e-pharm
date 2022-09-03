@@ -79,8 +79,8 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     kembalian() {
       const bayar = olahUang(this.form.bayar)
       this.form.kembali = bayar - olahUang(this.totalSemua)
-      console.log('bayar ', bayar, ' total semua ', this.totalSemua)
-      console.log('kembali ', this.form.kembali)
+      // console.log('bayar ', bayar, ' total semua ', this.totalSemua)
+      // console.log('kembali ', this.form.kembali)
     },
     openDialog() {
       const table = usePembelianTable()
@@ -96,10 +96,10 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     },
     searchSupplier(val) {
       this.ambilDataSupplier(val)
-      console.log(val)
+      // console.log(val)
     },
     jenisSelected(val) {
-      console.log('jenis selected ', val)
+      // console.log('jenis selected ', val)
       if (val === 'tunai') {
         this.ambilDataKasir()
         this.form.supplier_id = null
@@ -123,7 +123,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
           .get('v1/supplier/index', params)
           .then((resp) => {
             this.loading = false
-            console.log('suppliers ', resp)
+            // console.log('suppliers ', resp)
             if (resp.status === 200) {
               this.suppliers = resp.data.data
               resolve(resp.data)
@@ -148,14 +148,14 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       this.form.bayar = bayar
       this.form.kembali = kembali
       this.form.status = 1
-      console.log('form', this.form)
+      // console.log('form', this.form)
       this.loading = true
       return new Promise((resolve, reject) => {
         api
           .post('v1/transaksi/store', this.form)
           .then((resp) => {
             this.loading = false
-            console.log('transaksi ', resp)
+            // console.log('transaksi ', resp)
             const table = usePembelianTable()
             if (resp.status === 201) {
               notifSuccess(resp)

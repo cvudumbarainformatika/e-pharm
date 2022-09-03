@@ -37,7 +37,7 @@ export const useProdukTable = defineStore('produk_table', {
       this.getDataTable()
     },
     setPage(payload) {
-      console.log('setPage', payload)
+      // console.log('setPage', payload)
       this.params.page = payload
       this.getDataTable()
     },
@@ -90,7 +90,7 @@ export const useProdukTable = defineStore('produk_table', {
         api
           .post('v1/produk/destroy', params)
           .then((resp) => {
-            console.log(resp)
+            // console.log(resp)
             notifSuccess(resp)
             this.loading = false
             this.getDataTable()

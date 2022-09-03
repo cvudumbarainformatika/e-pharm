@@ -132,7 +132,7 @@ export const useProdukFormStore = defineStore('produk_form', {
         api
           .post('v1/produk/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data', resp)
             notifSuccess(resp)
             const table = useProdukTable()
             table.getDataTable()

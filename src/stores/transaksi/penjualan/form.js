@@ -86,8 +86,8 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     kembalian() {
       const bayar = olahUang(this.form.bayar)
       this.form.kembali = bayar - olahUang(this.totalSemua)
-      console.log('bayar ', bayar, ' total semua ', this.totalSemua)
-      console.log('kembali ', this.form.kembali)
+      // console.log('bayar ', bayar, ' total semua ', this.totalSemua)
+      // console.log('kembali ', this.form.kembali)
     },
     openDialog() {
       const table = usePenjualanTable()
@@ -107,10 +107,10 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     },
     searchSupplier(val) {
       this.ambilDataSupplier(val)
-      console.log(val)
+      // console.log(val)
     },
     jenisSelected(val) {
-      console.log('jenis selected ', val)
+      // console.log('jenis selected ', val)
       if (val === 'tunai') {
         this.piutang = false
       } else {
@@ -157,14 +157,14 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.bayar = bayar
       this.form.kembali = kembali
       this.form.status = 1
-      console.log('form', this.form)
+      // console.log('form', this.form)
       this.loading = true
       return new Promise((resolve, reject) => {
         api
           .post('v1/transaksi/store', this.form)
           .then((resp) => {
             this.loading = false
-            console.log('transaksi ', resp)
+            // console.log('transaksi ', resp)
             const table = usePenjualanTable()
             if (resp.status === 201) {
               notifSuccess(resp)

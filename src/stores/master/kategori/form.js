@@ -76,7 +76,7 @@ export const useKategoriFormStore = defineStore('kategori_form', {
         .onCancel(() => {
           console.log('Cancel')
         })
-      console.log('val kategori', val)
+      // console.log('val kategori', val)
     },
     // -------------------
 
@@ -89,7 +89,7 @@ export const useKategoriFormStore = defineStore('kategori_form', {
         api
           .post('v1/kategori/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data', resp)
             notifSuccess(resp)
             const table = useKategoriTable()
             table.getDataTable()

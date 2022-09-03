@@ -174,17 +174,17 @@ export const usePembelianTable = defineStore('pembelian_table', {
     },
 
     setTotal() {
-      console.log('rows ', this.rows)
+      // console.log('rows ', this.rows)
       if (this.rows !== undefined) {
         const subTotal = []
         this.rows.forEach((val, index) => {
           subTotal[index] = val.harga * val.qty
         })
-        console.log('sub total', subTotal)
+        // console.log('sub total', subTotal)
         const total = subTotal.reduce((total, num) => {
           return total + num
         })
-        console.log('sum total', total)
+        // console.log('sum total', total)
         this.form.total = total
       }
     },
@@ -202,25 +202,25 @@ export const usePembelianTable = defineStore('pembelian_table', {
         .onCancel(() => {
           console.log('cancel')
         })
-      console.log('params ', params)
-      console.log('val ', val.row.id)
+      // console.log('params ', params)
+      // console.log('val ', val.row.id)
     },
 
     setColumns(payload) {
       const thumb = payload.map((x) => Object.keys(x))
       const temp = thumb[0]
       this.columnHide.forEach((hide) => {
-        console.log('hide', hide)
+        // console.log('hide', hide)
         const apem = temp.indexOf(hide)
         if (apem > -1) {
           temp.splice(apem, 1)
         }
       })
-      console.log('temp ', temp)
+      // console.log('temp ', temp)
       const tTemp = []
       temp.forEach((val, index) => {
-        console.log('val ', val, ' index ', index)
-        console.log('temp ', val)
+        // console.log('val ', val, ' index ', index)
+        // console.log('temp ', val)
         tTemp[index] = Object.assign({
           name: val,
           align: 'left',
@@ -230,7 +230,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       })
       this.columns = tTemp
 
-      console.log('columns', tTemp)
+      // console.log('columns', tTemp)
     },
     // api related functions
     // get from another pinia file
@@ -266,7 +266,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
             this.loading = false
-            console.log('pembelian ', resp.data.data[0])
+            // console.log('pembelian ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
                 this.setForm(resp.data.data[0])
@@ -300,7 +300,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
           .post('v1/transaksi/store', data)
           .then((resp) => {
             this.loading = false
-            console.log('save detail ', resp)
+            // console.log('save detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
             this.resetInput()
@@ -318,7 +318,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
           .post('v1/detail-transaksi/destroy', params)
           .then((resp) => {
             waitLoad('done')
-            console.log('hapus detail ', resp)
+            // console.log('hapus detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
           })

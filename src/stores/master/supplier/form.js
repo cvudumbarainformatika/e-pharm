@@ -24,7 +24,7 @@ export const useSupplierFormStore = defineStore('supplier_form', {
       const getPerus = usePerusahaanTable()
       getPerus.getDataTable().then(resp => {
         this.perusahaans = resp
-        console.log('perusahaan', resp)
+        // console.log('perusahaan', resp)
       })
     },
     // local related actions
@@ -75,7 +75,7 @@ export const useSupplierFormStore = defineStore('supplier_form', {
         api
           .post('v1/supplier/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data', resp)
             notifSuccess(resp)
             const table = useSupplierTable()
             table.getDataTable()

@@ -37,7 +37,7 @@ export const useSatuanStore = defineStore('satuan', {
       this.getSatuan()
     },
     setPage(payload) {
-      console.log('setPage', payload)
+      // console.log('setPage', payload)
       this.params.page = payload
       this.getSatuan()
     },
@@ -77,7 +77,7 @@ export const useSatuanStore = defineStore('satuan', {
             }
           })
           .catch((err) => {
-            console.log(err)
+            // console.log(err)
             waitLoad('done')
             reject(err)
           })
@@ -91,14 +91,14 @@ export const useSatuanStore = defineStore('satuan', {
         api
           .post('v1/satuan/destroy', params)
           .then((resp) => {
-            console.log(resp)
+            // console.log(resp)
             notifSuccess(resp)
             waitLoad('done')
             this.getSatuan()
             resolve(resp)
           })
           .catch((err) => {
-            console.log(err)
+            // console.log(err)
             waitLoad('done')
             reject(err)
           })

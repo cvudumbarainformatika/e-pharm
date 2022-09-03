@@ -91,7 +91,7 @@ export const useBebanFormStore = defineStore('beban_form', {
         api
           .post('v1/beban/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data', resp)
             notifSuccess(resp)
             const table = useBebanTable()
             table.getDataTable()

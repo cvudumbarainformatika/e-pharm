@@ -77,7 +77,7 @@ export const useRakFormStore = defineStore('rak_form', {
         .onCancel(() => {
           console.log('Cancel')
         })
-      console.log('val rak ', val)
+      // console.log('val rak ', val)
     },
     // -------------------
 
@@ -90,7 +90,7 @@ export const useRakFormStore = defineStore('rak_form', {
         api
           .post('v1/rak/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data', resp)
             notifSuccess(resp)
             const table = useRakTable()
             table.getDataTable()

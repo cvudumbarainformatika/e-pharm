@@ -72,7 +72,7 @@ export const useCustomerFormStore = defineStore('customer_form', {
         api
           .post('v1/customer/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data   ', resp)
             notifSuccess(resp)
             const table = useCustomerTable()
             table.getDataTable()

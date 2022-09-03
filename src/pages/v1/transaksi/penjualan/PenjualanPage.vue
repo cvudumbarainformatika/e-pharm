@@ -28,7 +28,7 @@ onMounted(() => {
   const slug = 'PJL-' + uniqueId()
   const oldSlug = routerInstance.currentRoute.value.params.slug
 
-  console.log('slug depan', slug)
+  // console.log('slug depan', slug)
   table.ambilDataDistributor().then(() => {
     table.ambilDataDokter().then(() => {
       table.getDetailTransaksi().then(data => {

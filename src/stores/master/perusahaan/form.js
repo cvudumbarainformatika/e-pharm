@@ -78,7 +78,7 @@ export const usePerusahaanFormStore = defineStore('perusahaan_form', {
         .onCancel(() => {
           console.log('Cancel')
         })
-      console.log('val Perusahaan', val)
+      // console.log('val Perusahaan', val)
     },
     // -------------------
 
@@ -91,7 +91,7 @@ export const usePerusahaanFormStore = defineStore('perusahaan_form', {
         api
           .post('v1/perusahaan/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data', resp)
             notifSuccess(resp)
             const table = usePerusahaanTable()
             table.getDataTable()

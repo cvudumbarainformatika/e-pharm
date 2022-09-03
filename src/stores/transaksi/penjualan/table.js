@@ -149,7 +149,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.distributor = ''
     },
     dokterSelected(val) {
-      console.log('dokter ', val)
+      // console.log('dokter ', val)
       const store = usePenjualanDialog()
       const apem = this.dokters
       if (val !== null) {
@@ -157,16 +157,16 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           return data.id === val
         })
         this.dokter = dokter[0].nama
-        console.log('dokter ', dokter[0])
+        // console.log('dokter ', dokter[0])
       } else {
         this.dokter = ''
       }
       store.form.dokter_id = val
       this.dokterOrDistSelected()
-      console.log('form ', store.form)
+      // console.log('form ', store.form)
     },
     distributorSelected(val) {
-      console.log('distributor ', val)
+      // console.log('distributor ', val)
       const store = usePenjualanDialog()
       const apem = this.distributors
       if (val !== null) {
@@ -174,16 +174,15 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           return data.id === val
         })
         this.distributor = distributor[0].nama
-        console.log('distributor  ', distributor[0])
+        // console.log('distributor  ', distributor[0])
       } else {
         this.distributor = ''
       }
       store.form.customer_id = val
       this.dokterOrDistSelected()
-      console.log('form  ', store.form)
+      // console.log('form  ', store.form)
     },
     dokterOrDistSelected() {
-      // console.log('dokter / dist ', val)
       if (this.form.customer_id !== null) {
         this.form.harga = this.form.harga_jual_cust
       } else if (this.form.dokter_id !== null) {
@@ -211,7 +210,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       } else {
         this.form.harga = this.form.harga_jual_umum
       }
-      console.log('row ', this.rows.length)
+      // console.log('row ', this.rows.length)
     },
     resetInput() {
       this.form.product_id = ''
@@ -230,17 +229,17 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     },
 
     setTotal() {
-      console.log('rows ', this.rows)
+      // console.log('rows ', this.rows)
       if (this.rows !== undefined) {
         const subTotal = []
         this.rows.forEach((val, index) => {
           subTotal[index] = val.harga * val.qty
         })
-        console.log('sub total', subTotal)
+        // console.log('sub total', subTotal)
         const total = subTotal.reduce((total, num) => {
           return total + num
         })
-        console.log('sum total', total)
+        // console.log('sum total', total)
         this.form.total = total
       }
     },
@@ -256,10 +255,10 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           this.hapusDetailTransaksi(params)
         })
         .onCancel(() => {
-          console.log('cancel')
+          // console.log('cancel')
         })
-      console.log('params ', params)
-      console.log('val ', val.row.id)
+      // console.log('params ', params)
+      // console.log('val ', val.row.id)
     },
 
     // api related functions
@@ -276,12 +275,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       return new Promise((resolve) => {
         dist.getDataTable().then((resp) => {
           this.distributors = resp
-          console.log(
-            'distributor',
-            this.form.customer_id,
-            ' distributors ',
-            this.distributors
-          )
+          // console.log('distributor',this.form.customer_id,' distributors ',this.distributors)
           resolve(resp)
         })
       })
@@ -291,7 +285,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       return new Promise((resolve) => {
         dokter.getDataTable().then((resp) => {
           this.dokters = resp
-          console.log('dokter', this.form.dokter_id, ' dokters ', this.dokters)
+          // console.log('dokter', this.form.dokter_id, ' dokters ', this.dokters)
           resolve(resp)
         })
       })
@@ -313,9 +307,9 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           })
         })
         .onCancel(() => {
-          console.log('cancel')
+          // console.log('cancel')
         })
-      console.log('distributor ', val)
+      // console.log('distributor ', val)
     },
     addDokter(val) {
       const store = useDokterFormStore()
@@ -336,7 +330,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         .onCancel(() => {
           console.log('cancel')
         })
-      console.log('dokter ', val)
+      // console.log('dokter ', val)
     },
     setDokterOrDistributor() {
       if (this.form.dokter_id !== null) {
@@ -344,14 +338,14 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           return data.id === this.form.dokter_id
         })
         this.dokter = dokter[0].nama
-        console.log('dokter ', dokter[0].nama)
+        // console.log('dokter ', dokter[0].nama)
       }
       if (this.form.customer_id !== null) {
         const dist = this.distributors.filter((data) => {
           return data.id === this.form.customer_id
         })
         this.distributor = dist[0].nama
-        console.log('dist ', dist[0].nama)
+        // console.log('dist ', dist[0].nama)
       }
     },
     setForm(value) {
@@ -365,7 +359,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         temp[index] = { name: dateExpire(data), value: data }
       })
       this.expireds = temp
-      console.log('set expire ', temp)
+      // console.log('set expire ', temp)
     },
     // api related function
     // ambil data expired
@@ -373,7 +367,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       return new Promise((resolve, reject) => {
         api.get('v1/transaksi/expired')
           .then(resp => {
-            console.log('expired', resp.data)
+            // console.log('expired', resp.data)
             if (resp.status === 200) {
               const data = resp.data
               this.setExpire(data)
@@ -402,7 +396,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
             this.loading = false
-            console.log('penjualan ', resp.data.data[0])
+            // console.log('penjualan ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
                 this.setForm(resp.data.data[0])
@@ -430,14 +424,14 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga)
       if (this.form.expired !== null) { data.expired = this.form.expired }
 
-      console.log('form penjualan', data)
+      // console.log('form penjualan', data)
       waitLoad('show')
       return new Promise((resolve, reject) => {
         api
           .post('v1/transaksi/store', data)
           .then((resp) => {
             waitLoad('done')
-            console.log('save detail ', resp)
+            // console.log('save detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
             // this.resetInput()
@@ -455,7 +449,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           .post('v1/detail-transaksi/destroy', params)
           .then((resp) => {
             waitLoad('done')
-            console.log('hapus detail ', resp)
+            // console.log('hapus detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
           })

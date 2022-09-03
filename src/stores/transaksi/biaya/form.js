@@ -75,7 +75,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
     getDataSupplier() {
       const supp = useSupplierTable()
       supp.getDataTable().then(data => {
-        console.log('supplier ', data)
+        // console.log('supplier ', data)
         this.suppliers = data
       })
     },
@@ -87,7 +87,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
           .then(resp => {
             waitLoad('done')
             if (resp.status === 200) {
-              console.log('kasir ', resp.data.data)
+              // console.log('kasir ', resp.data.data)
               this.kasirs = resp.data.data
               resolve(resp.data.data)
             }
@@ -106,7 +106,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
           .then(resp => {
             waitLoad('done')
             if (resp.status === 200) {
-              console.log('items ', resp.data.data)
+              // console.log('items ', resp.data.data)
               this.items = resp.data.data
               resolve(resp.data.data)
             }
@@ -133,7 +133,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
         api
           .post('v1/transaksi/store', this.form)
           .then((resp) => {
-            console.log('save data', resp)
+            // console.log('save data', resp)
             notifSuccess(resp)
             this.getDataBeban()
             this.resetFORM()

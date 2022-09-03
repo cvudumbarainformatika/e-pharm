@@ -245,7 +245,7 @@
   </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+// import { ref } from 'vue'
 import * as formatter from 'src/modules/formatter'
 import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
 import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
@@ -265,7 +265,7 @@ const cekRequired = () => {
     notifErrVue('Faktur harus di isi')
   }
 
-  const tableReff = ref(null)
-  console.log('table reff', tableReff)
+  // const tableReff = ref(null)
+  // console.log('table reff', tableReff)
 }
 </script>
