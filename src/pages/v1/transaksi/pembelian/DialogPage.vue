@@ -11,8 +11,8 @@
           @submit="onSubmit"
           @reset="onReset"
         >
-          <div class="row q-col-gutter-md">
-            <div class="col-md-12">
+          <div class="row q-col-gutter-md q-mt-sm">
+            <div class="col-md-12 col-xs-12">
               <app-autocomplete
                 v-model="store.form.jenis"
                 label="Pilih tunai atau hutang"
@@ -27,7 +27,7 @@
           </div>
           <div
             v-if="store.form.jenis == 'tunai' "
-            class="row q-col-gutter-md"
+            class="row q-col-gutter-md q-mt-sm"
           >
             <div class="col-md-12">
               <app-autocomplete
@@ -44,9 +44,9 @@
           </div>
           <div
             v-if="store.form.jenis == 'hutang'"
-            class="row q-col-gutter-md items-center"
+            class="row q-col-gutter-md q-mt-sm items-center"
           >
-            <div class="col-md-11">
+            <div class="col-md-11 col-xs-11">
               <app-autocomplete
                 v-model="store.form.supplier_id"
                 label="pilih Supplier"
@@ -59,7 +59,7 @@
                 @set-model="store.searchSupplier"
               />
             </div>
-            <div class="col-md-1 text-center">
+            <div class="col-md-1 col-xs-1 text-center">
               <q-btn
                 round
                 color="primary"
@@ -69,11 +69,11 @@
               />
             </div>
           </div>
-          <div class="row q-col-gutter-md items-center">
-            <div class="col-md-4">
+          <div class="row q-col-gutter-md q-mt-sm items-center">
+            <div class="col-md-4 col-xs-4">
               Total Pembelian
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 col-xs-8">
               <app-input
                 v-model="store.form.total"
                 label=" "
@@ -84,11 +84,11 @@
               />
             </div>
           </div>
-          <div class="row q-col-gutter-md items-center">
-            <div class="col-md-4">
+          <div class="row q-col-gutter-md q-mt-sm items-center">
+            <div class="col-md-4 col-xs-4">
               Ongkir / Admin
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 col-xs-8">
               <app-input
                 v-model="store.form.ongkir"
                 label=" "
@@ -100,11 +100,11 @@
               />
             </div>
           </div>
-          <div class="row q-col-gutter-md items-center">
-            <div class="col-md-4">
+          <div class="row q-col-gutter-md q-mt-sm items-center">
+            <div class="col-md-4 col-xs-4">
               Potongan
             </div>
-            <div class="col-md-8">
+            <div class="col-md-8 col-xs-8">
               <app-input
                 v-model="store.form.potongan"
                 label=" "
@@ -116,8 +116,8 @@
               />
             </div>
           </div>
-          <div class="row q-col-gutter-md items-center">
-            <div class="col-md-12">
+          <div class="row q-col-gutter-md q-mt-sm items-center">
+            <div class="col-md-12 col-xs-12">
               <div class="text-right">
                 Total Seluruhnya
               </div>
@@ -134,9 +134,9 @@
           </div>
           <div
             v-if="store.form.jenis == 'tunai'"
-            class="row q-col-gutter-md items-center"
+            class="row q-col-gutter-md q-mt-sm items-center"
           >
-            <div class="col-md-12">
+            <div class="col-md-12 col-xs-12">
               <app-input
                 v-model="store.form.bayar"
                 label=" Pembayaran"
@@ -150,9 +150,9 @@
           </div>
           <div
             v-if="store.form.jenis == 'tunai'"
-            class="row q-col-gutter-md items-center"
+            class="row q-col-gutter-md q-mt-sm items-center"
           >
-            <div class="col-md-12">
+            <div class="col-md-12 col-xs-12">
               <app-input
                 v-model="store.form.kembali"
                 label=" Kembalian"
@@ -165,9 +165,9 @@
           </div>
           <div
             v-if="store.form.jenis == 'hutang'"
-            class="row q-col-gutter-md items-center"
+            class="row q-col-gutter-md q-mt-sm items-center"
           >
-            <div class="col-md-12">
+            <div class="col-md-12 col-xs-12">
               <q-input
                 v-model="store.form.tempo"
                 dense

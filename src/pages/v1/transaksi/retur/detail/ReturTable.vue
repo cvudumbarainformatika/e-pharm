@@ -23,7 +23,10 @@
         #top
       >
         <div class="col-3 ">
-          <div class="text-h6">
+          <div
+            v-if="table.form.faktur!==null"
+            class="text-h6"
+          >
             Faktur : {{ table.form.faktur }}
           </div>
         </div>
@@ -34,7 +37,7 @@
         </div>
         <div class="col-3">
           <div class="text-h6 text-right">
-            Total : {{ table.form.total }}
+            Total : {{ formatRp(table.form.total) }}
           </div>
         </div>
       </template>
@@ -48,12 +51,12 @@
       <template #body-cell-id="props">
         <q-td
           :props="props"
-          @click="table.clicked(props)"
         >
+          <!-- @click="table.clicked(props)" -->
           <div>
             <q-icon
-              color="negative"
-              name="icon-mat-delete_filled"
+              color="primary"
+              name="icon-mat-done"
             />
           </div>
           <!-- <div class="my-table-details">
@@ -129,7 +132,7 @@
 <script setup>
 // import { ref } from 'vue'
 // import { notifErrVue } from 'src/modules/utils'
-// import * as formatter from 'src/modules/formatter'
+import { formatRp } from 'src/modules/formatter'
 // import ReturDialog from './ReturDialog.vue'
 import { useReturTable } from 'src/stores/transaksi/retur/detail/retur'
 

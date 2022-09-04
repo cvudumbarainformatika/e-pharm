@@ -23,7 +23,10 @@
         #top
       >
         <div class="col-3 ">
-          <div class="text-h6">
+          <div
+            v-if="table.form.faktur!==null"
+            class="text-h6"
+          >
             Faktur : {{ table.form.faktur }}
           </div>
         </div>
@@ -34,7 +37,7 @@
         </div>
         <div class="col-3">
           <div class="text-h6 text-right">
-            Total : {{ table.form.total }}
+            Total : {{ formatRp(table.form.total) }}
           </div>
         </div>
       </template>
@@ -88,6 +91,28 @@
           />
         </div>
       </template>
+      <!-- loading -->
+      <template #loading>
+        <q-inner-loading
+          showing
+          color="primary"
+        >
+          <div
+            class="flex column flex-center bg-loading-bg__table"
+            style="height:400px"
+          >
+            <div>
+              <q-spinner-cube
+                color="primary"
+                size="40px"
+              />
+            </div>
+            <div class="text-primary q-mt-sm">
+              harap bersabar, menunggu...
+            </div>
+          </div>
+        </q-inner-loading>
+      </template>
       <!-- bottom slot -->
       <!-- <template
         v-if="table.rows"
@@ -114,6 +139,7 @@ import ReturDialog from './ReturDialog.vue'
 import { useReturDetailTable } from 'src/stores/transaksi/retur/detail/transaction'
 import { useReturTable } from 'src/stores/transaksi/retur/detail/retur'
 import ReturTable from './ReturTable.vue'
+import { formatRp } from 'src/modules/formatter'
 
 const table = useReturDetailTable()
 const retur = useReturTable()

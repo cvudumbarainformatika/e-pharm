@@ -1,11 +1,8 @@
 import { defineStore } from 'pinia'
-// import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
-// import { notifErrVue, waitLoad } from 'src/modules/utils'
-// import { olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
 import { routerInstance } from 'src/boot/router'
-import { olahUang } from 'src/modules/formatter'
+import { formatRp, olahUang } from 'src/modules/formatter'
 
 export const useReturTable = defineStore('retur_table', {
   state: () => ({
@@ -29,7 +26,7 @@ export const useReturTable = defineStore('retur_table', {
       harga: 0,
       total: 0,
       sub_total: 0,
-      nama: 'RETUR PEMBELIAN',
+      nama: 'RETUR',
       tanggal: null,
       jenis: 'tunai',
       ongkir: 0,
@@ -62,7 +59,7 @@ export const useReturTable = defineStore('retur_table', {
         field: (row) => row.product.nama
       },
       { name: 'qty', align: 'left', label: 'Qty', field: 'qty' },
-      { name: 'harga', align: 'left', label: 'Harga', field: 'harga' },
+      { name: 'harga', align: 'left', label: 'Harga', field: 'harga', format: val => formatRp(val) },
       // {
       //   name: 'harga_jual_umum',
       //   align: 'left',
@@ -85,7 +82,7 @@ export const useReturTable = defineStore('retur_table', {
         name: 'sub_total',
         align: 'left',
         label: 'Sub total',
-        field: (row) => row.harga * row.qty
+        field: (row) => formatRp(row.harga * row.qty)
       }
     ],
     visbleColumns: [
@@ -175,9 +172,11 @@ export const useReturTable = defineStore('retur_table', {
     },
     clicked(val) {
       const params = val.row
+      console.log('params ', params)
+      console.log('val ', val.row.id)
       Dialog.create({
         title: 'Konfirmasi',
-        message: `Apakah Produk:<strong> ${params.produk.nama}</strong> dengan Qty :<strong> ${params.qty}</strong> akan di hapus?`,
+        message: `Apakah Produk:<strong> ${params.product.nama}</strong> dengan Qty :<strong> ${params.qty}</strong> akan di hapus?`,
         cancel: true,
         html: true
       })
@@ -187,8 +186,6 @@ export const useReturTable = defineStore('retur_table', {
         .onCancel(() => {
           console.log('cancel')
         })
-      console.log('params ', params)
-      console.log('val ', val.row.id)
     },
 
     setColumns(payload) {
@@ -219,6 +216,8 @@ export const useReturTable = defineStore('retur_table', {
     },
     setFaktur(data) {
       // const store = usePembelianDialog()
+      this.form.reff = 'R' + routerInstance.currentRoute.value.params.slug
+      this.form.nama = data.nama
       if (data.faktur !== '') {
         this.form.faktur = data.faktur
       }
@@ -241,12 +240,13 @@ export const useReturTable = defineStore('retur_table', {
       this.form.reff = slug
       this.params.reff = slug
       const params = { params: this.params }
+      this.resetData()
       return new Promise((resolve, reject) => {
         api
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
             this.loading = false
-            console.log('pembelian ', resp.data.data[0])
+            console.log('retur ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
                 this.setFaktur(resp.data.data[0])
@@ -272,6 +272,7 @@ export const useReturTable = defineStore('retur_table', {
       const reff = 'R' + routerInstance.currentRoute.value.params.slug
       this.form.reff = reff
       this.loading = true
+      this.form.status = 1
       return new Promise((resolve, reject) => {
         api
           .post('v1/transaksi/store', this.form)

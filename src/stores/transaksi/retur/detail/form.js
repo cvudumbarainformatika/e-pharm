@@ -12,7 +12,7 @@ export const useReturDialog = defineStore('retur_store', {
       faktur: null,
       reff: null,
       tanggal: null,
-      nama: 'RETUR PEMBELIAN',
+      nama: 'RETUR',
       jenis: 'tunai',
       total: 0,
       ongkir: 0,

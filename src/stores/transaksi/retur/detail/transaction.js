@@ -5,7 +5,7 @@ import { api } from 'boot/axios'
 // import { olahUang } from 'src/modules/formatter'
 // import { Dialog } from 'quasar'
 import { routerInstance } from 'src/boot/router'
-import { olahUang } from 'src/modules/formatter'
+import { formatRp, olahUang } from 'src/modules/formatter'
 import { useReturTable } from './retur'
 
 export const useReturDetailTable = defineStore('retur_detail_table', {
@@ -30,7 +30,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       harga: 0,
       total: 0,
       sub_total: 0,
-      nama: 'RETUR PEMBELIAN',
+      nama: 'RETUR',
       tanggal: null,
       jenis: 'tunai',
       ongkir: 0,
@@ -63,7 +63,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
         field: (row) => row.product.nama
       },
       { name: 'qty', align: 'left', label: 'Qty', field: 'qty' },
-      { name: 'harga', align: 'left', label: 'Harga', field: 'harga' },
+      { name: 'harga', align: 'left', label: 'Harga', field: 'harga', format: val => formatRp(val) },
       // {
       //   name: 'harga_jual_umum',
       //   align: 'left',
@@ -86,7 +86,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
         name: 'sub_total',
         align: 'left',
         label: 'Sub total',
-        field: (row) => row.harga * row.qty
+        field: (row) => formatRp(row.harga * row.qty)
       }
     ],
     visbleColumns: [
@@ -219,34 +219,10 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       console.log('val ', val.row.id)
     },
 
-    setColumns(payload) {
-      const thumb = payload.map((x) => Object.keys(x))
-      const temp = thumb[0]
-      this.columnHide.forEach((hide) => {
-        console.log('hide', hide)
-        const apem = temp.indexOf(hide)
-        if (apem > -1) {
-          temp.splice(apem, 1)
-        }
-      })
-      console.log('temp ', temp)
-      const tTemp = []
-      temp.forEach((val, index) => {
-        console.log('val ', val, ' index ', index)
-        console.log('temp ', val)
-        tTemp[index] = Object.assign({
-          name: val,
-          align: 'left',
-          label: val,
-          field: val
-        })
-      })
-      this.columns = tTemp
-
-      console.log('columns', tTemp)
-    },
     setFaktur(data) {
       // const store = usePembelianDialog()
+      this.form.reff = routerInstance.currentRoute.value.params.slug
+      this.form.nama = 'RETUR ' + data.nama
       if (data.faktur !== '') {
         this.form.faktur = data.faktur
       }
@@ -269,12 +245,13 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       this.form.reff = slug
       this.params.reff = slug
       const params = { params: this.params }
+      this.resetData()
       return new Promise((resolve, reject) => {
         api
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
             this.loading = false
-            console.log('pembelian ', resp.data.data[0])
+            console.log('retur ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
                 this.setFaktur(resp.data.data[0])
@@ -304,8 +281,10 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       this.loading = true
       this.setReturTotal()
       this.form.total = retur.form.total
+      this.form.status = 1
       // console.log('total ', this.form.total)
       // console.log('form ', this.form)
+
       return new Promise((resolve, reject) => {
         api
           .post('v1/transaksi/store', this.form)

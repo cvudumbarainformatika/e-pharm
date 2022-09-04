@@ -169,7 +169,7 @@
         </q-tr>
         <q-tr
           v-show="props.expand"
-          v-if="props.row.nama === 'PEMBELIAN' || props.row.nama === 'PENJUALAN'"
+          v-if="props.row.nama === 'PEMBELIAN' || props.row.nama === 'PENJUALAN' || props.row.nama === 'RETUR PEMBELIAN' || props.row.nama === 'RETUR PENJUALAN'"
           :props="props"
         >
           <q-td>

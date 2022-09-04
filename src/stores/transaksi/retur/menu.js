@@ -105,7 +105,7 @@ export const useReturMenu = defineStore('retur_menu', {
       return new Promise((resolve, reject) => {
         api.get('v1/retur/pembelian', params)
           .then(resp => {
-            console.log('retur pembelian', resp.data.data)
+            console.log('retur', resp.data.data)
             this.loading = false
             if (resp.status === 200) {
               this.rows = resp.data.data

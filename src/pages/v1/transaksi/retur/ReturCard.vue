@@ -8,7 +8,7 @@
         clearable
         option-value="id"
         option-label="nama"
-        label="Cari Data Transaksi Pembelian"
+        label="Cari Data Transaksi"
         :options="options"
         behavior="menu"
         hide-dropdown-icon
@@ -28,8 +28,11 @@
         <template #option="scope">
           <q-item v-bind="scope.itemProps">
             <q-item-section>
-              <q-item-label>{{ scope.opt.reff }}</q-item-label>
-              <q-item-label caption>
+              <q-item-label>{{ scope.opt.nama }} : {{ scope.opt.reff }}</q-item-label>
+              <q-item-label
+                v-if="scope.opt.faktur!==null"
+                caption
+              >
                 <strong>faktur : </strong> {{ scope.opt.faktur }}
               </q-item-label>
               <q-item-label caption>
@@ -46,19 +49,28 @@
       leave-active-class="animated flip-left"
     >
       <!-- Wrapping only one DOM element, defined by QBtn -->
+      <!-- tambah kondisi jika ada dokter, customer, dan umum retur berlaku untuk pembelian dan penjualan -->
       <q-card-section v-if="model">
         <div class="flex">
           <div class="right__side column">
             <div>Nota : <strong>{{ model.reff }}</strong>  </div>
-            <div>Faktur : <strong>{{ model.faktur }}</strong>  </div>
+            <div v-if="model.faktur!==null">
+              Faktur : <strong>{{ model.faktur }}</strong>
+            </div>
             <div v-if="model.kasir !== null">
               Kasir : <strong>{{ model.kasir.name }}</strong>
             </div>
             <div v-if="model.supplier !== null">
               Supplier : <strong>{{ model.supplier.nama }}</strong>
             </div>
-            <div v-if="model.supplier !== null">
-              Tempo : <strong>{{ model.tempo }}</strong>
+            <div v-if="model.customer !== null">
+              Distributor : <strong>{{ model.customer.nama }}</strong>
+            </div>
+            <div v-if="model.dokter !== null">
+              Dokter : <strong>{{ model.dokter.nama }}</strong>
+            </div>
+            <div v-if="model.supplier !== null || model.customer!==null">
+              Tempo : <strong>{{ dateFormat(model.tempo) }}</strong>
             </div>
             <div>Total : <strong>{{ formatRp(model.total) }}</strong>  </div>
           </div>
@@ -105,9 +117,10 @@
 <script setup>
 import { api } from 'src/boot/axios'
 import { ref } from 'vue'
-import { formatRp } from 'src/modules/formatter'
+import { formatRp, dateFormat } from 'src/modules/formatter'
 import { routerInstance } from 'src/boot/router'
 import { useReturDetailTable } from 'src/stores/transaksi/retur/detail/transaction'
+import { useReturTable } from 'src/stores/transaksi/retur/detail/retur'
 
 const options = ref(null)
 const model = ref(null)
@@ -123,13 +136,15 @@ async function filterOptions(val, update) {
   const params = {
     params: {
       q: val,
+      nama: 'PEMBELIAN',
+      nama2: 'PENJUALAN',
       order_by: 'created_at',
       sort: 'desc'
     }
   }
 
-  const resp = await api.get('v1/retur/pembelian', params)
-  console.log('pembelian ', resp.data.data)
+  const resp = await api.get('v1/retur/all', params)
+  console.log('retur ', resp.data.data)
   update(
     () => (options.value = resp.data.data),
     ref => {
@@ -142,11 +157,13 @@ async function filterOptions(val, update) {
 }
 function onSubmit() {
   const transactionTable = useReturDetailTable()
+  const retur = useReturTable()
   routerInstance.replace({ name: 'detail.retur', params: { slug: model.value.reff } })
   transactionTable.getDetailTransaksi(model.value.reff).then(() => {
     model.value = null
   })
-  console.log('model reff ', model.value.reff)
-  console.log('model', model.value)
+  retur.getDetailTransaksi('R' + model.value.reff)
+  // console.log('model reff ', model.value.reff)
+  // console.log('model', model.value)
 }
 </script>

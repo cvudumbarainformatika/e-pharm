@@ -38,7 +38,8 @@ const items = ref([
   { id: 3, name: 'Penjualan', value: 'PENJUALAN', icon: 'icon-mat-shopping_bag' },
   { id: 4, name: 'Transaksi Penerimaan', value: 'PENERIMAAN', icon: 'icon-mat-account_balance_wallet' },
   { id: 5, name: 'Beban Biaya', value: 'BEBAN', icon: 'icon-mat-payment' },
-  { id: 6, name: 'Retur', value: 'RETUR', icon: 'icon-mat-assignment_return' }
+  { id: 6, name: 'Retur Pembelian', value: 'RETUR PEMBELIAN', icon: 'icon-mat-assignment_return' },
+  { id: 7, name: 'Retur Penjualan', value: 'RETUR PENJUALAN', icon: 'icon-mat-assignment_return' }
 ])
 const table = useHistoryTable()
 </script>

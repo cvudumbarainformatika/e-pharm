@@ -20,6 +20,7 @@
                 v-model="returDetail.form.qty"
                 label="qty"
                 outlined
+                type="number"
                 autofocus
               />
             </div>
