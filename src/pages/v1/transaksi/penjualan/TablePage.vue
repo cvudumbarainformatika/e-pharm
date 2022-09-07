@@ -107,7 +107,7 @@
               v-model="table.form.qty"
               class="text-right"
               label=" "
-              number
+              type="number"
               @keyup.enter="table.onEnter"
             />
           </q-td>

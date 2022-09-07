@@ -34,7 +34,8 @@ export const usePembelianTable = defineStore('pembelian_table', {
       total: 0,
       sub_total: 0,
       nama: 'PEMBELIAN',
-      expired: null
+      expired: null,
+      update_harga: false
     },
     produks: [],
     columns: [
@@ -127,6 +128,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.faktur = null
       this.form.reff = null
       this.form.product_id = ''
+      this.form.harga = 0
       this.form.harga_beli = 0
       this.form.harga_jual_umum = 0
       this.form.harga_jual_resep = 0
@@ -145,6 +147,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
         return data.id === val
       })
       this.form.product_id = produk[0].id
+      this.form.harga = produk[0].harga_beli
       this.form.harga_beli = produk[0].harga_beli
       this.form.harga_jual_cust = produk[0].harga_jual_cust
       this.form.harga_jual_umum = produk[0].harga_jual_umum
@@ -154,6 +157,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
     },
     resetInput() {
       this.form.product_id = ''
+      this.form.harga = 0
       this.form.harga_beli = 0
       this.form.harga_jual_cust = 0
       this.form.harga_jual_umum = 0
@@ -290,10 +294,10 @@ export const usePembelianTable = defineStore('pembelian_table', {
 
       data.expired = this.form.expired
       data.product_id = this.form.product_id
-      data.harga = olahUang(this.form.harga_beli)
+      data.harga = olahUang(this.form.harga)
       data.qty = this.form.qty
-      data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga_beli)
-
+      data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga)
+      if (olahUang(this.form.harga) !== olahUang(this.form.harga_beli)) { data.update_harga = true } else { data.update_harga = false }
       this.loading = true
       return new Promise((resolve, reject) => {
         api
@@ -302,6 +306,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
             this.loading = false
             // console.log('save detail ', resp)
             resolve(resp.data.data)
+            if (data.update_harga === true) { this.ambilDataProduk() }
             this.getDetailTransaksi()
             this.resetInput()
           })

@@ -24,4 +24,5 @@ import NoSelectPage from './NoSelectPage.vue'
 import TablePage from './TablePage.vue'
 const table = useHistoryTable()
 table.setColumns()
+table.selected = false
 </script>

@@ -111,13 +111,13 @@
               v-model="table.form.qty"
               class="text-right"
               label=" "
-              number
+              type="number"
               @keyup.enter="table.onEnter"
             />
           </q-td>
           <q-td>
             <app-input
-              v-model="table.form.harga_beli"
+              v-model="table.form.harga"
               class="text-right"
               label=" "
               number
