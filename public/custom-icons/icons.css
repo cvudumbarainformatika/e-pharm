@@ -1,7 +1,7 @@
 @font-face {
     font-family: "icons";
-    src: url("./icons.woff?4832bddc8c21d89f02b09bc8681fc5ed") format("woff"),
-url("./icons.woff2?4832bddc8c21d89f02b09bc8681fc5ed") format("woff2");
+    src: url("./icons.woff?5f7f8934738f6e3085d0f52cad7d92f6") format("woff"),
+url("./icons.woff2?5f7f8934738f6e3085d0f52cad7d92f6") format("woff2");
 }
 
 i[class^="icon-"]:before, i[class*=" icon-"]:before {
@@ -396,69 +396,72 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
 .icon-mat-sort:before {
     content: "\f17f";
 }
-.icon-mat-strikethrough_s:before {
+.icon-mat-south_west:before {
     content: "\f180";
 }
-.icon-mat-style:before {
+.icon-mat-strikethrough_s:before {
     content: "\f181";
 }
-.icon-mat-supervisor_account:before {
+.icon-mat-style:before {
     content: "\f182";
 }
-.icon-mat-sync_alt:before {
+.icon-mat-supervisor_account:before {
     content: "\f183";
 }
-.icon-mat-table_rows:before {
+.icon-mat-sync_alt:before {
     content: "\f184";
 }
-.icon-mat-text_format:before {
+.icon-mat-table_rows:before {
     content: "\f185";
 }
-.icon-mat-textsms:before {
+.icon-mat-text_format:before {
     content: "\f186";
 }
-.icon-mat-thumb_up_off_alt:before {
+.icon-mat-textsms:before {
     content: "\f187";
 }
-.icon-mat-today:before {
+.icon-mat-thumb_up_off_alt:before {
     content: "\f188";
 }
-.icon-mat-tune:before {
+.icon-mat-today:before {
     content: "\f189";
 }
-.icon-mat-tungsten:before {
+.icon-mat-tune:before {
     content: "\f18a";
 }
-.icon-mat-undo:before {
+.icon-mat-tungsten:before {
     content: "\f18b";
 }
-.icon-mat-vertical_align_bottom:before {
+.icon-mat-undo:before {
     content: "\f18c";
 }
-.icon-mat-vertical_align_top:before {
+.icon-mat-vertical_align_bottom:before {
     content: "\f18d";
 }
-.icon-mat-visibility_off:before {
+.icon-mat-vertical_align_top:before {
     content: "\f18e";
 }
-.icon-mat-visibility:before {
+.icon-mat-visibility_off:before {
     content: "\f18f";
 }
-.icon-mat-vpn_key:before {
+.icon-mat-visibility:before {
     content: "\f190";
 }
-.icon-mat-warning:before {
+.icon-mat-vpn_key:before {
     content: "\f191";
 }
-.icon-mat-workspaces:before {
+.icon-mat-warning:before {
     content: "\f192";
 }
-.icon-my-facebook:before {
+.icon-mat-workspaces:before {
     content: "\f193";
 }
-.icon-my-google:before {
+.icon-my-facebook:before {
     content: "\f194";
 }
-.icon-my-key:before {
+.icon-my-google:before {
     content: "\f195";
+}
+.icon-my-key:before {
+    content: "\f196";
 }
