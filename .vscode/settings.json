@@ -14,7 +14,7 @@
   ],
   "vue3snippets.enable-compile-vue-file-on-did-save-code": false,
   "[vue]": {
-    "editor.defaultFormatter": "octref.vetur"
+    "editor.defaultFormatter": "Vue.volar"
   },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"

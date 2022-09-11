@@ -25,4 +25,6 @@ table.selected = false
 button.setDays()
 button.setMonths()
 table.getDataProducts()
+table.getDataBebans()
+table.getDataPenerimaans()
 </script>

@@ -5,16 +5,37 @@
       :title="'Laporan ' + table.form.nama"
       :columns="table.columns"
       :rows="table.rows"
-      row-key="id"
+      row-key="nama"
       binary-state-sort
       :loading="table.loading"
-      hide-pagination
       separator="none"
     >
+      <!-- hide-pagination -->
       <!-- hide-header -->
       <!-- Top Slot -->
-      <!-- <template #top>
-        <div
+      <template #top>
+        <div class="col-3">
+          <span class="text-h6"> Laporan {{ titleCase(table.form.nama) }}</span>
+        </div>
+        <div class="col-3">
+          <div v-if="table.form.nama==='PENJUALAN'">
+            <q-btn-group push>
+              <app-btn
+                label="Umum"
+                @click="table.setPenjualan('umum')"
+              />
+              <app-btn
+                label="Resep"
+                @click="table.setPenjualan('resep')"
+              />
+              <app-btn
+                label="Distributor"
+                @click="table.setPenjualan('dist')"
+              />
+            </q-btn-group>
+          </div>
+        </div>
+        <!-- <div
           v-if="table.title!==null"
           class="q-pl-sm"
         >
@@ -25,8 +46,8 @@
             :loading="table.loading"
             @click="table.deleteDraft(table.title)"
           />
-        </div>
-        <div class="q-pl-sm">
+        </div> -->
+        <!-- <div class="q-pl-sm">
           <q-input
             v-model="table.params.q"
             class="search-big"
@@ -44,9 +65,9 @@
               />
             </template>
           </q-input>
-        </div>
+        </div> -->
         <q-separator />
-      </template> -->
+      </template>
       <!-- body slot -->
       <template #body="props">
         <q-tr :props="props">
@@ -64,99 +85,41 @@
               clickable
             />
           </q-td> -->
-          <!-- kolom transaksi -->
+          <!-- kolom nama -->
           <q-td
             key="nama"
             :props="props"
           >
-            <div>
-              {{ props.row.nama }}
-            </div>
-
-            <!-- <div class="text-italic text-caption">
-              {{ dateFormat(props.row.tanggal) }}
-            </div> -->
+            <div> {{ props.row.nama }} </div>
           </q-td>
-          <!-- kolom status -->
-          <!-- <q-td
-            key="status"
+          <!-- kolom keterangan -->
+          <q-td
+            v-if="table.form.nama === 'BEBAN' || table.form.nama === 'PENERIMAAN'"
+            key="keterangan"
             :props="props"
           >
-            <div v-if="props.row.status === 1">
-              <q-chip
-                color="primary"
-                label="Complete"
-                text-color="white"
-                rounded
-                no-caps
-                dense
-              />
-            </div>
-            <div v-else>
-              <q-chip
-                dense
-                color="negative"
-                text-color="white"
-                label="Draft"
-                rounded
-                no-caps
-              />
-            </div>
-          </q-td> -->
+            <div> {{ props.row.keterangan }} </div>
+          </q-td>
           <!-- kolom harga -->
           <q-td
             key="harga"
             :props="props"
           >
-            <div>
-              {{ formatRp(props.row.harga) }}
-            </div>
+            <div> {{ formatRp(props.row.harga) }} </div>
           </q-td>
           <!-- kolom qty -->
           <q-td
             key="qty"
             :props="props"
           >
-            <div>
-              {{ props.row.qty }}
-            </div>
+            <div> {{ props.row.qty }} </div>
           </q-td>
           <!-- kolom total -->
           <q-td
             key="total"
             :props="props"
           >
-            <div>
-              {{ formatRp(props.row.total) }}
-            </div>
-            <div
-              v-if="props.row.jenis==='tunai'"
-              class="text-caption text-italic"
-            >
-              Status : TUNAI
-              <span v-if="props.row.kasir!==null">, Kasir : {{ props.row.kasir!==null?props.row.kasir.name:'' }}</span>
-              <span v-if="props.row.customer!==null">, Distributor : {{ props.row.customer!==null?props.row.customer.nama:'' }}</span>
-              <span v-if="props.row.dokter!==null">, Dokter : {{ props.row.dokter!==null?props.row.dokter.nama:'' }}</span>
-              <span v-if="props.row.supplier!==null">, Supplier : {{ props.row.supplier!==null?props.row.supplier.nama:'' }}</span>
-            </div>
-            <div
-              v-if="props.row.jenis==='hutang'"
-              class="text-caption text-italic"
-            >
-              Status : HUTANG, <span v-if="props.row.supplier!==null"> Supplier : {{ props.row.supplier!==null?props.row.supplier.nama:'' }}</span>
-            </div>
-            <div
-              v-if="props.row.jenis==='piutang'"
-              class="text-caption text-italic"
-            >
-              Status : PIUTANG, <span v-if="props.row.customer!==null"> Distributor : {{ props.row.customer!==null?props.row.customer.nama:'' }}</span>
-            </div>
-            <div
-              v-if="props.row.jenis==='hutang' || props.row.jenis==='piutang' "
-              class="text-caption text-italic"
-            >
-              Tempo : {{ dateFormat(props.row.tempo) }}
-            </div>
+            <div> {{ formatRp(props.row.total) }} </div>
           </q-td>
           <!-- kolom actions -->
           <q-td
@@ -185,6 +148,7 @@
             </div>
           </q-td>
         </q-tr>
+        <!-- prop expand -->
         <q-tr
           v-show="props.expand"
           v-if="props.row.nama === 'PEMBELIAN' || props.row.nama === 'PENJUALAN' || props.row.nama === 'RETUR PEMBELIAN' || props.row.nama === 'RETUR PENJUALAN'"
@@ -361,7 +325,8 @@
 </template>
 <script setup>
 import { useLaporanTable } from 'src/stores/laporan/table'
-import { dateFormat, formatRp } from 'src/modules/formatter'
+import { formatRp } from 'src/modules/formatter'
+import { titleCase } from 'src/modules/utils'
 
 const getTotal = (val) => {
   if (val === undefined) { return }

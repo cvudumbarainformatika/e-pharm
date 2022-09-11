@@ -207,6 +207,7 @@ const nextMorph = () => {
 const transactionSelected = (val) => {
   morphGroupModel.value = 'card2'
   table.form.nama = val.value
+  table.selected = false
   console.log(val)
 }
 const dateSelected = val => {
