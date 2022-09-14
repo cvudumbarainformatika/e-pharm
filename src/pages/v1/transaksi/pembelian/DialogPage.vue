@@ -1,7 +1,8 @@
 <template>
   <q-dialog>
+    <app-print-page class="print-only" />
     <app-card
-      class="my-card"
+      class="my-card print-hide"
       title="Pembayaran"
       desc="selesaikan pembayaran"
     >
@@ -39,11 +40,11 @@
                 :source="store.kasirs"
                 outlined
                 :loading="store.loading"
+                @on-select="store.setKasir"
               />
             </div>
           </div>
           <div
-            v-if="store.form.jenis == 'hutang'"
             class="row q-col-gutter-md q-mt-sm items-center"
           >
             <div class="col-md-11 col-xs-11">
@@ -57,6 +58,7 @@
                 outlined
                 :loading="store.loading"
                 @set-model="store.searchSupplier"
+                @on-select="store.setSupplier"
               />
             </div>
             <div class="col-md-1 col-xs-1 text-center">
@@ -225,13 +227,16 @@
 import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
 import { ref } from 'vue'
 import { useSupplierFormStore } from 'src/stores/master/supplier/form'
+// import { usePrintStore } from 'src/stores/print'
 const supplier = useSupplierFormStore()
+// const print = usePrintStore()
 
 const formReff = ref(null)
 const store = usePembelianDialog()
 store.setToday()
 const onSubmit = () => {
   store.simpanTransaksi()
+  // window.print()
   if (formReff.value != null) { formReff.value.resetValidation() }
 }
 const onReset = () => {

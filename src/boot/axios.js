@@ -5,8 +5,6 @@ import { notifErr } from 'src/modules/utils'
 
 const SERVER = 'http://api.eparm.test:2500/api'
 // const SERVER = 'https://api.udumbarainformatika.my.id/api'
-// const SERVER = 'http://localhost/api.si-element/public/api'
-// const SERVER = 'https://server.udumbarainformatika.my.id/api'
 
 const api = axios.create({ baseURL: SERVER })
 api.defaults.headers.get.Accepts = 'application/json'

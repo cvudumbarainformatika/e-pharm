@@ -3,6 +3,7 @@
     view="lHh LpR lFr"
     :class="dark?'':'page-light'"
   >
+    <!-- <app-print-page class="print-only" /> -->
     <AdmHeader
       :dark="dark"
       :mobile="mobile"
@@ -41,6 +42,7 @@
         icon="icon-mat-display_settings"
         color="primary"
         direction="up"
+        class="print-hide"
       >
         <q-fab-action
           :color="dark?'warning':'dark'"

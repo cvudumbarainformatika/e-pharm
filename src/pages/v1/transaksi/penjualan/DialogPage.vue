@@ -1,7 +1,8 @@
 <template>
   <q-dialog>
+    <app-print-page class="print-only" />
     <app-card
-      class="my-card"
+      class="my-card print-hide"
       title="Pembayaran"
       desc="selesaikan pembayaran"
     >

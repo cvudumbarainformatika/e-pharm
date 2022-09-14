@@ -3,9 +3,6 @@
     <div class="row">
       <TablePage />
     </div>
-    <!-- <q-btn @click="coba">
-      coba router
-    </q-btn> -->
   </q-page>
 </template>
 <script setup>
@@ -15,11 +12,7 @@ import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
 import { routerInstance } from 'src/boot/router'
 import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
 import { onBeforeMount } from 'vue'
-// import { uniqueId } from 'src/modules/utils'
 import { uniqueId } from 'src/modules/utils'
-// const coba = () => {
-// routerInstance.currentRoute.value.params.slug = slug
-// }
 
 const table = usePembelianTable()
 const store = usePembelianDialog()

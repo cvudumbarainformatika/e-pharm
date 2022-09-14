@@ -10,6 +10,7 @@ import { useCustomerTable } from 'src/stores/master/customer/table'
 import { useDokterTable } from 'src/stores/master/dokter/table'
 import { useCustomerFormStore } from 'src/stores/master/customer/form'
 import { useDokterFormStore } from 'src/stores/master/dokter/form'
+import { usePrintStore } from 'src/stores/print'
 
 export const usePenjualanTable = defineStore('penjualan_table', {
   state: () => ({
@@ -46,6 +47,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     distributor: '',
     dokter: '',
     expireds: [],
+    print: usePrintStore(),
     columns: [
       {
         name: 'id',
@@ -157,6 +159,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           return data.id === val
         })
         this.dokter = dokter[0].nama
+        store.form.dokter = dokter[0].nama
         // console.log('dokter ', dokter[0])
       } else {
         this.dokter = ''
@@ -174,6 +177,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           return data.id === val
         })
         this.distributor = distributor[0].nama
+        store.form.distributor = distributor[0].nama
         // console.log('distributor  ', distributor[0])
       } else {
         this.distributor = ''
@@ -401,6 +405,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
               if (resp.data.data[0] !== undefined) {
                 this.setForm(resp.data.data[0])
                 this.rows = resp.data.data[0].detail_transaction
+                this.print.produks = this.rows
                 this.setTotal()
                 this.meta = resp.data.meta
               }

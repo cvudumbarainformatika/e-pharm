@@ -6,6 +6,7 @@ import { formatRp, olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
 import { usePembelianDialog } from './form'
 import { routerInstance } from 'src/boot/router'
+import { usePrintStore } from 'src/stores/print'
 
 export const usePembelianTable = defineStore('pembelian_table', {
   state: () => ({
@@ -265,6 +266,8 @@ export const usePembelianTable = defineStore('pembelian_table', {
       }
       this.params.reff = slug
       const params = { params: this.params }
+      const print = usePrintStore()
+      print.resetForm()
       return new Promise((resolve, reject) => {
         api
           .get('v1/transaksi/with-detail', params)
@@ -275,6 +278,10 @@ export const usePembelianTable = defineStore('pembelian_table', {
               if (resp.data.data[0] !== undefined) {
                 this.setForm(resp.data.data[0])
                 this.rows = resp.data.data[0].detail_transaction
+                print.form.nama = this.form.nama
+                print.form.reff = this.form.reff
+                print.form.faktur = this.form.faktur
+                print.produks = this.rows
                 this.setTotal()
                 this.meta = resp.data.meta
               }
@@ -291,13 +298,18 @@ export const usePembelianTable = defineStore('pembelian_table', {
     simpanDetailTransaksi() {
       const store = usePembelianDialog()
       const data = store.form
-
+      const print = usePrintStore()
+      print.resetProducts()
+      print.setForm('nama', this.form.nama)
+      print.setForm('reff', this.form.reff)
+      print.setForm('faktur', this.form.faktur)
       data.expired = this.form.expired
       data.product_id = this.form.product_id
       data.harga = olahUang(this.form.harga)
       data.qty = this.form.qty
       data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga)
       if (olahUang(this.form.harga) !== olahUang(this.form.harga_beli)) { data.update_harga = true } else { data.update_harga = false }
+
       this.loading = true
       return new Promise((resolve, reject) => {
         api

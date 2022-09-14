@@ -15,7 +15,7 @@ const notifErr = (resp) => {
 
   // unauthenticated
   console.log('utility', resp)
-  if (resp.status === 401 && resp.statusText === 'Unauthorized') {
+  if (resp.status === 401 || resp.statusText === 'Unauthorized' || resp.data.message === 'Unauthenticated.') {
     return removeToken()
   }
 

@@ -4,6 +4,7 @@ import { routerInstance } from 'src/boot/router'
 import { olahUang } from 'src/modules/formatter'
 import { notifSuccess, uniqueId } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
+import { usePrintStore } from 'src/stores/print'
 import { usePembelianTable } from './table'
 
 export const usePembelianDialog = defineStore('pembelian_store', {
@@ -39,7 +40,8 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       order_by: 'created_at',
       sort: 'desc'
     },
-    loading: false
+    loading: false,
+    print: usePrintStore()
   }),
   actions: {
     resetData() {
@@ -68,12 +70,23 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       const formatDb = year + '-' + month + '-' + day
       this.form.tanggal = formatDb
     },
+    setKasir(val) {
+      const temp = this.kasirs.filter(data => { return data.id === val })
+      this.print.form.kasir = temp[0].name
+    },
+    setSupplier(val) {
+      const temp = this.suppliers.filter(data => { return data.id === val })
+      this.print.form.supplier = temp[0].nama
+    },
     totalSeluruhnya() {
       const total = olahUang(this.form.total)
       const potongan = olahUang(this.form.potongan)
       const ongkir = olahUang(this.form.ongkir)
       // console.log('total ', total, ' potongan ', potongan)
       this.totalSemua = total - potongan + ongkir
+      this.print.totalSemua = this.totalSemua
+      this.print.potongan = potongan
+      this.print.ongkir = ongkir
       // console.log('ongkir ', ongkir, ' total semua ', this.totalSemua)
     },
     kembalian() {
@@ -84,10 +97,12 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     },
     openDialog() {
       const table = usePembelianTable()
+
       this.form.faktur = table.form.faktur
       this.form.reff = table.form.reff
       this.form.total = table.form.total
       this.totalSeluruhnya()
+      this.print.form = this.form
       this.setOpen()
     },
     setOpen() {
@@ -148,7 +163,8 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       this.form.bayar = bayar
       this.form.kembali = kembali
       this.form.status = 1
-      // console.log('form', this.form)
+      print.form = this.form
+      window.print()
       this.loading = true
       return new Promise((resolve, reject) => {
         api

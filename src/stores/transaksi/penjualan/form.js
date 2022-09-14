@@ -4,6 +4,7 @@ import { routerInstance } from 'src/boot/router'
 import { olahUang } from 'src/modules/formatter'
 import { notifSuccess, uniqueId } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
+import { usePrintStore } from 'src/stores/print'
 import { usePenjualanTable } from './table'
 
 export const usePenjualanDialog = defineStore('penjualan_store', {
@@ -43,7 +44,8 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       order_by: 'created_at',
       sort: 'desc'
     },
-    loading: false
+    loading: false,
+    print: usePrintStore()
   }),
   actions: {
     resetData() {
@@ -58,14 +60,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.potongan = 0
       this.form.bayar = 0
       this.form.kembali = 0
-      this.form.tempo = null
-      this.form.kasir_id = null
-      this.form.supplier_id = null
-      this.form.dokter_id = null
-      this.form.customer_id = null
       this.form.status = 0
-      this.ditributor = ''
-      this.dokter = ''
     },
     setToday() {
       const date = new Date()
@@ -81,6 +76,9 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       const ongkir = olahUang(this.form.ongkir)
       // console.log('total ', total, ' potongan ', potongan)
       this.totalSemua = total - potongan + ongkir
+      this.print.totalSemua = this.totalSemua
+      this.print.potongan = potongan
+      this.print.ongkir = ongkir
       // console.log('ongkir ', ongkir, ' total semua ', this.totalSemua)
     },
     kembalian() {
@@ -98,8 +96,11 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.customer_id = table.form.customer_id
       this.distributor = table.distributor
       this.dokter = table.dokter
+      this.form.distributor = table.distributor
+      this.form.dokter = table.dokter
       this.totalSeluruhnya()
       this.setOpen()
+      this.print.form = this.form
     },
     setOpen() {
       this.isOpen = !this.isOpen
@@ -157,6 +158,9 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.bayar = bayar
       this.form.kembali = kembali
       this.form.status = 1
+      this.print.form = this.form
+      console.log(this.print.form)
+      window.print()
       // console.log('form', this.form)
       this.loading = true
       return new Promise((resolve, reject) => {
