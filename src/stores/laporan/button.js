@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useLaporanMorphStore = defineStore('laporan_morph_button', {
   state: () => ({
+    isOpen: false,
     loading: false,
     transactions: [
       { name: 'Pembelian', value: 'PEMBELIAN' },
@@ -14,23 +15,16 @@ export const useLaporanMorphStore = defineStore('laporan_morph_button', {
     dates: [
       {
         nama: 'Hari Ini',
-        value: 'hari ini',
+        value: 'today',
         next: 'btn',
         date: 'hari',
         param: null
       },
       {
         nama: 'Bulan Ini',
-        value: 'bulan ini',
+        value: 'month',
         next: 'btn',
         date: 'bulan',
-        param: null
-      },
-      {
-        nama: 'Tahun Ini',
-        value: 'tahun ini',
-        next: 'btn',
-        date: 'tahun',
         param: null
       },
       {
@@ -47,13 +41,7 @@ export const useLaporanMorphStore = defineStore('laporan_morph_button', {
         date: 'bulan',
         param: null
       },
-      {
-        nama: 'Tahunan',
-        value: 'tahunan',
-        next: 'card3',
-        date: 'tahun',
-        param: null
-      },
+
       {
         nama: 'Pilih Range Tanggai',
         value: 'range',
@@ -67,6 +55,9 @@ export const useLaporanMorphStore = defineStore('laporan_morph_button', {
     months: []
   }),
   actions: {
+    setOpen() {
+      this.isOpen = !this.isOpen
+    },
     setDays() {
       for (let i = 0; i < 31; i++) {
         this.days[i] = { nama: i + 1, value: i < 10 ? '0' + i + 1 : i + 1 }

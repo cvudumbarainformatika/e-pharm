@@ -1,7 +1,7 @@
 @font-face {
     font-family: "icons";
-    src: url("./icons.woff?5f7f8934738f6e3085d0f52cad7d92f6") format("woff"),
-url("./icons.woff2?5f7f8934738f6e3085d0f52cad7d92f6") format("woff2");
+    src: url("./icons.woff?3fb79909ab09641d0bc4641c0882355b") format("woff"),
+url("./icons.woff2?3fb79909ab09641d0bc4641c0882355b") format("woff2");
 }
 
 i[class^="icon-"]:before, i[class*=" icon-"]:before {
@@ -333,135 +333,138 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
 .icon-mat-menu_book:before {
     content: "\f16a";
 }
-.icon-mat-open_in_new:before {
+.icon-mat-menu:before {
     content: "\f16b";
 }
-.icon-mat-payment:before {
+.icon-mat-open_in_new:before {
     content: "\f16c";
 }
-.icon-mat-person:before {
+.icon-mat-payment:before {
     content: "\f16d";
 }
-.icon-mat-play_arrow:before {
+.icon-mat-person:before {
     content: "\f16e";
 }
-.icon-mat-print:before {
+.icon-mat-play_arrow:before {
     content: "\f16f";
 }
-.icon-mat-priority_high:before {
+.icon-mat-print:before {
     content: "\f170";
 }
-.icon-mat-receipt_long:before {
+.icon-mat-priority_high:before {
     content: "\f171";
 }
-.icon-mat-redo:before {
+.icon-mat-receipt_long:before {
     content: "\f172";
 }
-.icon-mat-refresh:before {
+.icon-mat-redo:before {
     content: "\f173";
 }
-.icon-mat-remove:before {
+.icon-mat-refresh:before {
     content: "\f174";
 }
-.icon-mat-rv_hookup:before {
+.icon-mat-remove:before {
     content: "\f175";
 }
-.icon-mat-search:before {
+.icon-mat-rv_hookup:before {
     content: "\f176";
 }
-.icon-mat-segment:before {
+.icon-mat-search:before {
     content: "\f177";
 }
-.icon-mat-send:before {
+.icon-mat-segment:before {
     content: "\f178";
 }
-.icon-mat-settings:before {
+.icon-mat-send:before {
     content: "\f179";
 }
-.icon-mat-shopping_bag:before {
+.icon-mat-settings:before {
     content: "\f17a";
 }
-.icon-mat-skip_next:before {
+.icon-mat-shopping_bag:before {
     content: "\f17b";
 }
-.icon-mat-skip_previous:before {
+.icon-mat-skip_next:before {
     content: "\f17c";
 }
-.icon-mat-sms_black:before {
+.icon-mat-skip_previous:before {
     content: "\f17d";
 }
-.icon-mat-sms_failed:before {
+.icon-mat-sms_black:before {
     content: "\f17e";
 }
-.icon-mat-sort:before {
+.icon-mat-sms_failed:before {
     content: "\f17f";
 }
-.icon-mat-south_west:before {
+.icon-mat-sort:before {
     content: "\f180";
 }
-.icon-mat-strikethrough_s:before {
+.icon-mat-south_west:before {
     content: "\f181";
 }
-.icon-mat-style:before {
+.icon-mat-strikethrough_s:before {
     content: "\f182";
 }
-.icon-mat-supervisor_account:before {
+.icon-mat-style:before {
     content: "\f183";
 }
-.icon-mat-sync_alt:before {
+.icon-mat-supervisor_account:before {
     content: "\f184";
 }
-.icon-mat-table_rows:before {
+.icon-mat-sync_alt:before {
     content: "\f185";
 }
-.icon-mat-text_format:before {
+.icon-mat-table_rows:before {
     content: "\f186";
 }
-.icon-mat-textsms:before {
+.icon-mat-text_format:before {
     content: "\f187";
 }
-.icon-mat-thumb_up_off_alt:before {
+.icon-mat-textsms:before {
     content: "\f188";
 }
-.icon-mat-today:before {
+.icon-mat-thumb_up_off_alt:before {
     content: "\f189";
 }
-.icon-mat-tune:before {
+.icon-mat-today:before {
     content: "\f18a";
 }
-.icon-mat-tungsten:before {
+.icon-mat-tune:before {
     content: "\f18b";
 }
-.icon-mat-undo:before {
+.icon-mat-tungsten:before {
     content: "\f18c";
 }
-.icon-mat-vertical_align_bottom:before {
+.icon-mat-undo:before {
     content: "\f18d";
 }
-.icon-mat-vertical_align_top:before {
+.icon-mat-vertical_align_bottom:before {
     content: "\f18e";
 }
-.icon-mat-visibility_off:before {
+.icon-mat-vertical_align_top:before {
     content: "\f18f";
 }
-.icon-mat-visibility:before {
+.icon-mat-visibility_off:before {
     content: "\f190";
 }
-.icon-mat-vpn_key:before {
+.icon-mat-visibility:before {
     content: "\f191";
 }
-.icon-mat-warning:before {
+.icon-mat-vpn_key:before {
     content: "\f192";
 }
-.icon-mat-workspaces:before {
+.icon-mat-warning:before {
     content: "\f193";
 }
-.icon-my-facebook:before {
+.icon-mat-workspaces:before {
     content: "\f194";
 }
-.icon-my-google:before {
+.icon-my-facebook:before {
     content: "\f195";
 }
-.icon-my-key:before {
+.icon-my-google:before {
     content: "\f196";
+}
+.icon-my-key:before {
+    content: "\f197";
 }

@@ -29,7 +29,7 @@
             </div>
           </div>
           <div class="row q-col-gutter-md q-mt-sm">
-            <div class="col-md-4 col-xs-12">
+            <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.harga_beli"
                 prefix="Rp"
@@ -39,20 +39,10 @@
                 currency
               />
             </div>
-            <div class="col-md-4 col-xs-12">
+            <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.harga_jual_umum"
                 label="Harga Jual Umum*"
-                outlined
-                number
-                currency
-                prefix="Rp"
-              />
-            </div>
-            <div class="col-md-4 col-xs-12">
-              <app-input
-                v-model="store.form.harga_jual_cust"
-                label="Harga Jual Customer*"
                 outlined
                 number
                 currency
@@ -63,6 +53,16 @@
           <div class="row q-col-gutter-md q-mt-sm">
             <div class="col-md-6 col-xs-12">
               <app-input
+                v-model="store.form.harga_jual_cust"
+                label="Harga Jual Customer*"
+                outlined
+                number
+                currency
+                prefix="Rp"
+              />
+            </div>
+            <div class="col-md-6 col-xs-12">
+              <app-input
                 v-model="store.form.harga_jual_resep"
                 label="Harga Jual Resep*"
                 outlined
@@ -71,16 +71,14 @@
                 prefix="Rp"
               />
             </div>
-            <div class="col-md-6 col-xs-12">
-              <!-- filled -->
+
+            <!-- <div class="col-md-6 col-xs-12">
               <q-input
                 v-model="store.form.expired"
                 dense
                 label="expired"
                 outlined
               >
-                <!-- mask="date"
-                :rules="['date']" -->
                 <template #append>
                   <q-icon
                     name="icon-mat-event"
@@ -108,7 +106,7 @@
                   </q-icon>
                 </template>
               </q-input>
-            </div>
+            </div> -->
           </div>
           <div class="row q-col-gutter-md q-mt-sm">
             <div class="col-md-4 col-xs-12">

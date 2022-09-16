@@ -105,7 +105,7 @@
           padding
           class="rounded-borders text-white"
         >
-          <div v-if="morphStore.date==='harian'">
+          <div v-if="morphStore.date === 'harian'">
             <q-item
               v-ripple
               class="menu"
@@ -117,7 +117,7 @@
                   v-model="table.form.hari"
                   flat
                   dark
-                  style="width:90%"
+                  style="width: 90%"
                   label="Tanggal"
                   autocomplete="nama"
                   option-value="value"
@@ -128,10 +128,9 @@
               </q-item-section>
             </q-item>
           </div>
-          <div v-if="morphStore.date==='bulanan'">
+          <div v-if="morphStore.date === 'bulanan'">
             <div
               v-for="(item, i) in morphStore.months"
-
               :key="i"
             >
               <q-item
@@ -147,21 +146,9 @@
               </q-item>
             </div>
           </div>
-          <div v-if="morphStore.date==='tahunan'">
-            <app-input
-              v-model="table.form.tahun"
-              dark
-              flat
-              dense
-              type="number"
-              label="masukkan tahun"
-              :rules="[ val => val.length < 4 || 'Tahun terdiri dari 4 angka',
-                        val => val.length > 4 || 'Tahun terdiri dari 4 angka']"
-              @keyup.enter="yearSelected"
-            />
-          </div>
+
           <div
-            v-if="table.form.date==='range'"
+            v-if="table.form.date === 'range'"
             class="text-primary"
           >
             <q-date
@@ -173,7 +160,7 @@
       </q-card-section>
 
       <q-card-actions
-        v-if="table.form.date==='range'"
+        v-if="table.form.date === 'range'"
         align="right"
       >
         <q-btn
@@ -188,6 +175,7 @@
 
 <script setup>
 // import { notifCenterVue } from 'src/modules/utils'
+import { dateFormat } from 'src/modules/formatter'
 import { useLaporanMorphStore } from 'src/stores/laporan/button'
 import { useLaporanTable } from 'src/stores/laporan/table'
 import { ref } from 'vue'
@@ -210,36 +198,42 @@ const transactionSelected = (val) => {
   table.selected = false
   console.log(val)
 }
-const dateSelected = val => {
+const dateSelected = (val) => {
   morphGroupModel.value = val.next
   morphStore.date = val.value
   table.form.date = val.date
   table.form[val.date] = val.param
+  console.log('date ', val)
+  table.periode = val.nama
   if (val.next === 'btn') {
-    table.getDataTransactions()
+    table.getDetailTransactions()
   }
 }
 const daySelected = (val) => {
+  console.log('day', val)
+  table.periode = ' Tanggal ' + val
   morphGroupModel.value = 'btn'
-  table.getDataTransactions()
+  table.getDetailTransactions()
 }
 const monthSelected = (val) => {
+  console.log('month ', val)
+  table.periode = 'Bulan ' + val.nama
   morphGroupModel.value = 'btn'
   table.form.bulan = val.value
-  table.getDataTransactions()
+  table.getDetailTransactions()
 
   console.log(table.form)
 }
-const yearSelected = (val) => {
-  morphGroupModel.value = 'btn'
-  table.getDataTransactions()
-}
+
 const rangeSelected = (val) => {
+  table.periode =
+    '  ' + dateFormat(rangeDate.value.from) + ' - ' + dateFormat(rangeDate.value.to)
+  console.log('range ', val)
   morphGroupModel.value = 'btn'
   table.form.from = rangeDate.value.from
   table.form.to = rangeDate.value.to
 
-  table.getDataTransactions()
+  table.getDetailTransactions()
 
   console.log(rangeDate.value)
   console.log(table.form)

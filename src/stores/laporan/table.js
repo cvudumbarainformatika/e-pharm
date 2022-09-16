@@ -1,10 +1,15 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
-import { filterDuplicateArrays } from 'src/modules/utils'
+// import { filterDuplicateArrays } from 'src/modules/utils'
 
 export const useLaporanTable = defineStore('laporan_table', {
   state: () => ({
     loading: false,
+    transactionTypes: [
+      { nama: 'produk', label: 'Laporan Berdasakan Obat' },
+      { nama: 'transaksi', label: 'Laporan Berdasakan Transaksi' }
+    ],
+    transactionType: 'produk',
     transactions: [],
     products: [],
     bebans: [],
@@ -29,7 +34,8 @@ export const useLaporanTable = defineStore('laporan_table', {
     rows: [],
     columns: [],
     selected: false,
-    penjualanType: 'umum'
+    penjualanType: 'umum',
+    periode: ''
   }),
   actions: {
     // local related functions
@@ -182,103 +188,105 @@ export const useLaporanTable = defineStore('laporan_table', {
       })
     },
     penjualan() {
-      const umum = []
-      const resep = []
-      const dist = []
-      const detailTransaksi = []
-      this.transactions.map((transaction) => {
-        transaction.detail_transaction.forEach((data) => {
-          if (transaction.dokter_id !== null) {
-            const detail = { type: 'resep', detail: data }
-            detailTransaksi.push(detail)
-            resep.push(data.harga)
-          } else if (transaction.customer_id !== null) {
-            const detail = { type: 'dist', detail: data }
-            detailTransaksi.push(detail)
-            dist.push(data.harga)
-          } else {
-            const detail = { type: 'umum', detail: data }
-            detailTransaksi.push(detail)
-            umum.push(data.harga)
-          }
-          console.log(data)
-        })
-        return transaction
-      })
-      // filter duplicate array
-      const fResep = filterDuplicateArrays(resep)
-      const fDist = filterDuplicateArrays(dist)
-      const fUmum = filterDuplicateArrays(umum)
-      // input harga pada masing-masing array harga
-      detailTransaksi.forEach((data) => {
-        const findProduct = this.findWithAttr(
-          this.products,
-          'id',
-          data.detail.product_id
-        )
+      this.rows = this.transactions
+      // const umum = []
+      // const resep = []
+      // const dist = []
+      // const detailTransaksi = []
+      // this.transactions.map((transaction) => {
+      //   transaction.detail_transaction.forEach((data) => {
+      //     if (transaction.dokter_id !== null) {
+      //       const detail = { type: 'resep', detail: data }
+      //       detailTransaksi.push(detail)
+      //       resep.push(data.harga)
+      //     } else if (transaction.customer_id !== null) {
+      //       const detail = { type: 'dist', detail: data }
+      //       detailTransaksi.push(detail)
+      //       dist.push(data.harga)
+      //     } else {
+      //       const detail = { type: 'umum', detail: data }
+      //       detailTransaksi.push(detail)
+      //       umum.push(data.harga)
+      //     }
+      //     console.log(data)
+      //   })
+      //   return transaction
+      // })
+      // // filter duplicate array
+      // const fResep = filterDuplicateArrays(resep)
+      // const fDist = filterDuplicateArrays(dist)
+      // const fUmum = filterDuplicateArrays(umum)
+      // // input harga pada masing-masing array harga
+      // detailTransaksi.forEach((data) => {
+      //   const findProduct = this.findWithAttr(
+      //     this.products,
+      //     'id',
+      //     data.detail.product_id
+      //   )
 
-        if (data.type === 'resep') {
-          const findHarga = fResep.indexOf(data.detail.harga)
-          this.reseps[findHarga] = this.setRowData(
-            findHarga,
-            findProduct,
-            data.detail,
-            this.reseps
-          )
-        }
-        if (data.type === 'dist') {
-          const findHarga = fDist.indexOf(data.detail.harga)
-          this.dists[findHarga] = this.setRowData(
-            findHarga,
-            findProduct,
-            data.detail,
-            this.dists
-          )
-        }
-        if (data.type === 'umum') {
-          const findHarga = fUmum.indexOf(data.detail.harga)
-          this.umums[findHarga] = this.setRowData(
-            findHarga,
-            findProduct,
-            data.detail,
-            this.umums
-          )
-        }
-        // console.log('find product ', findProduct)
-      })
-      this.setPenjualan()
+      //   if (data.type === 'resep') {
+      //     const findHarga = fResep.indexOf(data.detail.harga)
+      //     this.reseps[findHarga] = this.setRowData(
+      //       findHarga,
+      //       findProduct,
+      //       data.detail,
+      //       this.reseps
+      //     )
+      //   }
+      //   if (data.type === 'dist') {
+      //     const findHarga = fDist.indexOf(data.detail.harga)
+      //     this.dists[findHarga] = this.setRowData(
+      //       findHarga,
+      //       findProduct,
+      //       data.detail,
+      //       this.dists
+      //     )
+      //   }
+      //   if (data.type === 'umum') {
+      //     const findHarga = fUmum.indexOf(data.detail.harga)
+      //     this.umums[findHarga] = this.setRowData(
+      //       findHarga,
+      //       findProduct,
+      //       data.detail,
+      //       this.umums
+      //     )
+      //   }
+      //   // console.log('find product ', findProduct)
+      // })
+      // this.setPenjualan()
     },
     pembelian() {
-      // maping index harga
-      const harga = []
-      // const produk=[]
-      const detailTransaksi = []
-      this.transactions.map((transaction) => {
-        transaction.detail_transaction.forEach((detail) => {
-          detailTransaksi.push(detail)
-          harga.push(detail.harga)
-        })
-        return transaction.detail_transaction
-      })
-      // filter duplikat harga
-      const fHarga = filterDuplicateArrays(harga)
-      // ambil data, masukkan sesuai harga beli atau harga beli yang sudah naik / turun
-      detailTransaksi.forEach((data) => {
-        const findProduct = this.findWithAttr(
-          this.products,
-          'id',
-          data.product_id
-        )
-        const findHarga = fHarga.indexOf(data.harga)
-        this.rows[findHarga] = this.setRowData(
-          findHarga,
-          findProduct,
-          data,
-          this.rows
-        )
-      })
-      // sort
-      this.sorting(this.rows)
+      this.rows = this.transactions
+      // // maping index harga
+      // const harga = []
+      // // const produk=[]
+      // const detailTransaksi = []
+      // this.transactions.map((transaction) => {
+      //   transaction.detail_transaction.forEach((detail) => {
+      //     detailTransaksi.push(detail)
+      //     harga.push(detail.harga)
+      //   })
+      //   return transaction.detail_transaction
+      // })
+      // // filter duplikat harga
+      // const fHarga = filterDuplicateArrays(harga)
+      // // ambil data, masukkan sesuai harga beli atau harga beli yang sudah naik / turun
+      // detailTransaksi.forEach((data) => {
+      //   const findProduct = this.findWithAttr(
+      //     this.products,
+      //     'id',
+      //     data.product_id
+      //   )
+      //   const findHarga = fHarga.indexOf(data.harga)
+      //   this.rows[findHarga] = this.setRowData(
+      //     findHarga,
+      //     findProduct,
+      //     data,
+      //     this.rows
+      //   )
+      // })
+      // // sort
+      // this.sorting(this.rows)
     },
     setRowData(indexHarga, indexProduct, data, targetArray) {
       const toRow = []
@@ -381,7 +389,7 @@ export const useLaporanTable = defineStore('laporan_table', {
           })
       })
     },
-    getDataTransactions() {
+    getDetailTransactions() {
       this.rows = []
       this.selected = true
       this.loading = true
@@ -389,13 +397,13 @@ export const useLaporanTable = defineStore('laporan_table', {
       this.setColumns()
       return new Promise((resolve, reject) => {
         api
-          .get('v1/transaksi/get-by-date', params)
+          .get('v1/detail-transaksi/get-by-date', params)
           .then((resp) => {
             this.loading = false
             if (resp.status === 200) {
-              this.transactions = resp.data.data
+              this.transactions = resp.data
               this.setRows()
-              console.log(resp.data)
+              console.log(resp)
               resolve(resp.data)
             }
           })

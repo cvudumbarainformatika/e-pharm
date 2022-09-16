@@ -5,13 +5,13 @@
   >
     <div>
       <q-icon
-        name="icon-mat-south_west"
-        color="primary"
+        name="icon-mat-warning"
+        color="negative"
         size="60px"
       />
     </div>
-    <div class="text-primary q-mt-sm">
-      Silahkan pilih menu dipojok kiri bawah
+    <div class="text-negative q-mt-sm">
+      Belum ada Transaksi yang di pilih
     </div>
   </div>
 </template>
