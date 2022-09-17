@@ -115,29 +115,10 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
   actions: {
     // local relaated functions
     resetData() {
+      this.form = {}
       this.params.transaction_id = null
-      this.form.faktur = null
-      this.form.reff = null
-      this.form.product_id = ''
-      this.form.harga_beli = 0
-      this.form.harga_jual_umum = 0
-      this.form.harga_jual_resep = 0
-      this.form.harga_jual_cust = 0
-      this.form.qty = 0
-      this.form.harga = 0
-      this.form.total = 0
-      this.form.sub_total = 0
-      this.form.tanggal = null
-      this.form.nama = null
       this.form.jenis = 'tunai'
-      this.form.ongkir = 0
-      this.form.potongan = 0
-      this.form.bayar = 0
-      this.form.kembali = 0
-      this.form.tempo = null
-      this.form.kasir_id = null
-      this.form.supplier_id = null
-      this.form.status = 0
+      this.form.nama = 'RETUR'
       this.rows = []
     },
     resetInput() {
@@ -272,28 +253,31 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
     simpanDetailTransaksi() {
       const retur = useReturTable()
       const reff = 'R' + routerInstance.currentRoute.value.params.slug
+      this.setToday()
       // this.setReturTotal()
       // this.form.total = this.setReturTotal()
-      this.form.product_id = this.produk.product_id
-      this.form.harga = olahUang(this.produk.harga)
-      this.form.sub_total = olahUang(this.form.qty) * olahUang(this.produk.harga)
-      this.form.reff = reff
+      const data = this.form
+      data.product_id = this.produk.product_id
+      data.harga = olahUang(this.produk.harga)
+      data.sub_total = olahUang(this.form.qty) * olahUang(this.produk.harga)
       this.loading = true
       this.setReturTotal()
-      this.form.total = retur.form.total
-      this.form.status = 1
+      data.total = retur.form.total
+      data.status = 1
+      data.reff = reff
       // console.log('total ', this.form.total)
       // console.log('form ', this.form)
 
       return new Promise((resolve, reject) => {
         api
-          .post('v1/transaksi/store', this.form)
+          .post('v1/transaksi/store', data)
           .then((resp) => {
             this.loading = false
             console.log('save detail ', resp)
             resolve(resp.data.data)
             retur.getDetailTransaksi()
             this.setTotal()
+            this.form.reff = routerInstance.currentRoute.value.params.slug
             // this.resetInput()
           })
           .catch((err) => {

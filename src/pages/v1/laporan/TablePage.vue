@@ -29,7 +29,9 @@
             key="nama"
             :props="props"
           >
-            <div> {{ props.row.product.nama }} </div>
+            <div else>
+              {{ props.row.beban ? props.row.beban.nama : props.row.penerimaan ? props.row.penerimaan.nama : props.row.product.nama }}
+            </div>
           </q-td>
           <!-- kolom keterangan -->
           <q-td
@@ -58,7 +60,7 @@
             key="total"
             :props="props"
           >
-            <div> {{ formatRp(props.row.harga * props.row.jml) }} </div>
+            <div> {{ props.row.harga ? formatRp(props.row.harga * props.row.jml) : formatRp(props.row.sub_total) }} </div>
           </q-td>
           <!-- kolom actions -->
           <q-td

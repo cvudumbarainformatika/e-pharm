@@ -206,6 +206,7 @@ const openDialog = () => {
 }
 const itemClicked = (val) => {
   table.transactionType = val.nama
+  transaksi.getDataTransactions()
   console.log(val)
 }
 const pilihPembelian = (val) => {

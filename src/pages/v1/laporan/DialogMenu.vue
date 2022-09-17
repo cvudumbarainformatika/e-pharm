@@ -34,7 +34,6 @@
                 class="sidebar flex items-center justify-start"
                 style="min-width:150px;"
                 exact
-                @click="closePopup"
                 @mouseover="transactionSelected(menu)"
               >
                 <q-item
@@ -141,9 +140,10 @@
               >
                 <q-item
                   v-ripple
-                  class="menu"
                   clickable
-                  exact
+                  :active="table.form.bulan === item.value"
+                  active-class="text-white bg-primary"
+
                   @click="monthSelected(item)"
                 >
                   <q-item-section>
@@ -200,21 +200,21 @@ const dateSelected = (val) => {
   console.log('date ', val)
   table.periode = val.nama
   if (val.next === 'btn') {
-    table.getDetailTransactions()
+    table.beforeGetData()
     closePopup()
   }
 }
 const daySelected = (val) => {
   console.log('day', val)
   table.periode = ' Tanggal ' + val
-  table.getDetailTransactions()
+  table.beforeGetData()
   closePopup()
 }
 const monthSelected = (val) => {
   console.log('month ', val)
   table.periode = 'Bulan ' + val.nama
   table.form.bulan = val.value
-  table.getDetailTransactions()
+  table.beforeGetData()
   closePopup()
   console.log(table.form)
 }
@@ -225,7 +225,7 @@ const rangeSelected = (val) => {
   table.form.from = rangeDate.value.from
   table.form.to = rangeDate.value.to
 
-  table.getDetailTransactions()
+  table.beforeGetData()
   closePopup()
   console.log(rangeDate.value)
   console.log(table.form)

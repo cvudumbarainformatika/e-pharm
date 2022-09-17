@@ -136,24 +136,29 @@ export const useLaporanTable = defineStore('laporan_table', {
       })
     },
     setRows() {
-      if (this.form.nama === 'PEMBELIAN') {
-        this.pembelian()
-      } else if (this.form.nama === 'PENJUALAN') {
-        this.penjualan()
-      } else if (this.form.nama === 'RETUR PEMBELIAN') {
-        this.pembelian()
-      } else if (this.form.nama === 'RETUR PENJUALAN') {
-        this.pembelian()
-      } else if (this.form.nama === 'BEBAN') {
-        this.beban()
-      } else if (this.form.nama === 'PENERIMAAN') {
-        this.penerimaan()
-      }
+      this.rows = this.transactions
+      // if (this.form.nama === 'PEMBELIAN') {
+      //   this.pembelian()
+      // } else if (this.form.nama === 'PENJUALAN') {
+      //   this.penjualan()
+      // } else if (this.form.nama === 'RETUR PEMBELIAN') {
+      //   this.pembelian()
+      // } else if (this.form.nama === 'RETUR PENJUALAN') {
+      //   this.pembelian()
+      // } else if (this.form.nama === 'BEBAN') {
+      //   this.beban()
+      // } else if (this.form.nama === 'PENERIMAAN') {
+      //   this.penerimaan()
+      // }
     },
     beban() {
-      this.transactions.forEach(transaction => {
+      this.transactions.forEach((transaction) => {
         // nama keterangan supplier total
-        const indexBeban = this.findWithAttr(this.bebans, 'id', transaction.beban_transaction[0].beban_id)
+        const indexBeban = this.findWithAttr(
+          this.bebans,
+          'id',
+          transaction.beban_transaction[0].beban_id
+        )
         console.log('transaction ', transaction)
         console.log('index ', indexBeban)
         console.log('bebans_id ', transaction.beban_transaction.beban_id)
@@ -171,10 +176,17 @@ export const useLaporanTable = defineStore('laporan_table', {
       // console.log('beban ', this.rows)
     },
     penerimaan() {
-      this.transactions.forEach(transaction => {
-        const indexPenerimaan = this.findWithAttr(this.penerimaans, 'id', transaction.penerimaan_transaction[0].penerimaan_id)
+      this.transactions.forEach((transaction) => {
+        const indexPenerimaan = this.findWithAttr(
+          this.penerimaans,
+          'id',
+          transaction.penerimaan_transaction[0].penerimaan_id
+        )
         console.log('index ', indexPenerimaan)
-        console.log('penerimaan_id ', transaction.penerimaan_transaction.penerimaan_id)
+        console.log(
+          'penerimaan_id ',
+          transaction.penerimaan_transaction.penerimaan_id
+        )
         if (this.rows[indexPenerimaan] === undefined) {
           this.rows[indexPenerimaan] = {
             nama: this.penerimaans[indexPenerimaan].nama,
@@ -325,6 +337,15 @@ export const useLaporanTable = defineStore('laporan_table', {
       // sort
       this.sorting(this.rows)
     },
+    beforeGetData() {
+      if (this.form.nama === 'BEBAN') {
+        this.getDataTransactions('beban')
+      } else if (this.form.nama === 'PENERIMAAN') {
+        this.getDataTransactions('penerimaan')
+      } else {
+        this.getDataTransactions('detail-transaksi')
+      }
+    },
     // api related functions
     getDataProducts() {
       this.loading = true
@@ -389,7 +410,7 @@ export const useLaporanTable = defineStore('laporan_table', {
           })
       })
     },
-    getDetailTransactions() {
+    getDataTransactions(url) {
       this.rows = []
       this.selected = true
       this.loading = true
@@ -397,7 +418,7 @@ export const useLaporanTable = defineStore('laporan_table', {
       this.setColumns()
       return new Promise((resolve, reject) => {
         api
-          .get('v1/detail-transaksi/get-by-date', params)
+          .get(`v1/${url}/get-by-date`, params)
           .then((resp) => {
             this.loading = false
             if (resp.status === 200) {
