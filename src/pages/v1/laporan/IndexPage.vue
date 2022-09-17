@@ -16,11 +16,11 @@
 <script setup>
 import { useLaporanTable } from 'src/stores/laporan/table'
 import NoSelectPage from './NoSelectPage.vue'
-import TablePage from './TablePage.vue'
+import TablePage from './transaksi/TablePage.vue'
 // import MorphButton from './MorphButton.vue'
 import { useLaporanMorphStore } from 'src/stores/laporan/button'
-import LaporanTransaksi from './LaporanTransaksi.vue'
-import TopMenu from './TopMenu.vue'
+import LaporanTransaksi from './transaksi/LaporanTransaksi.vue'
+import TopMenu from './transaksi/TopMenu.vue'
 
 const table = useLaporanTable()
 const button = useLaporanMorphStore()
