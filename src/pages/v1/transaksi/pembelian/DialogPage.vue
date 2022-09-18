@@ -206,6 +206,11 @@
           </div>
           <q-separator class="q-my-md" />
           <div class="text-right">
+            <q-checkbox
+              v-model="store.printChek"
+              left-label
+              label="Print Nota"
+            />
             <app-btn
               type="reset"
               color="dark"
@@ -227,6 +232,7 @@
 import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
 import { ref } from 'vue'
 import { useSupplierFormStore } from 'src/stores/master/supplier/form'
+// import { notifErrVue } from 'src/modules/utils'
 // import { usePrintStore } from 'src/stores/print'
 const supplier = useSupplierFormStore()
 // const print = usePrintStore()

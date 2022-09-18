@@ -52,12 +52,12 @@ export const usePembelianTable = defineStore('pembelian_table', {
         name: 'produk',
         align: 'left',
         label: 'Produk',
-        field: (row) => row.product.nama
+        field: (row) => row.product ? row.product.nama : row.product_id
       },
       {
         name: 'expired',
         align: 'left',
-        label: 'Tanggal Kadalwarsa',
+        label: 'Expired',
         field: 'expired'
       },
       { name: 'qty', align: 'left', label: 'Jumlah', field: 'qty' },
@@ -72,21 +72,21 @@ export const usePembelianTable = defineStore('pembelian_table', {
         name: 'harga_jual_umum',
         align: 'right',
         label: 'Harga Umum',
-        field: (row) => row.product.harga_jual_umum,
+        field: (row) => row.product ? row.product.harga_jual_umum : row.product_id,
         format: (val) => formatRp(val)
       },
       {
         name: 'harga_jual_resep',
         align: 'right',
         label: 'Harga Resep',
-        field: (row) => row.product.harga_jual_resep,
+        field: (row) => row.product ? row.product.harga_jual_resep : row.product_id,
         format: (val) => formatRp(val)
       },
       {
         name: 'harga_jual_cust',
         align: 'right',
         label: 'Harga Distributor',
-        field: (row) => row.product.harga_jual_cust,
+        field: (row) => row.product ? row.product.harga_jual_cust : row.product_id,
         format: (val) => formatRp(val)
       },
       {
@@ -147,14 +147,16 @@ export const usePembelianTable = defineStore('pembelian_table', {
       const produk = apem.filter((data) => {
         return data.id === val
       })
-      this.form.product_id = produk[0].id
-      this.form.harga = produk[0].harga_beli
-      this.form.harga_beli = produk[0].harga_beli
-      this.form.harga_jual_cust = produk[0].harga_jual_cust
-      this.form.harga_jual_umum = produk[0].harga_jual_umum
-      this.form.harga_jual_resep = produk[0].harga_jual_resep
-      this.form.qty = 1
-      // console.log('nama ', produk[0])
+
+      if (produk.length) {
+        this.form.product_id = produk[0].id
+        this.form.harga = produk[0].harga_beli
+        this.form.harga_beli = produk[0].harga_beli
+        this.form.harga_jual_cust = produk[0].harga_jual_cust
+        this.form.harga_jual_umum = produk[0].harga_jual_umum
+        this.form.harga_jual_resep = produk[0].harga_jual_resep
+        this.form.qty = 1
+      }
     },
     resetInput() {
       this.form.product_id = ''
@@ -170,11 +172,11 @@ export const usePembelianTable = defineStore('pembelian_table', {
       const store = usePembelianDialog()
       store.form.reff = this.form.reff
       store.setToday()
-      if (this.form.faktur !== '') {
+      if (this.form.faktur !== '' && this.form.product_id !== '' && this.form.qty !== 0) {
         store.form.faktur = this.form.faktur
         this.simpanDetailTransaksi()
       } else {
-        notifErrVue('Faktur belum di isi')
+        notifErrVue('perksa Faktur, Produk, dan Jumlah pembelian')
       }
     },
 
@@ -197,7 +199,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       const params = val.row
       Dialog.create({
         title: 'Konfirmasi',
-        message: `Apakah Produk:<strong> ${params.produk.nama}</strong> dengan Qty :<strong> ${params.qty}</strong> akan di hapus?`,
+        message: `Apakah Produk:<strong> ${params.produk ? params.produk.nama : 'tanpa nama'}</strong> dengan Qty :<strong> ${params.qty}</strong> akan di hapus?`,
         cancel: true,
         html: true
       })

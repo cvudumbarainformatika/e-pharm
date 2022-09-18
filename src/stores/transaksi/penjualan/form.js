@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { routerInstance } from 'src/boot/router'
 import { olahUang } from 'src/modules/formatter'
-import { notifSuccess, uniqueId } from 'src/modules/utils'
+import { notifErrVue, notifSuccess, uniqueId } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
 import { usePrintStore } from 'src/stores/print'
 import { usePenjualanTable } from './table'
@@ -45,6 +45,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       sort: 'desc'
     },
     loading: false,
+    printChek: true,
     print: usePrintStore()
   }),
   actions: {
@@ -160,7 +161,11 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.status = 1
       this.print.form = this.form
       console.log(this.print.form)
-      window.print()
+      if (bayar < total && this.form.jenis === 'tunai') {
+        notifErrVue('periksa input bayar')
+        return
+      }
+      if (this.printChek) { window.print() }
       // console.log('form', this.form)
       this.loading = true
       return new Promise((resolve, reject) => {

@@ -212,6 +212,11 @@
           </div>
           <q-separator class="q-my-md" />
           <div class="text-right">
+            <q-checkbox
+              v-model="store.printChek"
+              left-label
+              label="Print Nota"
+            />
             <app-btn
               type="reset"
               color="dark"

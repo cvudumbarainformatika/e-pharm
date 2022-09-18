@@ -11,12 +11,22 @@ export const useLaporanTransaksiStore = defineStore('laporan_transaksi_store', {
       { nama: 'supplier', label: 'Pilih Supplier' }
     ],
     pembelian: 'all',
+    hutangs: [
+      { nama: 'all', label: 'Semua' },
+      { nama: 'supplier', label: 'Pilih Supplier' }
+    ],
+    hutang: 'all',
     penjualans: [
       { nama: 'all', label: 'Semua' },
       { nama: 'dokter', label: 'Berdasarkan Dokter' },
       { nama: 'customer', label: 'Berdasarkan Distributor' }
     ],
     penjualan: 'all',
+    piutangs: [
+      { nama: 'all', label: 'Semua' },
+      { nama: 'customer', label: 'Berdasarkan Distributor' }
+    ],
+    piutang: 'all',
     suppliers: [],
     distributors: [],
     dokters: [],

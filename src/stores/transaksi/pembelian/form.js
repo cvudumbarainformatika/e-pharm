@@ -3,7 +3,7 @@ import { api } from 'src/boot/axios'
 import { routerInstance } from 'src/boot/router'
 import { olahUang } from 'src/modules/formatter'
 import { notifSuccess, uniqueId } from 'src/modules/utils'
-import { useAuthStore } from 'src/stores/auth'
+// import { useAuthStore } from 'src/stores/auth'
 import { usePrintStore } from 'src/stores/print'
 import { usePembelianTable } from './table'
 
@@ -41,25 +41,19 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       sort: 'desc'
     },
     loading: false,
+    printChek: true,
     print: usePrintStore()
   }),
   actions: {
     resetData() {
       this.form = {}
       this.form.nama = 'PEMBELIAN'
-      this.form.id = null
-      this.form.faktur = null
-      this.form.reff = null
-      this.form.tanggal = null
       this.form.jenis = 'tunai'
       this.form.total = 0
       this.form.ongkir = 0
       this.form.potongan = 0
       this.form.bayar = 0
       this.form.kembali = 0
-      this.form.tempo = null
-      this.form.kasir_id = null
-      this.form.supplier_id = null
       this.form.status = 0
     },
     setToday() {
@@ -115,17 +109,27 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     },
     jenisSelected(val) {
       // console.log('jenis selected ', val)
-      if (val === 'tunai') {
-        this.ambilDataKasir()
-        this.form.supplier_id = null
-      } else {
-        this.ambilDataSupplier()
-        this.form.kasir_id = null
-      }
+      this.ambilDataKasir()
+      this.ambilDataSupplier()
+      this.form.supplier_id = null
+      this.form.kasir_id = null
     },
     ambilDataKasir() {
-      const user = useAuthStore()
-      this.kasirs = [user.userGetter]
+      this.loading = true
+      return new Promise((resolve, reject) => {
+        api.get('v1/user/kasir')
+          .then(resp => {
+            this.loading = false
+            if (resp.status === 200) {
+              this.kasirs = resp.data.data
+              console.log('kasir ', resp.data)
+              resolve(resp.data)
+            }
+          }).catch(err => {
+            this.loading = false
+            reject(err)
+          })
+      })
       // console.log('user ', user.user)
       // console.log('user getter', user.userGetter)
     },
@@ -164,7 +168,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       this.form.kembali = kembali
       this.form.status = 1
       print.form = this.form
-      window.print()
+      if (this.printChek) { window.print() }
       this.loading = true
       return new Promise((resolve, reject) => {
         api

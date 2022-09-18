@@ -1,12 +1,13 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
+import { useLaporanTransaksiStore } from './transaksi'
 // import { filterDuplicateArrays } from 'src/modules/utils'
 
 export const useLaporanTable = defineStore('laporan_table', {
   state: () => ({
     loading: false,
     transactionTypes: [
-      { nama: 'produk', label: 'Laporan Berdasakan Obat' },
+      { nama: 'produk', label: 'Laporan Berdasakan item' },
       { nama: 'transaksi', label: 'Laporan Berdasakan Transaksi' }
     ],
     transactionType: 'produk',
@@ -39,6 +40,16 @@ export const useLaporanTable = defineStore('laporan_table', {
   }),
   actions: {
     // local related functions
+    resetData() {
+      this.transactions = []
+      this.products = []
+      this.bebans = []
+      this.penerimaans = []
+      this.meta = {}
+      this.form = {}
+      this.selected = false
+      this.periode = ''
+    },
     setColumns() {
       const kolom = [
         {
@@ -338,6 +349,18 @@ export const useLaporanTable = defineStore('laporan_table', {
       this.sorting(this.rows)
     },
     beforeGetData() {
+      const transaksi = useLaporanTransaksiStore()
+      console.log('form sebelum if', this.form)
+      if (this.form.supplier_id !== undefined && transaksi.pembelian !== 'supplier' && transaksi.hutang !== 'supplier') {
+        delete this.form.supplier_id
+      }
+      if (this.form.customer_id !== undefined && transaksi.penjualan !== 'customer' && transaksi.piutang !== 'customer') {
+        delete this.form.customer_id
+      }
+      if (this.form.dokter_id !== undefined && transaksi.penjualan !== 'dokter') {
+        delete this.form.dokter_id
+      }
+      console.log('form seseudah if', this.form)
       if (this.form.nama === 'BEBAN') {
         this.getDataTransactions('beban')
       } else if (this.form.nama === 'PENERIMAAN') {

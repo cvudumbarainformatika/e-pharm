@@ -59,6 +59,7 @@ function fetchData () {
 }
 const selected = (val) => {
   emits('on-select', val)
+  console.log('selected ', val)
 }
 fetchData()
 function filterFn (val, update) {
@@ -83,11 +84,13 @@ function filterFn (val, update) {
     const arr = refAuto.value.autocomplete
     if (arr === '') {
       optionx.value = props.source.filter(v => v.toLowerCase().indexOf(needle) > -1)
+      console.log('update if atas ', optionx.value)
     } else {
       const splits = arr.split('-')
       const multiFilter = (data = [], filterKeys = [], value = '') => data.filter((item) => filterKeys.some(key => item[key].toString().toLowerCase().includes(value.toLowerCase()) && item[key]))
       const filteredData = multiFilter(props.source, splits, needle)
       optionx.value = filteredData
+      console.log('update if bawah ', optionx.value)
     }
     // }
   },

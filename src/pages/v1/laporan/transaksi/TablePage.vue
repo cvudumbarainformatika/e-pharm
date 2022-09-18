@@ -62,32 +62,6 @@
           >
             <div> {{ props.row.harga ? formatRp(props.row.harga * props.row.jml) : formatRp(props.row.sub_total) }} </div>
           </q-td>
-          <!-- kolom actions -->
-          <q-td
-            key="actions"
-            :props="props"
-          >
-            <div
-              v-if="props.row.status === 0"
-              @click="table.openTransaction(props)"
-            >
-              <q-avatar
-                text-color="negative"
-                :color="table.dark === true ? 'dark':'white'"
-                icon="icon-mat-open_in_new"
-                clickable
-              />
-            </div>
-            <div v-if="props.row.status === 1">
-              <q-avatar
-                text-color="primary"
-                :color="table.dark === true ? 'dark':'white'"
-                :icon="props.expand ? 'icon-mat-expand_less' : 'icon-mat-expand_more'"
-                clickable
-                @click="props.expand = !props.expand"
-              />
-            </div>
-          </q-td>
         </q-tr>
       </template>
       <!-- no data slot -->

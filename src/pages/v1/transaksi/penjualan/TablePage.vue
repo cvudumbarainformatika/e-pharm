@@ -81,6 +81,7 @@
           <q-td colspan="2">
             <app-autocomplete-new
               v-model="table.form.product_id"
+              autofocus
               dense
               label=" "
               autocomplete="nama"

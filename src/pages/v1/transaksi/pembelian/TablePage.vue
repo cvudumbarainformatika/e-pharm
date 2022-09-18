@@ -61,7 +61,6 @@
           <q-td colspan="2">
             <app-autocomplete-new
               v-model="table.form.product_id"
-              dense
               label=" "
               autocomplete="nama"
               option-value="id"
@@ -75,6 +74,7 @@
               v-model="table.form.expired"
               class="text-left"
               label=" "
+              dense
             >
               <!-- mask="date"
               :rules="['date']" -->
@@ -133,6 +133,7 @@
               label=" "
               number
               currency
+              readonly
             />
           </q-td>
           <q-td>
@@ -142,6 +143,7 @@
               label=" "
               number
               currency
+              readonly
             />
           </q-td>
           <q-td>
@@ -151,6 +153,7 @@
               label=" "
               number
               currency
+              readonly
             />
           </q-td>
           <q-td>

@@ -14,7 +14,16 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+.close:before {
+    content: "\f129";
+}
+.cancel:before {
+    content: "\f121";
+}
 
+.clear:before {
+    content: "\f101";
+}
 .icon-clear:before {
     content: "\f101";
 }
