@@ -25,7 +25,8 @@ export const usePenerimaanTransaksiFormStore = defineStore(
       },
       kasirs: [],
       customers: [],
-      loading: false
+      loading: false,
+      hutang: null
     }),
     actions: {
       // local related actions
@@ -43,6 +44,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         this.setForm('kasir_id', null)
         this.setForm('penerimaan_id', null)
         this.setForm('tanggal', null)
+        this.hutang = null
       },
       setToday() {
         const date = new Date()
@@ -117,6 +119,39 @@ export const usePenerimaanTransaksiFormStore = defineStore(
             })
             .catch((err) => {
               waitLoad('done')
+              reject(err)
+            })
+        })
+      },
+      piutangDistributor(val) {
+        console.log('piutang distributor', val)
+        this.loading = true
+        const params = {
+          params: {
+            customer_id: val
+          }
+        }
+        return new Promise((resolve, reject) => {
+          api.get('v1/laporan/get-piutang-customer', params)
+            .then(resp => {
+              console.log(resp.data)
+              this.loading = false
+
+              const hutang = []
+              resp.data.hutang.forEach((data, index) => {
+                hutang[index] = data.jml * data.harga
+              })
+              let dibayar = 0
+              if (resp.data.dibayar.length) {
+                dibayar = resp.data.dibayar[0].total
+              }
+              const jmlHutang = hutang.reduce((total, num) => { return total + num })
+              this.hutang = resp.data.awal + jmlHutang - dibayar
+              console.log(jmlHutang, 'hutang ', hutang, 'dibayar', dibayar, 'sisa', this.hutang)
+              resolve(resp)
+            })
+            .catch(err => {
+              this.loading = false
               reject(err)
             })
         })

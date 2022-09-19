@@ -109,13 +109,13 @@
               >
                 <app-autocomplete
                   v-model="store.form.customer_id"
-                  label="pilih Distributor"
+                  :label="store.hutang === null ? 'pilih Distributor' : 'sisa piutang : ' + formatRp(store.hutang)"
                   autocomplete="nama"
                   option-value="id"
                   option-label="nama"
                   :source="store.customers"
                   :loading="store.loading"
-                  clearable
+                  @on-select="store.piutangDistributor"
                 />
               </div>
               <div class="col-md-3 col-xs-12">
@@ -153,7 +153,7 @@
 </template>
 <script setup>
 import { api } from 'src/boot/axios'
-import { isHas } from 'src/modules/formatter'
+import { isHas, formatRp } from 'src/modules/formatter'
 import { usePenerimaanTransaksiFormStore } from 'src/stores/transaksi/penerimaan/form'
 import { ref } from 'vue'
 

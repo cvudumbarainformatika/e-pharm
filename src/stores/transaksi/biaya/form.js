@@ -136,7 +136,10 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
             resp.data.hutang.forEach((data, index) => {
               hutang[index] = data.jml * data.harga
             })
-            const dibayar = resp.data.dibayar[0].total
+            let dibayar = 0
+            if (resp.data.dibayar.length) {
+              dibayar = resp.data.dibayar[0].total
+            }
             const jmlHutang = hutang.reduce((total, num) => { return total + num })
             this.hutang = resp.data.awal + jmlHutang - dibayar
             console.log(jmlHutang, 'hutang ', hutang, 'dibayar', dibayar, 'sisa', this.hutang)

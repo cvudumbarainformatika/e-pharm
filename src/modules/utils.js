@@ -130,6 +130,23 @@ const titleCase = (str) => {
   return splitStr.join(' ')
 }
 
+const findWithAttr = (array, attr, value) => {
+  for (let i = 0; i < array.length; i += 1) {
+    if (array[i][attr] === value) {
+      return i
+    }
+  }
+  return -1
+}
+const findWithTwoAttr = (array, attr, value, attr2, value2) => {
+  for (let i = 0; i < array.length; i += 1) {
+    if (array[i][attr] === value && array[i][attr2] === value2) {
+      return i
+    }
+  }
+  return -1
+}
+
 export {
   notifSuccess,
   notifErr,
@@ -138,5 +155,7 @@ export {
   uniqueId,
   notifCenterVue,
   filterDuplicateArrays,
-  titleCase
+  titleCase,
+  findWithAttr,
+  findWithTwoAttr
 }
