@@ -93,14 +93,13 @@
               >
                 <app-autocomplete
                   v-model="store.form.supplier_id"
-                  label="pilih Supplier"
+                  :label=" store.hutang===null?'pilih Supplier' : 'sisa hutang : ' + formatRp(store.hutang)"
                   autocomplete="nama"
                   option-value="id"
                   option-label="nama"
                   :source="store.suppliers"
                   :loading="store.loading"
-
-                  clearable
+                  @on-select="store.hutangSupplier"
                 />
               </div>
               <div class="col-md-3 col-xs-12">
@@ -152,7 +151,7 @@
   </q-card>
 </template>
 <script setup>
-import { isHas } from 'src/modules/formatter'
+import { isHas, formatRp } from 'src/modules/formatter'
 import { api } from 'src/boot/axios'
 import { useBebanTransaksiFormStore } from 'src/stores/transaksi/biaya/form'
 import { ref } from 'vue'

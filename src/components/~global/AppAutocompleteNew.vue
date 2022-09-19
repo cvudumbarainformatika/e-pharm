@@ -16,7 +16,6 @@
     lazy-rules
     :rules="[anotherValid]"
     behavior="menu"
-    clearable
     map-options
     emit-value
     @update:model-value="selected"
@@ -24,6 +23,15 @@
     @new-value="createValue"
     @input-value="inputValue"
   >
+    <!-- <template
+      v-if="icon"
+      #append
+    >
+      <q-icon
+        name="icon-mat-cancel"
+        class="cursor-pointer"
+      />
+    </template> -->
     <template #no-option>
       <q-item>
         <q-item-section class="text-grey">
@@ -51,6 +59,7 @@ const props = defineProps({
 })
 const optionx = ref([])
 const refAuto = ref(null)
+const icon = ref(null)
 function fetchData () {
   // console.log(refAuto.value)
   if (props.source.length > 0) {
@@ -60,6 +69,7 @@ function fetchData () {
 const selected = (val) => {
   emits('on-select', val)
   console.log('selected ', val)
+  icon.value = val
 }
 fetchData()
 function filterFn (val, update) {

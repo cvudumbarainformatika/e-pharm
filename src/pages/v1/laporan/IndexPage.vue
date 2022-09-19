@@ -1,5 +1,6 @@
 <template>
   <q-page class="q-mb-lg q-pb-lg">
+    <!-- <ButtonGroupMenu /> -->
     <TopMenu />
     <div v-if="table.selected">
       <TablePage />
@@ -23,6 +24,7 @@ import { useLaporanMorphStore } from 'src/stores/laporan/button'
 // import LaporanTransaksi from './transaksi/LaporanTransaksi.vue'
 import TopMenu from './transaksi/TopMenu.vue'
 import { onUnmounted } from 'vue'
+// import ButtonGroupMenu from './ButtonGroupMenu.vue'
 
 const table = useLaporanTable()
 const button = useLaporanMorphStore()

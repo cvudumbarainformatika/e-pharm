@@ -16,14 +16,14 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       kasir_id: null,
       supplier_id: null,
       status: 0,
-
       sub_total: 0,
       beban_id: null,
       keterangan: ''
     },
     kasirs: [],
     suppliers: [],
-    loading: false
+    loading: false,
+    hutang: null
   }),
   actions: {
     // local related actions
@@ -41,6 +41,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       this.setForm('kasir_id', null)
       this.setForm('beban_id', null)
       this.setForm('tanggal', null)
+      this.hutang = null
     },
     setToday() {
       const date = new Date()
@@ -113,6 +114,36 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
           })
           .catch(err => {
             waitLoad('done')
+            reject(err)
+          })
+      })
+    },
+    hutangSupplier(val) {
+      console.log('hutang supplier', val)
+      this.loading = true
+      const params = {
+        params: {
+          supplier_id: val
+        }
+      }
+      return new Promise((resolve, reject) => {
+        api.get('v1/laporan/get-hutang-supplier', params)
+          .then(resp => {
+            console.log(resp.data)
+            this.loading = false
+
+            const hutang = []
+            resp.data.hutang.forEach((data, index) => {
+              hutang[index] = data.jml * data.harga
+            })
+            const dibayar = resp.data.dibayar[0].total
+            const jmlHutang = hutang.reduce((total, num) => { return total + num })
+            this.hutang = resp.data.awal + jmlHutang - dibayar
+            console.log(jmlHutang, 'hutang ', hutang, 'dibayar', dibayar, 'sisa', this.hutang)
+            resolve(resp)
+          })
+          .catch(err => {
+            this.loading = false
             reject(err)
           })
       })
