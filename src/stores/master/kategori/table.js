@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { api } from 'boot/axios'
-import { notifSuccess, waitLoad } from 'src/modules/utils'
+import { notifSuccess } from 'src/modules/utils'
 
 export const useKategoriTable = defineStore('kategori_table', {
   state: () => ({
@@ -61,13 +61,13 @@ export const useKategoriTable = defineStore('kategori_table', {
 
     // ambil
     getDataTable() {
-      waitLoad('show')
+      this.loading = true
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
         api
           .get('v1/kategori/index', params)
           .then((resp) => {
-            waitLoad('done')
+            this.loading = false
             // console.log(resp)
             if (resp.status === 200) {
               this.items = resp.data.data
@@ -77,7 +77,7 @@ export const useKategoriTable = defineStore('kategori_table', {
             }
           })
           .catch((err) => {
-            waitLoad('done')
+            this.loading = false
             reject(err)
           })
       })

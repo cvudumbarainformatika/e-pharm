@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { api } from 'boot/axios'
-import { notifSuccess, waitLoad } from 'src/modules/utils'
+import { notifSuccess } from 'src/modules/utils'
 
 export const useSatuanStore = defineStore('satuan', {
   state: () => ({
@@ -61,13 +61,13 @@ export const useSatuanStore = defineStore('satuan', {
 
     // ambil
     getSatuan() {
-      waitLoad('show')
+      this.loading = true
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
         api
           .get('v1/satuan/index', params)
           .then((resp) => {
-            waitLoad('done')
+            this.loading = false
             // console.log(resp)
             if (resp.status === 200) {
               this.items = resp.data.data
@@ -78,14 +78,14 @@ export const useSatuanStore = defineStore('satuan', {
           })
           .catch((err) => {
             // console.log(err)
-            waitLoad('done')
+            this.loading = false
             reject(err)
           })
       })
     },
     // delete
     deletesData(payload) {
-      waitLoad('show')
+      this.loading = true
       const params = { id: payload }
       return new Promise((resolve, reject) => {
         api
@@ -93,13 +93,13 @@ export const useSatuanStore = defineStore('satuan', {
           .then((resp) => {
             // console.log(resp)
             notifSuccess(resp)
-            waitLoad('done')
+            this.loading = false
             this.getSatuan()
             resolve(resp)
           })
           .catch((err) => {
             // console.log(err)
-            waitLoad('done')
+            this.loading = false
             reject(err)
           })
       })
