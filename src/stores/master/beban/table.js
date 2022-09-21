@@ -67,7 +67,7 @@ export const useBebanTable = defineStore('beban_table', {
         api
           .get('v1/beban/index', params)
           .then((resp) => {
-            this.loading = true
+            this.loading = false
             // console.log(resp)
             if (resp.status === 200) {
               this.items = resp.data.data
@@ -77,7 +77,7 @@ export const useBebanTable = defineStore('beban_table', {
             }
           })
           .catch((err) => {
-            this.loading = true
+            this.loading = false
             reject(err)
           })
       })

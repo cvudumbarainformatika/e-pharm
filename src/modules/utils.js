@@ -96,9 +96,9 @@ const waitLoad = (cond) => {
   if (cond === 'show') {
     Loading.show({
       message: 'Harap bersabar. Menunggu...',
-      boxClass: 'bg-dark text-white',
+      boxClass: 'bg-primary text-white',
       spinner: QSpinnerCube,
-      // spinnerColor: 'yellow',
+      // spinnerColor: 'primary',
       spinnerSize: 30
     })
   } else {

@@ -100,25 +100,7 @@
       </template>
       <!-- loading -->
       <template #loading>
-        <q-inner-loading
-          showing
-          color="primary"
-        >
-          <div
-            class="flex column flex-center bg-loading-bg__table"
-            style="height:400px"
-          >
-            <div>
-              <q-spinner-cube
-                color="primary"
-                size="40px"
-              />
-            </div>
-            <div class="text-primary q-mt-sm">
-              harap bersabar, menunggu...
-            </div>
-          </div>
-        </q-inner-loading>
+        <app-loading />
       </template>
       <!-- <template #pagination="scope"> -->
     </q-table>

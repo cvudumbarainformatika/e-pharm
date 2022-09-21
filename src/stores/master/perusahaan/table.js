@@ -67,7 +67,7 @@ export const usePerusahaanTable = defineStore('perusahaan_table', {
         api
           .get('v1/perusahaan/index', params)
           .then((resp) => {
-            this.loading = true
+            this.loading = false
             // console.log(resp)
             if (resp.status === 200) {
               this.items = resp.data.data
@@ -77,7 +77,7 @@ export const usePerusahaanTable = defineStore('perusahaan_table', {
             }
           })
           .catch((err) => {
-            this.loading = true
+            this.loading = false
             reject(err)
           })
       })

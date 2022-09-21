@@ -10,7 +10,7 @@
         </div>
         <div v-else>
           <q-card>
-            <NoSelectPage />
+            <app-no-selected-page icon="icon-mat-arrow_back" />
           </q-card>
         </div>
       </div>
@@ -20,7 +20,6 @@
 <script setup>
 import { useHistoryTable } from 'src/stores/history/table'
 import MenuPage from './MenuPage.vue'
-import NoSelectPage from './NoSelectPage.vue'
 import TablePage from './TablePage.vue'
 const table = useHistoryTable()
 table.setColumns()

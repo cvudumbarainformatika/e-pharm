@@ -141,6 +141,7 @@ export const useHistoryTable = defineStore('history_table', {
 
     // ambil data
     getDataTransactions() {
+      this.rows = []
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
         this.loading = true

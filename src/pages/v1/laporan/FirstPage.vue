@@ -40,7 +40,10 @@
           </div>
           <div v-else>
             <q-card>
-              <NoSelectPage />
+              <app-no-selected-page
+                icon="icon-mat-warning"
+                text="Belum ada Transaksi yang dipilih"
+              />
             </q-card>
           </div>
         </q-tab-panel>
@@ -66,7 +69,6 @@
 </template>
 <script setup>
 import { useLaporanTable } from 'src/stores/laporan/table'
-import NoSelectPage from './NoSelectPage.vue'
 import TablePage from './transaksi/TablePage.vue'
 // import MorphButton from './MorphButton.vue'
 import { useLaporanMorphStore } from 'src/stores/laporan/button'
