@@ -7,10 +7,11 @@ export const useLaporanTable = defineStore('laporan_table', {
   state: () => ({
     loading: false,
     transactionTypes: [
-      { nama: 'produk', label: 'Laporan Berdasakan item' },
+      { nama: 'produk', label: 'Laporan Berdasakan Produk' },
       { nama: 'transaksi', label: 'Laporan Berdasakan Transaksi' }
     ],
     transactionType: 'produk',
+    transactionLabel: 'Laporan Berdasakan Produk',
     transactions: [],
     products: [],
     bebans: [],
@@ -36,7 +37,8 @@ export const useLaporanTable = defineStore('laporan_table', {
     columns: [],
     selected: false,
     penjualanType: 'umum',
-    periode: ''
+    periode: '',
+    person: null
   }),
   actions: {
     // local related functions
@@ -49,6 +51,7 @@ export const useLaporanTable = defineStore('laporan_table', {
       this.form = {}
       this.selected = false
       this.periode = ''
+      this.person = null
     },
     setColumns() {
       const kolom = [
@@ -148,6 +151,18 @@ export const useLaporanTable = defineStore('laporan_table', {
     },
     setRows() {
       this.rows = this.transactions
+      // const hutang = []
+      //         resp.data.hutang.forEach((data, index) => {
+      //           hutang[index] = data.jml * data.harga
+      //         })
+      //         let dibayar = 0
+      //         if (resp.data.dibayar.length) {
+      //           dibayar = resp.data.dibayar[0].total
+      //         }
+      //         const jmlHutang = hutang.reduce((total, num) => { return total + num })
+      //         this.hutang = resp.data.awal + jmlHutang - dibayar
+      //         console.log(jmlHutang, 'hutang ', hutang, 'dibayar', dibayar, 'sisa', this.hutang)
+
       // if (this.form.nama === 'PEMBELIAN') {
       //   this.pembelian()
       // } else if (this.form.nama === 'PENJUALAN') {
@@ -351,14 +366,28 @@ export const useLaporanTable = defineStore('laporan_table', {
     beforeGetData() {
       const transaksi = useLaporanTransaksiStore()
       console.log('form sebelum if', this.form)
-      if (this.form.supplier_id !== undefined && transaksi.pembelian !== 'supplier' && transaksi.hutang !== 'supplier') {
+      if (
+        this.form.supplier_id !== undefined &&
+        transaksi.pembelian !== 'supplier' &&
+        transaksi.hutang !== 'supplier'
+      ) {
         delete this.form.supplier_id
+        this.person = null
       }
-      if (this.form.customer_id !== undefined && transaksi.penjualan !== 'customer' && transaksi.piutang !== 'customer') {
+      if (
+        this.form.customer_id !== undefined &&
+        transaksi.penjualan !== 'customer' &&
+        transaksi.piutang !== 'customer'
+      ) {
         delete this.form.customer_id
+        this.person = null
       }
-      if (this.form.dokter_id !== undefined && transaksi.penjualan !== 'dokter') {
+      if (
+        this.form.dokter_id !== undefined &&
+        transaksi.penjualan !== 'dokter'
+      ) {
         delete this.form.dokter_id
+        this.person = null
       }
       console.log('form seseudah if', this.form)
       if (this.form.nama === 'BEBAN') {

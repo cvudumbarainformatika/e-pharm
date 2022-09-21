@@ -27,8 +27,8 @@ onBeforeMount(() => {
   const slug = 'PJL-' + uniqueId()
   const oldSlug = routerInstance.currentRoute.value.params.slug
 
+  table.ambilDataDokter()
   table.ambilDataDistributor().then(() => {
-    table.ambilDataDokter()
     table.getDetailTransaksi().then(data => {
       if (data !== undefined) {
         routerInstance.replace({ name: 'penjualan', params: { slug: oldSlug } })

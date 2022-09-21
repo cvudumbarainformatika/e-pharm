@@ -2,6 +2,7 @@
   <app-btn-dropdown
     flat
     no-caps
+    :color="setting.dark?'white':'primary'"
     :label="props.label"
   >
     <template #content>
@@ -27,12 +28,15 @@
   </app-btn-dropdown>
 </template>
 <script setup>
+import { useSettingStore } from 'src/stores/setting/setting'
+
 const emits = defineEmits(['clicked'])
 const props = defineProps({
   label: { type: String, default: 'label' },
   items: { type: Array, default: () => [] },
   aktif: { type: String, default: '' }
 })
+const setting = useSettingStore()
 const diKlik = val => {
   emits('clicked', val)
 }

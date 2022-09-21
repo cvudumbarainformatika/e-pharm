@@ -55,11 +55,11 @@
       <div class="absolute-bottom q-pa-lg text-grey-6">
         <q-separator />
         <div class="">
-          Aplikasi E-ACHYI ini
+          Aplikasi E-ACHY ini
           tidak di perjualbelikan secara bebas tanpa seizin dari pembuatnya.
         </div>
         <div class="q-mt-lg text-right f-14">
-          E-ACHYI Versi BETA
+          E-ACHY Versi BETA
         </div>
       </div>
     </q-card>
@@ -97,7 +97,12 @@ function onSubmit () {
       width:360px;
       height:200px;
       position: absolute;
-      border-radius: 0 0 50% 50%;
+      border-top-left-radius: 384px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 168%;
+        border-bottom-left-radius: 4%;
+      border-top-style: groove;
+        border-bottom: ridge;
       background: linear-gradient(-45deg, $secondary, $primary);
       overflow: hidden;
     }

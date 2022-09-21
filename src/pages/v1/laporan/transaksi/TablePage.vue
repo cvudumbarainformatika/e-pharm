@@ -7,17 +7,24 @@
       row-key="nama"
       binary-state-sort
       :loading="table.loading"
-      separator="none"
     >
       <!-- hide-pagination -->
       <!-- hide-header -->
       <!-- Top Slot -->
       <template #top>
-        <div class="col-3">
-          <span class="text-h6"> Laporan {{ titleCase(table.form.nama) }}</span>
-        </div>
-        <div class="col-3">
-          <span class="text-caption"> Periode {{ table.periode }}</span>
+        <div class="col-12">
+          <div class="row justify-center">
+            <span class="text-h6">  {{ setting.info.nama!==undefined ? titleCase(setting.info.nama) : '-' }}</span>
+          </div>
+          <div class="row justify-center">
+            <span class="text-h6"> Laporan {{ table.form.nama!==undefined ? titleCase(table.form.nama) : '-' }}</span>
+          </div>
+          <div class="row justify-center">
+            <span class="text-caption"> Periode {{ table.periode }}</span>
+          </div>
+          <div class="row justify-center">
+            <span class="text-subtitle">  {{ table.person }}</span>
+          </div>
         </div>
         <q-separator />
       </template>
@@ -130,6 +137,9 @@
 import { useLaporanTable } from 'src/stores/laporan/table'
 import { formatRp } from 'src/modules/formatter'
 import { titleCase } from 'src/modules/utils'
+import { useSettingStore } from 'src/stores/setting/setting'
+const setting = useSettingStore()
+const table = useLaporanTable()
 
 // const getTotal = (val) => {
 //   if (val === undefined) { return }
@@ -146,6 +156,5 @@ import { titleCase } from 'src/modules/utils'
 //     return val
 //   }
 // }
-const table = useLaporanTable()
 
 </script>

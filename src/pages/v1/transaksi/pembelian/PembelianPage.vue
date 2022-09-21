@@ -1,9 +1,14 @@
 <template>
-  <q-page class="q-pa-sm">
-    <div class="row">
-      <TablePage />
-    </div>
-  </q-page>
+  <Suspense>
+    <q-page class="q-pa-sm">
+      <div class="row">
+        <TablePage />
+      </div>
+    </q-page>
+    <template #fallback>
+      loading ....
+    </template>
+  </Suspense>
 </template>
 <script setup>
 // import { onMounted } from 'vue'

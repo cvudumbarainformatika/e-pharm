@@ -21,65 +21,62 @@ const routes = [
           {
             path: '/satuan',
             name: 'satuan',
-            component: () =>
-              import('src/pages/v1/master/satuan/SatuanPage.vue')
+            component: () => import('src/pages/v1/master/satuan/IndexPage.vue')
           },
           {
             path: '/penerimaan',
             name: 'penerimaan',
             component: () =>
-              import('src/pages/v1/master/penerimaan/PenerimaanTable.vue')
+              import('src/pages/v1/master/penerimaan/IndexPage.vue')
           },
           {
             path: '/kategori',
             name: 'kategori',
             component: () =>
-              import('src/pages/v1/master/kategori/KategoriPage.vue')
+              import('src/pages/v1/master/kategori/IndexPage.vue')
           },
           {
             path: '/produk',
             name: 'produk',
-            component: () =>
-              import('src/pages/v1/master/produk/ProdukPage.vue')
+            component: () => import('src/pages/v1/master/produk/IndexPage.vue')
           },
           {
             path: '/supplier',
             name: 'supplier',
             component: () =>
-              import('src/pages/v1/master/supplier/SupplierPage.vue')
+              import('src/pages/v1/master/supplier/IndexPage.vue')
           },
           {
             path: '/dokter',
             name: 'dokter',
-            component: () =>
-              import('src/pages/v1/master/dokter/DokterPage.vue')
+            component: () => import('src/pages/v1/master/dokter/IndexPage.vue')
           },
           {
             path: '/beban',
             name: 'beban',
-            component: () => import('src/pages/v1/master/beban/BebanPage.vue')
+            component: () => import('src/pages/v1/master/beban/IndexPage.vue')
           },
           {
             path: '/customer',
             name: 'customer',
             component: () =>
-              import('src/pages/v1/master/customer/CustomerPage.vue')
+              import('src/pages/v1/master/customer/IndexPage.vue')
           },
           {
             path: '/merk',
             name: 'merk',
-            component: () => import('src/pages/v1/master/merk/MerkPage.vue')
+            component: () => import('src/pages/v1/master/merk/IndexPage.vue')
           },
           {
             path: '/perusahaan',
             name: 'perusahaan',
             component: () =>
-              import('src/pages/v1/master/perusahaan/PerusahaanPage.vue')
+              import('src/pages/v1/master/perusahaan/IndexPage.vue')
           },
           {
             path: '/rak',
             name: 'rak',
-            component: () => import('src/pages/v1/master/rak/RakPage.vue')
+            component: () => import('src/pages/v1/master/rak/IndexPage.vue')
           }
         ]
       },
@@ -97,8 +94,7 @@ const routes = [
       {
         path: '/history',
         name: 'history',
-        component: () =>
-          import('src/pages/v1/history/HistoryPage.vue')
+        component: () => import('src/pages/v1/history/IndexPage.vue')
       },
       {
         path: '/transaksi',
@@ -115,38 +111,38 @@ const routes = [
             path: '/biaya',
             name: 'biaya',
             component: () =>
-              import('src/pages/v1/transaksi/biaya/BiayaPage.vue')
+              import('src/pages/v1/transaksi/biaya/IndexPage.vue')
           },
           {
             path: '/pembelian/:slug',
             name: 'pembelian',
             component: () =>
-              import('src/pages/v1/transaksi/pembelian/PembelianPage.vue')
+              import('src/pages/v1/transaksi/pembelian/IndexPage.vue')
           },
           {
             path: '/transaksi/penerimaan',
             name: 'transaksi.penerimaan',
             component: () =>
-              import('src/pages/v1/transaksi/penerimaan/PenerimaanPage.vue')
+              import('src/pages/v1/transaksi/penerimaan/IndexPage.vue')
           },
           {
             path: '/penjualan/:slug',
             name: 'penjualan',
             component: () =>
-              import('src/pages/v1/transaksi/penjualan/PenjualanPage.vue')
+              import('src/pages/v1/transaksi/penjualan/IndexPage.vue')
           },
           {
             path: '/retur',
             name: 'retur',
             component: () =>
-              import('src/pages/v1/transaksi/retur/ReturPage.vue'),
+              import('src/pages/v1/transaksi/retur/IndexPage.vue'),
             children: [
               {
                 path: '/retur/:slug',
                 name: 'detail.retur',
                 component: () =>
                   import(
-                    'src/pages/v1/transaksi/retur/detail/DetailReturPage.vue'
+                    'src/pages/v1/transaksi/retur/detail/IndexReturPage.vue'
                   )
               }
             ]
