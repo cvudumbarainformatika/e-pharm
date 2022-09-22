@@ -86,9 +86,6 @@ table.setColumns()
 table.selected = false
 button.setDays()
 button.setMonths()
-// table.getDataProducts()
-// table.getDataBebans()
-// table.getDataPenerimaans()
 const reset = () => {
   table.resetData()
   button.date = ''

@@ -8,6 +8,7 @@
       binary-state-sort
       :loading="table.loading"
     >
+      <!-- separator="vertical" -->
       <!-- hide-pagination -->
       <!-- hide-header -->
       <!-- Top Slot -->
@@ -71,6 +72,39 @@
           </q-td>
         </q-tr>
       </template>
+      <!-- bottom -->
+      <template
+        #top-row
+      >
+        <q-tr
+          v-if="isHas(table.form.nama,'PEMBELIAN').length || isHas(table.form.nama,'PENJUALAN').length"
+        >
+          <q-td>
+            <div class="text-caption  text-weight-bold">
+              Total :
+            </div>
+          </q-td>
+          <q-td />
+          <q-td />
+          <q-td>
+            <div class="text-caption text-right text-weight-bold">
+              {{ table.totalTransaksi?formatRp(table.totalTransaksi):0 }}
+            </div>
+          </q-td>
+        </q-tr>
+        <q-tr>
+          <q-td>
+            <div class="text-caption  text-weight-bold">
+              Total :
+            </div>
+          </q-td>
+          <q-td>
+            <div class="text-caption text-right text-weight-bold">
+              {{ table.totalTransaksi?formatRp(table.totalTransaksi):0 }}
+            </div>
+          </q-td>
+        </q-tr>
+      </template>
       <!-- no data slot -->
       <template #no-data="{ icon, message, filter }">
         <div class="full-width row flex-center text-accent q-gutter-sm">
@@ -113,16 +147,31 @@
       @next="table.goTo(table.meta.current_page + 1)"
       @prev="table.goTo(table.meta.current_page - 1)"
     /> -->
+
+    <div class="row">
+      tabel js:
+      nama transaksi : {{ table.form.nama }}
+      transaction type : {{ table.transactionType }}
+      form : {{ table.form }}
+    </div>
+    <div class="row">
+      transasi js :
+      pembelian : {{ transaksi.pembelian }}
+      hutang : {{ transaksi.hutang }}
+      penjualan : {{ transaksi.penjualan }}
+      piutang : {{ transaksi.piutang }}
+    </div>
   </div>
 </template>
 <script setup>
 import { useLaporanTable } from 'src/stores/laporan/table'
-import { formatRp } from 'src/modules/formatter'
+import { formatRp, isHas } from 'src/modules/formatter'
 import { titleCase } from 'src/modules/utils'
 import { useSettingStore } from 'src/stores/setting/setting'
+import { useLaporanTransaksiStore } from 'src/stores/laporan/transaksi'
 const setting = useSettingStore()
 const table = useLaporanTable()
-
+const transaksi = useLaporanTransaksiStore()
 // const getTotal = (val) => {
 //   if (val === undefined) { return }
 //   if (val.length >= 1) {

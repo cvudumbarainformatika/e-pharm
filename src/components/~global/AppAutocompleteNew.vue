@@ -22,6 +22,7 @@
     @filter="filterFn"
     @new-value="createValue"
     @input-value="inputValue"
+    @clear="clear"
   >
     <!-- <template
       v-if="icon"
@@ -44,7 +45,7 @@
 
 <script setup>
 import { ref } from 'vue'
-const emits = defineEmits(['on-enter', 'getSource', 'set-model', 'buang', 'on-select'])
+const emits = defineEmits(['on-enter', 'getSource', 'set-model', 'buang', 'clear', 'on-select'])
 const props = defineProps({
   source: { type: Array, default: () => [] },
   label: { type: String, default: 'Label' },
@@ -59,7 +60,6 @@ const props = defineProps({
 })
 const optionx = ref([])
 const refAuto = ref(null)
-const icon = ref(null)
 function fetchData () {
   // console.log(refAuto.value)
   if (props.source.length > 0) {
@@ -68,8 +68,9 @@ function fetchData () {
 }
 const selected = (val) => {
   emits('on-select', val)
-  console.log('selected ', val)
-  icon.value = val
+}
+const clear = val => {
+  emits('clear', val)
 }
 fetchData()
 function filterFn (val, update) {

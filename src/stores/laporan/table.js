@@ -13,9 +13,6 @@ export const useLaporanTable = defineStore('laporan_table', {
     transactionType: 'produk',
     transactionLabel: 'Laporan Berdasakan Produk',
     transactions: [],
-    products: [],
-    bebans: [],
-    penerimaans: [],
     meta: {},
     form: {
       date: null,
@@ -38,20 +35,19 @@ export const useLaporanTable = defineStore('laporan_table', {
     selected: false,
     penjualanType: 'umum',
     periode: '',
-    person: null
+    person: null,
+    totalTransaksi: null
   }),
   actions: {
     // local related functions
     resetData() {
       this.transactions = []
-      this.products = []
-      this.bebans = []
-      this.penerimaans = []
       this.meta = {}
       this.form = {}
       this.selected = false
       this.periode = ''
       this.person = null
+      this.totalTransaksi = null
     },
     setColumns() {
       const kolom = [
@@ -150,7 +146,22 @@ export const useLaporanTable = defineStore('laporan_table', {
       })
     },
     setRows() {
+      this.totalTransaksi = 0
       this.rows = this.transactions
+      if (this.transactions.length) {
+        const subTotal = []
+        this.transactions.forEach((data, index) => {
+          if (data.product_id) {
+            subTotal[index] = data.jml * data.harga
+          } else {
+            subTotal[index] = data.sub_total
+          }
+        })
+        const jumlah = subTotal.reduce((total, num) => {
+          return total + num
+        })
+        this.totalTransaksi = jumlah
+      }
       // const hutang = []
       //         resp.data.hutang.forEach((data, index) => {
       //           hutang[index] = data.jml * data.harga
@@ -162,206 +173,6 @@ export const useLaporanTable = defineStore('laporan_table', {
       //         const jmlHutang = hutang.reduce((total, num) => { return total + num })
       //         this.hutang = resp.data.awal + jmlHutang - dibayar
       //         console.log(jmlHutang, 'hutang ', hutang, 'dibayar', dibayar, 'sisa', this.hutang)
-
-      // if (this.form.nama === 'PEMBELIAN') {
-      //   this.pembelian()
-      // } else if (this.form.nama === 'PENJUALAN') {
-      //   this.penjualan()
-      // } else if (this.form.nama === 'RETUR PEMBELIAN') {
-      //   this.pembelian()
-      // } else if (this.form.nama === 'RETUR PENJUALAN') {
-      //   this.pembelian()
-      // } else if (this.form.nama === 'BEBAN') {
-      //   this.beban()
-      // } else if (this.form.nama === 'PENERIMAAN') {
-      //   this.penerimaan()
-      // }
-    },
-    beban() {
-      this.transactions.forEach((transaction) => {
-        // nama keterangan supplier total
-        const indexBeban = this.findWithAttr(
-          this.bebans,
-          'id',
-          transaction.beban_transaction[0].beban_id
-        )
-        console.log('transaction ', transaction)
-        console.log('index ', indexBeban)
-        console.log('bebans_id ', transaction.beban_transaction.beban_id)
-        if (this.rows[indexBeban] === undefined) {
-          this.rows[indexBeban] = {
-            nama: this.bebans[indexBeban].nama,
-            total: transaction.total
-          }
-        } else {
-          this.rows[indexBeban].total += transaction.total
-        }
-        console.log('beban ', transaction)
-        // return transaction
-      })
-      // console.log('beban ', this.rows)
-    },
-    penerimaan() {
-      this.transactions.forEach((transaction) => {
-        const indexPenerimaan = this.findWithAttr(
-          this.penerimaans,
-          'id',
-          transaction.penerimaan_transaction[0].penerimaan_id
-        )
-        console.log('index ', indexPenerimaan)
-        console.log(
-          'penerimaan_id ',
-          transaction.penerimaan_transaction.penerimaan_id
-        )
-        if (this.rows[indexPenerimaan] === undefined) {
-          this.rows[indexPenerimaan] = {
-            nama: this.penerimaans[indexPenerimaan].nama,
-            total: transaction.total
-          }
-        } else {
-          this.rows[indexPenerimaan].total += transaction.total
-        }
-        console.log('penerimann ', this.rows)
-        // return transaction
-      })
-    },
-    penjualan() {
-      this.rows = this.transactions
-      // const umum = []
-      // const resep = []
-      // const dist = []
-      // const detailTransaksi = []
-      // this.transactions.map((transaction) => {
-      //   transaction.detail_transaction.forEach((data) => {
-      //     if (transaction.dokter_id !== null) {
-      //       const detail = { type: 'resep', detail: data }
-      //       detailTransaksi.push(detail)
-      //       resep.push(data.harga)
-      //     } else if (transaction.customer_id !== null) {
-      //       const detail = { type: 'dist', detail: data }
-      //       detailTransaksi.push(detail)
-      //       dist.push(data.harga)
-      //     } else {
-      //       const detail = { type: 'umum', detail: data }
-      //       detailTransaksi.push(detail)
-      //       umum.push(data.harga)
-      //     }
-      //     console.log(data)
-      //   })
-      //   return transaction
-      // })
-      // // filter duplicate array
-      // const fResep = filterDuplicateArrays(resep)
-      // const fDist = filterDuplicateArrays(dist)
-      // const fUmum = filterDuplicateArrays(umum)
-      // // input harga pada masing-masing array harga
-      // detailTransaksi.forEach((data) => {
-      //   const findProduct = this.findWithAttr(
-      //     this.products,
-      //     'id',
-      //     data.detail.product_id
-      //   )
-
-      //   if (data.type === 'resep') {
-      //     const findHarga = fResep.indexOf(data.detail.harga)
-      //     this.reseps[findHarga] = this.setRowData(
-      //       findHarga,
-      //       findProduct,
-      //       data.detail,
-      //       this.reseps
-      //     )
-      //   }
-      //   if (data.type === 'dist') {
-      //     const findHarga = fDist.indexOf(data.detail.harga)
-      //     this.dists[findHarga] = this.setRowData(
-      //       findHarga,
-      //       findProduct,
-      //       data.detail,
-      //       this.dists
-      //     )
-      //   }
-      //   if (data.type === 'umum') {
-      //     const findHarga = fUmum.indexOf(data.detail.harga)
-      //     this.umums[findHarga] = this.setRowData(
-      //       findHarga,
-      //       findProduct,
-      //       data.detail,
-      //       this.umums
-      //     )
-      //   }
-      //   // console.log('find product ', findProduct)
-      // })
-      // this.setPenjualan()
-    },
-    pembelian() {
-      this.rows = this.transactions
-      // // maping index harga
-      // const harga = []
-      // // const produk=[]
-      // const detailTransaksi = []
-      // this.transactions.map((transaction) => {
-      //   transaction.detail_transaction.forEach((detail) => {
-      //     detailTransaksi.push(detail)
-      //     harga.push(detail.harga)
-      //   })
-      //   return transaction.detail_transaction
-      // })
-      // // filter duplikat harga
-      // const fHarga = filterDuplicateArrays(harga)
-      // // ambil data, masukkan sesuai harga beli atau harga beli yang sudah naik / turun
-      // detailTransaksi.forEach((data) => {
-      //   const findProduct = this.findWithAttr(
-      //     this.products,
-      //     'id',
-      //     data.product_id
-      //   )
-      //   const findHarga = fHarga.indexOf(data.harga)
-      //   this.rows[findHarga] = this.setRowData(
-      //     findHarga,
-      //     findProduct,
-      //     data,
-      //     this.rows
-      //   )
-      // })
-      // // sort
-      // this.sorting(this.rows)
-    },
-    setRowData(indexHarga, indexProduct, data, targetArray) {
-      const toRow = []
-      toRow[indexHarga] = targetArray[indexHarga]
-      if (toRow[indexHarga] === undefined) {
-        toRow[indexHarga] = {
-          nama: this.products[indexProduct].nama,
-          harga: data.harga,
-          qty: data.qty,
-          total: data.qty * data.harga
-        }
-      } else {
-        toRow[indexHarga].nama = this.products[indexProduct].nama
-        toRow[indexHarga].harga = data.harga
-        toRow[indexHarga].qty += data.qty
-        toRow[indexHarga].total += data.qty * data.harga
-      }
-      return toRow[indexHarga]
-    },
-    setPenjualan(val) {
-      switch (val) {
-        case 'umum':
-          this.rows = this.umums
-          break
-        case 'dist':
-          this.rows = this.dists
-          break
-        case 'resep':
-          this.rows = this.reseps
-          break
-
-        default:
-          this.rows = this.umums
-          break
-      }
-      // sort
-      this.sorting(this.rows)
     },
     beforeGetData() {
       const transaksi = useLaporanTransaksiStore()
@@ -399,69 +210,6 @@ export const useLaporanTable = defineStore('laporan_table', {
       }
     },
     // api related functions
-    getDataProducts() {
-      this.loading = true
-      const params = { params: this.params }
-      return new Promise((resolve, reject) => {
-        api
-          .get('v1/produk/product', params)
-          .then((resp) => {
-            this.loading = false
-            if (resp.status === 200) {
-              this.products = resp.data.data
-              this.meta = resp.data.meta
-              resolve(resp.data.data)
-              console.log(resp.data)
-            }
-          })
-          .catch((err) => {
-            this.loading = false
-            reject(err)
-          })
-      })
-    },
-    getDataBebans() {
-      this.loading = true
-      const params = { params: this.params }
-      return new Promise((resolve, reject) => {
-        api
-          .get('v1/beban/beban', params)
-          .then((resp) => {
-            this.loading = false
-            if (resp.status === 200) {
-              this.bebans = resp.data.data
-              this.meta = resp.data.meta
-              resolve(resp.data.data)
-              console.log(resp.data)
-            }
-          })
-          .catch((err) => {
-            this.loading = false
-            reject(err)
-          })
-      })
-    },
-    getDataPenerimaans() {
-      this.loading = true
-      const params = { params: this.params }
-      return new Promise((resolve, reject) => {
-        api
-          .get('v1/penerimaan/penerimaan', params)
-          .then((resp) => {
-            this.loading = false
-            if (resp.status === 200) {
-              this.penerimaans = resp.data.data
-              this.meta = resp.data.meta
-              resolve(resp.data.data)
-              console.log(resp.data)
-            }
-          })
-          .catch((err) => {
-            this.loading = false
-            reject(err)
-          })
-      })
-    },
     getDataTransactions(url) {
       this.rows = []
       this.selected = true

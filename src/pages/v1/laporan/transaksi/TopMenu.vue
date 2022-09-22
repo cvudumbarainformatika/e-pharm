@@ -11,7 +11,7 @@
         />
         <div v-if="table.form.nama==='PEMBELIAN' ">
           <ButtonDropdownMenu
-            :label="transaksi.pembelian==='all'?'Pembelian Berdasarkan':transaksi.pembelian"
+            :label="transaksi.pembelian==='all'?'Pembelian Berdasarkan':transaksi.pembelianL"
             :items="transaksi.pembelians"
             :aktif="transaksi.pembelian"
             @clicked="pilihPembelian"
@@ -19,7 +19,7 @@
         </div>
         <div v-if="table.form.nama==='BEBAN' ">
           <ButtonDropdownMenu
-            :label="transaksi.hutang==='all'?'Beban Berdasarkan': transaksi.hutang"
+            :label="transaksi.hutang==='all'?'Beban Berdasarkan': transaksi.hutangL"
             :items="transaksi.hutangs"
             :aktif="transaksi.hutang"
             @clicked="pilihBeban"
@@ -27,20 +27,18 @@
         </div>
         <div v-if="table.form.nama==='PENJUALAN'">
           <ButtonDropdownMenu
-            :label="transaksi.penjualan==='all'?'Penjualan Berdasarkan':transaksi.penjualan"
+            :label="transaksi.penjualan==='all'?'Penjualan Berdasarkan':transaksi.penjualanL"
             :items="transaksi.penjualans"
             :aktif="transaksi.penjualan"
             @clicked="pilihPenjualan"
           />
         </div>
-        <div
-          v-if="table.form.nama"
-        >
+        <div v-if="table.form.nama==='PENERIMAAN'">
           <ButtonDropdownMenu
-            :label="table.transactionLabel"
-            :items="table.transactionTypes"
-            :aktif="table.transactionType"
-            @clicked="itemClicked"
+            :label="transaksi.piutang==='all'?'Penerimaan Berdasarkan':transaksi.piutangL"
+            :items="transaksi.piutangs"
+            :aktif="transaksi.Piutang"
+            @clicked="pilihPiutang"
           />
         </div>
         <!-- <div class="col-2"> -->
@@ -78,6 +76,30 @@
             @on-select="pilihDistributor"
           />
         </div>
+        <div v-if="table.form.nama==='PENERIMAAN' && transaksi.piutang==='customer'">
+          <SelectMenu
+            url="v1/customer/index"
+            title="Distributor"
+            @on-select="pilihDistributor"
+          />
+        </div>
+        <div v-if="table.form.nama">
+          <ButtonDropdownMenu
+            :label="table.transactionLabel"
+            :items="table.transactionTypes"
+            :aktif="table.transactionType"
+            @clicked="itemClicked"
+          />
+        </div>
+        <div style="position: absolute; right: 10px;">
+          <q-icon
+            name="icon-mat-print"
+            :color="setting.dark? 'white':'primary'"
+            size="25px"
+            class="cursor-pointer"
+            @click="openDialog"
+          />
+        </div>
       </div>
     </q-card-section>
   </q-card>
@@ -102,8 +124,6 @@ const button = useLaporanMorphStore()
 const setting = useSettingStore()
 const openDialog = () => {
   button.setOpen()
-  console.log('date ', button.date)
-  console.log('nama ', table.form.nama)
 }
 const itemClicked = (val) => {
   if (table.form.nama) {
@@ -124,19 +144,30 @@ const itemClicked = (val) => {
 }
 const pilihPembelian = (val) => {
   transaksi.pembelian = val.nama
+  transaksi.pembelianL = val.label
   if (val.nama === 'all') {
     table.beforeGetData()
   }
 }
 const pilihBeban = (val) => {
   transaksi.hutang = val.nama
+  transaksi.hutangL = val.label
   if (val.nama === 'all') {
     table.beforeGetData()
   }
   console.log('beban', val)
 }
+const pilihPiutang = (val) => {
+  transaksi.piutang = val.nama
+  transaksi.piutangL = val.label
+  if (val.nama === 'all') {
+    table.beforeGetData()
+  }
+  console.log('penerimaan', val)
+}
 const pilihPenjualan = val => {
   transaksi.penjualan = val.nama
+  transaksi.penjualanL = val.label
   if (val.nama === 'all') {
     table.beforeGetData()
   }

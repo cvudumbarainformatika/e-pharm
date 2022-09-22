@@ -13,7 +13,6 @@ import TablePage from './TablePage.vue'
 import { usePenjualanTable } from 'src/stores/transaksi/penjualan/table'
 import { routerInstance } from 'src/boot/router'
 import { usePenjualanDialog } from 'src/stores/transaksi/penjualan/form'
-import { onBeforeMount } from 'vue'
 // import { uniqueId } from 'src/modules/utils'
 import { uniqueId } from 'src/modules/utils'
 // const coba = () => {
@@ -23,26 +22,23 @@ import { uniqueId } from 'src/modules/utils'
 const table = usePenjualanTable()
 const store = usePenjualanDialog()
 
-onBeforeMount(() => {
-  const slug = 'PJL-' + uniqueId()
-  const oldSlug = routerInstance.currentRoute.value.params.slug
+const slug = 'PJL-' + uniqueId()
+const oldSlug = routerInstance.currentRoute.value.params.slug
 
-  table.ambilDataDokter()
-  table.ambilDataDistributor().then(() => {
-    table.getDetailTransaksi().then(data => {
-      if (data !== undefined) {
-        routerInstance.replace({ name: 'penjualan', params: { slug: oldSlug } })
-        table.form.reff = oldSlug
-        store.form.reff = oldSlug
-      } else {
-        routerInstance.replace({ name: 'penjualan', params: { slug } })
-        table.resetData()
-        store.resetData()
-        table.form.reff = slug
-        store.form.reff = slug
-      }
-    })
-  })
+table.ambilDataDokter()
+// table.ambilDataDistributor()
+table.getDetailTransaksi().then(data => {
+  if (data !== undefined) {
+    routerInstance.replace({ name: 'penjualan', params: { slug: oldSlug } })
+    table.form.reff = oldSlug
+    store.form.reff = oldSlug
+  } else {
+    routerInstance.replace({ name: 'penjualan', params: { slug } })
+    table.resetData()
+    store.resetData()
+    table.form.reff = slug
+    store.form.reff = slug
+  }
 
   table.ambilDataProduk()
   // table.getDataExpired() // ambil data expired coment dulu

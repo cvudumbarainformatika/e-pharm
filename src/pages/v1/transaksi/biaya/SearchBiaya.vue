@@ -70,17 +70,6 @@
         >
           <div>
             <div class="row q-col-gutter-sm">
-              <div class="col-md-3 col-xs-12">
-                Jumlah
-              </div>
-              <div class="col-md-9 col-xs-12">
-                <app-input
-                  v-model="store.form.sub_total"
-                  label="jumlah"
-                  currency
-                  prefix="Rp"
-                />
-              </div>
               <div
                 v-if="isHas(model.nama,'HUTANG').length"
                 class="col-md-3 col-xs-12"
@@ -116,6 +105,17 @@
                   :loading="store.loading"
                   valid
                   clearable
+                />
+              </div>
+              <div class="col-md-3 col-xs-12">
+                Jumlah
+              </div>
+              <div class="col-md-9 col-xs-12">
+                <app-input
+                  v-model="store.form.sub_total"
+                  label="jumlah"
+                  currency
+                  prefix="Rp"
                 />
               </div>
               <div class="col-md-3 col-xs-12">

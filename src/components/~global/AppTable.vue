@@ -345,7 +345,7 @@
                 />
               </div>
               <div class="text-primary q-mt-sm">
-                harap bersabar, menunggu...
+                sedang mengambil data ...
               </div>
             </div>
           </td>

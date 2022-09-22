@@ -189,6 +189,7 @@ const table = useLaporanTable()
 const button = useLaporanMorphStore()
 const emits = defineEmits(['tutup'])
 const transactionSelected = (val) => {
+  table.resetData()
   table.form.nama = val.value
   // table.selected = false
   console.log(val)

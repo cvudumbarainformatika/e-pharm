@@ -12,6 +12,7 @@
     hide-dropdown-icon
     @filter="filterOptions"
     @update:model-value="selected"
+    @clear="bersihkan"
   >
     <template
       v-if="model"
@@ -51,7 +52,7 @@
 <script setup>
 import { api } from 'src/boot/axios'
 import { ref } from 'vue'
-const emits = defineEmits(['on-select'])
+const emits = defineEmits(['on-select', 'clear'])
 const props = defineProps({
   title: { type: String, default: 'apa ?' },
   url: { type: String, default: 'tidak ada' }
@@ -63,7 +64,9 @@ const selected = val => {
   emits('on-select', val)
   console.log('on-select', val)
 }
-
+const bersihkan = val => {
+  emits('clear', val)
+}
 async function filterOptions (val, update) {
   if (!val) {
     update(() => {
