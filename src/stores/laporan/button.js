@@ -43,10 +43,17 @@ export const useLaporanMorphStore = defineStore('laporan_morph_button', {
       },
 
       {
-        nama: 'Pilih Range Tanggai',
+        nama: 'Pilih Range Tanggal',
         value: 'range',
         next: 'card3',
         date: 'range',
+        param: null
+      },
+      {
+        nama: 'Pilih Tanggal',
+        value: 'spesifik',
+        next: 'card3',
+        date: 'spesifik',
         param: null
       }
     ],

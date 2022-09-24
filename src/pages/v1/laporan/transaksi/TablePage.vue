@@ -92,7 +92,7 @@
             </div>
           </q-td>
         </q-tr>
-        <q-tr>
+        <q-tr v-else>
           <q-td>
             <div class="text-caption  text-weight-bold">
               Total :

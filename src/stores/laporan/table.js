@@ -200,6 +200,9 @@ export const useLaporanTable = defineStore('laporan_table', {
         delete this.form.dokter_id
         this.person = null
       }
+      if (this.form.umum !== undefined && transaksi.penjualan !== 'umum') {
+        delete this.form.umum
+      }
       console.log('form seseudah if', this.form)
       if (this.form.nama === 'BEBAN') {
         this.getDataTransactions('beban')

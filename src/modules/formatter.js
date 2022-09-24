@@ -7,6 +7,9 @@ const dateDbFormat = (val) => {
 const dateFormat = (val) => {
   return date.formatDate(val, 'DD MMM YYYY')
 }
+const dateFullFormat = (val) => {
+  return date.formatDate(val, 'DD MMMM YYYY')
+}
 const dateExpire = (val) => {
   return date.formatDate(val, 'DD MM YYYY')
 }
@@ -82,5 +85,6 @@ export {
   olahUang,
   isHas,
   dateFormat,
+  dateFullFormat,
   dateExpire
 }

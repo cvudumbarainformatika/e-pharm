@@ -88,8 +88,9 @@
                         <div class="col-10 text-left">
                           <strong class="">{{ menu.nama }}</strong>
                         </div>
+                        <!-- v-if="menu.value === 'harian' || menu.value === 'bulanan' || menu.value === 'range'" -->
                         <div
-                          v-if="menu.value === 'harian' || menu.value === 'bulanan' || menu.value === 'range'"
+                          v-if="menu.value === 'today' ? false : menu.value === 'month' ? false : true "
                           class="col-2 text-right"
                         >
                           <q-icon
@@ -167,24 +168,38 @@
                 @click="rangeSelected"
               />
             </div>
+            <div
+              v-if="table.form.date === 'spesifik'"
+              class="text-primary"
+            >
+              <q-date
+                v-model="tgl"
+              />
+              <q-btn
+                flat
+                label="Close"
+                @click="spesifkSelected"
+              />
+            </div>
           </q-list>
         </q-card-section>
 
-        <q-card-actions
+        <!-- <q-card-actions
           v-if="table.form.date === 'range'"
           align="right"
-        />
+        /> -->
       </q-card-section>
     </q-card>
   </q-dialog>
 </template>
 <script setup>
-import { dateFormat } from 'src/modules/formatter'
+import { dateFullFormat } from 'src/modules/formatter'
 import { useLaporanMorphStore } from 'src/stores/laporan/button'
 import { useLaporanTable } from 'src/stores/laporan/table'
 import { ref } from 'vue'
 
 const rangeDate = ref({ from: null, to: null })
+const tgl = ref(null)
 const table = useLaporanTable()
 const button = useLaporanMorphStore()
 const emits = defineEmits(['tutup'])
@@ -221,7 +236,7 @@ const monthSelected = (val) => {
 }
 const rangeSelected = (val) => {
   table.periode =
-    '  ' + dateFormat(rangeDate.value.from) + ' - ' + dateFormat(rangeDate.value.to)
+    '  ' + dateFullFormat(rangeDate.value.from) + ' - ' + dateFullFormat(rangeDate.value.to)
   console.log('range ', val)
   table.form.from = rangeDate.value.from
   table.form.to = rangeDate.value.to
@@ -230,6 +245,13 @@ const rangeSelected = (val) => {
   closePopup()
   console.log(rangeDate.value)
   console.log(table.form)
+}
+const spesifkSelected = () => {
+  table.periode = ' ' + dateFullFormat(tgl.value)
+  console.log('tgl', tgl.value)
+  table.form.from = tgl.value
+  table.beforeGetData()
+  closePopup()
 }
 const closePopup = () => {
   emits('tutup')

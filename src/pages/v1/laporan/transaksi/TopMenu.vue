@@ -170,6 +170,9 @@ const pilihPenjualan = val => {
   transaksi.penjualanL = val.label
   if (val.nama === 'all') {
     table.beforeGetData()
+  } else if (val.nama === 'umum') {
+    table.form.umum = 1
+    table.beforeGetData()
   }
 }
 const pilihSupplier = val => {
