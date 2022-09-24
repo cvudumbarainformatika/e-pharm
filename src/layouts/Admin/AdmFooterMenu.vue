@@ -33,16 +33,17 @@ const props = defineProps({
   dark: {
     type: Boolean,
     default: false
-  }
+  },
+  menus: { type: Object, default: () => { } }
 })
 
-const menus = ref([
-  { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard' },
-  { id: 2, name: 'master', icon: 'icon-mat-dataset' },
-  { id: 3, name: 'transaksi', icon: 'icon-mat-sync_alt' },
-  { id: 4, name: 'laporan', icon: 'icon-mat-donut_large' },
-  { id: 5, name: 'setting', icon: 'icon-mat-settings' }
-])
+// const menus = ref([
+//   { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard' },
+//   { id: 2, name: 'master', icon: 'icon-mat-dataset' },
+//   { id: 3, name: 'transaksi', icon: 'icon-mat-sync_alt' },
+//   { id: 4, name: 'laporan', icon: 'icon-mat-donut_large' },
+//   { id: 5, name: 'setting', icon: 'icon-mat-settings' }
+// ])
 
 const tab = ref('dashboard')
 console.log('router', props.dark)

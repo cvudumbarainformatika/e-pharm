@@ -17,7 +17,7 @@
           :key="i"
           v-ripple
           class="menu"
-          :active-class="activated(true)"
+          :active-class="setting.dark ? 'page-dark text-white aktif-dark' : 'bg-grey-4 text-primary aktif'"
           :to="`${menu.link}`"
           clickable
           exact
@@ -34,15 +34,10 @@
   </div>
 </template>
 <script setup>
+import { useSettingStore } from 'src/stores/setting/setting'
 import { ref } from 'vue'
 
-const props = defineProps({
-  dark: {
-    type: Boolean,
-    default: false
-  }
-})
-
+const setting = useSettingStore()
 const menus = ref([
   { id: 1, name: 'Satuan', icon: 'icon-mat-gas_meter', link: 'satuan' },
   { id: 2, name: 'Rak', icon: 'icon-mat-table_rows', link: 'rak' },
@@ -57,16 +52,17 @@ const menus = ref([
   { id: 10, name: 'Perusahaan', icon: 'icon-mat-business', link: 'perusahaan' }
 
 ])
-function activated(val) {
-  if (val) {
-    if (props.dark) {
-      return 'page-dark text-white'
-    } else {
-      return 'bg-grey-4 text-primary'
-    }
-  }
-  return 'text-grey-5 bg-white'
-}
+
+// function activated(val) {
+//   if (val) {
+//     if (props.dark) {
+//       return 'page-dark text-white'
+//     } else {
+//       return 'bg-grey-4 text-primary'
+//     }
+//   }
+//   return 'text-grey-5 bg-white'
+// }
 </script>
 
 <style lang="scss" scoped>
@@ -87,10 +83,15 @@ a.menu{
   color:$grey-5;
 }
 
-a.router-link-active, a.router-link-exact-active {
+.aktif {
     margin-left: 10px;
     border-radius: 10px 0px 0px 10px;
     border-left: 3px solid $primary;
+  }
+.aktif-dark {
+    margin-left: 10px;
+    border-radius: 10px 0px 0px 10px;
+    border-left: 3px solid $white;
   }
 
 </style>

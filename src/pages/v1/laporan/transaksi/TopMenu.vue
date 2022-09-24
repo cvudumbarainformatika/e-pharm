@@ -1,7 +1,7 @@
 <template>
   <q-card>
     <q-card-section style="padding:5px;">
-      <div class="row items-center">
+      <div class="row items-center print-hide">
         <q-icon
           name="icon-mat-menu"
           :color="setting.dark? 'white':'primary'"

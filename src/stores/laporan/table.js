@@ -36,7 +36,8 @@ export const useLaporanTable = defineStore('laporan_table', {
     penjualanType: 'umum',
     periode: '',
     person: null,
-    totalTransaksi: null
+    totalTransaksi: null,
+    totalTransaction: null
   }),
   actions: {
     // local related functions
@@ -48,6 +49,7 @@ export const useLaporanTable = defineStore('laporan_table', {
       this.periode = ''
       this.person = null
       this.totalTransaksi = null
+      this.totalTransaction = null
     },
     setColumns() {
       const kolom = [
@@ -211,8 +213,21 @@ export const useLaporanTable = defineStore('laporan_table', {
       } else {
         this.getDataTransactions('detail-transaksi')
       }
+      this.getTotalTransactions()
     },
     // api related functions
+    getTotalTransactions() {
+      const params = { params: this.form }
+      return new Promise(resolve => {
+        api.get('v1/laporan/total-by-date', params).then((resp) => {
+          if (resp.status === 200) {
+            this.totalTransaction = resp.data[0]
+            console.log(this.totalTransaction)
+            resolve(resp.data)
+          }
+        })
+      })
+    },
     getDataTransactions(url) {
       this.rows = []
       this.selected = true

@@ -1,6 +1,7 @@
 <template>
   <div class="q-mb-lg">
     <q-table
+      v-model:pagination="pagination"
       :title="'Laporan ' + table.form.nama"
       :columns="table.columns"
       :rows="table.rows"
@@ -72,8 +73,8 @@
           </q-td>
         </q-tr>
       </template>
-      <!-- bottom -->
-      <template
+      <!-- top row -->
+      <!-- <template
         #top-row
       >
         <q-tr
@@ -104,7 +105,7 @@
             </div>
           </q-td>
         </q-tr>
-      </template>
+      </template> -->
       <!-- no data slot -->
       <template #no-data="{ icon, message, filter }">
         <div class="full-width row flex-center text-accent q-gutter-sm">
@@ -137,6 +138,49 @@
         <app-loading />
       </template>
       <!-- <template #pagination="scope"> -->
+      <template #pagination="scope">
+        <q-btn
+          v-if="scope.pagesNumber > 2"
+          icon="icon-mat-first_page"
+          color="grey-8"
+          round
+          dense
+          flat
+          :disable="scope.isFirstPage"
+          @click="scope.firstPage"
+        />
+
+        <q-btn
+          icon="icon-mat-chevron_left"
+          color="grey-8"
+          round
+          dense
+          flat
+          :disable="scope.isFirstPage"
+          @click="scope.prevPage"
+        />
+
+        <q-btn
+          icon="icon-mat-chevron_right"
+          color="grey-8"
+          round
+          dense
+          flat
+          :disable="scope.isLastPage"
+          @click="scope.nextPage"
+        />
+
+        <q-btn
+          v-if="scope.pagesNumber > 2"
+          icon="icon-mat-last_page"
+          color="grey-8"
+          round
+          dense
+          flat
+          :disable="scope.isLastPage"
+          @click="scope.lastPage"
+        />
+      </template>
     </q-table>
     <!-- Pagination -->
     <!-- <AppPaginationTable
@@ -148,7 +192,7 @@
       @prev="table.goTo(table.meta.current_page - 1)"
     /> -->
 
-    <div class="row">
+    <!-- <div class="row">
       tabel js:
       nama transaksi : {{ table.form.nama }}
       transaction type : {{ table.transactionType }}
@@ -160,32 +204,23 @@
       hutang : {{ transaksi.hutang }}
       penjualan : {{ transaksi.penjualan }}
       piutang : {{ transaksi.piutang }}
-    </div>
+    </div> -->
   </div>
 </template>
 <script setup>
 import { useLaporanTable } from 'src/stores/laporan/table'
-import { formatRp, isHas } from 'src/modules/formatter'
+import { formatRp } from 'src/modules/formatter'
 import { titleCase } from 'src/modules/utils'
 import { useSettingStore } from 'src/stores/setting/setting'
-import { useLaporanTransaksiStore } from 'src/stores/laporan/transaksi'
+import { ref } from 'vue'
 const setting = useSettingStore()
 const table = useLaporanTable()
-const transaksi = useLaporanTransaksiStore()
-// const getTotal = (val) => {
-//   if (val === undefined) { return }
-//   if (val.length >= 1) {
-//     const subTotal = []
-//     val.forEach((data, index) => {
-//       subTotal[index] = data.harga * data.qty
-//     })
-//     const total = subTotal.reduce((total, num) => {
-//       return total + num
-//     })
-//     return total
-//   } else {
-//     return val
-//   }
-// }
+const pagination = ref({
+  sortBy: 'desc',
+  descending: false,
+  page: 1,
+  rowsPerPage: 10
+  // rowsNumber: xx if getting data from a server
+})
 
 </script>

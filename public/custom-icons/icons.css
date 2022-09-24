@@ -1,7 +1,7 @@
 @font-face {
     font-family: "icons";
-    src: url("./icons.woff?3fb79909ab09641d0bc4641c0882355b") format("woff"),
-url("./icons.woff2?3fb79909ab09641d0bc4641c0882355b") format("woff2");
+    src: url("./icons.woff?f579735adb67348f83d2d77b937bed22") format("woff"),
+url("./icons.woff2?f579735adb67348f83d2d77b937bed22") format("woff2");
 }
 
 i[class^="icon-"]:before, i[class*=" icon-"]:before {
@@ -14,16 +14,7 @@ i[class^="icon-"]:before, i[class*=" icon-"]:before {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
-.close:before {
-    content: "\f129";
-}
-.cancel:before {
-    content: "\f121";
-}
 
-.clear:before {
-    content: "\f101";
-}
 .icon-clear:before {
     content: "\f101";
 }

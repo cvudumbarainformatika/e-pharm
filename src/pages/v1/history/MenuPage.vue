@@ -12,6 +12,8 @@
         <q-item
           v-ripple
           class="menu"
+          :active="table.nama===item.value"
+          :active-class="setting.dark ? 'page-dark text-white aktif-dark' : ' bg-grey-4 text-primary aktif'"
           clickable
           exact
           @click="table.pilihTransaksi(item)"
@@ -29,6 +31,7 @@
 </template>
 <script setup>
 import { useHistoryTable } from 'src/stores/history/table'
+import { useSettingStore } from 'src/stores/setting/setting'
 import { ref } from 'vue'
 
 const items = ref([
@@ -41,5 +44,25 @@ const items = ref([
   { id: 6, name: 'Retur Pembelian', value: 'RETUR PEMBELIAN', icon: 'icon-mat-assignment_return' },
   { id: 7, name: 'Retur Penjualan', value: 'RETUR PENJUALAN', icon: 'icon-mat-assignment_return' }
 ])
+const setting = useSettingStore()
 const table = useHistoryTable()
 </script>
+<style lang="scss" scoped>
+
+.menu {
+  text-decoration: none;
+  color: $grey-5;
+}
+
+.aktif {
+  margin-left: 10px;
+  border-radius: 10px 0px 0px 10px;
+  border-left: 3px solid $primary;
+}
+
+.aktif-dark {
+  margin-left: 10px;
+  border-radius: 10px 0px 0px 10px;
+  border-left: 3px solid $white;
+}
+</style>

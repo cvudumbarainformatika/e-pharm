@@ -23,7 +23,7 @@
         <q-form
           ref="myForm"
           class="q-pa-md"
-          style="margin-top:70px"
+          style="margin-top:70px; z-index: 1;"
           @submit="onSubmit"
         >
           <app-input
@@ -42,7 +42,7 @@
             class="q-mt-sm"
           />
 
-          <div style="margin-top:50px">
+          <div style="margin-top:50px; ">
             <app-btn
               type="submit"
               :loading="storeAuth.loading"
@@ -52,7 +52,10 @@
           </div>
         </q-form>
       </q-card-section>
-      <div class="absolute-bottom q-pa-lg text-grey-6">
+      <div
+        class="absolute-bottom q-pa-lg text-grey-4"
+        style="z-index: 1;"
+      >
         <q-separator />
         <div class="">
           Aplikasi E-ACHY ini
@@ -103,6 +106,27 @@ function onSubmit () {
         border-bottom-left-radius: 4%;
       border-top-style: groove;
         border-bottom: ridge;
+      background: linear-gradient(-45deg, $secondary, $primary);
+      overflow: hidden;
+    }
+
+    &::after {
+      content: "";
+      width: 784px;
+        height: 355px;
+        position: absolute;
+        top: 288px;
+        left: -70px;
+        border-width: thick;
+        border-top-width: thick;
+        border-right-width: thick;
+        border-bottom-width: thick;
+        border-left-width: thick;
+        border-top-style: groove;
+        border-top-left-radius: 723%;
+        border-top-right-radius: 0%;
+        border-bottom-right-radius: 0%;
+        border-bottom-left-radius: 12%;
       background: linear-gradient(-45deg, $secondary, $primary);
       overflow: hidden;
     }

@@ -28,7 +28,8 @@
         :to="`/${menu.link}`"
         replace
         class="sidebar flex flex-center"
-        :active-class="activated(true)"
+        :active-class="props.dark ? 'page-dark text-white aktif-dark' : 'bg-grey-4 text-primary aktif'"
+        exact
       >
         <!-- :class="!dark?'page-light':'page-dark'" -->
         <q-tooltip
@@ -54,35 +55,36 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+// import { ref } from 'vue'
 // import { useRouter } from 'vue-router'
 
 const props = defineProps({
   dark: {
     type: Boolean,
     default: false
-  }
+  },
+  menus: { type: Object, default: () => {} }
 })
 
-const menus = ref([
-  { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard', link: 'dashboard' },
-  { id: 2, name: 'master', icon: 'icon-mat-dataset', link: 'master' },
-  { id: 3, name: 'transaksi', icon: 'icon-mat-sync_alt', link: 'transaksi' },
-  { id: 4, name: 'history', icon: 'icon-mat-history', link: 'history' },
-  { id: 4, name: 'laporan', icon: 'icon-mat-description', link: 'laporan' },
-  { id: 5, name: 'setting', icon: 'icon-mat-settings', link: 'setting' }
-])
+// const menus = ref([
+//   { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard', link: 'dashboard' },
+//   { id: 2, name: 'master', icon: 'icon-mat-dataset', link: 'master' },
+//   { id: 3, name: 'transaksi', icon: 'icon-mat-sync_alt', link: 'transaksi' },
+//   { id: 4, name: 'history', icon: 'icon-mat-history', link: 'history' },
+//   { id: 4, name: 'laporan', icon: 'icon-mat-description', link: 'laporan' },
+//   { id: 5, name: 'setting', icon: 'icon-mat-settings', link: 'setting' }
+// ])
 
-function activated(val) {
-  if (val) {
-    if (props.dark) {
-      return 'page-dark text-white'
-    } else {
-      return 'bg-grey-4 text-primary'
-    }
-  }
-  return 'text-grey-5'
-}
+// function activated(val) {
+//   if (val) {
+//     if (props.dark) {
+//       return 'page-dark text-white'
+//     } else {
+//       return 'bg-grey-4 text-primary'
+//     }
+//   }
+//   return 'text-grey-5'
+// }
 
 // const router = useRouter()
 console.log('router', props.dark)
@@ -102,6 +104,16 @@ a.router-link-active, a.router-link-exact-active {
     margin-left: 10px;
     border-radius: 10px 0px 0px 10px;
     border-left: 3px solid $primary;
+  }
+.aktif {
+    margin-left: 10px;
+    border-radius: 10px 0px 0px 10px;
+    border-left: 3px solid $primary;
+  }
+.aktif-dark {
+    margin-left: 10px;
+    border-radius: 10px 0px 0px 10px;
+    border-left: 3px solid $white;
   }
 
 .just-shadow {

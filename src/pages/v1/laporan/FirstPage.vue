@@ -1,10 +1,10 @@
 <template>
-  <q-page class="q-mb-lg q-pb-lg">
+  <q-page class="q-mb-lg q-pb-lg ">
     <q-tabs
       v-model="tab"
       align="justify"
       narrow-indicator
-      :class=" setting.dark ? 'page-dark text-white' : 'bg-grey-3 text-primary'"
+      :class=" setting.dark ? 'page-dark text-white' : 'bg-grey-3 text-primary' + ' print-hide'"
       dense
     >
       <q-tab
@@ -37,6 +37,7 @@
             <TablePage />
             <!-- <TablePage v-if="table.transactionType === 'produk'" />
       <LaporanTransaksi v-if="table.transactionType === 'transaksi'" /> -->
+            <TotalPage v-if="table.totalTransaction" />
           </div>
           <div v-else>
             <q-card>
@@ -76,6 +77,7 @@ import { useLaporanMorphStore } from 'src/stores/laporan/button'
 import TopMenu from './transaksi/TopMenu.vue'
 import { onUnmounted, ref } from 'vue'
 import { useSettingStore } from 'src/stores/setting/setting'
+import TotalPage from './transaksi/TotalPage.vue'
 
 const setting = useSettingStore()
 
