@@ -209,8 +209,7 @@
 </template>
 <script setup>
 import { useLaporanTable } from 'src/stores/laporan/table'
-import { formatRp } from 'src/modules/formatter'
-import { titleCase } from 'src/modules/utils'
+import { formatRp, titleCase } from 'src/modules/formatter'
 import { useSettingStore } from 'src/stores/setting/setting'
 import { ref } from 'vue'
 const setting = useSettingStore()

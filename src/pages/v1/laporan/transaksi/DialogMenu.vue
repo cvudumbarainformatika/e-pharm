@@ -196,6 +196,7 @@
 import { dateFullFormat } from 'src/modules/formatter'
 import { useLaporanMorphStore } from 'src/stores/laporan/button'
 import { useLaporanTable } from 'src/stores/laporan/table'
+import { useLaporanTransaksiStore } from 'src/stores/laporan/transaksi'
 import { ref } from 'vue'
 
 const rangeDate = ref({ from: null, to: null })
@@ -203,8 +204,10 @@ const tgl = ref(null)
 const table = useLaporanTable()
 const button = useLaporanMorphStore()
 const emits = defineEmits(['tutup'])
+const transaksi = useLaporanTransaksiStore()
 const transactionSelected = (val) => {
   table.resetData()
+  transaksi.resetData()
   table.form.nama = val.value
   // table.selected = false
   console.log(val)

@@ -178,7 +178,7 @@ export const useLaporanTable = defineStore('laporan_table', {
     },
     beforeGetData() {
       const transaksi = useLaporanTransaksiStore()
-      console.log('form sebelum if', this.form)
+      // console.log('form sebelum if', this.form)
       if (
         this.form.supplier_id !== undefined &&
         transaksi.pembelian !== 'supplier' &&
@@ -205,7 +205,7 @@ export const useLaporanTable = defineStore('laporan_table', {
       if (this.form.umum !== undefined && transaksi.penjualan !== 'umum') {
         delete this.form.umum
       }
-      console.log('form seseudah if', this.form)
+      // console.log('form seseudah if', this.form)
       if (this.form.nama === 'BEBAN') {
         this.getDataTransactions('beban')
       } else if (this.form.nama === 'PENERIMAAN') {
@@ -214,6 +214,7 @@ export const useLaporanTable = defineStore('laporan_table', {
         this.getDataTransactions('detail-transaksi')
       }
       this.getTotalTransactions()
+      transaksi.getDataTransactions()
     },
     // api related functions
     getTotalTransactions() {
@@ -222,7 +223,7 @@ export const useLaporanTable = defineStore('laporan_table', {
         api.get('v1/laporan/total-by-date', params).then((resp) => {
           if (resp.status === 200) {
             this.totalTransaction = resp.data[0]
-            console.log(this.totalTransaction)
+            // console.log(this.totalTransaction)
             resolve(resp.data)
           }
         })
@@ -242,7 +243,7 @@ export const useLaporanTable = defineStore('laporan_table', {
             if (resp.status === 200) {
               this.transactions = resp.data
               this.setRows()
-              console.log(resp)
+              console.log('tr by items', resp)
               resolve(resp.data)
             }
           })

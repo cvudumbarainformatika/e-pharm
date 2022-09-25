@@ -34,9 +34,9 @@
         <q-tab-panel name="transaksi">
           <TopMenu />
           <div v-if="table.selected">
-            <TablePage />
-            <!-- <TablePage v-if="table.transactionType === 'produk'" />
-      <LaporanTransaksi v-if="table.transactionType === 'transaksi'" /> -->
+            <!-- <TablePage /> -->
+            <TablePage v-if="table.transactionType === 'produk'" />
+            <LaporanTransaksi v-if="table.transactionType === 'transaksi'" />
             <TotalPage v-if="table.totalTransaction" />
           </div>
           <div v-else>
@@ -73,17 +73,20 @@ import { useLaporanTable } from 'src/stores/laporan/table'
 import TablePage from './transaksi/TablePage.vue'
 // import MorphButton from './MorphButton.vue'
 import { useLaporanMorphStore } from 'src/stores/laporan/button'
-// import LaporanTransaksi from './transaksi/LaporanTransaksi.vue'
+import LaporanTransaksi from './transaksi/LaporanTransaksi.vue'
 import TopMenu from './transaksi/TopMenu.vue'
 import { onUnmounted, ref } from 'vue'
 import { useSettingStore } from 'src/stores/setting/setting'
 import TotalPage from './transaksi/TotalPage.vue'
+import { useLaporanTransaksiStore } from 'src/stores/laporan/transaksi'
 
 const setting = useSettingStore()
 
 const tab = ref('transaksi')
 const table = useLaporanTable()
 const button = useLaporanMorphStore()
+const transaksi = useLaporanTransaksiStore()
+transaksi.setColumns()
 table.setColumns()
 table.selected = false
 button.setDays()
