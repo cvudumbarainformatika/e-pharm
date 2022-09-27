@@ -6,12 +6,13 @@
       :columns="table.columns"
       :rows="table.rows"
       row-key="id"
-      binary-state-sort
-      :loading="table.loading"
+      separator="horizontal"
       hide-pagination
       hide-header
-      separator="horizontal"
+      no-data-label="Tidak Ada Data"
+      :loading="table.loading"
     >
+      <!-- binary-state-sort -->
       <!-- Top Slot -->
       <template #top>
         <div
@@ -280,7 +281,11 @@
         </q-tr>
       </template>
       <!-- no data slot -->
-      <template #no-data="{ icon, message, filter }">
+
+      <template
+        v-if="!table.loading"
+        #no-data
+      >
         <div class="full-width row flex-center text-accent q-gutter-sm">
           <div
             class="flex column flex-center bg-loading-bg__table"
@@ -298,19 +303,25 @@
             <div class="text-primary q-mt-sm">
               Data Belum Ada
             </div>
-            {{ message }}
+            <!-- {{ message }} -->
           </span>
-          <q-icon
+          <!-- <q-icon
             size="2em"
             :name="filter ? 'filter_b_and_w' : icon"
-          />
+          /> -->
         </div>
       </template>
+      <template
+        v-else
+        #no-data
+      />
       <!-- loading -->
       <template #loading>
+        <!-- <q-inner-loading /> -->
         <app-loading
+          style="background-color: white;"
           text="Sebentar ... Sedang mengambil data ..."
-          color="dark"
+          color="primary"
         />
       </template>
       <!-- <template #pagination="scope"> -->

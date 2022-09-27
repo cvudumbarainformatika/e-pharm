@@ -107,7 +107,10 @@
         </q-tr>
       </template> -->
       <!-- no data slot -->
-      <template #no-data="{ icon, message, filter }">
+      <template
+        v-if="!table.loading"
+        #no-data
+      >
         <div class="full-width row flex-center text-accent q-gutter-sm">
           <div
             class="flex column flex-center bg-loading-bg__table"
@@ -125,17 +128,19 @@
             <div class="text-primary q-mt-sm">
               Data Belum Ada
             </div>
-            {{ message }}
           </span>
-          <q-icon
-            size="2em"
-            :name="filter ? 'filter_b_and_w' : icon"
-          />
         </div>
       </template>
+      <template
+        v-else
+        #no-data
+      />
       <!-- loading -->
       <template #loading>
-        <app-loading />
+        <app-loading
+          text="Sebentar ... Sedang mengambil data ..."
+          color="dark"
+        />
       </template>
       <!-- <template #pagination="scope"> -->
       <template #pagination="scope">

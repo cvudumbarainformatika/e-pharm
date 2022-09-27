@@ -7,8 +7,13 @@
           :color="setting.dark? 'white':'primary'"
           size="25px"
           class="cursor-pointer"
-          @click="openDialog"
-        />
+        >
+          <DialogMenu
+            v-model="button.isOpen"
+            @tutup="openDialog"
+          />
+        </q-icon>
+        <!-- @click="openDialog" -->
         <div v-if="table.form.nama==='PEMBELIAN' ">
           <ButtonDropdownMenu
             :label="transaksi.pembelian==='all'?'Pembelian Berdasarkan':transaksi.pembelianL"
@@ -138,22 +143,24 @@
           </q-menu>
         </q-btn>
         <div style="position: absolute; right: 10px;">
-          <q-icon
-            name="icon-mat-print"
+          <q-btn
+            icon="icon-mat-print"
+            flat
             :color="setting.dark? 'white':'primary'"
-            size="25px"
+            size="16px"
             class="cursor-pointer"
+
             @click="Print"
           />
         </div>
       </div>
     </q-card-section>
   </q-card>
-  <DialogMenu
-    v-model="button.isOpen"
+  <!-- <DialogMenu
     position="left"
+    v-model="button.isOpen"
     @tutup="openDialog"
-  />
+  /> -->
 </template>
 <script setup>
 import { useLaporanMorphStore } from 'src/stores/laporan/button'
@@ -165,6 +172,8 @@ import ButtonDropdownMenu from './ButtonDropdownMenu.vue'
 import { useSettingStore } from 'src/stores/setting/setting'
 import { notifErrVue } from 'src/modules/utils'
 import { ref, computed } from 'vue'
+// import { api } from 'src/boot/axios'
+// import DialogMenu from './DialogMenu.vue'
 const table = useLaporanTable()
 const transaksi = useLaporanTransaksiStore()
 const button = useLaporanMorphStore()
@@ -180,7 +189,8 @@ const getTrData = () => {
 }
 
 const Print = () => {
-  window.print()
+  // window.print()
+  window.open('http://api.eparm.test:2500/print?invoice=PJL-l87hlp2qhiwkg&total=21000&bayar=25000&kembali=4000', '_blank', 'withd=50%')
 }
 
 const openDialog = () => {

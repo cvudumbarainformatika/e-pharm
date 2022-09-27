@@ -50,6 +50,7 @@
         </q-tab-panel>
 
         <q-tab-panel name="stok">
+          <StokTopMenu />
           <div class="text-h6">
             Stok
           </div>
@@ -79,6 +80,7 @@ import { onUnmounted, ref } from 'vue'
 import { useSettingStore } from 'src/stores/setting/setting'
 import TotalPage from './transaksi/TotalPage.vue'
 import { useLaporanTransaksiStore } from 'src/stores/laporan/transaksi'
+import StokTopMenu from './stok/StokTopMenu.vue'
 
 const setting = useSettingStore()
 

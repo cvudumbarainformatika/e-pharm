@@ -1,11 +1,15 @@
 <template>
-  <q-dialog
+  <q-menu
     position="left"
     persistent
     transition-show="jump-right"
     transition-hide="jump-left"
+    fit
+    :offset="[6,7]"
+    style=" min-height: 460px;"
   >
-    <q-card style="margin-left:80px; max-width: fit-content;">
+    <!-- margin-left:80px; -->
+    <q-card style="min-height: 450px max-width: fit-content;">
       <q-bar>
         <q-btn
           v-close-popup
@@ -19,14 +23,14 @@
       </q-bar>
       <q-card-section
         horizontal
-        class="row items-center no-wrap"
-        style="padding:2px;"
+        class="row items-start no-wrap"
+        style="padding:2px; min-height: fit-content;"
       >
         <q-card-section>
           <div
             class="flex column flex-center full-height"
-            style="height:calc(100%-60px) "
           >
+            <!-- style="height:calc(100%-60px) " -->
             <q-list>
               <div
                 v-for="(menu, i) in button.transactions"
@@ -106,7 +110,8 @@
             </q-list>
           </div>
         </q-card-section>
-        <q-card-section class="q-py-xl text-center text-subtitle2">
+        <q-card-section class="q-pb-sm text-center text-subtitle2">
+          <!-- <div class="flex column flex-center full-height"> -->
           <q-list
             bordered
             padding
@@ -156,7 +161,7 @@
 
             <div
               v-if="table.form.date === 'range'"
-              class="text-primary"
+              class="text-primary column"
             >
               <q-date
                 v-model="rangeDate"
@@ -170,7 +175,7 @@
             </div>
             <div
               v-if="table.form.date === 'spesifik'"
-              class="text-primary"
+              class="text-primary column"
             >
               <q-date
                 v-model="tgl"
@@ -182,6 +187,7 @@
               />
             </div>
           </q-list>
+          <!-- </div> -->
         </q-card-section>
 
         <!-- <q-card-actions
@@ -190,7 +196,7 @@
         /> -->
       </q-card-section>
     </q-card>
-  </q-dialog>
+  </q-menu>
 </template>
 <script setup>
 import { dateFullFormat } from 'src/modules/formatter'
