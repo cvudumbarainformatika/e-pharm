@@ -54,7 +54,7 @@
           <div class="text-h6">
             Stok
           </div>
-          Ad molestiae non facere animi nobis, similique nemo velit reiciendis corporis impedit nam in.
+          <StokTable />
         </q-tab-panel>
 
         <q-tab-panel name="keuangan">
@@ -81,6 +81,7 @@ import { useSettingStore } from 'src/stores/setting/setting'
 import TotalPage from './transaksi/TotalPage.vue'
 import { useLaporanTransaksiStore } from 'src/stores/laporan/transaksi'
 import StokTopMenu from './stok/StokTopMenu.vue'
+import StokTable from './stok/StokTable.vue'
 
 const setting = useSettingStore()
 

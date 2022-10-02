@@ -25,7 +25,7 @@ const store = usePenjualanDialog()
 const slug = 'PJL-' + uniqueId()
 const oldSlug = routerInstance.currentRoute.value.params.slug
 
-table.ambilDataDokter()
+// table.ambilDataDokter()
 // table.ambilDataDistributor()
 table.getDetailTransaksi().then(data => {
   if (data !== undefined) {
@@ -40,7 +40,7 @@ table.getDetailTransaksi().then(data => {
     store.form.reff = slug
   }
 
-  table.ambilDataProduk()
+  // table.ambilDataProduk()
   // table.getDataExpired() // ambil data expired coment dulu
 })
 

@@ -102,15 +102,18 @@
   </q-menu>
 </template>
 <script setup>
+import { useLaporanMoreProduct } from 'src/stores/laporan/stok/more'
 import { useLaporanStokTable } from 'src/stores/laporan/stok/table'
 import { ref } from 'vue'
 const table = useLaporanStokTable()
+const more = useLaporanMoreProduct()
 
 const rangeDate = ref({ from: null, to: null })
 const tgl = ref(null)
 
 const dateSelected = val => {
   table.date = val.value
+  more.setParams('selection', val.value)
   if (val.value === 'tillToday') {
     table.getDataStok()
     closePopup()
@@ -119,11 +122,14 @@ const dateSelected = val => {
 const rangeSelected = () => {
   table.form.from = rangeDate.value.from
   table.form.to = rangeDate.value.to
+  more.setParams('from', rangeDate.value.from)
+  more.setParams('to', rangeDate.value.to)
   table.getDataStok()
   closePopup()
 }
 const spesifikSelected = () => {
   table.form.from = tgl.value
+  more.setParams('from', tgl.value)
   table.getDataStok()
   closePopup()
 }

@@ -13,6 +13,6 @@
 import { defineAsyncComponent } from 'vue'
 
 const AsyncComp = defineAsyncComponent(() =>
-  import('./DetaiReturPage.vue')
+  import('./DetailReturPage.vue')
 )
 </script>

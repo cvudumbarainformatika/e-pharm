@@ -105,6 +105,9 @@ onMounted(() => {
   store.getUser()
 })
 
+// -----------------get data autocomplete----------------- //
+//
+setting.getInitialData()
 // function toggleRightDrawer() {
 //   rightDrawerOpen.value = !rightDrawerOpen.value
 // }

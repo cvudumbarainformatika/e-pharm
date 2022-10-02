@@ -40,7 +40,7 @@ table.getDetailTransaksi().then(data => {
 })
 
 // const uId = ref('')
-table.ambilDataProduk()
+// table.ambilDataProduk()
 // onMounted(() => {
 // })
 </script>

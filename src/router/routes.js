@@ -142,7 +142,7 @@ const routes = [
                 name: 'detail.retur',
                 component: () =>
                   import(
-                    'src/pages/v1/transaksi/retur/detail/IndexReturPage.vue'
+                    'src/pages/v1/transaksi/retur/detail/IndexPage.vue'
                   )
               }
             ]

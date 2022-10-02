@@ -109,6 +109,7 @@ export const useProdukFormStore = defineStore('produk_form', {
       keys.forEach((key, index) => {
         this.setForm(key, val[key])
       })
+      // console.log(keys)
       // kecuali yang ada di object user
       this.isOpen = !this.isOpen
     },

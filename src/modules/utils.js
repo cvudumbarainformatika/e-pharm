@@ -91,6 +91,17 @@ const notifCenterVue = (msg) => {
     ]
   })
 }
+const notifErrCenterVue = (msg) => {
+  Notify.create({
+    message: msg,
+    icon: 'icon-eva-message-circle-outline',
+    position: 'center',
+    color: 'negative',
+    actions: [
+      { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
+    ]
+  })
+}
 
 const waitLoad = (cond) => {
   if (cond === 'show') {
@@ -135,14 +146,23 @@ const findWithTwoAttr = (array, attr, value, attr2, value2) => {
   return -1
 }
 
+const changeArrayIndex = (array, from, to) => {
+  const toIn = array.indexOf(to)
+  const fromIn = array.indexOf(from)
+  const element = array.splice(fromIn, 1)[0]
+  array.splice(toIn, 0, element)
+}
+
 export {
   notifSuccess,
   notifErr,
   notifErrVue,
+  notifErrCenterVue,
   waitLoad,
   uniqueId,
   notifCenterVue,
   filterDuplicateArrays,
   findWithAttr,
-  findWithTwoAttr
+  findWithTwoAttr,
+  changeArrayIndex
 }
