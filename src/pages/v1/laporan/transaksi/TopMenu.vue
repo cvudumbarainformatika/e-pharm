@@ -190,7 +190,7 @@ const getTrData = () => {
 
 const Print = () => {
   // window.print()
-  window.open('http://api.eparm.test:2500/print?invoice=PJL-l87hlp2qhiwkg&total=21000&bayar=25000&kembali=4000', '_blank', 'withd=50%')
+  window.open('http://api.eparm.test/print?invoice=PJL-l87hlp2qhiwkg&total=21000&bayar=25000&kembali=4000', '_blank', 'withd=50%')
 }
 
 const openDialog = () => {

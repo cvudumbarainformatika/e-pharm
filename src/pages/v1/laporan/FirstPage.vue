@@ -51,17 +51,18 @@
 
         <q-tab-panel name="stok">
           <StokTopMenu />
-          <div class="text-h6">
+          <!-- <div class="text-h6">
             Stok
-          </div>
+          </div> -->
           <StokTable />
         </q-tab-panel>
 
         <q-tab-panel name="keuangan">
-          <div class="text-h6">
+          <KeuanganTopMenu />
+          <!-- <div class="text-h6">
             Keuangan
-          </div>
-          Nostrum necessitatibus expedita dolores? Voluptatem repudiandae magni ea.
+          </div> -->
+          <PageKeuangan />
         </q-tab-panel>
       </q-tab-panels>
     </div>
@@ -82,6 +83,9 @@ import TotalPage from './transaksi/TotalPage.vue'
 import { useLaporanTransaksiStore } from 'src/stores/laporan/transaksi'
 import StokTopMenu from './stok/StokTopMenu.vue'
 import StokTable from './stok/StokTable.vue'
+import PageKeuangan from './keuangan/PageKeuangan.vue'
+import KeuanganTopMenu from './keuangan/KeuanganTopMenu.vue'
+import { useLaporanKeuanganStore } from 'src/stores/laporan/keuangan/keuangan'
 
 const setting = useSettingStore()
 
@@ -89,11 +93,16 @@ const tab = ref('transaksi')
 const table = useLaporanTable()
 const button = useLaporanMorphStore()
 const transaksi = useLaporanTransaksiStore()
+const keuangan = useLaporanKeuanganStore()
+
 transaksi.setColumns()
 table.setColumns()
 table.selected = false
 button.setDays()
 button.setMonths()
+keuangan.getBebans()
+keuangan.getPenerimaan()
+
 const reset = () => {
   table.resetData()
   button.date = ''

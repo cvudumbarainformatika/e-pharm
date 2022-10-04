@@ -90,5 +90,5 @@ const table = useLaporanStokTable()
 const more = useLaporanMoreProduct()
 table.penyesuaian.reff = 'FPST-' + uniqueId()
 
-// table.getDataStok()
+table.getDataStok()
 </script>

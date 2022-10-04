@@ -36,7 +36,8 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       'kategori_id',
       'limit_stok',
       'created_at',
-      'updated_at'
+      'updated_at',
+      'stokSebelum'
     ],
     nomer: [],
     dates: [
@@ -45,7 +46,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       { nama: 'Pilih Range Tanggal', value: 'range' }
     ],
     dueDate: null,
-    date: null,
+    date: 'tillToday',
     produk: {},
     params: {
       q: ''
@@ -70,7 +71,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       this.items = []
       this.nomer = []
       this.dueDate = null
-      this.date = null
+      this.date = 'tillToday'
     },
     setOpen() {
       this.formOpen = !this.formOpen
@@ -122,55 +123,147 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
     },
     prosesData(val) {
       // console.log('proses', val)
-      val.product.data.forEach((data) => {
-        data.stokBerjalan = 0
-      })
-      val.product.data.forEach((produk) => {
-        val.masuk.forEach((mas) => {
-          if (produk.id === mas.product_id) {
-            if (mas.jml > 0) {
-              produk.stokBerjalan += mas.jml
-            }
-          }
+      if (this.date === 'range') {
+        console.log('val', val)
+        val.product.data.forEach((data) => {
+          data.stokBerjalan = 0
+          data.stokSebelum = 0
         })
-        val.keluar.forEach((mas) => {
-          if (produk.id === mas.product_id) {
-            if (mas.jml > 0) {
-              produk.stokBerjalan -= mas.jml
+        val.product.data.forEach((produk) => {
+          val.masuk.before.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokSebelum += mas.jml
+              }
             }
-          }
-        })
-        val.returPembelian.forEach((mas) => {
-          if (produk.id === mas.product_id) {
-            if (mas.jml > 0) {
-              produk.stokBerjalan -= mas.jml
+          })
+          val.keluar.before.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokSebelum -= mas.jml
+              }
             }
-          }
-        })
-        val.returPenjualan.forEach((mas) => {
-          if (produk.id === mas.product_id) {
-            if (mas.jml > 0) {
-              produk.stokBerjalan += mas.jml
+          })
+          val.returPembelian.before.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokSebelum -= mas.jml
+              }
             }
-          }
-        })
-        val.penyesuaian.forEach((mas) => {
-          if (produk.id === mas.product_id) {
-            if (mas.jml !== 0) {
-              produk.stokBerjalan += mas.jml
+          })
+          val.returPenjualan.before.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokSebelum += mas.jml
+              }
             }
-          }
+          })
+          val.penyesuaian.before.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml !== 0) {
+                produk.stokSebelum += mas.jml
+              }
+            }
+          })
         })
-      })
-      val.product.data.forEach((data) => {
-        data.stokSekarang = data.stok_awal + data.stokBerjalan
-      })
-      // console.log('after proses', val.product.data)
-      this.items = val.product.data
-      this.setColumns(val.product.data)
-      const temp = val.product
-      delete temp.data
-      this.meta = temp
+        val.product.data.forEach((produk) => {
+          val.masuk.period.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokBerjalan += mas.jml
+              }
+            }
+          })
+          val.keluar.period.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokBerjalan -= mas.jml
+              }
+            }
+          })
+          val.returPembelian.period.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokBerjalan -= mas.jml
+              }
+            }
+          })
+          val.returPenjualan.period.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokBerjalan += mas.jml
+              }
+            }
+          })
+          val.penyesuaian.period.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml !== 0) {
+                produk.stokBerjalan += mas.jml
+              }
+            }
+          })
+        })
+        val.product.data.forEach((data) => {
+          data.stok_awal += data.stokSebelum
+          data.stokSekarang = data.stok_awal + data.stokBerjalan
+        })
+        this.items = val.product.data
+        this.setColumns(val.product.data)
+        const temp = val.product
+        delete temp.data
+        this.meta = temp
+        console.log('product', val.product)
+      } else {
+        val.product.data.forEach((data) => {
+          data.stokBerjalan = 0
+        })
+        val.product.data.forEach((produk) => {
+          val.masuk.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokBerjalan += mas.jml
+              }
+            }
+          })
+          val.keluar.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokBerjalan -= mas.jml
+              }
+            }
+          })
+          val.returPembelian.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokBerjalan -= mas.jml
+              }
+            }
+          })
+          val.returPenjualan.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml > 0) {
+                produk.stokBerjalan += mas.jml
+              }
+            }
+          })
+          val.penyesuaian.forEach((mas) => {
+            if (produk.id === mas.product_id) {
+              if (mas.jml !== 0) {
+                produk.stokBerjalan += mas.jml
+              }
+            }
+          })
+        })
+        val.product.data.forEach((data) => {
+          data.stokSekarang = data.stok_awal + data.stokBerjalan
+        })
+        // console.log('after proses', val.product.data)
+        this.items = val.product.data
+        this.setColumns(val.product.data)
+        const temp = val.product
+        delete temp.data
+        this.meta = temp
+      }
       // console.log('meta', this.meta)
     },
     seeMore(val) {
@@ -205,7 +298,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
           .then((resp) => {
             this.loading = false
             if (resp.status === 200) {
-              console.log(resp.data)
+              console.log('get data stok', resp.data)
               this.prosesData(resp.data)
               resolve(resp)
             }

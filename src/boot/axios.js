@@ -3,7 +3,8 @@ import axios from 'axios'
 import { getLocalToken } from 'src/modules/storage'
 import { notifErr } from 'src/modules/utils'
 
-const SERVER = 'http://api.eparm.test:2500/api'
+const SERVER = 'http://api.eparm.test/api'
+// const SERVER = 'http://api.eparm.test:2500/api'
 // const SERVER = 'https://api.udumbarainformatika.my.id/api'
 
 const api = axios.create({ baseURL: SERVER })

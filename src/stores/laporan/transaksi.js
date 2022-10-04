@@ -124,7 +124,7 @@ export const useLaporanTransaksiStore = defineStore('laporan_transaksi_store', {
     // api related function
 
     getDataTransactions() {
-      // this.rows = []
+      this.rows = []
       this.selected = true
       this.loading = true
       const param = Object.assign(this.table.form, this.params)
