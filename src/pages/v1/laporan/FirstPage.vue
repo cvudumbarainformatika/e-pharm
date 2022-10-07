@@ -102,6 +102,7 @@ button.setDays()
 button.setMonths()
 keuangan.getBebans()
 keuangan.getPenerimaan()
+keuangan.getPenjualan()
 
 const reset = () => {
   table.resetData()

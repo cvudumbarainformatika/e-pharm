@@ -1,6 +1,5 @@
 <template>
   <q-menu
-    v-model="menu.isOpen"
     position="left"
     persistent
     transition-show="jump-right"
@@ -26,13 +25,60 @@
         class="row items-start no-wrap"
         style="padding:2px;"
       >
-        pilih range
+        <q-card-section class="q-pb-sm text-center text-subtitle2">
+          <div
+            v-if="store.date === 'range'"
+            class="text-primary"
+          >
+            <q-date
+              v-model="rangeDate"
+              range
+            />
+            <q-btn
+              v-close-popup
+              flat
+              label="Close"
+              @click="rangeSelected"
+            />
+          </div>
+          <div
+            v-if="store.date === 'spesifik'"
+            class="text-primary"
+          >
+            <q-date v-model="tgl" />
+            <q-btn
+              v-close-popup
+              flat
+              label="Close"
+              @click="spesifikSelected"
+            />
+          </div>
+        </q-card-section>
       </q-card-section>
     </q-card>
   </q-menu>
 </template>
 <script setup>
-import { useLaporanKeuanganMenuStore } from 'src/stores/laporan/keuangan/menu'
+import { useLaporanKeuanganStore } from 'src/stores/laporan/keuangan/keuangan'
+import { ref } from 'vue'
+const store = useLaporanKeuanganStore()
 
-const menu = useLaporanKeuanganMenuStore()
+const rangeDate = ref({ from: null, to: null })
+const tgl = ref(null)
+
+const rangeSelected = () => {
+  // store.params.from = rangeDate.value.from
+  // store.params.to = rangeDate.value.to
+  store.setParams('from', rangeDate.value.from)
+  store.setParams('to', rangeDate.value.to)
+  store.getPenjualan()
+  store.setRange()
+}
+const spesifikSelected = () => {
+  // store.params.from = tgl.value
+  store.setParams('from', tgl.value)
+  store.getPenjualan()
+  store.setSpesifik()
+}
+
 </script>

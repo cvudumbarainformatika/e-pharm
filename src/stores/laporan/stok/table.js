@@ -45,8 +45,8 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       { nama: 'Pilih Tanggal', value: 'spesifik' },
       { nama: 'Pilih Range Tanggal', value: 'range' }
     ],
-    dueDate: null,
     date: 'tillToday',
+    dueDate: null,
     produk: {},
     params: {
       q: ''

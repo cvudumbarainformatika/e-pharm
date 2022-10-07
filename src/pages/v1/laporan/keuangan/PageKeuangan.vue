@@ -5,7 +5,7 @@
         Laporan keuangan {{ setting.info.nama }}
       </div>
       <div class="title-desc">
-        Di isi periode
+        Periode : {{ store.periode }}
       </div>
     </q-card-section>
     <q-card-section>
@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-1" />
         <div class="col-7">
-          - Penjualan
+          - Penjualan (tunai)
         </div>
         <div class="col-2 text-right">
           {{ formatRp(store.penjualan) }}
@@ -82,7 +82,7 @@
       <div class="row">
         <div class="col-1" />
         <div class="col-7">
-          - Pembelian
+          - Pembelian (tunai)
         </div>
         <div class="col-2 text-right">
           {{ formatRp(store.pembelian) }}
