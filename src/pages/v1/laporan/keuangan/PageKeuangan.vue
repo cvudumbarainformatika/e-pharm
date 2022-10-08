@@ -49,29 +49,10 @@
           {{ formatRp(store.penjualanBersih) }}
         </div>
       </div>
+
       <div class="  row text-weight-bold">
         <div class="col-1">
           B.
-        </div>
-        <div class="col-7">
-          HARGA POKOK PENJUALAN (HPP)
-        </div>
-        <div class="col-2 text-right" />
-        <div class="col-2 text-right" />
-      </div>
-      <div class="row">
-        <div class="col-1" />
-        <div class="col-7">
-          Harga Pokok Penjualan (HPP)
-        </div>
-        <div class="col-2 text-right" />
-        <div class="col-2 text-right">
-          {{ formatRp(store.HPP) }}
-        </div>
-      </div>
-      <div class="  row text-weight-bold">
-        <div class="col-1">
-          C.
         </div>
         <div class="col-7">
           PEMBELIAN
@@ -82,10 +63,30 @@
       <div class="row">
         <div class="col-1" />
         <div class="col-7">
-          - Pembelian (tunai)
+          - Pembelian (tunai dan kredit)
         </div>
         <div class="col-2 text-right">
           {{ formatRp(store.pembelian) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-7">
+          - Biaya Pengiriman
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store.ongkir) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-7">
+          - Potongan Pembelian
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store.diskon) }}
         </div>
         <div class="col-2 text-right" />
       </div>
@@ -104,9 +105,49 @@
         <div class="col-7">
           Pembelian Bersih
         </div>
-        <div class="col-2 text-right" />
         <div class="col-2 text-right">
           {{ formatRp(store.pembelianBersih) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <div class="  row text-weight-bold">
+        <div class="col-1">
+          C.
+        </div>
+        <div class="col-7">
+          HARGA POKOK PENJUALAN (HPP)
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <div class="  row">
+        <div class="col-1" />
+        <div class="col-7">
+          - Persediaan Awal
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store.persediaanAwal) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <div class="  row">
+        <div class="col-1" />
+        <div class="col-7">
+          - Pesediaan Akhir
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store.persediaanAkhir) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-7">
+          Harga Pokok Penjualan (HPP)
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right">
+          {{ formatRp(store.HPP) }}
         </div>
       </div>
       <div class="  row text-weight-bold">
@@ -180,16 +221,45 @@
           {{ formatRp(store.penerimaan) }}
         </div>
       </div>
-      <div class="row">
+      <div
+        v-if="store.laba !== 0"
+        class="row"
+      >
+        <div class="col-1" />
+        <div class="col-7 text-weight-bold">
+          Laba
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right text-weight-bold">
+          {{ formatRp(store.laba) }}
+        </div>
+      </div>
+      <div
+        v-else-if="store.rugi !== 0"
+        class="row"
+      >
+        <div class="col-1" />
+        <div class="col-7 text-weight-bold">
+          Rugi
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-negative text-right text-weight-bold">
+          ({{ formatRp(store.rugi) }})
+        </div>
+      </div>
+      <div
+        v-else
+        class="row"
+      >
         <div class="col-1" />
         <div class="col-7 text-weight-bold">
           Laba \ Rugi
         </div>
         <div class="col-2 text-right" />
         <div class="col-2 text-right text-weight-bold">
-          {{ formatRp(store.labaRugi) }}
+          Rp. 0
         </div>
-      </div>
+      </div>>
     </q-card-section>
   </q-card>
 </template>

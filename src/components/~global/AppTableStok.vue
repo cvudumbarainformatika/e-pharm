@@ -9,6 +9,7 @@
         </div>
         <div class="q-pl-sm">
           <q-input
+            v-if="adaSearch"
             v-model="search"
             class="search-big"
             borderless
@@ -46,6 +47,7 @@
         </q-btn>
         <!-- refresh Ids -->
         <q-btn
+          v-if="adaRefresh"
           unelevated
           round
           size="sm"
@@ -301,6 +303,7 @@
               </q-tooltip>
             </q-btn> -->
             <q-btn
+              v-if="adaAdjust"
               flat
               class=""
               size="sm"
@@ -317,6 +320,7 @@
               </q-tooltip>
             </q-btn>
             <q-btn
+              v-if="adaSeeMore"
               flat
               class=""
               size="sm"
@@ -402,7 +406,11 @@ const props = defineProps({
   orderBy: { type: String, default: 'id' },
   sort: { type: String, default: 'desc' },
   toSearch: { type: String, default: '' },
-  isChecked: { type: Boolean, default: false }
+  isChecked: { type: Boolean, default: false },
+  adaRefresh: { type: Boolean, default: false },
+  adaSearch: { type: Boolean, default: false },
+  adaSeeMore: { type: Boolean, default: false },
+  adaAdjust: { type: Boolean, default: false }
 })
 const emits = defineEmits([
   'newData',

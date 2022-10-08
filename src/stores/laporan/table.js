@@ -51,6 +51,9 @@ export const useLaporanTable = defineStore('laporan_table', {
       this.totalTransaksi = null
       this.totalTransaction = null
     },
+    setForm(key, val) {
+      this.form[key] = val
+    },
     setColumns() {
       const kolom = [
         {

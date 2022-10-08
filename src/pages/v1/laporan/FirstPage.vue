@@ -28,8 +28,8 @@
       <q-tab-panels
         v-model="tab"
         animated
-        transition-prev="scale"
-        transition-next="scale"
+        transition-prev="slide-right"
+        transition-next="slide-left"
       >
         <q-tab-panel name="transaksi">
           <TopMenu />
@@ -51,9 +51,19 @@
 
         <q-tab-panel name="stok">
           <StokTopMenu />
-          <!-- <div class="text-h6">
-            Stok
-          </div> -->
+          <app-card :is-header="false">
+            <template #content>
+              <div class="text-h6 text-center">
+                {{ titleCase(setting.info.nama) }}
+              </div>
+              <div class="text-h6 text-center">
+                Laporan Stok
+              </div>
+              <div class="text-caption text-center">
+                {{ titleCase(stok.periode) }}
+              </div>
+            </template>
+          </app-card>
           <StokTable />
         </q-tab-panel>
 
@@ -86,23 +96,39 @@ import StokTable from './stok/StokTable.vue'
 import PageKeuangan from './keuangan/PageKeuangan.vue'
 import KeuanganTopMenu from './keuangan/KeuanganTopMenu.vue'
 import { useLaporanKeuanganStore } from 'src/stores/laporan/keuangan/keuangan'
+import { date } from 'quasar'
+import { titleCase } from 'src/modules/formatter'
+import { useLaporanStokTable } from 'src/stores/laporan/stok/table'
 
 const setting = useSettingStore()
+
+const awalBulan = date.formatDate(Date.now(), 'YYYY-MM-' + '01')
 
 const tab = ref('transaksi')
 const table = useLaporanTable()
 const button = useLaporanMorphStore()
 const transaksi = useLaporanTransaksiStore()
 const keuangan = useLaporanKeuanganStore()
+const stok = useLaporanStokTable()
 
 transaksi.setColumns()
 table.setColumns()
-table.selected = false
+table.selected = true
+table.setForm('date', 'bulan')
+table.setForm('nama', 'PENJUALAN')
 button.setDays()
 button.setMonths()
+table.beforeGetData()
+table.periode = 'Bulan Ini'
+keuangan.setParams('from', awalBulan)
+// keuangan.setParams('from', '2022-09-20')
+// keuangan.setParams('to', '2022-09-21')
+// keuangan.setParams('selection', 'range')
+// table.periode = 'Tanggal ' + keuangan.params.from + ' - ' + keuangan.params.to
 keuangan.getBebans()
 keuangan.getPenerimaan()
 keuangan.getPenjualan()
+// keuangan.prosesHPP()
 
 const reset = () => {
   table.resetData()

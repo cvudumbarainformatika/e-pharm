@@ -32,7 +32,7 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
     },
     setParams(key, val) {
       this.params[key] = val
-      console.log('setParams', key, val)
+      // console.log('setParams', key, val)
     },
     setColumns(payload) {
       const thumb = payload.map((x) => Object.keys(x))

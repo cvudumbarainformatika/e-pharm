@@ -42,6 +42,9 @@
             <template #col-tanggal>
               <div>Tanggal</div>
             </template>
+            <template #cell-tanggal="{row}">
+              <div>{{ dateFullFormat(row.tanggal) }}</div>
+            </template>
           </app-table-stok>
           <!--
             row-image="image"
@@ -54,6 +57,7 @@
 </template>
 <script setup>
 import { useLaporanMoreProduct } from 'src/stores/laporan/stok/more'
+import { dateFullFormat } from 'src/modules/formatter'
 
 const more = useLaporanMoreProduct()
 

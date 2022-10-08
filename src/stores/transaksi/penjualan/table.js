@@ -386,7 +386,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     // ambil data transaksi
     getDetailTransaksi(val) {
       // console.log('get detail transaksi ', val)
-      this.loading = true
+      waitLoad('show')
       let slug = ''
       if (val === undefined) {
         slug = routerInstance.currentRoute.value.params.slug
@@ -399,7 +399,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         api
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
-            this.loading = false
+            waitLoad('done')
             // console.log('penjualan ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
@@ -414,7 +414,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
             }
           })
           .catch((err) => {
-            this.loading = false
+            waitLoad('done')
             reject(err)
           })
       })

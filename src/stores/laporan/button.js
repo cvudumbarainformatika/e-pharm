@@ -57,7 +57,7 @@ export const useLaporanMorphStore = defineStore('laporan_morph_button', {
         param: null
       }
     ],
-    date: '',
+    date: 'month',
     days: [],
     months: []
   }),

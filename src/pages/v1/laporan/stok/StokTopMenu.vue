@@ -20,5 +20,5 @@
 import { useSettingStore } from 'src/stores/setting/setting'
 import StockMenuCotent from './menucontent/StockMenuCotent.vue'
 
-const setting = useSettingStore
+const setting = useSettingStore()
 </script>

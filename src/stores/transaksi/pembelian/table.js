@@ -259,7 +259,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       // store.form.ongkir = data.ongkir
     },
     getDetailTransaksi(val) {
-      this.loading = true
+      waitLoad('show')
       let slug = ''
       if (val === undefined) {
         slug = routerInstance.currentRoute.value.params.slug
@@ -274,7 +274,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
         api
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
-            this.loading = false
+            waitLoad('done')
             // console.log('pembelian ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
@@ -292,7 +292,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
             }
           })
           .catch((err) => {
-            this.loading = false
+            waitLoad('done')
             reject(err)
           })
       })

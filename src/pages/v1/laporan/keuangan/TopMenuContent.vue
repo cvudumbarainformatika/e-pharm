@@ -59,6 +59,7 @@
   </q-menu>
 </template>
 <script setup>
+import { dateFullFormat } from 'src/modules/formatter'
 import { useLaporanKeuanganStore } from 'src/stores/laporan/keuangan/keuangan'
 import { ref } from 'vue'
 const store = useLaporanKeuanganStore()
@@ -71,13 +72,17 @@ const rangeSelected = () => {
   // store.params.to = rangeDate.value.to
   store.setParams('from', rangeDate.value.from)
   store.setParams('to', rangeDate.value.to)
+  store.setPeriode('Tanggal ' + dateFullFormat(rangeDate.value.from) + ' - ' + dateFullFormat(rangeDate.value.to))
   store.getPenjualan()
+  // store.prosesHPP()
   store.setRange()
 }
 const spesifikSelected = () => {
   // store.params.from = tgl.value
   store.setParams('from', tgl.value)
+  store.setPeriode('Tanggal ' + dateFullFormat(tgl.value))
   store.getPenjualan()
+  // store.prosesHPP()
   store.setSpesifik()
 }
 

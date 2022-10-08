@@ -1,10 +1,14 @@
 <template>
-  <q-page class="q-pa-sm">
+  <q-page>
     <div>
       <app-card :is-header="false">
         <template #content>
+          <!-- <q-card-section> -->
           <app-table-stok
             title="Data Stok"
+            ada-search
+            ada-see-more
+            ada-adjust
             :columns="table.columns"
             :column-hide="table.columnHide"
             :items="table.items"
@@ -72,6 +76,7 @@
             row-image="image"
             @delete-ids="table.deletesData"
             -->
+          <!-- </q-card-section> -->
         </template>
       </app-card>
     </div>
@@ -85,10 +90,13 @@ import { useLaporanStokTable } from 'src/stores/laporan/stok/table'
 import formDialog from './FormDialog.vue'
 import DialogSeeMore from './DialogSeeMore.vue'
 import { useLaporanMoreProduct } from 'src/stores/laporan/stok/more'
+import { date } from 'quasar'
 
+const awalBulan = date.formatDate(Date.now(), 'YYYY-MM-' + '01')
 const table = useLaporanStokTable()
 const more = useLaporanMoreProduct()
 table.penyesuaian.reff = 'FPST-' + uniqueId()
 
+table.setForm('from', awalBulan)
 table.getDataStok()
 </script>

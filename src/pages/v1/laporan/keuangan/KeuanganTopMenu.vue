@@ -16,7 +16,7 @@
         </q-icon> -->
         <q-btn
           no-caps
-          label="Sampai Hari ini"
+          label="Bulan Ini"
           :flat="store.date!=='tillToday'"
           :push="store.date==='tillToday'"
           color="primary"
@@ -51,14 +51,22 @@
 </template>
 <script setup>
 // import { useSettingStore } from 'src/stores/setting/setting'
+import { date } from 'quasar'
 import { useLaporanKeuanganStore } from 'src/stores/laporan/keuangan/keuangan'
 import TopMenuContent from './TopMenuContent.vue'
 
 const store = useLaporanKeuanganStore()
+
 const today = () => {
+  const awalBulan = date.formatDate(Date.now(), 'YYYY-MM-' + '01')
+  store.setParams('from', awalBulan)
   store.date = 'tillToday'
+  store.periode = 'Bulan Ini'
   store.setParams('selection', 'tillToday')
   store.getPenjualan()
+  // store.prosesHPP()
+  console.log('today', awalBulan)
+  console.log('today quasar', date.formatDate(Date.now(), 'YYYY-MM-' + '01'))
 }
 const pilihTgl = () => {
   store.setSpesifik()
