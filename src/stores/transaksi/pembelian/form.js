@@ -3,6 +3,7 @@ import { api } from 'src/boot/axios'
 import { routerInstance } from 'src/boot/router'
 import { olahUang } from 'src/modules/formatter'
 import { notifSuccess, uniqueId } from 'src/modules/utils'
+import { useAuthStore } from 'src/stores/auth'
 // import { useAuthStore } from 'src/stores/auth'
 import { usePrintStore } from 'src/stores/print'
 import { usePembelianTable } from './table'
@@ -155,12 +156,15 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       })
     },
     simpanTransaksi() {
+      const user = useAuthStore()
+      const admin = user.userGetter
       const total = olahUang(this.form.total)
       const ongkir = olahUang(this.form.ongkir)
       const potongan = olahUang(this.form.potongan)
       const bayar = olahUang(this.form.bayar)
       const kembali = olahUang(this.form.kembali)
 
+      this.form.user_id = admin.id
       this.form.total = total
       this.form.ongkir = ongkir
       this.form.potongan = potongan
