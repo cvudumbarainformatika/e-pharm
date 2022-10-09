@@ -1,7 +1,7 @@
 <template>
+  <!-- persistent -->
   <q-menu
     position="left"
-    persistent
     transition-show="jump-right"
     transition-hide="jump-left"
     fit
@@ -63,24 +63,27 @@ import { dateFullFormat } from 'src/modules/formatter'
 import { useLaporanKeuanganStore } from 'src/stores/laporan/keuangan/keuangan'
 import { ref } from 'vue'
 const store = useLaporanKeuanganStore()
+const emits = defineEmits(['selected'])
 
 const rangeDate = ref({ from: null, to: null })
 const tgl = ref(null)
 
 const rangeSelected = () => {
-  // store.params.from = rangeDate.value.from
-  // store.params.to = rangeDate.value.to
+  store.setParams('selection', 'range')
   store.setParams('from', rangeDate.value.from)
   store.setParams('to', rangeDate.value.to)
   store.setPeriode('Tanggal ' + dateFullFormat(rangeDate.value.from) + ' - ' + dateFullFormat(rangeDate.value.to))
+  emits('selected', 'range')
   store.getPenjualan()
-  // store.prosesHPP()
   store.setRange()
+  // store.prosesHPP()
 }
 const spesifikSelected = () => {
   // store.params.from = tgl.value
+  store.setParams('selection', 'spesifik')
   store.setParams('from', tgl.value)
   store.setPeriode('Tanggal ' + dateFullFormat(tgl.value))
+  emits('selected', 'spesifik')
   store.getPenjualan()
   // store.prosesHPP()
   store.setSpesifik()

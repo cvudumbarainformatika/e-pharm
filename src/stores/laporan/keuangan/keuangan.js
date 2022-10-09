@@ -133,7 +133,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       // array product
       console.log('selection', this.periode)
       const product = stok.product
-      if (this.date === 'spesifik') {
+      if (this.date === 'apem') {
         ongkir = ongpot[0].ongkos !== null ? ongpot[0].ongkos : 0
         diskon = ongpot[0].diskon !== null ? ongpot[0].diskon : 0
         console.log('selection', this.date)
@@ -200,7 +200,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       // semua pemebelian tunai dan kredit pada periode ini
       const pembelianDgKredit = product.map(data => { return data.pembelianDgKredit * data.harga_beli }).reduce((a, b) => { return a + b })
       // retur Pembelian
-      // const returPembelian = product.map(data => { return data.returPembelianAja * data.harga_beli }).reduce((a, b) => { return a + b })
+      const returPembelian = product.map(data => { return data.returPembelian.periode * data.harga_beli }).reduce((a, b) => { return a + b })
       // pembelian bersih
       const pembelianBersih = pembelianDgKredit + ongkir - diskon - this.returPembelian
       // HPP = Pembelian Bersih + Persediaan Awal – Persediaan Akhir
@@ -210,6 +210,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       this.pembelianBersih = pembelianBersih
       this.persediaanAwal = persediaanAwal
       this.persediaanAkhir = persediaanAkhir
+      this.returPembelian = returPembelian
       const labaRugi = this.penjualanBersih - this.HPP - this.beban + this.penerimaan
       this.laba = labaRugi > 0 ? labaRugi : 0
       this.rugi = labaRugi < 0 ? -labaRugi : 0
@@ -259,15 +260,15 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
         : 0
 
       // retur pembelian
-      this.returPembelian = data.returPembelian.length
-        ? data.returPembelian
-          .map((apem) => {
-            let temp = 0
-            temp = apem.jml * apem.harga
-            return temp
-          })
-          .reduce((x, y) => x + y)
-        : 0
+      // this.returPembelian = data.returPembelian.length
+      //   ? data.returPembelian
+      //     .map((apem) => {
+      //       let temp = 0
+      //       temp = apem.jml * apem.harga
+      //       return temp
+      //     })
+      //     .reduce((x, y) => x + y)
+      //   : 0
 
       // pembelian bersih
       // this.pembelianBersih = this.pembelian - this.returPembelian
@@ -302,26 +303,26 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       this.penjualanBersih = this.penjualan - this.returPenjualan
 
       // pembelian
-      this.pembelian = data.pembelian.period.length
-        ? data.pembelian.period
-          .map((apem) => {
-            let temp = 0
-            temp = apem.jml * apem.harga
-            return temp
-          })
-          .reduce((x, y) => x + y)
-        : 0
+      // this.pembelian = data.pembelian.period.length
+      //   ? data.pembelian.period
+      //     .map((apem) => {
+      //       let temp = 0
+      //       temp = apem.jml * apem.harga
+      //       return temp
+      //     })
+      //     .reduce((x, y) => x + y)
+      //   : 0
 
       // retur pembelian
-      this.returPembelian = data.returPembelian.period.length
-        ? data.returPembelian.period
-          .map((apem) => {
-            let temp = 0
-            temp = apem.jml * apem.harga
-            return temp
-          })
-          .reduce((x, y) => x + y)
-        : 0
+      // this.returPembelian = data.returPembelian.period.length
+      //   ? data.returPembelian.period
+      //     .map((apem) => {
+      //       let temp = 0
+      //       temp = apem.jml * apem.harga
+      //       return temp
+      //     })
+      //     .reduce((x, y) => x + y)
+      //   : 0
 
       // pembelian bersih
       // this.pembelianBersih = this.pembelian - this.returPembelian
@@ -364,11 +365,8 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
             this.loading = false
             if (resp.status === 200) {
               console.log('laporan pj', resp.data)
-              if (this.date === 'spesifik') {
-                this.dataProses(resp.data)
-              } else {
-                this.dataProsesDua(resp.data)
-              }
+              this.dataProsesDua(resp.data)
+
               this.prosesHPP(
                 resp.data.pembelianDgKredit,
                 resp.data.ongkir,

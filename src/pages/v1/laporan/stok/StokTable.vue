@@ -98,5 +98,7 @@ const more = useLaporanMoreProduct()
 table.penyesuaian.reff = 'FPST-' + uniqueId()
 
 table.setForm('from', awalBulan)
+table.setForm('selection', 'tillToday')
+table.setPeriode()
 table.getDataStok()
 </script>

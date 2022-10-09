@@ -1,8 +1,8 @@
 <template>
+  <!-- v-model="table.isOpen" -->
+  <!-- persistent -->
   <q-menu
-    v-model="table.isOpen"
     position="left"
-    persistent
     transition-show="jump-right"
     transition-hide="jump-left"
     fit
@@ -21,119 +21,88 @@
           <q-tooltip>Close</q-tooltip>
         </q-btn>
       </q-bar>
-      <q-card-section
-        horizontal
-        class="row items-start no-wrap"
-        style="padding:2px;"
-      >
-        <q-card-section class="q-pb-xl text-center text-subtitle2">
-          <q-list>
-            <div
-              v-for="(menu, i) in table.dates"
-              :key="i"
-              class="sidebar flex items-center justify-start"
-              style="min-width:150px;"
-              exact
-              @click="dateSelected(menu)"
-            >
-              <q-item
-                clickable
-                :active="table.date === menu.value"
-                active-class="text-white bg-primary"
-              >
-                <q-item-section>
-                  <q-item-label style="min-width:120px;">
-                    <div class="row items-center">
-                      <div class="col-10 text-left">
-                        <strong class="">{{ menu.nama }}</strong>
-                      </div>
-                      <!-- v-if="menu.value === 'harian' || menu.value === 'bulanan' || menu.value === 'range'" -->
-                      <div
-                        v-if="menu.value === 'tillToday' ? false : menu.value === 'month' ? false : true "
-                        class="col-2 text-right"
-                      >
-                        <q-icon
-                          name="icon-mat-chevron_right"
-                          size="25px"
-                        />
-                      </div>
-                    </div>
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
-            </div>
-          </q-list>
-        </q-card-section>
-        <q-card-section class="q-pb-sm text-center text-subtitle2">
-          <q-list
-            bordered
-            padding
-            class="rounded-borders"
+      <q-card-section class="q-pb-sm text-center text-subtitle2">
+        <q-list
+          bordered
+          padding
+          class="rounded-borders"
+        >
+          <div
+            v-if="table.date === 'range'"
+            class="text-primary"
           >
-            <div
-              v-if="table.date === 'range'"
-              class="text-primary"
-            >
-              <q-date
-                v-model="rangeDate"
-                range
-              />
-              <q-btn
-                flat
-                label="Close"
-                @click="rangeSelected"
-              />
-            </div>
-            <div
-              v-if="table.date === 'spesifik'"
-              class="text-primary"
-            >
-              <q-date v-model="tgl" />
-              <q-btn
-                flat
-                label="Close"
-                @click="spesifikSelected"
-              />
-            </div>
-          </q-list>
-        </q-card-section>
+            <q-date
+              v-model="rangeDate"
+              range
+            />
+            <q-btn
+              v-close-popup
+              flat
+              label="Close"
+              @click="rangeSelected"
+            />
+          </div>
+          <div
+            v-if="table.date === 'spesifik'"
+            class="text-primary"
+          >
+            <q-date v-model="tgl" />
+            <q-btn
+              v-close-popup
+              flat
+              label="Close"
+              @click="spesifikSelected"
+            />
+          </div>
+        </q-list>
       </q-card-section>
     </q-card>
   </q-menu>
 </template>
 <script setup>
+import { ref } from 'vue'
 import { useLaporanMoreProduct } from 'src/stores/laporan/stok/more'
 import { useLaporanStokTable } from 'src/stores/laporan/stok/table'
-import { ref } from 'vue'
 const table = useLaporanStokTable()
 const more = useLaporanMoreProduct()
+const emits = defineEmits(['selected'])
 
 const rangeDate = ref({ from: null, to: null })
 const tgl = ref(null)
 
-const dateSelected = val => {
-  table.date = val.value
-  more.setParams('selection', val.value)
-  if (val.value === 'tillToday') {
-    table.getDataStok()
-    closePopup()
-  }
-}
+// const dateSelected = val => {
+//   table.date = val.value
+//   more.setParams('selection', val.value)
+//   if (val.value === 'tillToday') {
+//     table.getDataStok()
+//     closePopup()
+//   }
+// }
+
 const rangeSelected = () => {
   table.form.from = rangeDate.value.from
   table.form.to = rangeDate.value.to
   more.setParams('from', rangeDate.value.from)
   more.setParams('to', rangeDate.value.to)
+  table.setForm('selection', 'range')
+  emits('selected', 'range')
+  table.setRange()
+  table.setPeriode()
   table.getDataStok()
-  closePopup()
+  // closePopup()
 }
 const spesifikSelected = () => {
   table.form.from = tgl.value
   more.setParams('from', tgl.value)
+  table.setForm('selection', 'spesifik')
+  emits('selected', 'spesifik')
+  table.setSpesifik()
+  table.setPeriode()
   table.getDataStok()
-  closePopup()
+  // closePopup()
 }
-const closePopup = () => {
-  table.isOpen = !table.isOpen
-}
+
+// const closePopup = () => {
+//   table.isOpen = !table.isOpen
+// }
 </script>

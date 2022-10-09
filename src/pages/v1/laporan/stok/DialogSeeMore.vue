@@ -27,6 +27,9 @@
         <div class="text-h6 text-center">
           Laporan Details Stok
         </div>
+        <div class="text-h6 text-center text-italic">
+          {{ more.params.nama }}
+        </div>
         <div class="text-caption text-center">
           {{ titleCase(stok.periode) }}
         </div>

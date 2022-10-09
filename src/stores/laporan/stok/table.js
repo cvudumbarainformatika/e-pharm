@@ -7,6 +7,8 @@ import { useLaporanMoreProduct } from './more'
 export const useLaporanStokTable = defineStore('laporan_stok', {
   state: () => ({
     isOpen: false,
+    spesifik: false,
+    range: false,
     formOpen: false,
     loading: false,
     periode: '',
@@ -45,7 +47,6 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       'returPembelian',
       'returPenjualan',
       'penyesuaian'
-
     ],
     nomer: [],
     dates: [
@@ -91,7 +92,11 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
           this.periode = 'tanggal ' + dateFullFormat(this.form.from)
           break
         case 'range':
-          this.periode = 'tanggal ' + dateFullFormat(this.form.from) + ' - ' + dateFullFormat(this.form.to)
+          this.periode =
+            'tanggal ' +
+            dateFullFormat(this.form.from) +
+            ' - ' +
+            dateFullFormat(this.form.to)
           break
 
         default:
@@ -101,6 +106,12 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
     },
     setOpen() {
       this.formOpen = !this.formOpen
+    },
+    setSpesifik() {
+      this.spesifik = !this.spesifik
+    },
+    setRange() {
+      this.range = !this.range
     },
     setForm(key, val) {
       this.form[key] = val
@@ -151,23 +162,46 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       this.columns = thumb[0]
     },
     prosesData(val) {
-      // console.log('proses', val)
+      console.log('proses', val)
+      console.log('selection', this.date)
       const product = val.product.data
       const stok = val
-      if (this.date === 'spesifik') {
-        console.log('selection', this.date)
-        product.forEach(data => {
+      if (this.date === 'apem') {
+        product.forEach((data) => {
           const keluar = findWithAttr(stok.keluar, 'product_id', data.id)
           const masuk = findWithAttr(stok.masuk, 'product_id', data.id)
-          const penyesuaian = findWithAttr(stok.penyesuaian, 'product_id', data.id)
-          const returPembelian = findWithAttr(stok.returPembelian, 'product_id', data.id)
-          const returPenjualan = findWithAttr(stok.returPenjualan, 'product_id', data.id)
+          const penyesuaian = findWithAttr(
+            stok.penyesuaian,
+            'product_id',
+            data.id
+          )
+          const returPembelian = findWithAttr(
+            stok.returPembelian,
+            'product_id',
+            data.id
+          )
+          const returPenjualan = findWithAttr(
+            stok.returPenjualan,
+            'product_id',
+            data.id
+          )
           data.keluar = stok.keluar[keluar] ? stok.keluar[keluar].jml : 0
           data.masuk = stok.masuk[masuk] ? stok.masuk[masuk].jml : 0
-          data.penyesuaian = stok.penyesuaian[penyesuaian] ? stok.penyesuaian[penyesuaian].jml : 0
-          data.returPembelian = stok.returPembelian[returPembelian] ? stok.returPembelian[returPembelian].jml : 0
-          data.returPenjualan = stok.returPenjualan[returPenjualan] ? stok.returPenjualan[returPenjualan].jml : 0
-          data.stokBerjalan = data.masuk - data.keluar + data.returPenjualan - data.returPembelian + data.penyesuaian
+          data.penyesuaian = stok.penyesuaian[penyesuaian]
+            ? stok.penyesuaian[penyesuaian].jml
+            : 0
+          data.returPembelian = stok.returPembelian[returPembelian]
+            ? stok.returPembelian[returPembelian].jml
+            : 0
+          data.returPenjualan = stok.returPenjualan[returPenjualan]
+            ? stok.returPenjualan[returPenjualan].jml
+            : 0
+          data.stokBerjalan =
+            data.masuk -
+            data.keluar +
+            data.returPenjualan -
+            data.returPembelian +
+            data.penyesuaian
           data.stokSekarang = data.stok_awal + data.stokBerjalan
         })
         this.items = product
@@ -176,39 +210,101 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
         delete temp.data
         this.meta = temp
       } else {
-        product.forEach(data => {
+        product.forEach((data) => {
           data.keluar = {}
           data.masuk = {}
           data.returPembelian = {}
           data.returPenjualan = {}
           data.penyesuaian = {}
         })
-        product.forEach(data => {
-          const keluarB = findWithAttr(stok.keluar.before, 'product_id', data.id)
-          const keluarP = findWithAttr(stok.keluar.period, 'product_id', data.id)
-          const masukB = findWithAttr(stok.masuk.before, 'product_id', data.id)
-          const masukP = findWithAttr(stok.masuk.period, 'product_id', data.id)
-          const returPembelianB = findWithAttr(stok.returPembelian.before, 'product_id', data.id)
-          const returPembelianP = findWithAttr(stok.returPembelian.period, 'product_id', data.id)
-          const returPenjualanB = findWithAttr(stok.returPenjualan.before, 'product_id', data.id)
-          const returPenjualanP = findWithAttr(stok.returPenjualan.period, 'product_id', data.id)
-          const penyesuaianB = findWithAttr(stok.penyesuaian.before, 'product_id', data.id)
-          const penyesuaianP = findWithAttr(stok.penyesuaian.period, 'product_id', data.id)
+        product.forEach((data) => {
+          const keluarB = stok.keluar.before ? findWithAttr(stok.keluar.before, 'product_id', data.id) : -1
+          const keluarP = stok.keluar.period ? findWithAttr(stok.keluar.period, 'product_id', data.id) : -1
+          const masukB = stok.masuk.before ? findWithAttr(stok.masuk.before, 'product_id', data.id) : -1
+          const masukP = stok.masuk.period ? findWithAttr(stok.masuk.period, 'product_id', data.id) : -1
+          const returPembelianB = stok.returPembelian.before ? findWithAttr(
+            stok.returPembelian.before,
+            'product_id',
+            data.id
+          ) : -1
+          const returPembelianP = stok.returPembelian.period ? findWithAttr(
+            stok.returPembelian.period,
+            'product_id',
+            data.id
+          ) : -1
+          const returPenjualanB = stok.returPenjualan.before ? findWithAttr(
+            stok.returPenjualan.before,
+            'product_id',
+            data.id
+          ) : -1
+          const returPenjualanP = stok.returPenjualan.period ? findWithAttr(
+            stok.returPenjualan.period,
+            'product_id',
+            data.id
+          ) : -1
+          const penyesuaianB = stok.penyesuaian.before ? findWithAttr(
+            stok.penyesuaian.before,
+            'product_id',
+            data.id
+          ) : -1
+          const penyesuaianP = stok.penyesuaian.period ? findWithAttr(
+            stok.penyesuaian.period,
+            'product_id',
+            data.id
+          ) : -1
 
-          data.keluar.before = stok.keluar.before[keluarB] ? stok.keluar.before[keluarB].jml : 0
-          data.keluar.periode = stok.keluar.period[keluarP] ? stok.keluar.period[keluarP].jml : 0
-          data.masuk.before = stok.masuk.before[masukB] ? stok.masuk.before[masukB].jml : 0
-          data.masuk.periode = stok.masuk.period[masukP] ? stok.masuk.period[masukP].jml : 0
-          data.returPembelian.before = stok.returPembelian.before[returPembelianB] ? stok.returPembelian.before[returPembelianB].jml : 0
-          data.returPembelian.periode = stok.returPembelian.period[returPembelianP] ? stok.returPembelian.period[returPembelianP].jml : 0
-          data.returPenjualan.before = stok.returPenjualan.before[returPenjualanB] ? stok.returPenjualan.before[returPenjualanB].jml : 0
-          data.returPenjualan.periode = stok.returPenjualan.period[returPenjualanP] ? stok.returPenjualan.period[returPenjualanP].jml : 0
-          data.penyesuaian.before = stok.penyesuaian.before[penyesuaianB] ? stok.penyesuaian.before[penyesuaianB].jml : 0
-          data.penyesuaian.periode = stok.penyesuaian.period[penyesuaianP] ? stok.penyesuaian.period[penyesuaianP].jml : 0
+          data.keluar.before = stok.keluar.before[keluarB]
+            ? stok.keluar.before[keluarB].jml
+            : 0
+          data.keluar.periode = stok.keluar.period[keluarP]
+            ? stok.keluar.period[keluarP].jml
+            : 0
+          data.masuk.before = stok.masuk.before[masukB]
+            ? stok.masuk.before[masukB].jml
+            : 0
+          data.masuk.periode = stok.masuk.period[masukP]
+            ? stok.masuk.period[masukP].jml
+            : 0
+          data.returPembelian.before = stok.returPembelian.before[
+            returPembelianB
+          ]
+            ? stok.returPembelian.before[returPembelianB].jml
+            : 0
+          data.returPembelian.periode = stok.returPembelian.period[
+            returPembelianP
+          ]
+            ? stok.returPembelian.period[returPembelianP].jml
+            : 0
+          data.returPenjualan.before = stok.returPenjualan.before[
+            returPenjualanB
+          ]
+            ? stok.returPenjualan.before[returPenjualanB].jml
+            : 0
+          data.returPenjualan.periode = stok.returPenjualan.period[
+            returPenjualanP
+          ]
+            ? stok.returPenjualan.period[returPenjualanP].jml
+            : 0
+          data.penyesuaian.before = stok.penyesuaian.before[penyesuaianB]
+            ? stok.penyesuaian.before[penyesuaianB].jml
+            : 0
+          data.penyesuaian.periode = stok.penyesuaian.period[penyesuaianP]
+            ? stok.penyesuaian.period[penyesuaianP].jml
+            : 0
           // sebelum
-          data.stokSebelum = data.masuk.before - data.keluar.before + data.returPenjualan.before - data.returPembelian.before + data.penyesuaian.before
+          data.stokSebelum =
+            data.masuk.before -
+            data.keluar.before +
+            data.returPenjualan.before -
+            data.returPembelian.before +
+            data.penyesuaian.before
           // berjalan
-          data.stokBerjalan = data.masuk.periode - data.keluar.periode + data.returPenjualan.periode - data.returPembelian.periode + data.penyesuaian.periode
+          data.stokBerjalan =
+            data.masuk.periode -
+            data.keluar.periode +
+            data.returPenjualan.periode -
+            data.returPembelian.periode +
+            data.penyesuaian.periode
           data.stok_awal += data.stokSebelum
           data.stokSekarang = data.stok_awal + data.stokBerjalan
         })
@@ -218,149 +314,6 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
         delete temp.data
         this.meta = temp
       }
-      // if (this.date === 'spesifik') {
-      //   //  spesifik
-      //   val.product.data.forEach((data) => {
-      //     data.stokBerjalan = 0
-      //   })
-      //   val.product.data.forEach((produk) => {
-      //     val.masuk.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokBerjalan += mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.keluar.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokBerjalan -= mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.returPembelian.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokBerjalan -= mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.returPenjualan.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokBerjalan += mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.penyesuaian.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml !== 0) {
-      //           produk.stokBerjalan += mas.jml
-      //         }
-      //       }
-      //     })
-      //   })
-      //   val.product.data.forEach((data) => {
-      //     data.stokSekarang = data.stok_awal + data.stokBerjalan
-      //   })
-      //   // console.log('after proses', val.product.data)
-      //   this.items = val.product.data
-      //   this.setColumns(val.product.data)
-      //   const temp = val.product
-      //   delete temp.data
-      //   this.meta = temp
-      // } else {
-      //   console.log('val', val)
-      //   val.product.data.forEach((data) => {
-      //     data.stokBerjalan = 0
-      //     data.stokSebelum = 0
-      //   })
-      //   val.product.data.forEach((produk) => {
-      //     val.masuk.before.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokSebelum += mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.keluar.before.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokSebelum -= mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.returPembelian.before.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokSebelum -= mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.returPenjualan.before.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokSebelum += mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.penyesuaian.before.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml !== 0) {
-      //           produk.stokSebelum += mas.jml
-      //         }
-      //       }
-      //     })
-      //   })
-      //   val.product.data.forEach((produk) => {
-      //     val.masuk.period.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokBerjalan += mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.keluar.period.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokBerjalan -= mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.returPembelian.period.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokBerjalan -= mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.returPenjualan.period.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml > 0) {
-      //           produk.stokBerjalan += mas.jml
-      //         }
-      //       }
-      //     })
-      //     val.penyesuaian.period.forEach((mas) => {
-      //       if (produk.id === mas.product_id) {
-      //         if (mas.jml !== 0) {
-      //           produk.stokBerjalan += mas.jml
-      //         }
-      //       }
-      //     })
-      //   })
-      //   val.product.data.forEach((data) => {
-      //     data.stok_awal += data.stokSebelum
-      //     data.stokSekarang = data.stok_awal + data.stokBerjalan
-      //   })
-      //   this.items = val.product.data
-      //   this.setColumns(val.product.data)
-      //   const temp = val.product
-      //   delete temp.data
-      //   this.meta = temp
-      //   console.log('product', val.product)
-      // }
-      // console.log('meta', this.meta)
     },
     seeMore(val) {
       const more = useLaporanMoreProduct()
@@ -383,8 +336,8 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
     // api related function
     // ambil data stok
     getDataStok() {
-      this.form.selection = this.date
-      this.setPeriode()
+      // this.form.selection = this.date
+      // this.setPeriode()
       const params = {
         params: this.form
       }
