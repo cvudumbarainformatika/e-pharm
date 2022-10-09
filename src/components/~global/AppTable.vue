@@ -296,6 +296,7 @@
           </td>
           <td class="text-right">
             <q-btn
+              v-if="!item.editable"
               flat
               class=""
               size="sm"
@@ -308,11 +309,12 @@
                 anchor="top middle"
                 self="center middle"
               >
+                {{ item }}
                 Edit Data
               </q-tooltip>
             </q-btn>
             <q-btn
-              v-if="selected.length < 2"
+              v-if="selected.length < 2 && !item.deletable"
               flat
               class=""
               size="sm"
@@ -381,7 +383,10 @@ const props = defineProps({
   orderBy: { type: String, default: 'id' },
   sort: { type: String, default: 'desc' },
   toSearch: { type: String, default: '' },
-  isChecked: { type: Boolean, default: false }
+  isChecked: { type: Boolean, default: false },
+  disableEdit: { type: [String, Array], default: '' },
+  disableDelete: { type: [String, Array], default: '' },
+  disableField: { type: String, default: 'nama' }
 })
 const emits = defineEmits(['newData', 'editData', 'goto', 'deleteIds', 'setRow', 'setColumns', 'setOrder', 'find', 'delete', 'refresh'])
 
@@ -390,6 +395,43 @@ const refCellTable = ref(null)
 const options = ref([5, 10, 20, 50, 100])
 const checkAll = ref(false)
 const selected = ref([])
+
+const findWithAttr = (array, attr, value) => {
+  for (let i = 0; i < array.length; i += 1) {
+    if (array[i][attr] === value) {
+      return i
+    }
+  }
+  return -1
+}
+
+const adaDelete = (val) => {
+  // console.log('disable delete', typeof props.disableDelete)
+  if (typeof props.disableDelete === 'object') {
+    props.disableDelete.forEach(data => {
+      const temp = findWithAttr(val, props.disableField, data)
+      val[temp].deletable = true
+    })
+  } else {
+    const temp = findWithAttr(val, props.disableField, props.disableDelete)
+    val[temp].deletable = true
+  }
+  // console.log(val)
+}
+const adaEdit = (val) => {
+  // console.log('disable edit', typeof props.disableEdit)
+  if (typeof props.disableEdit === 'object') {
+    props.disableEdit.forEach(data => {
+      const temp = findWithAttr(val, props.disableField, data)
+      val[temp].editable = true
+    })
+  } else {
+    const temp = findWithAttr(val, props.disableField, props.disableEdit)
+    val[temp].editable = true
+  }
+  // console.log(val)
+}
+
 const selectPerPage = computed({
   get () { return props.perPage },
   set (val) { emits('setRow', val) }
@@ -426,7 +468,7 @@ const selectColumn = ref([])
 const heightCell = ref(0)
 // actions
 onMounted(() => {
-  console.log(props.columns)
+  // console.log(props.columns)
   heightCell.value = refCellTable.value.$el.clientHeight * props.perPage
 //   console.log(refCellTable.value.$el.clientHeight * props.perPage)
 })
@@ -443,7 +485,13 @@ watch(selectColumn, () => {
   setCheck(checkAll.value)
 })
 watch(() => props.items, (obj) => {
-//   console.log('Watch items', obj)
+  // console.log('Watch items', obj)
+  if (props.disableDelete !== '') {
+    adaDelete(obj)
+  }
+  if (props.disableDelete !== '') {
+    adaEdit(obj)
+  }
   selected.value = []
 })
 

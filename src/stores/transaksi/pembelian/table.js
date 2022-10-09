@@ -207,7 +207,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
           this.hapusDetailTransaksi(params)
         })
         .onCancel(() => {
-          console.log('cancel')
+          // console.log('cancel')
         })
       // console.log('params ', params)
       // console.log('val ', val.row.id)

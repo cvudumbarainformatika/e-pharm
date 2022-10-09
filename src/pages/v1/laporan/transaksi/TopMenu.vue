@@ -212,7 +212,7 @@ const itemClicked = (val) => {
   } else {
     notifErrVue('Nama transaksi dan range transaksi belum dipilih. Klik menu di pojok kiri atas.')
   }
-  console.log(val)
+  // console.log(val)
 }
 
 const pilihPembelian = (val) => {
@@ -229,7 +229,7 @@ const pilihBeban = (val) => {
   if (val.nama === 'all') {
     table.beforeGetData()
   }
-  console.log('beban', val)
+  // console.log('beban', val)
 }
 
 const pilihPiutang = (val) => {
@@ -238,7 +238,7 @@ const pilihPiutang = (val) => {
   if (val.nama === 'all') {
     table.beforeGetData()
   }
-  console.log('penerimaan', val)
+  // console.log('penerimaan', val)
 }
 
 const pilihPenjualan = val => {
@@ -257,7 +257,7 @@ const pilihSupplier = val => {
   table.form.supplier_id = val.id
   table.person = 'Supplier : ' + val.nama
   table.beforeGetData()
-  console.log('pilih supplier ', val)
+  // console.log('pilih supplier ', val)
 }
 
 const pilihDistributor = val => {

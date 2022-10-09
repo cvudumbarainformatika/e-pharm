@@ -59,6 +59,7 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
           return details.product_id === this.params.id
         })
         apem[0].transaksi = produk.nama
+        apem[0].Jenis = produk.jenis
         apem[0].nama = this.params.nama
         apem[0].tanggal = produk.tanggal
         return apem[0]
@@ -69,10 +70,10 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
       this.setColumns(temp)
       this.items = temp
       this.meta = meta
-      console.log('items', this.items)
-      console.log('temp', temp)
-      console.log('transaksi', transaksi)
-      console.log('meta', this.meta)
+      // console.log('items', this.items)
+      // console.log('temp', temp)
+      // console.log('transaksi', transaksi)
+      // console.log('meta', this.meta)
     },
 
     // api related function
@@ -87,7 +88,7 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
           .then((resp) => {
             this.loading = false
             if (resp.status === 200) {
-              console.log('more', resp.data)
+              // console.log('more', resp.data)
               this.dataProses(resp.data)
               resolve(resp)
             }

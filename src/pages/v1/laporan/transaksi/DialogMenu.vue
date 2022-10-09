@@ -216,13 +216,13 @@ const transactionSelected = (val) => {
   transaksi.resetData()
   table.form.nama = val.value
   // table.selected = false
-  console.log(val)
+  // console.log(val)
 }
 const dateSelected = (val) => {
   button.date = val.value
   table.form.date = val.date
   table.form[val.date] = val.param
-  console.log('date ', val)
+  // console.log('date ', val)
   table.periode = val.nama
   if (val.next === 'btn') {
     table.beforeGetData()
@@ -230,34 +230,34 @@ const dateSelected = (val) => {
   }
 }
 const daySelected = (val) => {
-  console.log('day', val)
+  // console.log('day', val)
   table.periode = ' Tanggal ' + val
   table.beforeGetData()
   closePopup()
 }
 const monthSelected = (val) => {
-  console.log('month ', val)
+  // console.log('month ', val)
   table.periode = 'Bulan ' + val.nama
   table.form.bulan = val.value
   table.beforeGetData()
   closePopup()
-  console.log(table.form)
+  // console.log(table.form)
 }
 const rangeSelected = (val) => {
   table.periode =
     '  ' + dateFullFormat(rangeDate.value.from) + ' - ' + dateFullFormat(rangeDate.value.to)
-  console.log('range ', val)
+  // console.log('range ', val)
   table.form.from = rangeDate.value.from
   table.form.to = rangeDate.value.to
 
   table.beforeGetData()
   closePopup()
-  console.log(rangeDate.value)
-  console.log(table.form)
+  // console.log(rangeDate.value)
+  // console.log(table.form)
 }
 const spesifkSelected = () => {
   table.periode = ' ' + dateFullFormat(tgl.value)
-  console.log('tgl', tgl.value)
+  // console.log('tgl', tgl.value)
   table.form.from = tgl.value
   table.beforeGetData()
   closePopup()

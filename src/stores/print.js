@@ -20,9 +20,9 @@ export const usePrintStore = defineStore('print_store', {
       this.form[attr] = val
     },
     resetForm() {
-      console.log(this.form)
+      // console.log(this.form)
       this.form = {}
-      console.log(this.form)
+      // console.log(this.form)
     },
     resetProducts() {
       this.produks = []

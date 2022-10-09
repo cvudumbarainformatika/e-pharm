@@ -246,7 +246,7 @@ export const useLaporanTable = defineStore('laporan_table', {
             if (resp.status === 200) {
               this.transactions = resp.data
               this.setRows()
-              console.log('tr by items', resp)
+              // console.log('tr by items', resp)
               resolve(resp.data)
             }
           })

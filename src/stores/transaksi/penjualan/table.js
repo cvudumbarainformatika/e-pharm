@@ -332,7 +332,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           })
         })
         .onCancel(() => {
-          console.log('cancel')
+          // console.log('cancel')
         })
       // console.log('dokter ', val)
     },

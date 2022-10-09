@@ -58,7 +58,7 @@ function onSubmit() {
   } else {
     notifErrVue('Kuantiti retur tidak boleh melebihi kuantiti pembelian')
   }
-  console.log('detail ', detail[0])
+  // console.log('detail ', detail[0])
 }
 function onReset() {
   returDetail.setOpen()

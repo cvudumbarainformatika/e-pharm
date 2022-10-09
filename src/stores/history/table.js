@@ -69,6 +69,9 @@ export const useHistoryTable = defineStore('history_table', {
       ]
       this.columns = kolom
     },
+    setParams(key, val) {
+      this.params[key] = val
+    },
     pilihTransaksi(val) {
       this.selected = true
       this.nama = val.value
@@ -91,7 +94,7 @@ export const useHistoryTable = defineStore('history_table', {
           this.deleteTransaction(params)
         })
         .onCancel(() => {
-          console.log('cancel')
+          // console.log('cancel')
         })
       // console.log(val)
     },

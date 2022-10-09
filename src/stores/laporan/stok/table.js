@@ -133,9 +133,9 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       })
       this.setPenyesuaian('product_id', val.id)
       this.penyesuaian.qty = 0 - this.penyesuaian.stokSekarang
-      console.log(this.penyesuaian)
+      // console.log(this.penyesuaian)
       this.setOpen()
-      console.log('val', val)
+      // console.log('val', val)
     },
 
     setPenyesuaian(key, val) {
@@ -162,8 +162,8 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       this.columns = thumb[0]
     },
     prosesData(val) {
-      console.log('proses', val)
-      console.log('selection', this.date)
+      // console.log('proses', val)
+      // console.log('selection', this.date)
       const product = val.product.data
       const stok = val
       if (this.date === 'apem') {
@@ -322,14 +322,17 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       // more.setParams('selection', this.date)
       more.setParams('id', val.id)
       more.setParams('nama', val.nama)
+      more.setParams('selection', this.date)
+      more.setParams('from', this.form.from)
+      more.setParams('to', this.form.to)
       more.getDetailsDataProduct()
       more.setOpen()
-      console.log('see', val)
+      // console.log('see', val)
     },
     setSearch(val) {
       this.form.q = val
       this.getDataStok()
-      console.log('val', val)
+      // console.log('val', val)
       // if (this.date) {
       // }
     },
@@ -348,7 +351,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
           .then((resp) => {
             this.loading = false
             if (resp.status === 200) {
-              console.log('get data stok', resp.data)
+              // console.log('get data stok', resp.data)
               this.prosesData(resp.data)
               resolve(resp.data)
             }
@@ -378,7 +381,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       this.setPenyesuaian('harga', this.penyesuaian.harga_beli)
       this.setPenyesuaian('sub_total', 0)
       this.setPenyesuaian('expired', null)
-      console.log(this.penyesuaian)
+      // console.log(this.penyesuaian)
       this.loading = true
       return new Promise((resolve, reject) => {
         api

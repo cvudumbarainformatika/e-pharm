@@ -156,24 +156,24 @@ export const useReturTable = defineStore('retur_table', {
       this.form.tanggal = formatDb
     },
     setTotal() {
-      console.log('rows ', this.rows)
+      // console.log('rows ', this.rows)
       if (this.rows !== undefined) {
         const subTotal = []
         this.rows.forEach((val, index) => {
           subTotal[index] = val.harga * val.qty
         })
-        console.log('sub total', subTotal)
+        // console.log('sub total', subTotal)
         const total = subTotal.reduce((total, num) => {
           return total + num
         })
-        console.log('sum total', total)
+        // console.log('sum total', total)
         this.form.total = total
       }
     },
     clicked(val) {
       const params = val.row
-      console.log('params ', params)
-      console.log('val ', val.row.id)
+      // console.log('params ', params)
+      // console.log('val ', val.row.id)
       Dialog.create({
         title: 'Konfirmasi',
         message: `Apakah Produk:<strong> ${params.product.nama}</strong> dengan Qty :<strong> ${params.qty}</strong> akan di hapus?`,
@@ -184,7 +184,7 @@ export const useReturTable = defineStore('retur_table', {
           this.hapusDetailTransaksi(params)
         })
         .onCancel(() => {
-          console.log('cancel')
+          // console.log('cancel')
         })
     },
 
@@ -192,17 +192,17 @@ export const useReturTable = defineStore('retur_table', {
       const thumb = payload.map((x) => Object.keys(x))
       const temp = thumb[0]
       this.columnHide.forEach((hide) => {
-        console.log('hide', hide)
+        // console.log('hide', hide)
         const apem = temp.indexOf(hide)
         if (apem > -1) {
           temp.splice(apem, 1)
         }
       })
-      console.log('temp ', temp)
+      // console.log('temp ', temp)
       const tTemp = []
       temp.forEach((val, index) => {
-        console.log('val ', val, ' index ', index)
-        console.log('temp ', val)
+        // console.log('val ', val, ' index ', index)
+        // console.log('temp ', val)
         tTemp[index] = Object.assign({
           name: val,
           align: 'left',
@@ -212,7 +212,7 @@ export const useReturTable = defineStore('retur_table', {
       })
       this.columns = tTemp
 
-      console.log('columns', tTemp)
+      // console.log('columns', tTemp)
     },
     setFaktur(data) {
       // const store = usePembelianDialog()
@@ -224,7 +224,7 @@ export const useReturTable = defineStore('retur_table', {
     },
     setForm(name, value) {
       this.form[name] = value
-      console.log('set form', this.form[name])
+      // console.log('set form', this.form[name])
     },
     // api related functions
     // get from another pinia file
@@ -246,7 +246,7 @@ export const useReturTable = defineStore('retur_table', {
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
             this.loading = false
-            console.log('retur ', resp.data.data[0])
+            // console.log('retur ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
                 this.setFaktur(resp.data.data[0])
@@ -278,7 +278,7 @@ export const useReturTable = defineStore('retur_table', {
           .post('v1/transaksi/store', this.form)
           .then((resp) => {
             this.loading = false
-            console.log('save detail ', resp)
+            // console.log('save detail ', resp)
             resolve(resp.data.data)
             // this.getDetailTransaksi()
             // this.resetInput()
@@ -296,7 +296,7 @@ export const useReturTable = defineStore('retur_table', {
           .post('v1/detail-transaksi/destroy', params)
           .then((resp) => {
             this.loading = false
-            console.log('hapus detail ', resp)
+            // console.log('hapus detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
           })

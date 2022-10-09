@@ -162,7 +162,7 @@ const options = ref(null)
 const store = useBebanTransaksiFormStore()
 const onSubmit = () => {
   store.form.beban_id = model.value.id
-  console.log('model', model.value.id)
+  // console.log('model', model.value.id)
   store.saveForm().then(() => {
     model.value = null
   })
@@ -188,7 +188,7 @@ async function filterOptions(val, update) {
   }
 
   const resp = await api.get('v1/beban/index', params)
-  console.log('pembelian ', resp.data.data)
+  // console.log('pembelian ', resp.data.data)
   update(
     () => (options.value = resp.data.data),
     ref => {

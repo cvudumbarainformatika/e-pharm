@@ -139,7 +139,7 @@ export const useLaporanTransaksiStore = defineStore('laporan_transaksi_store', {
               this.rows = resp.data.data
               this.meta = resp.data.meta
               // this.setRows()
-              console.log('tr by trans ', resp)
+              // console.log('tr by trans ', resp)
               resolve(resp.data)
             }
           })

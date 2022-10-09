@@ -3,8 +3,19 @@
 @import './customs.scss';
 @import './text-sizes.scss';
 @import './animation.scss';
+@import './font.scss';
 
 
+
+body {
+  font-family: 'Montserrat';
+}
+// .desktop {
+//   font-family: 'Montserrat';
+// }
+// .mobile {
+//   font-family: 'Montserrat';
+// }
 .page-light {
   background-color: $grey-2;
 }

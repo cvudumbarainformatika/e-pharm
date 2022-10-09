@@ -14,6 +14,8 @@
             :sort="table.params.sort"
             :loading="table.loading"
             :to-search="table.params.q"
+            disable-edit="BEBAN HUTANG"
+            disable-delete="BEBAN HUTANG"
             @goto="table.setPage"
             @set-row="table.setPerPage"
             @refresh="table.refreshTable"

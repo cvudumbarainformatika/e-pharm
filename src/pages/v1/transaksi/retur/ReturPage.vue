@@ -30,6 +30,6 @@ onMounted(() => {
     transactionTable.getDetailTransaksi(slug)
     retur.getDetailTransaksi('R' + slug)
   }
-  console.log('retur Slug', slug)
+  // console.log('retur Slug', slug)
 })
 </script>

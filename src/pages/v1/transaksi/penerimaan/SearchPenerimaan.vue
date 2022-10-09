@@ -190,7 +190,7 @@ async function filterOptions(val, update) {
   }
 
   const resp = await api.get('v1/penerimaan/index', params)
-  console.log('pembelian ', resp.data.data)
+  // console.log('pembelian ', resp.data.data)
   update(
     () => (options.value = resp.data.data),
     ref => {

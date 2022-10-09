@@ -141,17 +141,17 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       this.form.tanggal = formatDb
     },
     setTotal() {
-      console.log('rows ', this.rows)
+      // console.log('rows ', this.rows)
       if (this.rows !== undefined) {
         const subTotal = []
         this.rows.forEach((val, index) => {
           subTotal[index] = val.harga * val.qty
         })
-        console.log('sub total', subTotal)
+        // console.log('sub total', subTotal)
         const total = subTotal.reduce((total, num) => {
           return total + num
         })
-        console.log('sum total', total)
+        // console.log('sum total', total)
         this.form.total = total
       }
     },
@@ -179,8 +179,8 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
           subTotal[panjang] =
           olahUang(this.form.qty) * olahUang(this.produk.harga)
         }
-        console.log('index dari', indexDari.length)
-        console.log('sub total', subTotal)
+        // console.log('index dari', indexDari.length)
+        // console.log('sub total', subTotal)
         const total = subTotal.reduce((total, num) => {
           return total + num
         })
@@ -196,8 +196,8 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       const params = val.row
       this.produk = params
       this.setOpen()
-      console.log('params ', params)
-      console.log('val ', val.row.id)
+      // console.log('params ', params)
+      // console.log('val ', val.row.id)
     },
 
     setFaktur(data) {
@@ -210,7 +210,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
     },
     setForm(name, value) {
       this.form[name] = value
-      console.log('set form', this.form[name])
+      // console.log('set form', this.form[name])
     },
     // api related functions
     // get from another pinia file
@@ -232,7 +232,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
             this.loading = false
-            console.log('retur ', resp.data.data[0])
+            // console.log('retur ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
                 this.setFaktur(resp.data.data[0])
@@ -273,7 +273,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
           .post('v1/transaksi/store', data)
           .then((resp) => {
             this.loading = false
-            console.log('save detail ', resp)
+            // console.log('save detail ', resp)
             resolve(resp.data.data)
             retur.getDetailTransaksi()
             this.setTotal()

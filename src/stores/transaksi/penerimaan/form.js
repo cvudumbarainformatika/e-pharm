@@ -124,7 +124,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         })
       },
       piutangDistributor(val) {
-        console.log('piutang distributor', val)
+        // console.log('piutang distributor', val)
         this.loading = true
         const params = {
           params: {
@@ -134,7 +134,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         return new Promise((resolve, reject) => {
           api.get('v1/laporan/get-piutang-customer', params)
             .then(resp => {
-              console.log(resp.data)
+              // console.log(resp.data)
               this.loading = false
 
               const hutang = []
@@ -147,7 +147,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
               }
               const jmlHutang = hutang.reduce((total, num) => { return total + num })
               this.hutang = resp.data.awal + jmlHutang - dibayar
-              console.log(jmlHutang, 'hutang ', hutang, 'dibayar', dibayar, 'sisa', this.hutang)
+              // console.log(jmlHutang, 'hutang ', hutang, 'dibayar', dibayar, 'sisa', this.hutang)
               resolve(resp)
             })
             .catch(err => {

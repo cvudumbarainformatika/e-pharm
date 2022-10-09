@@ -196,47 +196,47 @@ const transactionSelected = (val) => {
   morphGroupModel.value = 'card2'
   table.form.nama = val.value
   table.selected = false
-  console.log(val)
+  // console.log(val)
 }
 const dateSelected = (val) => {
   morphGroupModel.value = val.next
   morphStore.date = val.value
   table.form.date = val.date
   table.form[val.date] = val.param
-  console.log('date ', val)
+  // console.log('date ', val)
   table.periode = val.nama
   if (val.next === 'btn') {
     table.getDetailTransactions()
   }
 }
 const daySelected = (val) => {
-  console.log('day', val)
+  // console.log('day', val)
   table.periode = ' Tanggal ' + val
   morphGroupModel.value = 'btn'
   table.getDetailTransactions()
 }
 const monthSelected = (val) => {
-  console.log('month ', val)
+  // console.log('month ', val)
   table.periode = 'Bulan ' + val.nama
   morphGroupModel.value = 'btn'
   table.form.bulan = val.value
   table.getDetailTransactions()
 
-  console.log(table.form)
+  // console.log(table.form)
 }
 
 const rangeSelected = (val) => {
   table.periode =
     '  ' + dateFormat(rangeDate.value.from) + ' - ' + dateFormat(rangeDate.value.to)
-  console.log('range ', val)
+  // console.log('range ', val)
   morphGroupModel.value = 'btn'
   table.form.from = rangeDate.value.from
   table.form.to = rangeDate.value.to
 
   table.getDetailTransactions()
 
-  console.log(rangeDate.value)
-  console.log(table.form)
+  // console.log(rangeDate.value)
+  // console.log(table.form)
 }
 // const cari = () => {
 //   morphStore.getDataSearch()

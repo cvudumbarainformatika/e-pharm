@@ -62,7 +62,7 @@ const model = ref(null)
 
 const selected = val => {
   emits('on-select', val)
-  console.log('on-select', val)
+  // console.log('on-select', val)
 }
 const bersihkan = val => {
   emits('clear', val)
@@ -85,7 +85,7 @@ async function filterOptions (val, update) {
   }
 
   const resp = await api.get(props.url, params)
-  console.log('supplier ', resp.data.data)
+  // console.log('supplier ', resp.data.data)
   update(
     () => (options.value = resp.data.data),
     ref => {

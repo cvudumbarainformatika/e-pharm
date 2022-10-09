@@ -25,7 +25,7 @@ export const useAuthStore = defineStore('auth', {
       waitLoad('show')
       try {
         await api.post('v1/auth/login', payload).then(resp => {
-          console.log(resp.data)
+          // console.log(resp.data)
           storage.setLocalToken(resp.data.access_token)
           storage.setUser(resp.data.user)
           const hdd = storage.getLocalToken()
@@ -61,7 +61,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async getUser () {
       await api.get('v1/user/profile').then(resp => {
-        console.log('me k', resp.data)
+        // console.log('me k', resp.data)
         storage.setUser(resp.data)
         this.user = resp.data
       })
@@ -76,7 +76,7 @@ export const useAuthStore = defineStore('auth', {
           waitLoad('done')
         })
       } catch (error) {
-        console.log('error ', error)
+        // console.log('error ', error)
         waitLoad('done')
       }
     }

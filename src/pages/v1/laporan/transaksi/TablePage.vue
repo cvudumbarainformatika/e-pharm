@@ -111,7 +111,10 @@
         v-if="!table.loading"
         #no-data
       >
-        <div class="full-width row flex-center text-accent q-gutter-sm">
+        <div
+          v-if="!table.loading"
+          class="full-width row flex-center text-accent q-gutter-sm"
+        >
           <div
             class="flex column flex-center bg-loading-bg__table"
             style="height:300px"

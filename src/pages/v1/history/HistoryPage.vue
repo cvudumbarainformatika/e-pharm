@@ -23,5 +23,9 @@ import MenuPage from './MenuPage.vue'
 import TablePage from './TablePage.vue'
 const table = useHistoryTable()
 table.setColumns()
-table.selected = false
+table.selected = true
+table.nama = 'all'
+table.setParams('nama', 'all')
+table.title = 'Seluruhnya'
+table.getDataTransactions()
 </script>

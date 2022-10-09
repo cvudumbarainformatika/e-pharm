@@ -24,6 +24,6 @@ import { useRoute } from 'vue-router'
 import NoSelectedPage from './NoSelectedPage.vue'
 const route = useRoute()
 const path = computed(() => route.path)
-console.log('path', path.value)
+// console.log('path', path.value)
 // import MasterMenu from './MasterMenu.vue'
 </script>

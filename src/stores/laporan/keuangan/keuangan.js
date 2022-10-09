@@ -124,14 +124,14 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
     // persediaan awal = nilai barang tersedia di periode awal neraca akuntansi
     // persediaan akhir = nilai barang tersedia di akhir periode transaksi
     prosesHPP(pembelian, ongpot, stok) {
-      console.log('proses HPP')
-      console.log('pembelian', pembelian)
-      console.log('ongpot', ongpot)
-      console.log('stok', stok)
+      // console.log('proses HPP')
+      // console.log('pembelian', pembelian)
+      // console.log('ongpot', ongpot)
+      // console.log('stok', stok)
       let ongkir = null
       let diskon = null
       // array product
-      console.log('selection', this.periode)
+      // console.log('selection', this.periode)
       const product = stok.product
 
       ongkir = ongpot.period[0].ongkos !== null ? ongpot.period[0].ongkos : 0
@@ -170,7 +170,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
         data.stokSekarang = data.stok_awal + data.stokBerjalan
       })
 
-      console.log('product', product)
+      // console.log('product', product)
       // persediaan awal periode ini
       const persediaanAwal = product.map(data => { return data.stok_awal * data.harga_beli }).reduce((a, b) => { return a + b })
       // pesediaan Akhir Periode ini
@@ -180,15 +180,16 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       // retur Pembelian
       const returPembelian = product.map(data => { return data.returPembelian.periode * data.harga_beli }).reduce((a, b) => { return a + b })
       // pembelian bersih
+      this.returPembelian = returPembelian
       const pembelianBersih = pembelianDgKredit + ongkir - diskon - this.returPembelian
       // HPP = Pembelian Bersih + Persediaan Awal – Persediaan Akhir
       this.HPP = pembelianBersih + persediaanAwal - persediaanAkhir
+      this.pembelian = pembelianDgKredit
       this.diskon = diskon
       this.ongkir = ongkir
       this.pembelianBersih = pembelianBersih
       this.persediaanAwal = persediaanAwal
       this.persediaanAkhir = persediaanAkhir
-      this.returPembelian = returPembelian
       const labaRugi = this.penjualanBersih - this.HPP - this.beban + this.penerimaan
       this.laba = labaRugi > 0 ? labaRugi : 0
       this.rugi = labaRugi < 0 ? -labaRugi : 0
@@ -212,6 +213,8 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
           })
           .reduce((x, y) => x + y)
         : 0
+      // console.log('penjualan period', data.penjualan.period)
+      // console.log('penjualan', this.penjualan)
 
       // retur Pejualan
       this.returPenjualan = data.returPenjualan.period.length
@@ -223,6 +226,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
           })
           .reduce((x, y) => x + y)
         : 0
+      // console.log('retur penjualan', this.returPenjualan)
 
       // penjualan bersih
       this.penjualanBersih = this.penjualan - this.returPenjualan
@@ -259,7 +263,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
     getBebans() {
       return new Promise((resolve) => {
         api.get('v1/beban/beban').then((resp) => {
-          console.log('beben keuangan', resp.data)
+          // console.log('beben keuangan', resp.data)
           if (resp.status === 200) {
             this.bebans = resp.data.data
             resolve(resp.data.data)
@@ -270,7 +274,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
     getPenerimaan() {
       return new Promise((resolve) => {
         api.get('v1/penerimaan/penerimaan').then((resp) => {
-          console.log('penerimaan keuangan', resp.data)
+          // console.log('penerimaan keuangan', resp.data)
           if (resp.status === 200) {
             this.penerimaans = resp.data.data
             resolve(resp.data.data)
@@ -280,7 +284,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
     },
     getPenjualan() {
       this.resetData()
-      console.log('params', this.params)
+      // console.log('params', this.params)
       const params = { params: this.params }
       this.loading = true
       return new Promise((resolve, reject) => {
@@ -289,7 +293,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
           .then((resp) => {
             this.loading = false
             if (resp.status === 200) {
-              console.log('laporan pj', resp.data)
+              // console.log('laporan pj', resp.data)
               this.dataProses(resp.data)
 
               this.prosesHPP(
@@ -319,7 +323,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
           .then((resp) => {
             this.loading = false
             if (resp.status === 200) {
-              console.log('get data stok', resp.data)
+              // console.log('get data stok', resp.data)
               // this.prosesData(resp.data);
               resolve(resp.data)
             }

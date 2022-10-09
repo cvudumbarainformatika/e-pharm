@@ -42,7 +42,8 @@ const items = ref([
   { id: 4, name: 'Transaksi Penerimaan', value: 'PENERIMAAN', icon: 'icon-mat-account_balance_wallet' },
   { id: 5, name: 'Beban Biaya', value: 'BEBAN', icon: 'icon-mat-payment' },
   { id: 6, name: 'Retur Pembelian', value: 'RETUR PEMBELIAN', icon: 'icon-mat-assignment_return' },
-  { id: 7, name: 'Retur Penjualan', value: 'RETUR PENJUALAN', icon: 'icon-mat-assignment_return' }
+  { id: 7, name: 'Retur Penjualan', value: 'RETUR PENJUALAN', icon: 'icon-mat-assignment_return' },
+  { id: 8, name: 'Form Penyesuaian', value: 'FORM PENYESUAIAN', icon: 'icon-mat-tune' }
 ])
 const setting = useSettingStore()
 const table = useHistoryTable()

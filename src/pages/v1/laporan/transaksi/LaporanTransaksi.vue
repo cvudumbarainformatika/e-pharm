@@ -287,7 +287,10 @@
       </template>
       <!-- no data slot -->
       <template #no-data="{ icon, message, filter }">
-        <div class="full-width row flex-center text-accent q-gutter-sm">
+        <div
+          v-if="!transaksi.loading"
+          class="full-width row flex-center text-accent q-gutter-sm"
+        >
           <div
             class="flex column flex-center bg-loading-bg__table"
             style="height:300px"

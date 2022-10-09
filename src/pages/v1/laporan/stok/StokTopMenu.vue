@@ -72,15 +72,15 @@ const hide = () => {
   if (selection.value.next === '') {
     table.date = selection.value.prev
   }
-  console.log('I am hide', selection.value)
+  // console.log('I am hide', selection.value)
 }
 const show = () => {
   selection.value.next = ''
-  console.log('I am show', selection.value)
+  // console.log('I am show', selection.value)
 }
 const selected = val => {
   selection.value.next = val
-  console.log('selected', val)
+  // console.log('selected', val)
 }
 
 const today = () => {

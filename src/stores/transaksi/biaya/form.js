@@ -119,7 +119,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       })
     },
     hutangSupplier(val) {
-      console.log('hutang supplier', val)
+      // console.log('hutang supplier', val)
       this.loading = true
       const params = {
         params: {
@@ -129,7 +129,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       return new Promise((resolve, reject) => {
         api.get('v1/laporan/get-hutang-supplier', params)
           .then(resp => {
-            console.log(resp.data)
+            // console.log(resp.data)
             this.loading = false
 
             const hutang = []
@@ -142,7 +142,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
             }
             const jmlHutang = hutang.reduce((total, num) => { return total + num })
             this.hutang = resp.data.awal + jmlHutang - dibayar
-            console.log(jmlHutang, 'hutang ', hutang, 'dibayar', dibayar, 'sisa', this.hutang)
+            // console.log(jmlHutang, 'hutang ', hutang, 'dibayar', dibayar, 'sisa', this.hutang)
             resolve(resp)
           })
           .catch(err => {

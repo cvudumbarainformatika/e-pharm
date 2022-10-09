@@ -160,7 +160,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.kembali = kembali
       this.form.status = 1
       this.print.form = this.form
-      console.log(this.print.form)
+      // console.log(this.print.form)
       if (bayar < total && this.form.jenis === 'tunai') {
         notifErrVue('periksa input bayar')
         return
