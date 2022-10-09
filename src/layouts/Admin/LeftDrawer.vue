@@ -87,7 +87,7 @@ const props = defineProps({
 // }
 
 // const router = useRouter()
-console.log('router', props.dark)
+// console.log('router', props.dark)
 </script>
 
 <style lang="scss" scoped>

@@ -147,12 +147,15 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     //   })
     // },
     simpanTransaksi() {
+      const user = useAuthStore()
+      const kasir = user.userGetter
       const total = olahUang(this.form.total)
       const ongkir = olahUang(this.form.ongkir)
       const potongan = olahUang(this.form.potongan)
       const bayar = olahUang(this.form.bayar)
       const kembali = olahUang(this.form.kembali)
 
+      this.form.kasir_id = kasir.id
       this.form.total = total
       this.form.ongkir = ongkir
       this.form.potongan = potongan
@@ -160,7 +163,8 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.kembali = kembali
       this.form.status = 1
       this.print.form = this.form
-      // console.log(this.print.form)
+      // console.log('kasir', kasir)
+      // console.log(this.form)
       if (bayar < total && this.form.jenis === 'tunai') {
         notifErrVue('periksa input bayar')
         return
