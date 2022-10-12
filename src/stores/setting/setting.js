@@ -12,6 +12,7 @@ export const useSettingStore = defineStore('setting', {
       alamat: 'alamat belum di isi',
       tlp: 'nomor telepon belum ada'
     },
+    menu: 'user',
     penyesuaianProduk: {
       rak: true,
       stok_awal: true,
@@ -44,6 +45,9 @@ export const useSettingStore = defineStore('setting', {
       } else {
         notifErrCenterVue('nilai yang masuk harus boolean (true / false)')
       }
+    },
+    pilihItem(val) {
+      console.log(val)
     }
 
   }

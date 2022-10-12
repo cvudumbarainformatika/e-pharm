@@ -293,7 +293,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
           .then((resp) => {
             this.loading = false
             if (resp.status === 200) {
-              // console.log('laporan pj', resp.data)
+              console.log('laporan pj', resp.data)
               this.dataProses(resp.data)
 
               this.prosesHPP(

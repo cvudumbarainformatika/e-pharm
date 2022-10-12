@@ -123,7 +123,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
             this.loading = false
             if (resp.status === 200) {
               this.kasirs = resp.data.data
-              console.log('kasir ', resp.data)
+              // console.log('kasir ', resp.data)
               resolve(resp.data)
             }
           }).catch(err => {

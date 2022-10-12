@@ -17,9 +17,9 @@
 </template>
 <script setup>
 const props = defineProps({
-  icon: { type: String, default: 'icon-mat-info' },
+  icon: { type: String, default: 'icon-mat-receipt_long' },
   color: { type: String, default: 'primary' },
   size: { type: String, default: '60px' },
-  text: { type: String, default: 'Belum ada Menu yang di pilih' }
+  text: { type: String, default: 'Belum ada Data' }
 })
 </script>

@@ -152,7 +152,7 @@ const routes = [
       {
         path: '/setting',
         name: 'setting',
-        component: () => import('pages/v1/setting/AppSetting.vue')
+        component: () => import('pages/v1/setting/IndexPage.vue')
       }
     ]
   },
