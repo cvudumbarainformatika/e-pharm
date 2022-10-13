@@ -49,7 +49,7 @@
                 :active-class="setting.dark ? 'page-dark text-white aktif-dark' : ' bg-grey-4 text-primary aktif'"
                 clickable
                 exact
-                @click="pilihMenu(item)"
+                @click="pilihMenu(item, i)"
               >
                 <q-item-section avatar>
                   <q-icon :name="item.icon" />
@@ -69,13 +69,12 @@
                       round
                       color="primary"
                       icon="icon-mat-edit"
-                      @click="editMenu(item)"
                     >
                       <q-popup-proxy
                         :offset="[260, -42]"
                         transition-show="jump-up"
                         transition-hide="jump-down"
-                        @before-show="beforeEdit(item)"
+                        @before-show="beforeEdit(item, i)"
                       >
                         <q-banner>
                           <AddMenu
@@ -105,7 +104,7 @@
                       round
                       color="negative"
                       icon="icon-mat-delete_sweep"
-                      @click="deleteMenu(item)"
+                      @click="deleteMenu(item,i)"
                     >
                       <q-tooltip
                         anchor="top middle"
@@ -161,7 +160,7 @@
                 :active-class="setting.dark ? 'page-dark text-white aktif-dark' : ' bg-grey-4 text-primary aktif'"
                 clickable
                 exact
-                @click="pilihMenu(item)"
+                @click="pilihSubMenu(item, i)"
               >
                 <q-item-section avatar>
                   <q-icon :name="item.icon" />
@@ -178,7 +177,60 @@
                   </div>
                 </q-item-section>
                 <q-item-section>
-                  actions
+                  <div class="row justify-end">
+                    <q-btn
+                      flat
+                      class=""
+                      size="sm"
+                      round
+                      color="primary"
+                      icon="icon-mat-edit"
+                    >
+                      <q-popup-proxy
+                        :offset="[300, -42]"
+                        transition-show="jump-up"
+                        transition-hide="jump-down"
+                        @before-show="beforeSubEdit(item, i)"
+                      >
+                        <q-banner>
+                          <AddSubMenu
+                            :nama="namaSubMenu"
+                            :link="linkSubMenu"
+                            :route="routeMenu"
+                            :loading="setting.loading"
+                            @updatenama="uNamaSubMenu"
+                            @updateicon="uIconSubMenu"
+                            @updatelink="uLinkSubMenu"
+                            @updateroute="uRouteMenu"
+                            @batal="batalSub"
+                            @simpan="saveSubEdit"
+                          />
+                        </q-banner>
+                      </q-popup-proxy>
+                      <q-tooltip
+                        anchor="top middle"
+                        self="center middle"
+                      >
+                        Edit Data
+                      </q-tooltip>
+                    </q-btn>
+                    <q-btn
+                      flat
+                      class=""
+                      size="sm"
+                      round
+                      color="negative"
+                      icon="icon-mat-delete_sweep"
+                      @click="deleteSubMenu(item, i)"
+                    >
+                      <q-tooltip
+                        anchor="top middle"
+                        self="center middle"
+                      >
+                        Delete Data
+                      </q-tooltip>
+                    </q-btn>
+                  </div>
                 </q-item-section>
               </q-item>
             </q-list>
@@ -206,8 +258,9 @@ const index = computed(() => {
   return ind
 })
 
-const pilihMenu = val => {
+const pilihMenu = (val, index) => {
   curentmenu.value = val.name
+  indexEdit = index
 }
 const save = () => {
   setting.saveSetting().then(() => {
@@ -235,7 +288,7 @@ const uIconMenu = val => { iconMenu.value = val }
 const uLinkMenu = val => { linkMenu.value = val }
 
 const tambahMenu = () => {
-  const temp = { name: namaMenu.value, icon: iconMenu.value, link: linkMenu.value }
+  const temp = { name: namaMenu.value, icon: iconMenu.value, link: linkMenu.value, submenus: [] }
   setting.menus.push(temp)
   save()
   console.log(temp)
@@ -248,37 +301,37 @@ const batal = () => {
   add.value = false
 }
 
-const beforeEdit = val => {
+let indexEdit = 0
+const subMenu = ref([])
+const beforeEdit = (val, i) => {
   namaMenu.value = val.name
   iconMenu.value = val.icon
   linkMenu.value = val.link
-}
-let indexEdit = null
-const editMenu = val => {
-  popup.value = true
-  const index = findWithAttr(setting.menus, 'name', val.name)
-  indexEdit = index
-  const menu = setting.menus[index]
-
-  console.log('edit', menu)
+  subMenu.value = val.submenus
+  indexEdit = i
 }
 const saveEdit = val => {
-  const temp = { name: namaMenu.value, icon: iconMenu.value, link: linkMenu.value }
+  const temp = { name: namaMenu.value, icon: iconMenu.value, link: linkMenu.value, submenus: subMenu.value }
   setting.menus[indexEdit] = temp
   curentmenu.value = temp.name
   save()
   // console.log('edit', menu)
 }
-const deleteMenu = val => {
+
+const deleteMenu = (val, index) => {
+  // const index = findWithAttr(setting.menus, 'name', val.name)
   Dialog.create({
     title: 'Konfirmasi',
-    message: `Apakah <strong>Perusahaan: ${val}</strong> Akan ditambahkan?`,
+    message: `Apakah <strong>menu: ${val.name}</strong> Akan dihapus?`,
     cancel: true,
     html: true
     // persistent: true
   })
     .onOk(() => {
-
+      if (index > -1) { // only splice array when item is found
+        setting.menus.splice(index, 1) // 2nd parameter means remove one item only
+        save()
+      }
     })
 }
 
@@ -295,21 +348,14 @@ const uRouteMenu = val => { routeMenu.value = val }
 const uLinkSubMenu = val => { linkSubMenu.value = val }
 
 const tambahSubMenu = () => {
-  const temp = { name: namaSubMenu.value, value: routeMenu.value, icon: iconSubMenu.value, link: linkSubMenu.value }
+  const temp = { name: namaSubMenu.value, value: routeMenu.value, link: linkSubMenu.value, icon: iconSubMenu.value }
   const ind = findWithAttr(setting.menus, 'name', curentmenu.value)
-  subMenus.value = setting.menus[ind].submenus
+  subMenus.value = setting.menus[ind].submenus ? setting.menus[ind].submenus : []
   // console.log('sub menu', subMenus.value)
   subMenus.value.push(temp)
   setting.menus[ind].submenus = subMenus.value
+  // setting.menus[ind].submenus = sub
   save()
-  // setting.saveSetting().then(() => {
-  //   setting.getDataSetting()
-  //   namaSubMenu.value = null
-  //   routeMenu.value = null
-  //   iconSubMenu.value = 'icon-mat-'
-  //   linkSubMenu.value = null
-  //   addsub.value = false
-  // })
   console.log(temp)
 }
 const batalSub = () => {
@@ -318,6 +364,46 @@ const batalSub = () => {
   iconSubMenu.value = 'icon-mat-'
   linkSubMenu.value = null
   addsub.value = false
+}
+
+let indexSubEdit = 0
+const beforeSubEdit = (val, index) => {
+  namaSubMenu.value = val.name
+  routeMenu.value = val.value
+  linkSubMenu.value = val.link
+  indexSubEdit = index
+  console.log('before menu', setting.menus[indexEdit])
+  console.log('before sub', setting.menus[indexEdit].submenus[index])
+  // console.log('before sub', sub)
+}
+const curentSubMenu = ref('')
+const saveSubEdit = val => {
+  const temp = { name: namaSubMenu.value, value: routeMenu.value, link: linkSubMenu.value }
+  const menu = setting.menus[indexEdit].submenus
+  menu[indexSubEdit] = temp
+  save()
+  console.log('edit', menu)
+  curentSubMenu.value = temp.name
+}
+const deleteSubMenu = (val, index) => {
+  // const index = findWithAttr(setting.menus, 'name', val.name)
+  Dialog.create({
+    title: 'Konfirmasi',
+    message: `Apakah <strong>sub menu: ${val.name}</strong> Akan dihapus?`,
+    cancel: true,
+    html: true
+    // persistent: true
+  })
+    .onOk(() => {
+      if (index > -1) { // only splice array when item is found
+        setting.menus[indexEdit].submenus.splice(index, 1) // 2nd parameter means remove one item only
+        save()
+      }
+    })
+}
+const pilihSubMenu = val => {
+  curentSubMenu.value = val.name
+  console.log(val)
 }
 </script>
 <style lang="scss" scoped>

@@ -35,7 +35,6 @@
           v-model="linkMenu"
           outlined
           label="Input Link Menu"
-          @keyup.enter="emist('simpan')"
         />
       </div>
     </div>

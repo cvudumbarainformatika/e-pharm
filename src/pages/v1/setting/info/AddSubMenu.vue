@@ -46,13 +46,13 @@
           v-model="linkSubMenu"
           outlined
           label="Input Link Menu"
-          @keyup.enter="emits('simpan')"
         />
       </div>
     </div>
     <div class="row">
       <div class="col text-right">
         <app-btn
+          v-close-popup
           label="Batal"
           color="dark"
           :disable="loading"
@@ -61,6 +61,7 @@
       </div>
       <div class="col  text-right">
         <app-btn
+          v-close-popup
           label="Simpan"
           color="primary"
           :loading="loading"
