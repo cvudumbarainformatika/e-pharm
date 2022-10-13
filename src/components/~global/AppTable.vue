@@ -309,7 +309,6 @@
                 anchor="top middle"
                 self="center middle"
               >
-                {{ item }}
                 Edit Data
               </q-tooltip>
             </q-btn>

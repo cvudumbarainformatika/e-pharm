@@ -40,6 +40,7 @@
                         <q-popup-proxy
                           transition-show="jump-up"
                           transition-hide="jump-down"
+                          @before-show="user.role=item.role"
                         >
                           <q-banner v-if="item.role!=='root'">
                             <!-- <template #avatar>
@@ -111,6 +112,12 @@ const simpan = (val) => {
   temp.forEach(data => {
     user.setForm(data, val[data])
   })
+  user.setForm('role', user.role)
+  user.updateUser().then(() => {
+    user.getAllUser()
+    user.resetForm()
+  })
   console.log('simpan', temp)
+  console.log('form', user.form)
 }
 </script>

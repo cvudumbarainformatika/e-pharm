@@ -29,6 +29,7 @@ export const useSettingUserStore = defineStore('setting_user', {
     },
     resetForm() {
       this.form = {}
+      this.role = ''
     },
     getAllUser() {
       this.loading = true
@@ -43,6 +44,20 @@ export const useSettingUserStore = defineStore('setting_user', {
               console.log('user', resp.data)
               this.users = resp.data.data
             }
+            resolve(resp)
+          })
+          .catch(err => {
+            this.loading = false
+            reject(err)
+          })
+      })
+    },
+    updateUser() {
+      this.loading = true
+      return new Promise((resolve, reject) => {
+        api.post('v1/user/update', this.form)
+          .then(resp => {
+            this.loading = false
             resolve(resp)
           })
           .catch(err => {
