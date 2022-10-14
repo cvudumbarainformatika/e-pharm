@@ -4,7 +4,7 @@
       <app-card :is-header="false">
         <template #content>
           <app-table
-            title="Data Supplier"
+            title="Data Distributor"
             :columns="table.columns"
             :column-hide="table.columnHide"
             :items="table.items"
