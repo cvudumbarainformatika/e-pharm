@@ -71,45 +71,9 @@
                 prefix="Rp"
               />
             </div>
-
-            <!-- <div class="col-md-6 col-xs-12">
-              <q-input
-                v-model="store.form.expired"
-                dense
-                label="expired"
-                outlined
-              >
-                <template #append>
-                  <q-icon
-                    name="icon-mat-event"
-                    class="cursor-pointer"
-                  >
-                    <q-popup-proxy
-                      cover
-                      transition-show="scale"
-                      transition-hide="scale"
-                    >
-                      <q-date
-                        v-model="store.form.expired"
-                        mask="YYYY-MM-DD"
-                      >
-                        <div class="row items-center justify-end">
-                          <q-btn
-                            v-close-popup
-                            label="Close"
-                            color="primary"
-                            flat
-                          />
-                        </div>
-                      </q-date>
-                    </q-popup-proxy>
-                  </q-icon>
-                </template>
-              </q-input>
-            </div> -->
           </div>
           <div class="row q-col-gutter-md q-mt-sm">
-            <div class="col-md-4 col-xs-12">
+            <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.stok_awal"
                 label="Stok Awal*"
@@ -117,7 +81,7 @@
                 number
               />
             </div>
-            <div class="col-md-4 col-xs-12">
+            <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.limit_stok"
                 label="Limit Stok*"
@@ -125,12 +89,9 @@
                 number
               />
             </div>
+          </div>
+          <div class="row q-col-gutter-md q-mt-sm">
             <div class="col-md-4 col-xs-12">
-              <!-- <app-input
-                v-model="store.form.merk"
-                label="Merk*"
-                outlined
-              /> -->
               <div class="row items-center">
                 <app-autocomplete-new
                   v-model="store.form.merk_id"
@@ -163,14 +124,7 @@
                 </q-icon>
               </div>
             </div>
-          </div>
-          <div class="row q-col-gutter-md q-mt-sm">
             <div class="col-md-4 col-xs-12">
-              <!-- <app-input
-                v-model="store.form.rak_id"
-                label="Posisi Rak*"
-                outlined
-              /> -->
               <div class="row items-center">
                 <app-autocomplete-new
                   v-model="store.form.rak_id"
@@ -201,57 +155,10 @@
                     <em>Lalu tekan Enter </em>
                   </q-tooltip>
                 </q-icon>
-                <!--
-                @setModel="(val)=>rak.setForm('rak_id', val)"
-                @onEnter="rak.saveForm"
-                -->
-              </div>
-            </div>
-            <div class="col-md-4 col-xs-12">
-              <!-- <app-input
-                v-model="store.form.satuan_id"
-                label="Satuan*"
-                outlined
-              /> -->
-              <div class="row items-center">
-                <app-autocomplete-new
-                  v-model="store.form.satuan_id"
-                  outlined
-                  style="width:90%"
-                  label="Satuan"
-                  autocomplete="nama"
-                  option-value="id"
-                  option-label="nama"
-                  :source="store.satuans"
-                  @on-enter="satuan.addSatuan"
-                />
-                <q-icon
-                  size="16px"
-                  name="icon-mat-help_outline"
-                  color="info"
-                  class="cursor-pointer"
-                >
-                  <q-tooltip
-                    anchor="top middle"
-                    self="bottom middle"
-                    :offset="[10, 10]"
-                  >
-                    <strong>Untuk Masukkan data ?</strong> <br>
-                    <em>ketik data yang akan di input</em><br>
-                    <em>contoh</em><br>
-                    <strong>pcs</strong><br>
-                    <em>Lalu tekan Enter </em>
-                  </q-tooltip>
-                </q-icon>
               </div>
             </div>
 
             <div class="col-md-4 col-xs-12">
-              <!-- <app-input
-                v-model="store.form.kategori_id"
-                label="Kategori*"
-                outlined
-              /> -->
               <div class="row items-center">
                 <app-autocomplete-new
                   v-model="store.form.kategori_id"
@@ -284,6 +191,83 @@
                 </q-icon>
               </div>
             </div>
+
+            <div class="row q-col-gutter-md q-mt-sm">
+              <div class="col-md-4 col-xs-12">
+                <div class="row items-center">
+                  <app-autocomplete-new
+                    v-model="store.form.satuan_besar_id"
+                    outlined
+                    style="width:90%"
+                    label="Satuan Besar"
+                    autocomplete="nama"
+                    option-value="id"
+                    option-label="nama"
+                    :source="store.satuanBesars"
+                    @on-enter="satuanBesar.addSatuan"
+                  />
+                  <q-icon
+                    size="16px"
+                    name="icon-mat-help_outline"
+                    color="info"
+                    class="cursor-pointer"
+                  >
+                    <q-tooltip
+                      anchor="top middle"
+                      self="bottom middle"
+                      :offset="[10, 10]"
+                    >
+                      <strong>Untuk Masukkan data ?</strong> <br>
+                      <em>ketik data yang akan di input</em><br>
+                      <em>contoh</em><br>
+                      <strong>pcs</strong><br>
+                      <em>Lalu tekan Enter </em>
+                    </q-tooltip>
+                  </q-icon>
+                </div>
+              </div>
+              <div class="col-md-4 col-xs-12">
+                <app-input
+                  v-model="store.form.pengali"
+                  label="pengali"
+                  outlined
+                  number
+                />
+              </div>
+              <div class="col-md-4 col-xs-12">
+                <div class="row items-center">
+                  <app-autocomplete-new
+                    v-model="store.form.satuan_id"
+                    outlined
+                    style="width:90%"
+                    label="Satuan"
+                    autocomplete="nama"
+                    option-value="id"
+                    option-label="nama"
+                    :source="store.satuans"
+                    @on-enter="satuan.addSatuan"
+                  />
+                  <q-icon
+                    size="16px"
+                    name="icon-mat-help_outline"
+                    color="info"
+                    class="cursor-pointer"
+                  >
+                    <q-tooltip
+                      anchor="top middle"
+                      self="bottom middle"
+                      :offset="[10, 10]"
+                    >
+                      <strong>Untuk Masukkan data ?</strong> <br>
+                      <em>ketik data yang akan di input</em><br>
+                      <em>contoh</em><br>
+                      <strong>pcs</strong><br>
+                      <em>Lalu tekan Enter </em>
+                    </q-tooltip>
+                  </q-icon>
+                </div>
+              </div>
+            </div>
           </div>
 
           <q-separator class="q-my-md" />
@@ -310,6 +294,7 @@ import { useKategoriFormStore } from 'src/stores/master/kategori/form'
 import { useMerkFormStore } from 'src/stores/master/merk/form'
 import { useProdukFormStore } from 'src/stores/master/produk/form'
 import { useRakFormStore } from 'src/stores/master/rak/form'
+import { useSatuanBesarFormStore } from 'src/stores/master/satuan/besar/form'
 import { useSatuanFormStore } from 'src/stores/master/satuan/form'
 import { ref, onMounted } from 'vue'
 // import { Dialog } from 'quasar'
@@ -319,12 +304,14 @@ const store = useProdukFormStore()
 
 const rak = useRakFormStore()
 const satuan = useSatuanFormStore()
+const satuanBesar = useSatuanBesarFormStore()
 const kategori = useKategoriFormStore()
 const merk = useMerkFormStore()
 
 onMounted(() => {
   store.ambilDataRak()
   store.ambilDataSatuan()
+  store.ambilDataSatuanBesar()
   store.ambilDatakategori()
   store.ambilDataMerk()
 })

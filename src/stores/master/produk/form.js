@@ -7,6 +7,7 @@ import { useSatuanStore } from '../satuan/crud'
 import { olahUang } from 'src/modules/formatter'
 import { useMerkTable } from '../merk/table'
 import { useKategoriTable } from '../kategori/table'
+import { useSatuanBesarStore } from '../satuan/besar/crud'
 
 export const useProdukFormStore = defineStore('produk_form', {
   state: () => ({
@@ -27,6 +28,7 @@ export const useProdukFormStore = defineStore('produk_form', {
     },
     raks: [],
     satuans: [],
+    satuanBesars: [],
     kategoris: [],
     merks: [],
     loading: false
@@ -46,6 +48,13 @@ export const useProdukFormStore = defineStore('produk_form', {
       const getSat = useSatuanStore()
       getSat.getSatuan().then(resp => {
         this.satuans = resp
+        // console.log('satuan', resp)
+      })
+    },
+    ambilDataSatuanBesar() {
+      const getSat = useSatuanBesarStore()
+      getSat.getSatuan().then(resp => {
+        this.satuanBesars = resp
         // console.log('satuan', resp)
       })
     },
@@ -69,7 +78,9 @@ export const useProdukFormStore = defineStore('produk_form', {
         'barcode',
         'nama',
         'merk',
+        'pengali',
         'satuan_id',
+        'satuan_besar_id',
         'harga_beli',
         'harga_jual_umum',
         'harga_jual_resep',

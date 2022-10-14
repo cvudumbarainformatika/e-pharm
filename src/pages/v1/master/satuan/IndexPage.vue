@@ -13,6 +13,6 @@
 import { defineAsyncComponent } from 'vue'
 
 const AsyncComp = defineAsyncComponent(() =>
-  import('./SatuanPage.vue')
+  import('./FrontPage.vue')
 )
 </script>

@@ -41,17 +41,23 @@
             <template #col-harga_jual_cust>
               <div>harga jual grosir</div>
             </template>
+            <template #col-satuanBesar>
+              <div>satuan besar</div>
+            </template>
             <template #cell-satuan="{row}">
-              <div>{{ row.satuan.nama }}</div>
+              <div>{{ row.satuan !==null ? row.satuan.nama : '-' }}</div>
+            </template>
+            <template #cell-satuanBesar="{row}">
+              <div>{{ row.satuanBesar !==null ? row.satuanBesar.nama : '-' }}</div>
             </template>
             <template #cell-merk="{row}">
-              <div>{{ row.merk==null ? '' : row.merk.nama }}</div>
+              <div>{{ row.merk===null ? '' : row.merk.nama }}</div>
             </template>
             <template #cell-rak="{row}">
               <div>{{ row.rak.nama }}</div>
             </template>
             <template #cell-kategori="{row}">
-              <div>{{ row.kategori.nama }}</div>
+              <div>{{ row.kategori !==null? row.kategori.nama : '-' }}</div>
             </template>
             <template #cell-harga_beli="{row}">
               <div>{{ formatter.formatRp(row.harga_beli) }}</div>
@@ -88,5 +94,5 @@ import formDialog from './FormDialog.vue'
 const table = useProdukTable()
 const store = useProdukFormStore()
 
-table.getDataTable()
+// table.getDataTable()
 </script>

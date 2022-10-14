@@ -4,7 +4,7 @@
       <app-card :is-header="false">
         <template #content>
           <app-table
-            title="Data Satuan"
+            title="Data Satuan Besar"
             :columns="table.columns"
             :column-hide="table.columnHide"
             :items="table.items"
@@ -39,12 +39,12 @@
   </div>
 </template>
 <script setup>
-import { useSatuanStore } from 'src/stores/master/satuan/crud'
-import { useSatuanFormStore } from 'src/stores/master/satuan/form'
+import { useSatuanBesarStore } from 'src/stores/master/satuan/besar/crud'
+import { useSatuanBesarFormStore } from 'src/stores/master/satuan/besar/form'
 import formDialog from './FormDialog.vue'
 
-const table = useSatuanStore()
-const store = useSatuanFormStore()
+const table = useSatuanBesarStore()
+const store = useSatuanBesarFormStore()
 
 table.getSatuan()
 </script>

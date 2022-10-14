@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { api } from 'boot/axios'
 import { notifSuccess } from 'src/modules/utils'
 
-export const useProdukTable = defineStore('produk_table', {
+export const useSatuanBesarStore = defineStore('satuan_besar', {
   state: () => ({
     items: [],
     meta: {},
@@ -16,7 +16,7 @@ export const useProdukTable = defineStore('produk_table', {
       sort: 'desc'
     },
     columns: [],
-    columnHide: ['id', 'uuid', 'created_at', 'satuan_besar_id', 'satuan_id', 'merk_id', 'rak_id', 'kategori_id', 'updated_at']
+    columnHide: ['id', 'uuid', 'created_at', 'updated_at']
   }),
   getters: {
     getterColumns(state) {
@@ -27,24 +27,24 @@ export const useProdukTable = defineStore('produk_table', {
     // local table related function
     setSearch(val) {
       this.params.q = val
-      this.getDataTable()
+      this.getSatuan()
     },
     setOder(payload) {
       this.params.order_by = payload
       this.params.sort === 'desc'
         ? (this.params.sort = 'asc')
         : (this.params.sort = 'desc')
-      this.getDataTable()
+      this.getSatuan()
     },
     setPage(payload) {
       // console.log('setPage', payload)
       this.params.page = payload
-      this.getDataTable()
+      this.getSatuan()
     },
     setPerPage(payload) {
       this.params.per_page = payload
       this.params.page = 1
-      this.getDataTable()
+      this.getSatuan()
     },
     setColumns(payload) {
       const thumb = payload.map((x) => Object.keys(x))
@@ -54,21 +54,21 @@ export const useProdukTable = defineStore('produk_table', {
 
     refreshTable() {
       this.params.page = 1
-      this.getDataTable()
+      this.getSatuan()
     },
 
     // api related function
 
     // ambil
-    getDataTable() {
+    getSatuan() {
       this.loading = true
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
         api
-          .get('v1/produk/index', params)
+          .get('v1/satuan/index-besar', params)
           .then((resp) => {
             this.loading = false
-            console.log('Produk ', resp.data)
+            // console.log(resp)
             if (resp.status === 200) {
               this.items = resp.data.data
               this.meta = resp.data.meta
@@ -77,6 +77,7 @@ export const useProdukTable = defineStore('produk_table', {
             }
           })
           .catch((err) => {
+            // console.log(err)
             this.loading = false
             reject(err)
           })
@@ -88,15 +89,16 @@ export const useProdukTable = defineStore('produk_table', {
       const params = { id: payload }
       return new Promise((resolve, reject) => {
         api
-          .post('v1/produk/destroy', params)
+          .post('v1/satuan/destroy-besar', params)
           .then((resp) => {
             // console.log(resp)
             notifSuccess(resp)
             this.loading = false
-            this.getDataTable()
+            this.getSatuan()
             resolve(resp)
           })
           .catch((err) => {
+            // console.log(err)
             this.loading = false
             reject(err)
           })
