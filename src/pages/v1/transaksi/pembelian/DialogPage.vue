@@ -50,7 +50,7 @@
             <div class="col-md-11 col-xs-11">
               <app-autocomplete
                 v-model="store.form.supplier_id"
-                label="pilih Supplier"
+                label="pilih Distributor"
                 autocomplete="nama"
                 option-value="id"
                 option-label="nama"

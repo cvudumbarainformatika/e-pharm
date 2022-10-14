@@ -1,6 +1,6 @@
 <template>
   <div
-    v-for="(item, i) in items"
+    v-for="(item, i) in items.submenus"
     :key="i"
   >
     <q-card>
@@ -32,19 +32,24 @@
 <script setup>
 import { useHistoryTable } from 'src/stores/history/table'
 import { useSettingStore } from 'src/stores/setting/setting'
-import { ref } from 'vue'
-
-const items = ref([
-  { id: 0, name: 'Seluruhnya', value: 'all', icon: 'icon-mat-density_small' },
-  { id: 1, name: 'Draft', value: 'draft', icon: 'icon-mat-insert_drive_file' },
-  { id: 2, name: 'Pembelian', value: 'PEMBELIAN', icon: 'icon-mat-inventory_2' },
-  { id: 3, name: 'Penjualan', value: 'PENJUALAN', icon: 'icon-mat-shopping_bag' },
-  { id: 4, name: 'Transaksi Penerimaan', value: 'PENERIMAAN', icon: 'icon-mat-account_balance_wallet' },
-  { id: 5, name: 'Beban Biaya', value: 'BEBAN', icon: 'icon-mat-payment' },
-  { id: 6, name: 'Retur Pembelian', value: 'RETUR PEMBELIAN', icon: 'icon-mat-assignment_return' },
-  { id: 7, name: 'Retur Penjualan', value: 'RETUR PENJUALAN', icon: 'icon-mat-assignment_return' },
-  { id: 8, name: 'Form Penyesuaian', value: 'FORM PENYESUAIAN', icon: 'icon-mat-tune' }
-])
+import { computed } from 'vue'
+const items = computed(() => {
+  const apem = setting.menus.filter(data => { return data.name === 'history' })
+  if (apem.length) return apem[0]
+  return [0, 0]
+})
+// import { ref } from 'vue'
+// const items = ref([
+//   { id: 0, name: 'Seluruhnya', value: 'all', icon: 'icon-mat-density_small' },
+//   { id: 1, name: 'Draft', value: 'draft', icon: 'icon-mat-insert_drive_file' },
+//   { id: 2, name: 'Pembelian', value: 'PEMBELIAN', icon: 'icon-mat-inventory_2' },
+//   { id: 3, name: 'Penjualan', value: 'PENJUALAN', icon: 'icon-mat-shopping_bag' },
+//   { id: 4, name: 'Transaksi Penerimaan', value: 'PENERIMAAN', icon: 'icon-mat-account_balance_wallet' },
+//   { id: 5, name: 'Beban Biaya', value: 'BEBAN', icon: 'icon-mat-payment' },
+//   { id: 6, name: 'Retur Pembelian', value: 'RETUR PEMBELIAN', icon: 'icon-mat-assignment_return' },
+//   { id: 7, name: 'Retur Penjualan', value: 'RETUR PENJUALAN', icon: 'icon-mat-assignment_return' },
+//   { id: 8, name: 'Form Penyesuaian', value: 'FORM PENYESUAIAN', icon: 'icon-mat-tune' }
+// ])
 const setting = useSettingStore()
 const table = useHistoryTable()
 </script>

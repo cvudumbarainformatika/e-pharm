@@ -33,13 +33,13 @@
               <div>harga beli</div>
             </template>
             <template #col-harga_jual_umum>
-              <div>harga jual umum</div>
+              <div>harga jual Reguler</div>
             </template>
             <template #col-harga_jual_resep>
               <div>harga jual resep</div>
             </template>
             <template #col-harga_jual_cust>
-              <div>harga jual customer</div>
+              <div>harga jual grosir</div>
             </template>
             <template #cell-satuan="{row}">
               <div>{{ row.satuan.nama }}</div>

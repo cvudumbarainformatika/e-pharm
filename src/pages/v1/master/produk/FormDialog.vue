@@ -42,7 +42,7 @@
             <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.harga_jual_umum"
-                label="Harga Jual Umum*"
+                label="Harga Jual Reguler*"
                 outlined
                 number
                 currency
@@ -54,7 +54,7 @@
             <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.harga_jual_cust"
-                label="Harga Jual Customer*"
+                label="Harga Jual Grosir*"
                 outlined
                 number
                 currency

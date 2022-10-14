@@ -4,7 +4,7 @@
       <app-card :is-header="false">
         <template #content>
           <app-table
-            title="Data Beban"
+            title="Data Pengeluaran"
             :columns="table.columns"
             :column-hide="table.columnHide"
             :items="table.items"
@@ -14,8 +14,8 @@
             :sort="table.params.sort"
             :loading="table.loading"
             :to-search="table.params.q"
-            disable-edit="BEBAN HUTANG"
-            disable-delete="BEBAN HUTANG"
+            disable-edit="BAYAR HUTANG"
+            disable-delete="BAYAR HUTANG"
             @goto="table.setPage"
             @set-row="table.setPerPage"
             @refresh="table.refreshTable"

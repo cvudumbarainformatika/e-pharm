@@ -65,7 +65,7 @@ import { computed } from 'vue'
 
 const props = defineProps({
   nama: { type: String, default: '' },
-  icon: { type: String, default: 'icon-mat' },
+  icon: { type: String, default: 'icon-mat-' },
   link: { type: String, default: '' },
   loading: { type: Boolean, default: false }
 })

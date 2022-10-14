@@ -144,10 +144,12 @@
           />
         </div>
         <div
-          v-for="(item, i) in setting.menus[index].submenus"
-          :key="i"
+          v-if="setting.menus[index]"
         >
-          <q-card>
+          <q-card
+            v-for="(item, i) in setting.menus[index].submenus"
+            :key="i"
+          >
             <q-list
               bordered
               padding
@@ -196,6 +198,7 @@
                           <AddSubMenu
                             :nama="namaSubMenu"
                             :link="linkSubMenu"
+                            :icon="iconSubMenu"
                             :route="routeMenu"
                             :loading="setting.loading"
                             @updatenama="uNamaSubMenu"
@@ -278,6 +281,67 @@ const save = () => {
 }
 const popup = ref(false)
 const curentmenu = ref('Dashboard')
+// const sub = [
+//   { name: 'dashboard', icon: 'icon-mat-dashboard', link: 'dashboard', submenus: [] },
+//   {
+//     name: 'master',
+//     icon: 'icon-mat-dataset',
+//     link: 'master',
+//     submenus: [
+//       { name: 'Satuan', icon: 'icon-mat-gas_meter', link: 'satuan' },
+//       { name: 'Rak', icon: 'icon-mat-table_rows', link: 'rak' },
+//       { name: 'Kategori', icon: 'icon-mat-category', link: 'kategori' },
+//       { name: 'Distributor', icon: 'icon-mat-rv_hookup', link: 'supplier' },
+//       { name: 'Dokter', icon: 'icon-mat-medication', link: 'dokter' },
+//       { name: 'Produk', icon: 'icon-mat-workspaces', link: 'produk' },
+//       { name: 'Beban', icon: 'icon-mat-assessment', link: 'beban' },
+//       { name: 'Penerimaan', icon: 'icon-mat-attach_money', link: 'penerimaan' },
+//       { name: 'Customer', icon: 'icon-mat-local_shipping', link: 'customer' },
+//       { name: 'Merk', icon: 'icon-mat-auto_awesome_mosaic', link: 'merk' },
+//       { name: 'Perusahaan', icon: 'icon-mat-business', link: 'perusahaan' }
+
+//     ]
+//   },
+//   {
+//     name: 'transaksi',
+//     icon: 'icon-mat-sync_alt',
+//     link: 'transaksi',
+//     submenus: [
+//       { name: 'Pembelian', value: 'pembelian', icon: 'icon-mat-inventory_2', link: '/pembelian/PBL-' },
+//       { name: 'Penjualan', value: 'penjualan', icon: 'icon-mat-shopping_bag', link: '/penjualan/PJL-' },
+//       { name: 'Transaksi Penerimaan', value: 'transaksi.penerimaan', icon: 'icon-mat-account_balance_wallet', link: '/transaksi/penerimaan' },
+//       { name: 'Beban Biaya', value: 'biaya', icon: 'icon-mat-payment', link: '/biaya' },
+//       { name: 'Retur', value: 'retur', icon: 'icon-mat-assignment_return', link: '/retur' }
+
+//     ]
+//   },
+//   {
+//     name: 'history',
+//     icon: 'icon-mat-history',
+//     link: 'history',
+//     submenus: [
+//       { name: 'Seluruhnya', value: 'all', icon: 'icon-mat-density_small' },
+//       { name: 'Draft', value: 'draft', icon: 'icon-mat-insert_drive_file' },
+//       { name: 'Pembelian', value: 'PEMBELIAN', icon: 'icon-mat-inventory_2' },
+//       { name: 'Penjualan', value: 'PENJUALAN', icon: 'icon-mat-shopping_bag' },
+//       { name: 'Transaksi Penerimaan', value: 'PENERIMAAN', icon: 'icon-mat-account_balance_wallet' },
+//       { name: 'Beban Biaya', value: 'BEBAN', icon: 'icon-mat-payment' },
+//       { name: 'Retur Pembelian', value: 'RETUR PEMBELIAN', icon: 'icon-mat-assignment_return' },
+//       { name: 'Retur Penjualan', value: 'RETUR PENJUALAN', icon: 'icon-mat-assignment_return' },
+//       { name: 'Form Penyesuaian', value: 'FORM PENYESUAIAN', icon: 'icon-mat-tune' }
+//     ]
+//   },
+//   { name: 'laporan', icon: 'icon-mat-description', link: 'laporan', submenus: [] },
+//   {
+//     name: 'setting',
+//     icon: 'icon-mat-settings',
+//     link: 'setting',
+//     submenus: [
+//       { name: 'User', value: 'user', icon: 'icon-mat-density_small' },
+//       { name: 'Menu', value: 'menu', icon: 'icon-mat-insert_drive_file' }
+//     ]
+//   }
+// ]
 // Menu
 const add = ref(false)
 const namaMenu = ref(null)
@@ -288,10 +352,11 @@ const uIconMenu = val => { iconMenu.value = val }
 const uLinkMenu = val => { linkMenu.value = val }
 
 const tambahMenu = () => {
+  // setting.menus = sub // ini untuk seed all data
   const temp = { name: namaMenu.value, icon: iconMenu.value, link: linkMenu.value, submenus: [] }
   setting.menus.push(temp)
   save()
-  console.log(temp)
+  // console.log(temp)
 }
 const batal = () => {
   popup.value = false
@@ -371,6 +436,7 @@ const beforeSubEdit = (val, index) => {
   namaSubMenu.value = val.name
   routeMenu.value = val.value
   linkSubMenu.value = val.link
+  iconSubMenu.value = val.icon
   indexSubEdit = index
   console.log('before menu', setting.menus[indexEdit])
   console.log('before sub', setting.menus[indexEdit].submenus[index])
@@ -378,7 +444,7 @@ const beforeSubEdit = (val, index) => {
 }
 const curentSubMenu = ref('')
 const saveSubEdit = val => {
-  const temp = { name: namaSubMenu.value, value: routeMenu.value, link: linkSubMenu.value }
+  const temp = { name: namaSubMenu.value, value: routeMenu.value, link: linkSubMenu.value, icon: iconSubMenu.value }
   const menu = setting.menus[indexEdit].submenus
   menu[indexSubEdit] = temp
   save()

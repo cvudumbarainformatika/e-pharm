@@ -15,19 +15,8 @@
       <!-- binary-state-sort -->
       <!-- Top Slot -->
       <template #top>
-        <div
-          v-if="table.title!==null"
-          class="q-pl-sm"
-        >
-          <app-btn
-            color="negative"
-            :label="`Hapus Draft : ${table.title}`"
-            icon="icon-mat-delete_filled"
-            :loading="table.loading"
-            @click="table.deleteDraft(table.title)"
-          />
-        </div>
-        <div class="q-pl-sm">
+        <!-- <div class="row justify-between"> -->
+        <div class="q-pl-sm col-4">
           <q-input
             v-model="table.params.q"
             class="search-big"
@@ -46,6 +35,20 @@
             </template>
           </q-input>
         </div>
+        <div class="col-5" />
+        <div
+          v-if="table.title!==null"
+          class="q-pl-sm col-3"
+        >
+          <app-btn
+            color="negative"
+            :label="`Hapus Draft : ${table.title}`"
+            icon="icon-mat-delete_filled"
+            :loading="table.loading"
+            @click="table.deleteDraft(table.title)"
+          />
+        </div>
+        <!-- </div> -->
         <q-separator />
       </template>
       <!-- body slot -->

@@ -126,7 +126,7 @@
             />
           </q-td>
 
-          <q-td>
+          <!-- <q-td>
             <app-input
               v-model="table.form.harga_jual_umum"
               class="text-right"
@@ -155,7 +155,7 @@
               currency
               readonly
             />
-          </q-td>
+          </q-td> -->
           <q-td>
             <strong>
               {{ formatter.formatRp(parseFloat(formatter.olahUang(table.form.harga_beli)) * table.form.qty) }}
@@ -181,7 +181,10 @@
         </q-td>
       </template>
       <!-- no data slot -->
-      <template #no-data="{ icon, message, filter }">
+      <template
+        v-if="!table.loading"
+        #no-data="{ icon, message, filter }"
+      >
         <div class="full-width row flex-center text-accent q-gutter-sm">
           <div
             class="flex column flex-center bg-loading-bg__table"
@@ -207,6 +210,10 @@
           />
         </div>
       </template>
+      <template
+        v-else
+        #no-data
+      />
       <!-- loading -->
       <template #loading>
         <app-loading />

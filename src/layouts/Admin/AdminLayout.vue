@@ -15,7 +15,7 @@
       v-model="leftDrawerOpen"
       :dark="dark"
       class="print-hide"
-      :menus="menus"
+      :menus="setting.menus"
     />
     <q-drawer
       v-model="rightDrawerOpen"
@@ -31,7 +31,7 @@
     <adm-footer-menu
       v-if="mobile"
       :dark="dark"
-      :menus="menus"
+      :menus="setting.menus"
     />
     <q-page-container>
       <router-view />
@@ -92,14 +92,14 @@ function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 
-const menus = ref([
-  { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard', link: 'dashboard' },
-  { id: 2, name: 'master', icon: 'icon-mat-dataset', link: 'master' },
-  { id: 3, name: 'transaksi', icon: 'icon-mat-sync_alt', link: 'transaksi' },
-  { id: 4, name: 'history', icon: 'icon-mat-history', link: 'history' },
-  { id: 4, name: 'laporan', icon: 'icon-mat-description', link: 'laporan' },
-  { id: 5, name: 'setting', icon: 'icon-mat-settings', link: 'setting' }
-])
+// const menus = ref([
+//   { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard', link: 'dashboard' },
+//   { id: 2, name: 'master', icon: 'icon-mat-dataset', link: 'master' },
+//   { id: 3, name: 'transaksi', icon: 'icon-mat-sync_alt', link: 'transaksi' },
+//   { id: 4, name: 'history', icon: 'icon-mat-history', link: 'history' },
+//   { id: 4, name: 'laporan', icon: 'icon-mat-description', link: 'laporan' },
+//   { id: 5, name: 'setting', icon: 'icon-mat-settings', link: 'setting' }
+// ])
 
 onMounted(() => {
   store.getUser()

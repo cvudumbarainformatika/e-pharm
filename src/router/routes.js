@@ -9,7 +9,8 @@ const routes = [
       {
         path: '/dashboard',
         name: 'dashboard',
-        component: () => import('pages/IndexPage.vue')
+        // component: () => import('pages/IndexPage.vue')
+        component: () => import('pages/Dashboard.vue')
       },
       // { path: '/surveyor', name: 'surveyor', component: () => import('pages/v1/surveyor/IndexPage.vue') },
       {

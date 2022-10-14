@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
-import { notifErrVue, waitLoad } from 'src/modules/utils'
+import { notifErrVue } from 'src/modules/utils'
 import { formatRp, olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
 import { usePembelianDialog } from './form'
@@ -68,27 +68,27 @@ export const usePembelianTable = defineStore('pembelian_table', {
         field: 'harga',
         format: (val) => formatRp(val)
       },
-      {
-        name: 'harga_jual_umum',
-        align: 'right',
-        label: 'Harga Umum',
-        field: (row) => row.product ? row.product.harga_jual_umum : row.product_id,
-        format: (val) => formatRp(val)
-      },
-      {
-        name: 'harga_jual_resep',
-        align: 'right',
-        label: 'Harga Resep',
-        field: (row) => row.product ? row.product.harga_jual_resep : row.product_id,
-        format: (val) => formatRp(val)
-      },
-      {
-        name: 'harga_jual_cust',
-        align: 'right',
-        label: 'Harga Distributor',
-        field: (row) => row.product ? row.product.harga_jual_cust : row.product_id,
-        format: (val) => formatRp(val)
-      },
+      // {
+      //   name: 'harga_jual_umum',
+      //   align: 'right',
+      //   label: 'Harga Umum',
+      //   field: (row) => row.product ? row.product.harga_jual_umum : row.product_id,
+      //   format: (val) => formatRp(val)
+      // },
+      // {
+      //   name: 'harga_jual_resep',
+      //   align: 'right',
+      //   label: 'Harga Resep',
+      //   field: (row) => row.product ? row.product.harga_jual_resep : row.product_id,
+      //   format: (val) => formatRp(val)
+      // },
+      // {
+      //   name: 'harga_jual_cust',
+      //   align: 'right',
+      //   label: 'Harga Distributor',
+      //   field: (row) => row.product ? row.product.harga_jual_cust : row.product_id,
+      //   format: (val) => formatRp(val)
+      // },
       {
         name: 'sub_total',
         align: 'right',
@@ -259,7 +259,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       // store.form.ongkir = data.ongkir
     },
     getDetailTransaksi(val) {
-      waitLoad('show')
+      this.loading = true
       let slug = ''
       if (val === undefined) {
         slug = routerInstance.currentRoute.value.params.slug
@@ -274,7 +274,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
         api
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
-            waitLoad('done')
+            this.loading = false
             // console.log('pembelian ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
@@ -292,7 +292,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
             }
           })
           .catch((err) => {
-            waitLoad('done')
+            this.loading = false
             reject(err)
           })
       })
@@ -331,18 +331,18 @@ export const usePembelianTable = defineStore('pembelian_table', {
       })
     },
     hapusDetailTransaksi(params) {
-      waitLoad('show')
+      this.loading = true
       return new Promise((resolve, reject) => {
         api
           .post('v1/detail-transaksi/destroy', params)
           .then((resp) => {
-            waitLoad('done')
+            this.loading = false
             // console.log('hapus detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
           })
           .catch((err) => {
-            waitLoad('done')
+            this.loading = false
             reject(err)
           })
       })

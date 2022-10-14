@@ -2,8 +2,8 @@
   <q-dialog>
     <app-card
       class="my-card"
-      title="Form Penerimaan"
-      desc="Input data Penerimaan"
+      title="Form Pendapatan"
+      desc="Input data Pendapatan"
     >
       <template #content>
         <q-form

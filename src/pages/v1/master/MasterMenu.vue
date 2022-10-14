@@ -13,7 +13,7 @@
         replace
       > -->
         <q-item
-          v-for="(menu,i) in menus"
+          v-for="(menu,i) in menus.submenus"
           :key="i"
           v-ripple
           class="menu"
@@ -35,23 +35,29 @@
 </template>
 <script setup>
 import { useSettingStore } from 'src/stores/setting/setting'
-import { ref } from 'vue'
+import { computed } from 'vue'
+const menus = computed(() => {
+  const apem = setting.menus.filter(data => { return data.name === 'master' })
+  if (apem.length) return apem[0]
+  return [0, 0]
+})
+
+// import { ref } from 'vue'
+// const menus = ref([
+//   { id: 1, name: 'Satuan', icon: 'icon-mat-gas_meter', link: 'satuan' },
+//   { id: 2, name: 'Rak', icon: 'icon-mat-table_rows', link: 'rak' },
+//   { id: 3, name: 'Kategori', icon: 'icon-mat-category', link: 'kategori' },
+//   { id: 4, name: 'Supplier', icon: 'icon-mat-rv_hookup', link: 'supplier' },
+//   { id: 5, name: 'Dokter', icon: 'icon-mat-medication', link: 'dokter' },
+//   { id: 6, name: 'Produk', icon: 'icon-mat-workspaces', link: 'produk' },
+//   { id: 7, name: 'Beban', icon: 'icon-mat-assessment', link: 'beban' },
+//   { id: 7, name: 'Penerimaan', icon: 'icon-mat-attach_money', link: 'penerimaan' },
+//   { id: 8, name: 'Distributor', icon: 'icon-mat-local_shipping', link: 'customer' },
+//   { id: 9, name: 'Merk', icon: 'icon-mat-auto_awesome_mosaic', link: 'merk' },
+//   { id: 10, name: 'Perusahaan', icon: 'icon-mat-business', link: 'perusahaan' }
+// ])
 
 const setting = useSettingStore()
-const menus = ref([
-  { id: 1, name: 'Satuan', icon: 'icon-mat-gas_meter', link: 'satuan' },
-  { id: 2, name: 'Rak', icon: 'icon-mat-table_rows', link: 'rak' },
-  { id: 3, name: 'Kategori', icon: 'icon-mat-category', link: 'kategori' },
-  { id: 4, name: 'Supplier', icon: 'icon-mat-rv_hookup', link: 'supplier' },
-  { id: 5, name: 'Dokter', icon: 'icon-mat-medication', link: 'dokter' },
-  { id: 6, name: 'Produk', icon: 'icon-mat-workspaces', link: 'produk' },
-  { id: 7, name: 'Beban', icon: 'icon-mat-assessment', link: 'beban' },
-  { id: 7, name: 'Penerimaan', icon: 'icon-mat-attach_money', link: 'penerimaan' },
-  { id: 8, name: 'Distributor', icon: 'icon-mat-local_shipping', link: 'customer' },
-  { id: 9, name: 'Merk', icon: 'icon-mat-auto_awesome_mosaic', link: 'merk' },
-  { id: 10, name: 'Perusahaan', icon: 'icon-mat-business', link: 'perusahaan' }
-
-])
 
 // function activated(val) {
 //   if (val) {

@@ -4,7 +4,7 @@
       <app-card :is-header="false">
         <template #content>
           <app-table
-            title="Data Penerimaan"
+            title="Data Pendapatan"
             :columns="table.columns"
             :column-hide="table.columnHide"
             :items="table.items"
@@ -14,8 +14,8 @@
             :sort="table.params.sort"
             :loading="table.loading"
             :to-search="table.params.q"
-            disable-edit="PIUTANG DIBAYAR"
-            disable-delete="PIUTANG DIBAYAR"
+            disable-edit="PENDAPATAN PIUTANG"
+            disable-delete="PENDAPATAN PIUTANG"
             @goto="table.setPage"
             @set-row="table.setPerPage"
             @refresh="table.refreshTable"

@@ -13,7 +13,7 @@
         replace
       > -->
         <q-item
-          v-for="(menu,i) in menus"
+          v-for="(menu,i) in menus.submenus"
           :key="i"
           v-ripple
           class="menu"
@@ -36,22 +36,29 @@
 <script setup>
 // import { routerInstance } from 'src/boot/router'
 import { useSettingStore } from 'src/stores/setting/setting'
-import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import { computed } from 'vue'
+
+const menus = computed(() => {
+  const apem = setting.menus.filter(data => { return data.name === 'transaksi' })
+  if (apem.length) return apem[0]
+  return [0, 0]
+})
 
 const setting = useSettingStore()
 const path = computed(() => useRoute().name)
+// import { computed, ref } from 'vue'
 // console.log('path', path)
-const menus = ref([
-  { id: 1, name: 'Pembelian', value: 'pembelian', icon: 'icon-mat-inventory_2', link: '/pembelian/PBL-' },
-  { id: 2, name: 'Penjualan', value: 'penjualan', icon: 'icon-mat-shopping_bag', link: '/penjualan/PJL-' },
-  { id: 3, name: 'Transaksi Penerimaan', value: 'transaksi.penerimaan', icon: 'icon-mat-account_balance_wallet', link: '/transaksi/penerimaan' },
-  { id: 4, name: 'Beban Biaya', value: 'biaya', icon: 'icon-mat-payment', link: '/biaya' },
-  { id: 5, name: 'Retur', value: 'retur', icon: 'icon-mat-assignment_return', link: '/retur' }
-  // { id: 6, name: 'History', icon: 'icon-mat-inventory', link: '/history' }
-  // { id: 7, name: 'Bayar Hutang', icon: 'icon-mat-credit_score', link: '/bayar hutang' },
+// const menus = ref([
+//   { id: 1, name: 'Pembelian', value: 'pembelian', icon: 'icon-mat-inventory_2', link: '/pembelian/PBL-' },
+//   { id: 2, name: 'Penjualan', value: 'penjualan', icon: 'icon-mat-shopping_bag', link: '/penjualan/PJL-' },
+//   { id: 3, name: 'Transaksi Penerimaan', value: 'transaksi.penerimaan', icon: 'icon-mat-account_balance_wallet', link: '/transaksi/penerimaan' },
+//   { id: 4, name: 'Beban Biaya', value: 'biaya', icon: 'icon-mat-payment', link: '/biaya' },
+//   { id: 5, name: 'Retur', value: 'retur', icon: 'icon-mat-assignment_return', link: '/retur' }
+// { id: 6, name: 'History', icon: 'icon-mat-inventory', link: '/history' }
+// { id: 7, name: 'Bayar Hutang', icon: 'icon-mat-credit_score', link: '/bayar hutang' },
 
-])
+// ])
 // function activated(val) {
 //   if (val) {
 //     if (props.dark) {
