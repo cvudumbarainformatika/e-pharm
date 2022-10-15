@@ -158,7 +158,7 @@ const detailBesar = (qty, pengali) => {
 }
 const detailKecil = (qty, pengali) => {
   const temp = ((qty / pengali) - Math.floor(qty / pengali)) * pengali
-  console.log('kecil', temp)
+  // console.log('kecil', temp)
   return Math.round(temp)
 }
 

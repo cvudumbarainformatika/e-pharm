@@ -26,7 +26,7 @@
     @clear="clear"
   >
     <template
-      v-if="anu"
+      v-if="modelProp"
       #append
     >
       <q-icon
@@ -123,6 +123,7 @@ const inputValue = (value) => {
 
 function filterFn (val, update) {
   console.log('filterFn ', val)
+  console.log('refAuto', refAuto.value)
   if (val === '') {
     update(() => {
       optionx.value = props.source

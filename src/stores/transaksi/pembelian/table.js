@@ -10,6 +10,7 @@ import { usePrintStore } from 'src/stores/print'
 
 export const usePembelianTable = defineStore('pembelian_table', {
   state: () => ({
+    toFocus: '',
     items: [],
     meta: {},
     item: {},
@@ -201,6 +202,12 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.namaSatuan.besar = ''
       this.namaSatuan.kecil = ''
       this.form.expired = null
+    },
+    onF8(val) {
+      if (val.key === 'F2') {
+        alert('tembol F2 ditekan')
+      }
+      console.log(' tombol ditekan', val.key)
     },
     onEnter() {
       const store = usePembelianDialog()

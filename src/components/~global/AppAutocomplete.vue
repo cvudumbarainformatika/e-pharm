@@ -23,6 +23,7 @@
     emit-value
     transition-show="scale"
     transition-hide="scale"
+    autofocus
     @update:model-value="selected"
     @filter="filterFn"
     @new-value="createValue"
@@ -69,7 +70,7 @@
 
 <script setup>
 import { computed, ref } from 'vue'
-const emits = defineEmits(['on-enter', 'getSource', 'set-model', 'buang', 'on-select', 'clear'])
+const emits = defineEmits(['on-enter', 'getSource', 'set-model', 'buang', 'on-select', 'clear', 'em-fokus'])
 const props = defineProps({
   source: { type: Array, default: () => [] },
   label: { type: String, default: 'Label' },
@@ -81,7 +82,8 @@ const props = defineProps({
   filled: { type: Boolean, default: true },
   outlined: { type: Boolean, default: false },
   valid: { type: Boolean, default: false },
-  model: { type: String, default: '' }
+  model: { type: String, default: '' },
+  fokus: { type: Boolean, default: false }
 })
 const optionx = ref([])
 const refAuto = ref(null)
@@ -133,6 +135,7 @@ function filterFn (val, update) {
       // } else {
       const needle = val.toLowerCase()
       const arr = refAuto.value.autocomplete
+
       if (arr === '') {
         optionx.value = props.source.filter((v) => v.toLowerCase().indexOf(needle) > -1)
       } else {

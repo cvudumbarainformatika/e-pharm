@@ -17,6 +17,7 @@
       :loading="table.loading"
       :to-search="table.params.q"
       binary-state-sort
+      @keydown.capture="keyCheck"
     >
       <template
         #top
@@ -60,12 +61,14 @@
           <!-- <q-td /> -->
           <q-td colspan="2">
             <app-autocomplete-new
+              ref="refProduk"
               v-model="table.form.product_id"
               label=" "
               autocomplete="nama"
               option-value="id"
               option-label="nama"
               :source="table.produks"
+              autofocus
               @on-select="table.produkSelected"
             />
           </q-td>
@@ -278,7 +281,15 @@ import DialogPage from './DialogPage.vue'
 import { notifErrVue } from 'src/modules/utils'
 import { useSupplierFormStore } from 'src/stores/master/supplier/form'
 import formDialog from 'src/pages/v1/master/supplier/FormDialog.vue'
+import { ref } from 'vue'
 const supplier = useSupplierFormStore()
+const refProduk = ref(null)
+const keyCheck = val => {
+  if (val.key === 'F2') {
+    // alert('tembol F2 ditekan')
+    cekRequired()
+  }
+}
 
 const table = usePembelianTable()
 const store = usePembelianDialog()
