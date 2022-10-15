@@ -268,12 +268,6 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     // api related functions
     // get from another pinia file
     // from produk table
-    ambilDataProduk() {
-      const produk = useProdukTable()
-      produk.getDataTable().then((resp) => {
-        this.produks = resp
-      })
-    },
     ambilDataDistributor() {
       const dist = useCustomerTable()
       return new Promise((resolve) => {
@@ -313,7 +307,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         .onCancel(() => {
           // console.log('cancel')
         })
-      // console.log('distributor ', val)
+        // console.log('distributor ', val)
     },
     addDokter(val) {
       const store = useDokterFormStore()
@@ -334,7 +328,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         .onCancel(() => {
           // console.log('cancel')
         })
-      // console.log('dokter ', val)
+        // console.log('dokter ', val)
     },
     setDokterOrDistributor() {
       if (this.form.dokter_id !== null) {
@@ -366,6 +360,13 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       // console.log('set expire ', temp)
     },
     // api related function
+    // ambil data produk seluruhnya
+    ambilDataProduk() {
+      const produk = useProdukTable()
+      produk.getDataTable().then((resp) => {
+        this.produks = resp
+      })
+    },
     // ambil data expired
     getDataExpired() {
       return new Promise((resolve, reject) => {

@@ -68,7 +68,7 @@ export const useProdukTable = defineStore('produk_table', {
           .get('v1/produk/index', params)
           .then((resp) => {
             this.loading = false
-            console.log('Produk ', resp.data)
+            // console.log('Produk ', resp.data)
             if (resp.status === 200) {
               this.items = resp.data.data
               this.meta = resp.data.meta

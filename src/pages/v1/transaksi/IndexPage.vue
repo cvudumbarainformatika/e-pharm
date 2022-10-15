@@ -23,6 +23,13 @@ import TransaksiMenu from './TransaksiMenu.vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import NoSelectedPage from './NoSelectedPage.vue'
+import { routerInstance } from 'src/boot/router'
+// import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
+// const table = usePembelianTable()
+const slug = 'PBL-'
+// table.getDetailTransaksi().then(() => {
+routerInstance.replace({ name: 'pembelian', params: { slug } })
+// })
 const route = useRoute()
 const path = computed(() => route.path)
 </script>
