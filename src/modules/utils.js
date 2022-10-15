@@ -153,7 +153,18 @@ const changeArrayIndex = (array, from, to) => {
   array.splice(toIn, 0, element)
 }
 
+const detailBesar = (qty, pengali) => {
+  return Math.floor(qty / pengali)
+}
+const detailKecil = (qty, pengali) => {
+  const temp = ((qty / pengali) - Math.floor(qty / pengali)) * pengali
+  console.log('kecil', temp)
+  return Math.round(temp)
+}
+
 export {
+  detailKecil,
+  detailBesar,
   notifSuccess,
   notifErr,
   notifErrVue,

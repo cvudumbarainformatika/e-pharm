@@ -26,7 +26,7 @@ import NoSelectedPage from './NoSelectedPage.vue'
 import { routerInstance } from 'src/boot/router'
 // import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
 // const table = usePembelianTable()
-const slug = 'PBL-'
+const slug = routerInstance.currentRoute.value.params.slug
 // table.getDetailTransaksi().then(() => {
 routerInstance.replace({ name: 'pembelian', params: { slug } })
 // })

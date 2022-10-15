@@ -108,12 +108,45 @@
           </q-td>
           <q-td>
             <app-input
+              v-model="table.satuan.besar"
+              class="text-right"
+              label=" "
+              type="number"
+              @update:model-value="table.inputSatuanBesar"
+              @keyup.enter="table.onEnter"
+            />
+            {{ table.namaSatuan.besar }}
+          </q-td>
+          <q-td>
+            <app-input
+              v-model="table.satuan.kecil"
+              class="text-right"
+              label=" "
+              type="number"
+              @update:model-value="table.inputSatuanKecil"
+              @keyup.enter="table.onEnter"
+            />
+            {{ table.namaSatuan.kecil }}
+          </q-td>
+          <q-td>
+            {{ table.satuan.pengali }}
+            <!-- <app-input
+              v-model="table.form.qty"
+              class="text-right"
+              label=" iga"
+              type="number"
+              @keyup.enter="table.onEnter"
+            /> -->
+          </q-td>
+          <q-td>
+            <!-- <app-input
               v-model="table.form.qty"
               class="text-right"
               label=" "
               type="number"
               @keyup.enter="table.onEnter"
-            />
+            /> -->
+            {{ table.form.qty }}
           </q-td>
           <q-td>
             <app-input
@@ -158,7 +191,7 @@
           </q-td> -->
           <q-td>
             <strong>
-              {{ formatter.formatRp(parseFloat(formatter.olahUang(table.form.harga_beli)) * table.form.qty) }}
+              {{ formatter.formatRp(parseFloat(formatter.olahUang(table.form.harga_beli)) * parseFloat(table.form.qty)) }}
             </strong>
           </q-td>
         </q-tr>

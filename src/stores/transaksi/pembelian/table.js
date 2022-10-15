@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
-import { notifErrVue } from 'src/modules/utils'
+import { notifErrVue, detailBesar, detailKecil } from 'src/modules/utils'
 import { formatRp, olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
 import { usePembelianDialog } from './form'
@@ -38,6 +38,13 @@ export const usePembelianTable = defineStore('pembelian_table', {
       expired: null,
       update_harga: false
     },
+    satuan: {
+      besar: 0, kecil: 0, pengali: 0
+    },
+    namaSatuan: {
+      besar: '',
+      kecil: ''
+    },
     produks: [],
     columns: [
       {
@@ -60,6 +67,9 @@ export const usePembelianTable = defineStore('pembelian_table', {
         label: 'Expired',
         field: 'expired'
       },
+      { name: 'satuanBesar', align: 'left', label: 'sat. besar', field: (row) => row.product.satuan_besar ? detailBesar(row.qty, row.product.pengali) + ' ' + row.product.satuan_besar.nama : '-' },
+      { name: 'satuan', align: 'left', label: 'sat', field: (row) => row.product.satuan ? detailKecil(row.qty, row.product.pengali) + ' ' + row.product.satuan.nama : '-' },
+      { name: 'pengali', align: 'left', label: 'pengali', field: (row) => row.product ? row.product.pengali : 0 },
       { name: 'qty', align: 'left', label: 'Jumlah', field: 'qty' },
       {
         name: 'harga',
@@ -140,6 +150,11 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.sub_total = 0
       this.form.expired = null
       this.rows = []
+      this.satuan.besar = 0
+      this.satuan.kecil = 0
+      this.satuan.pengali = 0
+      this.namaSatuan.besar = ''
+      this.namaSatuan.kecil = ''
     },
     produkSelected(val) {
       const apem = this.produks
@@ -147,6 +162,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       const produk = apem.filter((data) => {
         return data.id === val
       })
+      console.log(produk[0])
 
       if (produk.length) {
         this.form.product_id = produk[0].id
@@ -155,9 +171,22 @@ export const usePembelianTable = defineStore('pembelian_table', {
         this.form.harga_jual_cust = produk[0].harga_jual_cust
         this.form.harga_jual_umum = produk[0].harga_jual_umum
         this.form.harga_jual_resep = produk[0].harga_jual_resep
-        this.form.qty = 1
+        this.satuan.besar = 1
+        this.satuan.pengali = produk[0].pengali
+        this.form.qty = this.satuan.besar * this.satuan.pengali
+        this.namaSatuan.besar = produk[0].satuanBesar.nama
+        this.namaSatuan.kecil = produk[0].satuan.nama
       }
     },
+    inputSatuanBesar(val) {
+      this.form.qty = parseFloat(this.satuan.besar) * parseFloat(this.satuan.pengali) + parseFloat(this.satuan.kecil)
+      console.log('satuan besar', val)
+    },
+    inputSatuanKecil(val) {
+      this.form.qty = parseFloat(this.satuan.besar) * parseFloat(this.satuan.pengali) + parseFloat(this.satuan.kecil)
+      console.log('satuan kecil', val)
+    },
+
     resetInput() {
       this.form.product_id = ''
       this.form.harga = 0
@@ -166,6 +195,11 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.harga_jual_umum = 0
       this.form.harga_jual_resep = 0
       this.form.qty = 0
+      this.satuan.besar = 0
+      this.satuan.kecil = 0
+      this.satuan.pengali = 0
+      this.namaSatuan.besar = ''
+      this.namaSatuan.kecil = ''
       this.form.expired = null
     },
     onEnter() {
