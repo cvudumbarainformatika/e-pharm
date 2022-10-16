@@ -118,8 +118,8 @@ const inputValue = (value) => {
 }
 
 function filterFn (val, update) {
-  console.log('filterFn ', val)
-  console.log('refAuto', refAuto.value)
+  // console.log('filterFn ', val)
+  // console.log('refAuto', refAuto.value)
   if (val === '') {
     update(() => {
       optionx.value = props.source
@@ -138,7 +138,7 @@ function filterFn (val, update) {
     // } else {
     const needle = val.toLowerCase()
     const arr = refAuto.value.autocomplete
-    console.log('arr', arr)
+    // console.log('arr', arr)
     if (arr === '') {
       optionx.value = props.source.filter(v => v.toLowerCase().indexOf(needle) > -1)
     } else {

@@ -93,7 +93,7 @@
               option-value="id"
               option-label="nama"
               :source="table.produks"
-              @on-select="table.produkSelected"
+              @on-select="produkDipilih"
             />
           </q-td>
           <q-td
@@ -105,7 +105,7 @@
               class="text-right"
               label=" "
               type="number"
-              @keyup.enter="table.onEnter"
+              @keyup.enter="onEnter"
             />
           </q-td>
           <q-td>
@@ -123,34 +123,6 @@
             <strong>
               {{ formatter.formatRp(parseFloat(formatter.olahUang(table.form.harga)) * table.form.qty) }}
             </strong>
-          </q-td>
-        </q-tr>
-        <q-tr>
-          <q-td />
-          <q-td>
-            <div v-if="table.detailLoading">
-              <q-btn
-                flat
-                :loading="table.detailLoading"
-                color="primary"
-              />detail produk sedang diambil ...
-            </div>
-            <div v-if="table.simpanDetailLoading">
-              detail produk sedang disimpan ...
-            </div>
-            <div v-if="table.hapusDetailLoading">
-              detail produk sedang dihapus ...
-            </div>
-            <div v-if="table.produkUpdateLoading">
-              produk sedang di update ...
-            </div>
-            <div v-if="table.produkLoading">
-              <q-btn
-                flat
-                :loading="table.produkLoading"
-                color="primary"
-              /> produk sedang diambil ...
-            </div>
           </q-td>
         </q-tr>
       </template>
@@ -229,6 +201,45 @@
     /> -->
     <DialogPage v-model="store.isOpen" />
 
+    <div v-if="table.detailLoading">
+      <q-btn
+        flat
+        :loading="table.detailLoading"
+        color="primary"
+      />detail produk sedang diambil ...
+    </div>
+    <div v-if="table.simpanDetailLoading">
+      <q-btn
+        flat
+        :loading="table.simpanDetailLoading"
+        color="primary"
+      />
+      detail produk sedang disimpan ...
+    </div>
+    <div v-if="table.hapusDetailLoading">
+      <q-btn
+        flat
+        :loading="table.hapusDetailLoading"
+        color="primary"
+      />
+      detail produk sedang dihapus ...
+    </div>
+    <div v-if="table.produkUpdateLoading">
+      <q-btn
+        flat
+        :loading="table.produkUpdateLoading"
+        color="primary"
+      />
+      produk sedang di update ...
+    </div>
+    <div v-if="table.produkLoading">
+      <q-btn
+        flat
+        :loading="table.produkLoading"
+        color="primary"
+      /> produk sedang diambil ...
+    </div>
+
     <!-- <dokterForm v-model="dokter.isOpen" /> -->
     <!-- <customerForm v-model="dist.isOpen" /> -->
   </div>
@@ -283,6 +294,18 @@ const jumlah = val => {
   }
 }
 
+const produkDipilih = val => {
+  table.produkSelected(val)
+  // refProduk.value.$refs.refAuto.blur()
+  // refJumlah.value.$refs.refInput.focus()
+}
+const onEnter = () => {
+  table.onEnter()
+  refJumlah.value.$refs.refInput.blur()
+  refJumlah.value.$refs.refInput.resetValidation()
+  refProduk.value.$refs.refAuto.resetValidation()
+  refProduk.value.$refs.refAuto.focus()
+}
 const cekRequired = () => {
   store.openDialog()
   const tableReff = ref(null)

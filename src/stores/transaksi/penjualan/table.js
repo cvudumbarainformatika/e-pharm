@@ -9,7 +9,7 @@ import { useDokterTable } from 'src/stores/master/dokter/table'
 import { useCustomerFormStore } from 'src/stores/master/customer/form'
 import { useDokterFormStore } from 'src/stores/master/dokter/form'
 import { usePrintStore } from 'src/stores/print'
-import { findWithAttr } from 'src/modules/utils'
+import { findWithAttr, notifErrVue } from 'src/modules/utils'
 
 export const usePenjualanTable = defineStore('penjualan_table', {
   state: () => ({
@@ -233,12 +233,27 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.harga_jual_resep = 0
       this.form.qty = 0
       this.form.expired = ''
+      console.log('reset input')
     },
     onEnter() {
       const store = usePenjualanDialog()
       // store.form.reff = this.form.reff
       store.setToday()
-      this.simpanDetailTransaksi()
+      this.produkParams.product_id = this.form.product_id
+      const index = findWithAttr(this.produks, 'id', this.form.product_id)
+      const produk = this.produks[index]
+      this.simpanDetailTransaksi().then(() => {
+        this.getSingleProduct().then(data => {
+          this.produks[index] = data
+        })
+      })
+      // produk.keluar.periode = this.form.qty
+
+      // produk.stokSekarang -= this.form.qty
+      if (produk.limit_stok > produk.stokSekarang) {
+        notifErrVue(`stok ${produk.nama} sejumlah ${produk.stokSekarang}, kurang dari limit_stok ${produk.limit_stok}`)
+      }
+      console.log('produk', produk)
     },
 
     setTotal() {
@@ -454,7 +469,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     setForm(value) {
       const store = usePenjualanDialog()
       store.form = value
-      this.form = value
+      // this.form = value
     },
     setExpire(val) {
       const temp = []
@@ -538,6 +553,22 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           })
       })
     },
+    getSingleProduct() {
+      const params = { params: this.produkParams }
+      this.produkUpdateLoading = true
+      return new Promise((resolve, reject) => {
+        api.get('v1/laporan/single-product', params)
+          .then(resp => {
+            this.produkUpdateLoading = false
+            console.log('update produk', resp.data)
+            resolve(resp.data)
+          })
+          .catch(err => {
+            this.produkUpdateLoading = false
+            reject(err)
+          })
+      })
+    },
     simpanDetailTransaksi() {
       const store = usePenjualanDialog()
       const data = store.form
@@ -550,6 +581,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
 
       // console.log('form penjualan', data)
       this.simpanDetailLoading = true
+      this.resetInput()
       return new Promise((resolve, reject) => {
         api
           .post('v1/transaksi/store', data)
@@ -558,7 +590,6 @@ export const usePenjualanTable = defineStore('penjualan_table', {
             // console.log('save detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
-            // this.resetInput()
           })
           .catch((err) => {
             this.simpanDetailLoading = false
