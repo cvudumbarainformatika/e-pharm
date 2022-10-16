@@ -40,7 +40,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       tempo: null,
       kasir_id: null,
       supplier_id: null,
-      status: 0
+      status: 1
     },
     jenises: [
       { nama: 'TUNAI', value: 'tunai' },
@@ -263,7 +263,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       this.loading = true
       this.setReturTotal()
       data.total = retur.form.total
-      data.status = 1
+      data.status = 2
       data.reff = reff
       // console.log('total ', this.form.total)
       // console.log('form ', this.form)

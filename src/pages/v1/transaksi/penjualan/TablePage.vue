@@ -17,6 +17,8 @@
       :loading="table.loading"
       :to-search="table.params.q"
       binary-state-sort
+      style="min-width:800px;"
+      @keydown.capture="keyCheck"
     >
       <template
         #top
@@ -76,7 +78,9 @@
         </div>
       </template>
       <template #top-row>
-        <q-tr>
+        <q-tr
+          @keydown.capture="produk"
+        >
           <!-- <q-td /> -->
           <q-td colspan="2">
             <app-autocomplete-new
@@ -92,20 +96,11 @@
               @on-select="table.produkSelected"
             />
           </q-td>
-          <!-- expired -->
-          <!-- <q-td>
-            <app-autocomplete-new
-              v-model="table.form.expired"
-              dense
-              label=" "
-              autocomplete="name"
-              option-value="value"
-              option-label="name"
-              :source="table.expireds"
-            />
-          </q-td> -->
-          <q-td>
+          <q-td
+            @keydown.capture="jumlah"
+          >
             <app-input
+              ref="refJumlah"
               v-model="table.form.qty"
               class="text-right"
               label=" "
@@ -114,42 +109,16 @@
             />
           </q-td>
           <q-td>
-            <app-input
+            {{ formatter.formatRp(table.form.harga) }}
+            <!-- <app-input
               v-model="table.form.harga"
               class="text-right"
               label=" "
               number
               currency
               @keyup.enter="table.onEnter"
-            />
+            /> -->
           </q-td>
-          <!-- <q-td>
-            <app-input
-              v-model="table.form.harga_jual_umum"
-              class="text-right"
-              label=" "
-              number
-              currency
-            />
-          </q-td>
-          <q-td>
-            <app-input
-              v-model="table.form.harga_jual_resep"
-              class="text-right"
-              label=" "
-              number
-              currency
-            />
-          </q-td>
-          <q-td>
-            <app-input
-              v-model="table.form.harga_jual_cust"
-              class="text-right"
-              label=" "
-              number
-              currency
-            />
-          </q-td> -->
           <q-td>
             <strong>
               {{ formatter.formatRp(parseFloat(formatter.olahUang(table.form.harga)) * table.form.qty) }}
@@ -254,10 +223,10 @@
       <!-- </template>
     </q-card> -->
     </q-table>
-    <app-btn
+    <!-- <app-btn
       label="coba"
       @click="coba"
-    />
+    /> -->
     <DialogPage v-model="store.isOpen" />
 
     <!-- <dokterForm v-model="dokter.isOpen" /> -->
@@ -271,21 +240,48 @@ import { usePenjualanTable } from 'src/stores/transaksi/penjualan/table'
 import { usePenjualanDialog } from 'src/stores/transaksi/penjualan/form'
 import DialogPage from './DialogPage.vue'
 import { routerInstance } from 'src/boot/router'
-// import { Dialog } from 'quasar'
 import { uniqueId } from 'src/modules/utils'
-// import dokterForm from 'src/pages/v1/master/dokter/FormDialog.vue'
-// import customerForm from 'src/pages/v1/master/customer/FormDialog.vue'
-// import { useDokterFormStore } from 'src/stores/master/dokter/form'
-// import { useCustomerFormStore } from 'src/stores/master/customer/form'
-// const dokter = useDokterFormStore()
-// const dist = useCustomerFormStore()
-const refProduk = ref(null)
+// const coba = () => {
+//   console.log(refProduk.value.$refs)
+// }
 const table = usePenjualanTable()
 const store = usePenjualanDialog()
-const coba = () => {
-  console.log(refProduk.value.$refs)
+const keyCheck = val => {
+  console.log('key', val.key)
+  if (val.key === 'F2') {
+    cekRequired()
+  }
 }
-// console.log('distributor ', table.form.customer_id, ' dokter ', table.form.dokter_id)
+
+const refProduk = ref(null)
+const refJumlah = ref(null)
+
+const produk = val => {
+  // console.log('key', val.key)
+  if (val.key === 'ArrowRight') {
+    // console.log('Expired')
+    refJumlah.value.$refs.refInput.focus()
+    refProduk.value.$refs.refAuto.blur()
+  }
+  if (val.key === 'ArrowLeft') {
+    refProduk.value.$refs.refAuto.blur()
+    refJumlah.value.$refs.refInput.focus()
+    // console.log(refHarga.value.$refs)
+  }
+}
+const jumlah = val => {
+  // console.log('key', val.key)
+  if (val.key === 'ArrowRight') {
+    // console.log('Expired')
+    refJumlah.value.$refs.refInput.blur()
+    refProduk.value.$refs.refAuto.focus()
+  }
+  if (val.key === 'ArrowLeft') {
+    refProduk.value.$refs.refAuto.focus()
+    refJumlah.value.$refs.refInput.blur()
+    // console.log(refHarga.value.$refs)
+  }
+}
 
 const cekRequired = () => {
   store.openDialog()

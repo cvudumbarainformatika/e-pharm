@@ -25,7 +25,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       supplier_id: null,
       dokter_id: null,
       customer_id: null,
-      status: 0
+      status: 1
     },
     piutang: false,
     totalSemua: 0,
@@ -61,7 +61,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.potongan = 0
       this.form.bayar = 0
       this.form.kembali = 0
-      this.form.status = 0
+      this.form.status = 1
     },
     setToday() {
       const date = new Date()
@@ -161,7 +161,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.potongan = potongan
       this.form.bayar = bayar
       this.form.kembali = kembali
-      this.form.status = 1
+      this.form.status = 2
       this.print.form = this.form
       // console.log('kasir', kasir)
       // console.log(this.form)

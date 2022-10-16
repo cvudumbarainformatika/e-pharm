@@ -86,7 +86,7 @@
             key="status"
             :props="props"
           >
-            <div v-if="props.row.status === 1">
+            <div v-if="props.row.status === 2">
               <q-chip
                 color="primary"
                 label="Complete"
@@ -150,7 +150,7 @@
             :props="props"
           >
             <div
-              v-if="props.row.status === 0"
+              v-if="props.row.status === 1"
               @click="table.openTransaction(props)"
             >
               <q-avatar
@@ -160,7 +160,7 @@
                 clickable
               />
             </div>
-            <div v-if="props.row.status === 1">
+            <div v-if="props.row.status > 1">
               <q-avatar
                 text-color="primary"
                 :color="table.dark === true ? 'dark':'white'"

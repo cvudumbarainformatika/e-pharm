@@ -22,7 +22,7 @@ export const useReturDialog = defineStore('retur_store', {
       tempo: null,
       kasir_id: null,
       supplier_id: null,
-      status: 0
+      status: 1
     },
     totalSemua: 0,
     jenises: [
@@ -56,7 +56,7 @@ export const useReturDialog = defineStore('retur_store', {
       this.form.tempo = null
       this.form.kasir_id = null
       this.form.supplier_id = null
-      this.form.status = 0
+      this.form.status = 1
     },
     setToday() {
       const date = new Date()
@@ -116,7 +116,7 @@ export const useReturDialog = defineStore('retur_store', {
       this.form.potongan = potongan
       this.form.bayar = bayar
       this.form.kembali = kembali
-      this.form.status = 1
+      this.form.status = 2
       // console.log('form', this.form)
       this.loading = true
       return new Promise((resolve, reject) => {

@@ -17,7 +17,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         tanggal: null,
         kasir_id: null,
         customer_id: null,
-        status: 0,
+        status: 1,
 
         sub_total: 0,
         penerimaan_id: null,
@@ -39,7 +39,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         this.setForm('nama', 'PENERIMAAN')
         this.setForm('reff', null)
         this.setForm('total', 0)
-        this.setForm('status', 0)
+        this.setForm('status', 1)
         this.setForm('tanggal', null)
         this.setForm('kasir_id', null)
         this.setForm('penerimaan_id', null)
@@ -163,7 +163,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         this.form.reff = 'TRM-' + uniqueId()
         const data = hurufBesar(this.form.nama)
         this.form.nama = data
-        this.setForm('status', 1)
+        this.setForm('status', 2)
         const total = olahUang(this.form.sub_total)
         this.form.sub_total = total
         this.setForm('total', this.form.sub_total)

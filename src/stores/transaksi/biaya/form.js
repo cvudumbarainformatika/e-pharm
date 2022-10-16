@@ -15,7 +15,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       tanggal: null,
       kasir_id: null,
       supplier_id: null,
-      status: 0,
+      status: 1,
       sub_total: 0,
       beban_id: null,
       keterangan: ''
@@ -36,7 +36,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       this.setForm('nama', 'BEBAN')
       this.setForm('reff', null)
       this.setForm('total', 0)
-      this.setForm('status', 0)
+      this.setForm('status', 1)
       this.setForm('tanggal', null)
       this.setForm('kasir_id', null)
       this.setForm('beban_id', null)
@@ -158,7 +158,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       this.form.reff = 'BBN-' + uniqueId()
       const data = hurufBesar(this.form.nama)
       this.form.nama = data
-      this.setForm('status', 1)
+      this.setForm('status', 2)
       const total = olahUang(this.form.sub_total)
       this.form.sub_total = total
       this.setForm('total', this.form.sub_total)

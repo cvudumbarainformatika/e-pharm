@@ -386,10 +386,6 @@ const harga = val => {
 }
 const keyCheck = val => {
   console.log('key', val.key)
-  // console.log('refProduk', refProduk.value.$refs)
-  // console.log('refBesar', refBesar.value.$refs)
-  // console.log('refKecil', refKecil.value.$refs)
-  // console.log('refHarga', refHarga.value.$refs)
   if (val.key === 'F2') {
     // alert('tembol F2 ditekan')
     cekRequired()

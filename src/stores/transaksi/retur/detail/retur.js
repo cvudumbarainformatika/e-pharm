@@ -36,7 +36,7 @@ export const useReturTable = defineStore('retur_table', {
       tempo: null,
       kasir_id: null,
       supplier_id: null,
-      status: 0
+      status: 1
     },
     jenises: [
       { nama: 'TUNAI', value: 'tunai' },
@@ -133,7 +133,7 @@ export const useReturTable = defineStore('retur_table', {
       this.form.tempo = null
       this.form.kasir_id = null
       this.form.supplier_id = null
-      this.form.status = 0
+      this.form.status = 1
       this.rows = []
     },
     resetInput() {
@@ -272,7 +272,7 @@ export const useReturTable = defineStore('retur_table', {
       const reff = 'R' + routerInstance.currentRoute.value.params.slug
       this.form.reff = reff
       this.loading = true
-      this.form.status = 1
+      this.form.status = 2
       return new Promise((resolve, reject) => {
         api
           .post('v1/transaksi/store', this.form)
