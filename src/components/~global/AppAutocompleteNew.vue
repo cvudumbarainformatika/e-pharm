@@ -45,7 +45,7 @@
 
 <script setup>
 import { ref } from 'vue'
-const emits = defineEmits(['on-enter', 'getSource', 'set-model', 'buang', 'clear', 'on-select'])
+const emits = defineEmits(['on-enter', 'getSource', 'set-model', 'buang', 'clear', 'on-select', 'em-ref'])
 const props = defineProps({
   source: { type: Array, default: () => [] },
   label: { type: String, default: 'Label' },
@@ -56,7 +56,8 @@ const props = defineProps({
   optionLabel: { type: [Object, Array, String], default: 'nama' },
   filled: { type: Boolean, default: true },
   outlined: { type: Boolean, default: false },
-  valid: { type: Boolean, default: false }
+  valid: { type: Boolean, default: false },
+  fokus: { type: Boolean, default: false }
 })
 const optionx = ref([])
 const refAuto = ref(null)
@@ -144,6 +145,10 @@ function anotherValid (val) {
 // watch(() => props.source, (obj) => {
 //   console.log('watch', obj)
 //   optionx.value = obj
+// })
+// watch(() => props.fokus, (obj) => {
+//   console.log('watch', obj)
+//   // optionx.value = obj
 // })
 </script>
 

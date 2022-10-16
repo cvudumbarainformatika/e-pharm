@@ -80,6 +80,7 @@
           <!-- <q-td /> -->
           <q-td colspan="2">
             <app-autocomplete-new
+              ref="refProduk"
               v-model="table.form.product_id"
               autofocus
               dense
@@ -155,6 +156,34 @@
             </strong>
           </q-td>
         </q-tr>
+        <q-tr>
+          <q-td />
+          <q-td>
+            <div v-if="table.detailLoading">
+              <q-btn
+                flat
+                :loading="table.detailLoading"
+                color="primary"
+              />detail produk sedang diambil ...
+            </div>
+            <div v-if="table.simpanDetailLoading">
+              detail produk sedang disimpan ...
+            </div>
+            <div v-if="table.hapusDetailLoading">
+              detail produk sedang dihapus ...
+            </div>
+            <div v-if="table.produkUpdateLoading">
+              produk sedang di update ...
+            </div>
+            <div v-if="table.produkLoading">
+              <q-btn
+                flat
+                :loading="table.produkLoading"
+                color="primary"
+              /> produk sedang diambil ...
+            </div>
+          </q-td>
+        </q-tr>
       </template>
       <!-- cell props -->
       <template #body-cell-id="props">
@@ -225,6 +254,10 @@
       <!-- </template>
     </q-card> -->
     </q-table>
+    <app-btn
+      label="coba"
+      @click="coba"
+    />
     <DialogPage v-model="store.isOpen" />
 
     <!-- <dokterForm v-model="dokter.isOpen" /> -->
@@ -246,10 +279,12 @@ import { uniqueId } from 'src/modules/utils'
 // import { useCustomerFormStore } from 'src/stores/master/customer/form'
 // const dokter = useDokterFormStore()
 // const dist = useCustomerFormStore()
-
+const refProduk = ref(null)
 const table = usePenjualanTable()
 const store = usePenjualanDialog()
-
+const coba = () => {
+  console.log(refProduk.value.$refs)
+}
 // console.log('distributor ', table.form.customer_id, ' dokter ', table.form.dokter_id)
 
 const cekRequired = () => {

@@ -1,7 +1,5 @@
 import { defineStore } from 'pinia'
-import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
-import { waitLoad } from 'src/modules/utils'
 import { dateExpire, formatRp, olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
 import { usePenjualanDialog } from './form'
@@ -14,6 +12,11 @@ import { usePrintStore } from 'src/stores/print'
 
 export const usePenjualanTable = defineStore('penjualan_table', {
   state: () => ({
+    produkLoading: false,
+    produkUpdateLoading: false,
+    detailLoading: false,
+    simpanDetailLoading: false,
+    hapusDetailLoading: false,
     items: [],
     meta: {},
     item: {},
@@ -69,7 +72,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       //   label: 'Expired',
       //   field: (row) => dateExpire(row.expired)
       // },
-      { name: 'qty', align: 'left', label: 'Qty', field: 'qty' },
+      { name: 'qty', align: 'left', label: 'Jumlah', field: 'qty' },
       {
         name: 'harga',
         align: 'left',
@@ -362,9 +365,18 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     // api related function
     // ambil data produk seluruhnya
     ambilDataProduk() {
-      const produk = useProdukTable()
-      produk.getDataTable().then((resp) => {
-        this.produks = resp
+      this.produkLoading = true
+      return new Promise((resolve, reject) => {
+        api.get('v1/produk/all-product')
+          .then(resp => {
+            console.log('produk penjualan', resp.data)
+            this.produkLoading = false
+            this.produks = resp.data.data
+            resolve(resp.data.data)
+          }).catch(err => {
+            reject(err)
+            this.produkLoading = false
+          })
       })
     },
     // ambil data expired
@@ -387,7 +399,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     // ambil data transaksi
     getDetailTransaksi(val) {
       // console.log('get detail transaksi ', val)
-      waitLoad('show')
+      this.detailLoading = true
       let slug = ''
       if (val === undefined) {
         slug = routerInstance.currentRoute.value.params.slug
@@ -400,7 +412,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         api
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
-            waitLoad('done')
+            this.detailLoading = false
             // console.log('penjualan ', resp.data.data[0])
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
@@ -415,7 +427,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
             }
           })
           .catch((err) => {
-            waitLoad('done')
+            this.detailLoading = false
             reject(err)
           })
       })
@@ -431,36 +443,36 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       if (this.form.expired !== null) { data.expired = this.form.expired }
 
       // console.log('form penjualan', data)
-      waitLoad('show')
+      this.simpanDetailLoading = true
       return new Promise((resolve, reject) => {
         api
           .post('v1/transaksi/store', data)
           .then((resp) => {
-            waitLoad('done')
+            this.simpanDetailLoading = false
             // console.log('save detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
             // this.resetInput()
           })
           .catch((err) => {
-            waitLoad('done')
+            this.simpanDetailLoading = false
             reject(err)
           })
       })
     },
     hapusDetailTransaksi(params) {
-      waitLoad('show')
+      this.hapusDetailLoading = true
       return new Promise((resolve, reject) => {
         api
           .post('v1/detail-transaksi/destroy', params)
           .then((resp) => {
-            waitLoad('done')
+            this.hapusDetailLoading = false
             // console.log('hapus detail ', resp)
             resolve(resp.data.data)
             this.getDetailTransaksi()
           })
           .catch((err) => {
-            waitLoad('done')
+            this.hapusDetailLoading = false
             reject(err)
           })
       })
