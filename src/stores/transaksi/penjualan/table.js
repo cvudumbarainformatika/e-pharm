@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { api } from 'boot/axios'
 import { dateExpire, formatRp, olahUang } from 'src/modules/formatter'
-import { Dialog } from 'quasar'
+import { date, Dialog } from 'quasar'
 import { usePenjualanDialog } from './form'
 import { routerInstance } from 'src/boot/router'
 import { useCustomerTable } from 'src/stores/master/customer/table'
@@ -9,6 +9,7 @@ import { useDokterTable } from 'src/stores/master/dokter/table'
 import { useCustomerFormStore } from 'src/stores/master/customer/form'
 import { useDokterFormStore } from 'src/stores/master/dokter/form'
 import { usePrintStore } from 'src/stores/print'
+import { findWithAttr } from 'src/modules/utils'
 
 export const usePenjualanTable = defineStore('penjualan_table', {
   state: () => ({
@@ -43,6 +44,11 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       customer_id: null,
       expired: null,
       dokter_id: null
+    },
+    produkParams: {
+      q: '',
+      from: date.formatDate(Date.now(), 'YYYY-MM-DD')
+      // selection: 'selection'
     },
     produks: [],
     distributors: [],
@@ -267,6 +273,102 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       // console.log('params ', params)
       // console.log('val ', val.row.id)
     },
+    prosesData(val) {
+      const product = val.product
+      const stok = val
+      product.forEach((data) => {
+        data.keluar = {}
+        data.masuk = {}
+        data.returPembelian = {}
+        data.returPenjualan = {}
+        data.penyesuaian = {}
+      })
+      product.forEach((data) => {
+        const keluarB = stok.keluar.before
+          ? findWithAttr(stok.keluar.before, 'product_id', data.id)
+          : -1
+        const keluarP = stok.keluar.period
+          ? findWithAttr(stok.keluar.period, 'product_id', data.id)
+          : -1
+        const masukB = stok.masuk.before
+          ? findWithAttr(stok.masuk.before, 'product_id', data.id)
+          : -1
+        const masukP = stok.masuk.period
+          ? findWithAttr(stok.masuk.period, 'product_id', data.id)
+          : -1
+        const returPembelianB = stok.returPembelian.before
+          ? findWithAttr(stok.returPembelian.before, 'product_id', data.id)
+          : -1
+        const returPembelianP = stok.returPembelian.period
+          ? findWithAttr(stok.returPembelian.period, 'product_id', data.id)
+          : -1
+        const returPenjualanB = stok.returPenjualan.before
+          ? findWithAttr(stok.returPenjualan.before, 'product_id', data.id)
+          : -1
+        const returPenjualanP = stok.returPenjualan.period
+          ? findWithAttr(stok.returPenjualan.period, 'product_id', data.id)
+          : -1
+        const penyesuaianB = stok.penyesuaian.before
+          ? findWithAttr(stok.penyesuaian.before, 'product_id', data.id)
+          : -1
+        const penyesuaianP = stok.penyesuaian.period
+          ? findWithAttr(stok.penyesuaian.period, 'product_id', data.id)
+          : -1
+
+        data.keluar.before = stok.keluar.before[keluarB]
+          ? stok.keluar.before[keluarB].jml
+          : 0
+        data.keluar.periode = stok.keluar.period[keluarP]
+          ? stok.keluar.period[keluarP].jml
+          : 0
+        data.masuk.before = stok.masuk.before[masukB]
+          ? stok.masuk.before[masukB].jml
+          : 0
+        data.masuk.periode = stok.masuk.period[masukP]
+          ? stok.masuk.period[masukP].jml
+          : 0
+        data.returPembelian.before = stok.returPembelian.before[returPembelianB]
+          ? stok.returPembelian.before[returPembelianB].jml
+          : 0
+        data.returPembelian.periode = stok.returPembelian.period[
+          returPembelianP
+        ]
+          ? stok.returPembelian.period[returPembelianP].jml
+          : 0
+        data.returPenjualan.before = stok.returPenjualan.before[returPenjualanB]
+          ? stok.returPenjualan.before[returPenjualanB].jml
+          : 0
+        data.returPenjualan.periode = stok.returPenjualan.period[
+          returPenjualanP
+        ]
+          ? stok.returPenjualan.period[returPenjualanP].jml
+          : 0
+        data.penyesuaian.before = stok.penyesuaian.before[penyesuaianB]
+          ? stok.penyesuaian.before[penyesuaianB].jml
+          : 0
+        data.penyesuaian.periode = stok.penyesuaian.period[penyesuaianP]
+          ? stok.penyesuaian.period[penyesuaianP].jml
+          : 0
+        // sebelum
+        data.stokSebelum =
+          data.masuk.before -
+          data.keluar.before +
+          data.returPenjualan.before -
+          data.returPembelian.before +
+          data.penyesuaian.before
+        // berjalan
+        data.stokBerjalan =
+          data.masuk.periode -
+          data.keluar.periode +
+          data.returPenjualan.periode -
+          data.returPembelian.periode +
+          data.penyesuaian.periode
+        data.stok_awal += data.stokSebelum
+        data.stokSekarang = data.stok_awal + data.stokBerjalan
+      })
+      this.produks = product
+      console.log('produk', product)
+    },
 
     // api related functions
     // get from another pinia file
@@ -365,13 +467,17 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     // api related function
     // ambil data produk seluruhnya
     ambilDataProduk() {
+      const params = {
+        params: this.produkParams
+      }
       this.produkLoading = true
       return new Promise((resolve, reject) => {
-        api.get('v1/produk/all-product')
+        api.get('v1/laporan/all-stok', params)
           .then(resp => {
             console.log('produk penjualan', resp.data)
             this.produkLoading = false
-            this.produks = resp.data.data
+            this.prosesData(resp.data)
+            // this.produks = resp.data.data
             resolve(resp.data.data)
           }).catch(err => {
             reject(err)

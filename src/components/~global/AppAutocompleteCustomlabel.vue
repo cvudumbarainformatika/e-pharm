@@ -40,16 +40,12 @@
         name="option"
         :scope="scope"
       />
-      <!-- <q-item v-bind="scope.itemProps">
+      <q-item v-bind="scope.itemProps">
         <q-item-section>
-          {{ typeof(props.optionlabel) }}
-          <div v-if="typeof(props.optionlabel)==='string'">
-            {{ scope.opt[optionlabel] }}
-          </div>
-          <div v-else>
-          </div>
+          <q-item-label>{{ scope.opt.nama }}</q-item-label>
+          <q-item-label> Stok : {{ scope.opt.stokSekarang }}</q-item-label>
         </q-item-section>
-      </q-item> -->
+      </q-item>
     </template>
     <template #no-option>
       <q-item>

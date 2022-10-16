@@ -83,7 +83,7 @@
         >
           <!-- <q-td /> -->
           <q-td colspan="2">
-            <app-autocomplete-new
+            <app-autocomplete-customlabel
               ref="refProduk"
               v-model="table.form.product_id"
               autofocus
