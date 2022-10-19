@@ -121,21 +121,23 @@
             >
               Status : TUNAI
               <span v-if="props.row.kasir!==null">, Kasir : {{ props.row.kasir!==null?props.row.kasir.name:'' }}</span>
-              <span v-if="props.row.customer!==null">, Distributor : {{ props.row.customer!==null?props.row.customer.nama:'' }}</span>
+              <span v-if="props.row.customer!==null">, Customer : {{ props.row.customer!==null?props.row.customer.nama:'' }}</span>
               <span v-if="props.row.dokter!==null">, Dokter : {{ props.row.dokter!==null?props.row.dokter.nama:'' }}</span>
-              <span v-if="props.row.supplier!==null">, Supplier : {{ props.row.supplier!==null?props.row.supplier.nama:'' }}</span>
+              <span v-if="props.row.supplier!==null">, Distributor : {{ props.row.supplier!==null?props.row.supplier.nama:'' }}</span>
             </div>
             <div
               v-if="props.row.jenis==='hutang'"
               class="text-caption text-italic"
             >
-              Status : HUTANG, <span v-if="props.row.supplier!==null"> Supplier : {{ props.row.supplier!==null?props.row.supplier.nama:'' }}</span>
+              Status : HUTANG, <span v-if="props.row.supplier!==null"> Distributor : {{ props.row.supplier!==null?props.row.supplier.nama:'' }}</span>
             </div>
             <div
               v-if="props.row.jenis==='piutang'"
               class="text-caption text-italic"
             >
-              Status : PIUTANG, <span v-if="props.row.customer!==null"> Distributor : {{ props.row.customer!==null?props.row.customer.nama:'' }}</span>
+              Status : PIUTANG,
+              <span v-if="props.row.customer!==null"> Customer : {{ props.row.customer!==null?props.row.customer.nama:'' }}</span>
+              <span v-if="props.row.dokter!==null"> Dokter : {{ props.row.dokter!==null?props.row.dokter.nama:'' }}</span>
             </div>
             <div
               v-if="props.row.jenis==='hutang' || props.row.jenis==='piutang' "

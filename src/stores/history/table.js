@@ -18,7 +18,7 @@ export const useHistoryTable = defineStore('history_table', {
       q: '',
       page: 1,
       per_page: 5,
-      order_by: 'created_at',
+      order_by: 'tanggal',
       sort: 'desc'
     }
   }),

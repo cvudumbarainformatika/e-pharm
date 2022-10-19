@@ -140,6 +140,7 @@
               />
             </div>
           </div>
+          <!-- jenis : {{ store.form.jenis }} -->
           <div
             v-if="store.form.jenis == 'tunai'"
             class="row q-col-gutter-md items-center"
@@ -147,6 +148,7 @@
             <div class="col-md-12">
               <app-input
                 v-model="store.form.bayar"
+                autofocus
                 label=" Pembayaran"
                 outlined
                 prefix="Rp "
@@ -163,6 +165,7 @@
             <div class="col-md-12">
               <app-input
                 v-model="store.form.kembali"
+                readonly
                 label=" Kembalian"
                 outlined
                 prefix="Rp "

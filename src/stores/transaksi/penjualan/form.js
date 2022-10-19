@@ -25,7 +25,8 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       supplier_id: null,
       dokter_id: null,
       customer_id: null,
-      status: 1
+      status: 1,
+      pasien: {}
     },
     piutang: false,
     totalSemua: 0,
@@ -62,6 +63,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.bayar = 0
       this.form.kembali = 0
       this.form.status = 1
+      this.form.pasien = null
     },
     setToday() {
       const date = new Date()
@@ -99,13 +101,21 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.dokter = table.dokter
       this.form.distributor = table.distributor
       this.form.dokter = table.dokter
+      this.form.pasien = table.dataPasien !== {} ? table.dataPasien : null
+      if (table.form.dokter_id !== null && table.pasien === 'BPJS') {
+        this.form.jenis = 'piutang'
+      } else {
+        this.form.jenis = 'tunai'
+      }
       this.totalSeluruhnya()
       this.setOpen()
       this.print.form = this.form
     },
     setOpen() {
       this.isOpen = !this.isOpen
-      this.form.jenis = 'tunai'
+    },
+    setForm(key, val) {
+      this.form[key] = val
     },
     searchSupplier(val) {
       this.ambilDataSupplier(val)
@@ -169,7 +179,9 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
         notifErrVue('periksa input bayar')
         return
       }
-      if (this.printChek) { window.print() }
+      if (this.printChek) {
+        window.print()
+      }
       // console.log('form', this.form)
       this.loading = true
       return new Promise((resolve, reject) => {

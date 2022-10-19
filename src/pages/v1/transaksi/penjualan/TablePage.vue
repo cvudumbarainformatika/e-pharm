@@ -17,7 +17,7 @@
       :loading="table.loading"
       :to-search="table.params.q"
       binary-state-sort
-      style="min-width:800px;"
+      style="min-width:850px;"
       @keydown.capture="keyCheck"
     >
       <template
@@ -60,6 +60,29 @@
             <!-- @buang="table.cariDokter" -->
             <!-- @set-model="store.searchSupplier" -->
           </div>
+          <!-- :disable="table.form.customer_id === null && table.rows.length == 0 ? false : true " -->
+          <!-- v-if="table.form.dokter_id !== null" -->
+          <div
+            v-if="table.form.dokter_id !== null"
+            class="row q-mb-sm"
+          >
+            <app-autocomplete-new
+              v-model="table.pasien"
+              label="Umum / BPJS"
+              autocomplete="nama"
+              option-value="value"
+              option-label="nama"
+              :source="table.jenises"
+              :loading="table.loading"
+              valid
+              @on-select="table.jenisPasienSelect"
+            />
+            <!-- @on-enter="table.addDokter" -->
+            <!-- @on-select="table.dokterSelected" -->
+            <!-- outlined -->
+            <!-- @buang="table.cariDokter" -->
+            <!-- @set-model="store.searchSupplier" -->
+          </div>
         </div>
         <div class="col-6">
           <div class="text-h6">
@@ -76,6 +99,58 @@
             Total : {{ formatter.formatRp(table.form.total) }}
           </div>
         </div>
+        <!-- <div class="q-gutter-sm"> -->
+        <!--   <div class="row"> -->
+        <!-- {{ table.pasien }} -->
+        <div
+          v-if="table.pasien === 'BPJS'"
+          class="col-2 q-mr-sm"
+          @keydown.capture="kartu"
+        >
+          <app-input
+            ref="refNoka"
+            v-model="table.dataPasien.nokartu"
+            label="Nomor Kartu"
+          />
+        </div>
+        <div
+          v-if="table.pasien === 'BPJS'"
+          class="col-2 q-mr-sm"
+          @keydown.capture="resep"
+        >
+          <app-input
+            ref="refNore"
+            v-model="table.dataPasien.noresep"
+            label="Nomor Resep"
+          />
+        </div>
+        <div
+          v-if="table.pasien === 'BPJS'"
+          class="col-2 q-mr-sm"
+          @keydown.capture="nama"
+        >
+          <app-input
+            ref="refNapa"
+            v-model="table.dataPasien.nama"
+            label="Nama Pasien"
+          />
+        </div>
+        <div
+          v-if="table.pasien === 'BPJS'"
+          class="col-4"
+          @keydown.capture="alamat"
+        >
+          <app-input
+            ref="refAla"
+            v-model="table.dataPasien.alamat"
+            label="Alamat"
+          />
+        </div>
+        <!-- <div class="col-2">
+                      <app-input label="nomor kartu" v-model="table.dataPasien.noKartu" />
+                      </div> -->
+        <!-- </div> -->
+        <!-- </div> -->
       </template>
       <template #top-row>
         <q-tr
@@ -105,19 +180,12 @@
               class="text-right"
               label=" "
               type="number"
-              @keyup.enter="onEnter"
+              @blur="updateQty"
+              @keyup.enter="updateQty"
             />
           </q-td>
           <q-td>
             {{ formatter.formatRp(table.form.harga) }}
-            <!-- <app-input
-              v-model="table.form.harga"
-              class="text-right"
-              label=" "
-              number
-              currency
-              @keyup.enter="table.onEnter"
-            /> -->
           </q-td>
           <q-td>
             <strong>
@@ -251,7 +319,7 @@ import { usePenjualanTable } from 'src/stores/transaksi/penjualan/table'
 import { usePenjualanDialog } from 'src/stores/transaksi/penjualan/form'
 import DialogPage from './DialogPage.vue'
 import { routerInstance } from 'src/boot/router'
-import { uniqueId } from 'src/modules/utils'
+import { notifErrCenterVue, uniqueId } from 'src/modules/utils'
 // const coba = () => {
 //   console.log(refProduk.value.$refs)
 // }
@@ -294,21 +362,104 @@ const jumlah = val => {
   }
 }
 
+const refNoka = ref(null)
+const refNore = ref(null)
+const refNapa = ref(null)
+const refAla = ref(null)
+
+const kartu = val => {
+  // console.log('key', val.key)
+  if (val.key === 'ArrowRight') {
+    // console.log('Expired')
+    refNoka.value.$refs.refInput.blur()
+    refNore.value.$refs.refInput.focus()
+  }
+  if (val.key === 'ArrowLeft') {
+    refAla.value.$refs.refInput.focus()
+    refNoka.value.$refs.refInput.blur()
+    // console.log(refHarga.value.$refs)
+  }
+}
+const resep = val => {
+  // console.log('key', val.key)
+  if (val.key === 'ArrowRight') {
+    // console.log('Expired')
+    refNore.value.$refs.refInput.blur()
+    refNapa.value.$refs.refInput.focus()
+  }
+  if (val.key === 'ArrowLeft') {
+    refNoka.value.$refs.refInput.focus()
+    refNore.value.$refs.refInput.blur()
+    // console.log(refHarga.value.$refs)
+  }
+}
+const nama = val => {
+  // console.log('key', val.key)
+  if (val.key === 'ArrowRight') {
+    // console.log('Expired')
+    refNapa.value.$refs.refInput.blur()
+    refAla.value.$refs.refInput.focus()
+  }
+  if (val.key === 'ArrowLeft') {
+    refNore.value.$refs.refInput.focus()
+    refNapa.value.$refs.refInput.blur()
+    // console.log(refHarga.value.$refs)
+  }
+}
+const alamat = val => {
+  // console.log('key', val.key)
+  if (val.key === 'ArrowRight') {
+    // console.log('Expired')
+    refAla.value.$refs.refInput.blur()
+    refNoka.value.$refs.refInput.focus()
+  }
+  if (val.key === 'ArrowLeft') {
+    refNapa.value.$refs.refInput.focus()
+    refAla.value.$refs.refInput.blur()
+    // console.log(refHarga.value.$refs)
+  }
+}
+
 const produkDipilih = val => {
   table.produkSelected(val)
   // refProduk.value.$refs.refAuto.blur()
   // refJumlah.value.$refs.refInput.focus()
 }
-const onEnter = () => {
+const updateQty = val => {
+  // console.log('table qty', table.form.qty)
+  // console.log('table id', table.form.product_id)
+  // console.log('table harga', table.form.harga)
+  store.setForm('product_id', table.produk.id)
+  store.setForm('harga', parseFloat(table.form.harga))
+  store.setForm('qty', parseFloat(table.form.qty))
+  store.setForm('sub_total', parseFloat(table.form.qty) * parseFloat(table.form.harga))
+  if (table.dataPasien.nokartu || table.dataPasien.noresep || table.dataPasien.nama || table.dataPasien.alamat) {
+    store.form.pasien = table.dataPasien
+  }
   table.onEnter()
   refJumlah.value.$refs.refInput.blur()
+  refProduk.value.$refs.refAuto.focus()
   refJumlah.value.$refs.refInput.resetValidation()
   refProduk.value.$refs.refAuto.resetValidation()
-  refProduk.value.$refs.refAuto.focus()
 }
+// const onEnter = () => {
+//   onEnter()
+//   console.log('onEnter', table.form)
+//   setTimeout(() => {
+//   }, 100)
+// }
 const cekRequired = () => {
+  if (!table.rows.length) { return notifErrCenterVue('belum ada input Produk tercatat, tekan enter pada kolom jumlah jika ada telah memilih produk') }
+  if (table.pasien === 'BPJS') {
+    if (!table.dataPasien.nokartu || !table.dataPasien.noresep || !table.dataPasien.nama || !table.dataPasien.alamat) { return notifErrCenterVue('data pasien BPJS belum lengkap') }
+    store.form.jenis = 'piutang'
+    store.piutang = true
+  }
   store.openDialog()
   const tableReff = ref(null)
+
+  refJumlah.value.$refs.refInput.resetValidation()
+  refProduk.value.$refs.refAuto.resetValidation()
   console.log('table reff', tableReff)
 }
 const newTransaction = () => {

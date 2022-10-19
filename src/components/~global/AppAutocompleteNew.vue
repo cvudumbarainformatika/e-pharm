@@ -24,6 +24,7 @@
     @input-value="inputValue"
     @clear="clear"
   >
+    <!-- @keydown.capture="ceptureKey" -->
     <!-- <template
       v-if="icon"
       #append
@@ -67,6 +68,12 @@ function fetchData () {
     optionx.value = props.source
   }
 }
+// const ceptureKey = val => {
+//   console.log('key', val)
+//   if (val === 'Tab') {
+//     selected()
+//   }
+// }
 const selected = (val) => {
   emits('on-select', val)
 }

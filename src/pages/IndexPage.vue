@@ -5,6 +5,20 @@
         Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptate provident neque eveniet id qui velit expedita consectetur voluptates, laborum vel, animi unde est voluptatum architecto optio assumenda consequatur aut. Facere!
       </q-card-section>
       <q-card-section>
+        <q-input
+          label="Coba"
+          no-caps
+          outlined
+          dense
+        />
+        <q-btn
+          label="Apem"
+          no-caps
+          color="primary"
+          flat
+        />
+      </q-card-section>
+      <q-card-section>
         <app-autocomplete-customlabel
           v-model="model"
           outlined
