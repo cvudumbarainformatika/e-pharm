@@ -8,7 +8,7 @@
         clearable
         option-value="id"
         option-label="nama"
-        label="Cari Data Transaksi Pembelian"
+        label="Cari Data Transaksi Penjualan"
         :options="options"
         behavior="menu"
         hide-dropdown-icon
@@ -39,7 +39,7 @@
                 {{ scope.opt.jenis.toUpperCase() }}
               </q-item-label>
               <q-item-label caption>
-                {{ dateFullFormat(scope.opt.tanggal) }}
+                {{ dateHumanHour(scope.opt.tanggal) }}
               </q-item-label>
             </q-item-section>
           </q-item>
@@ -56,8 +56,8 @@
       <q-card-section v-if="model">
         <div class="flex">
           <div class="right__side column">
-            <div>Nota : <strong>{{ model.reff }}</strong>  </div>
-            <div>Tanggal : <strong>{{ dateFullFormat(model.tanggal) }}</strong>  </div>
+            <div>Nota : <strong>{{ model.reff }}</strong> </div>
+            <div>Tanggal : <strong>{{ dateHumanHour(model.tanggal) }}</strong> </div>
             <div v-if="model.faktur!==null">
               Faktur : <strong>{{ model.faktur }}</strong>
             </div>
@@ -76,7 +76,7 @@
             <div v-if="model.supplier !== null || model.customer!==null">
               Tempo : <strong>{{ dateFormat(model.tempo) }}</strong>
             </div>
-            <div>Total : <strong>{{ formatRp(model.total) }}</strong>  </div>
+            <div>Total : <strong>{{ formatRp(model.total) }}</strong> </div>
           </div>
         </div>
         <q-separator class="q-my-md" />
@@ -121,7 +121,7 @@
 <script setup>
 import { api } from 'src/boot/axios'
 import { ref } from 'vue'
-import { formatRp, dateFormat, dateFullFormat } from 'src/modules/formatter'
+import { formatRp, dateFormat, dateHumanHour } from 'src/modules/formatter'
 import { routerInstance } from 'src/boot/router'
 import { useReturDetailTable } from 'src/stores/transaksi/retur/detail/transaction'
 import { useReturTable } from 'src/stores/transaksi/retur/detail/retur'
@@ -129,7 +129,7 @@ import { useReturTable } from 'src/stores/transaksi/retur/detail/retur'
 const options = ref(null)
 const model = ref(null)
 
-async function filterOptions(val, update) {
+async function filterOptions (val, update) {
   if (!val) {
     update(() => {
       options.value = []
@@ -145,7 +145,7 @@ async function filterOptions(val, update) {
     }
   }
 
-  const resp = await api.get('v1/retur/pembelian', params)
+  const resp = await api.get('v1/retur/penjualan', params)
   // console.log('retur ', resp.data.data)
   update(
     () => (options.value = resp.data.data),
@@ -157,7 +157,7 @@ async function filterOptions(val, update) {
     }
   )
 }
-function onSubmit() {
+function onSubmit () {
   const transactionTable = useReturDetailTable()
   const retur = useReturTable()
   routerInstance.replace({ name: 'detail.retur', params: { slug: model.value.reff } })

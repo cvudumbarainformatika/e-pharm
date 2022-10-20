@@ -21,5 +21,11 @@
   },
   // "typescript.tsdk": "node_modules/typescript/lib",
   "files.autoSave": "onWindowChange",
-  "beautify.config": ""
+  "beautify.config": "",
+  "material-icon-theme.folders.color": "#ffd372",
+  "workbench.colorTheme": "GitHub Dark",
+  "workbench.preferredDarkColorTheme": "Default Dark+",
+  "workbench.editor.decorations.colors": true,
+  "workbench.iconTheme": "material-icon-theme",
+
 }

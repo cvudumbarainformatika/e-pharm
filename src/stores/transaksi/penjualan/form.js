@@ -108,6 +108,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
         this.form.jenis = 'tunai'
       }
       this.totalSeluruhnya()
+      this.form.bayar = ''
       this.setOpen()
       this.print.form = this.form
     },

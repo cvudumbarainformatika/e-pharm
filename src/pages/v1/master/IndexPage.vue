@@ -22,8 +22,15 @@ import MasterMenu from './MasterMenu.vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import NoSelectedPage from './NoSelectedPage.vue'
+import { routerInstance } from 'src/boot/router'
 const route = useRoute()
 const path = computed(() => route.path)
+// let slug = routerInstance.currentRoute.value.params.slug
+let name = routerInstance.currentRoute.value.name
+if (name === 'master') {
+  name = 'satuan'
+}
+routerInstance.replace({ name })
 // console.log('path', path.value)
 // import MasterMenu from './MasterMenu.vue'
 </script>

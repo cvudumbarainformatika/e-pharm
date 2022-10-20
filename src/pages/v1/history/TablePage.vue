@@ -25,6 +25,7 @@
             clearable
             dense
             placeholder="Search..."
+            @update:model-value="table.getSearchData"
             @keyup.enter="table.getSearchData"
           >
             <template #prepend>
@@ -90,6 +91,16 @@
               <q-chip
                 color="primary"
                 label="Complete"
+                text-color="white"
+                rounded
+                no-caps
+                dense
+              />
+            </div>
+            <div v-else-if="props.row.status === 3">
+              <q-chip
+                color="grey"
+                label="Returned"
                 text-color="white"
                 rounded
                 no-caps

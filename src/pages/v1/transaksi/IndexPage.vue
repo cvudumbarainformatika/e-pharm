@@ -33,10 +33,7 @@ if (name === 'transaksi') {
   name = 'pembelian'
   slug = 'apem'
 }
-// console.log('name', name)
-// table.getDetailTransaksi().then(() => {
 routerInstance.replace({ name, params: { slug } })
-// })
 const path = computed(() => route.path)
 // console.log('path', path)
 </script>

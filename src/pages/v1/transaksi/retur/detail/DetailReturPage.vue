@@ -55,6 +55,7 @@
         >
           <div>
             <q-icon
+              size="sm"
               color="primary"
               name="icon-mat-assignment_return"
             />

@@ -17,7 +17,7 @@
           :key="i"
           v-ripple
           class="menu"
-          :active="menu.value === path"
+          :active="menu.value!=='retur' ? menu.value === path: 'detail.retur' === path || menu.value === path"
           :active-class="setting.dark ? 'page-dark text-white aktif-dark' : ' bg-grey-4 text-primary aktif'"
           :to="`${menu.link}`"
           clickable

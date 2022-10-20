@@ -117,6 +117,7 @@ export const useHistoryTable = defineStore('history_table', {
     // search
     getSearchData() {
       this.params.nama = 'all'
+      this.params.page = 1
       this.title = null
       this.getDataTransactions().then(() => {
         this.params.q = ''

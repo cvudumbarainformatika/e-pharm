@@ -54,6 +54,7 @@ function onSubmit() {
   if (detail[0].qty >= returDetail.form.qty) {
     returDetail.simpanDetailTransaksi().then(() => {
       returDetail.setOpen()
+      returDetail.gantiStatus()
     })
   } else {
     notifErrVue('Kuantiti retur tidak boleh melebihi kuantiti pembelian')

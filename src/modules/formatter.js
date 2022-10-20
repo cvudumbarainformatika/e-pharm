@@ -10,6 +10,9 @@ const dateFormat = (val) => {
 const dateFullFormat = (val) => {
   return date.formatDate(val, 'DD MMMM YYYY')
 }
+const dateHumanHour = (val) => {
+  return date.formatDate(val, 'DD MMMM YYYY HH:mm:ss')
+}
 const dateExpire = (val) => {
   return date.formatDate(val, 'DD MM YYYY')
 }
@@ -88,6 +91,7 @@ const titleCase = (str) => {
 }
 
 export {
+  dateHumanHour,
   dateDbFormat,
   formatRp,
   formatDouble,

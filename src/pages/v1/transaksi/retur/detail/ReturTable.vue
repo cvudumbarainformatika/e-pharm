@@ -55,6 +55,7 @@
           <!-- @click="table.clicked(props)" -->
           <div>
             <q-icon
+              size="sm"
               color="primary"
               name="icon-mat-done"
             />

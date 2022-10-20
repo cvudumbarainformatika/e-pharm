@@ -250,6 +250,18 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
           })
       })
     },
+    gantiStatus() {
+      const data = {
+        reff: routerInstance.currentRoute.value.params.slug,
+        status: 3
+      }
+      return new Promise(resolve => {
+        api.post('v1/transaksi/store', data)
+          .then(resp => {
+            resolve(resp)
+          })
+      })
+    },
     simpanDetailTransaksi() {
       const retur = useReturTable()
       const reff = 'R' + routerInstance.currentRoute.value.params.slug
