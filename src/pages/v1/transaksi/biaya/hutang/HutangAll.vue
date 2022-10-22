@@ -74,7 +74,7 @@
                           option-label="name"
                           option-value="id"
                           autocomplete="name"
-                          :source="store.kasirs"
+                          :source="biaya.kasirs"
                           autofocus
                           outlined
                         />
@@ -98,7 +98,6 @@
                           label="Keterangan"
                           outlined
                           type="text"
-                          @keyup.enter="kirim"
                         />
                       </div>
                     </div>
@@ -114,11 +113,11 @@
                       label="Bayar"
                       @click="kirim(item)"
                     />
-                    <app-btn
+                    <!-- <app-btn
                       v-close-popup
                       label="Bayar nota baru"
                       @click="bedaNota(item)"
-                    />
+                    /> -->
                   </q-card-actions>
                 </q-card>
               </q-menu>
@@ -130,16 +129,35 @@
   </div>
 </template>
 <script setup>
-import { dateFormat, formatRp } from 'src/modules/formatter'
+import { dateFormat, formatRp, olahUang } from 'src/modules/formatter'
 import { useBebanTransaksiHutang } from 'src/stores/transaksi/biaya/hutang'
 import { ref } from 'vue'
 import AppInput from 'src/components/~global/AppInput.vue'
+import { useBebanTransaksiFormStore } from 'src/stores/transaksi/biaya/form'
 // import { findWithAttr } from 'src/modules/utils'
 
 const store = useBebanTransaksiHutang()
+const biaya = useBebanTransaksiFormStore()
 const jumlah = ref('')
 const assign = data => {
   console.log('assign', data)
+  jumlah.value = data.total
+  const temp = biaya.bebans.map((apem, index) => {
+    let apem2 = 0
+    if (apem.nama.includes('HUTANG')) {
+      apem2 = index
+    }
+    return apem2
+  }).reduce((a, b) => { return a + b })
+  const beban = biaya.bebans[temp]
+  store.setForm('beban_id', beban.id)
+  store.setForm('pbreff', data.reff)
+  store.setForm('sub_total', data.total)
+  store.setForm('supplier_id', data.supplier_id)
+  store.setForm('faktur', data.faktur)
+  store.setForm('keterangan', `bayar hutang untuk faktur ${data.faktur}`)
+
+  console.log('beban', beban)
   // if (store.items.length) {
   //   const index = findWithAttr(store.items, 'reff', store.form.reff)
   //   const transaksi = store.items[index]
@@ -158,23 +176,24 @@ const assign = data => {
 }
 const kirim = val => {
   // store.setForm('beban_id', val.id)
-  // store.setForm('sub_total', olahUang(jumlah.value))
-  // store.saveForm().then(() => {
-  //   store.resetInput()
-  // })
-  // console.log('item ', val)
+  store.setForm('sub_total', olahUang(jumlah.value))
+  store.saveForm().then(() => {
+    store.resetInput()
+    store.setNotaBaru()
+  })
+  console.log('val ', val)
   // console.log('jumlah', jumlah.value)
-  // console.log('form', store.form)
+  console.log('form', store.form)
 }
-const bedaNota = val => {
-  // store.setNotaBaru()
-  // store.setForm('beban_id', val.id)
-  // store.setForm('sub_total', olahUang(jumlah.value))
-  // store.saveForm().then(() => {
-  //   store.resetFORM()
-  // })
-  // console.log('item ', val)
-  // console.log('jumlah', jumlah.value)
-  // console.log('form', store.form)
-}
+// const bedaNota = val => {
+// store.setNotaBaru()
+// store.setForm('beban_id', val.id)
+// store.setForm('sub_total', olahUang(jumlah.value))
+// store.saveForm().then(() => {
+//   store.resetFORM()
+// })
+// console.log('item ', val)
+// console.log('jumlah', jumlah.value)
+// console.log('form', store.form)
+// }
 </script>

@@ -78,7 +78,6 @@
                           label="Keterangan"
                           outlined
                           type="text"
-                          @keyup.enter="kirim"
                         />
                       </div>
                     </div>

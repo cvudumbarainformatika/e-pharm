@@ -19,8 +19,8 @@
       />
       <q-tab
         class="text-primary"
-        name="hutang terbayar"
-        label="Hutang Terbayar"
+        name="pembelian terbayar"
+        label="Pembelian Terbayar"
         no-caps
       />
     </q-tabs>
@@ -49,18 +49,19 @@
             <div class="col-5">
               <HutangAll />
             </div>
-            <!-- <div class="col-7">
-              <app-no-data v-if="!store.items.length" />
-              <ListPage v-if="store.items.length" />
-            </div> -->
+            <div class="col-7">
+              <app-no-data v-if="!hutang.bayars.length" />
+              <HutangList v-if="hutang.bayars.length" />
+            </div>
           </div>
         </q-tab-panel>
 
-        <q-tab-panel name="hutang terbayar">
-          <div class="text-h6">
-            Movies
+        <q-tab-panel name="pembelian terbayar">
+          <app-no-data v-if="!hutang.pembelians.length" />
+          <PembelianList v-if="hutang.pembelians.length" />
+          <div class="row">
+            <div class="col-12" />
           </div>
-          Nostrum necessitatibus expedita dolores? Voluptatem repudiandae magni ea.
         </q-tab-panel>
       </q-tab-panels>
     </div>
@@ -97,6 +98,8 @@ import { useBebanTransaksiHutang } from 'src/stores/transaksi/biaya/hutang'
 import { onMounted, ref } from 'vue'
 import AllBiaya from './biaya/AllBiaya.vue'
 import HutangAll from './hutang/HutangAll.vue'
+import HutangList from './hutang/HutangList.vue'
+import PembelianList from './pembelian/PembelianList.vue'
 const store = useBebanTransaksiFormStore()
 const hutang = useBebanTransaksiHutang()
 const tab = ref('pengeluaran')
@@ -110,6 +113,8 @@ onMounted(() => {
   store.getMasterBeban()
   store.getPengeluaran()
   hutang.getHutang()
+  hutang.getDibayar()
+  hutang.getPembelian()
 })
 // coment sik
 </script>
