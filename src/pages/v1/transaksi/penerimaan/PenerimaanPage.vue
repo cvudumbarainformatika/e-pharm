@@ -24,7 +24,7 @@
 <script setup>
 import SearchPenerimaan from './SearchPenerimaan.vue'
 import NoDataPage from './NoDataPage.vue'
-import ListPage from './ListPage.vue'
+import ListPage from './pendapatan/ListPage.vue'
 import { usePenerimaanTransaksiFormStore } from 'src/stores/transaksi/penerimaan/form'
 import { onMounted } from 'vue'
 const store = usePenerimaanTransaksiFormStore()
