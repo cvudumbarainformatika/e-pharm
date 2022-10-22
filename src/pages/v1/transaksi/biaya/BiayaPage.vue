@@ -45,10 +45,15 @@
         </q-tab-panel>
 
         <q-tab-panel name="hutang">
-          <div class="text-h6">
-            Alarms
+          <div class="row q-col-gutter-sm">
+            <div class="col-5">
+              <HutangAll />
+            </div>
+            <!-- <div class="col-7">
+              <app-no-data v-if="!store.items.length" />
+              <ListPage v-if="store.items.length" />
+            </div> -->
           </div>
-          Ad molestiae non facere animi nobis, similique nemo velit reiciendis corporis impedit nam in.
         </q-tab-panel>
 
         <q-tab-panel name="hutang terbayar">
@@ -86,20 +91,25 @@
 <script setup>
 // import SearchBiaya from './SearchBiaya.vue'
 // import NoDataPage from './NoDataPage.vue'
-import ListPage from './ListPage.vue'
+import ListPage from './biaya/ListPage.vue'
 import { useBebanTransaksiFormStore } from 'src/stores/transaksi/biaya/form'
+import { useBebanTransaksiHutang } from 'src/stores/transaksi/biaya/hutang'
 import { onMounted, ref } from 'vue'
-import AllBiaya from './AllBiaya.vue'
+import AllBiaya from './biaya/AllBiaya.vue'
+import HutangAll from './hutang/HutangAll.vue'
 const store = useBebanTransaksiFormStore()
+const hutang = useBebanTransaksiHutang()
 const tab = ref('pengeluaran')
 
 store.setNotaBaru()
+hutang.setNotaBaru()
 onMounted(() => {
   store.getDataKasirs()
   store.getDataBeban()
   store.getDataSupplier()
   store.getMasterBeban()
   store.getPengeluaran()
+  hutang.getHutang()
 })
 // coment sik
 </script>

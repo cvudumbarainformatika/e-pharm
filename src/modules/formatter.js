@@ -74,7 +74,7 @@ const isHas = (test, val) => {
     let data = []
     const array = test.split(' ')
     data = array.filter(check => { return check === val })
-    console.log('ishas', data)
+    // console.log('ishas', data)
     return data
   } else { return val }
 }

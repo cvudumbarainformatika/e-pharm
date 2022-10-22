@@ -97,10 +97,20 @@
                 dense
               />
             </div>
-            <div v-else-if="props.row.status === 3">
+            <div v-else-if="props.row.status === 3 && props.row.nama !== 'PEMBELIAN'">
               <q-chip
                 color="grey"
                 label="Returned"
+                text-color="white"
+                rounded
+                no-caps
+                dense
+              />
+            </div>
+            <div v-else-if="props.row.status === 3 && props.row.nama === 'PEMBELIAN'">
+              <q-chip
+                color="green"
+                label="Dibayar"
                 text-color="white"
                 rounded
                 no-caps
@@ -247,6 +257,38 @@
           </q-td>
           <q-td>
             <q-tr><strong>Nama</strong></q-tr>
+            <q-tr
+              v-for="item in props.row.penerimaan_transaction"
+              :key="item.id"
+            >
+              {{ item.penerimaan.nama }}
+            </q-tr>
+            <!-- <q-tr>{{ props.row.penerimaan_transaction[0].beban.nama }}</q-tr> -->
+          </q-td>
+          <q-td />
+
+          <q-td>
+            <q-tr><strong>Keterangan</strong></q-tr>
+            <q-tr
+              v-for="item in props.row.penerimaan_transaction"
+              :key="item.id"
+            >
+              {{ item.keterangan }}
+            </q-tr>
+            <!-- <q-tr>{{ props.row.penerimaan_transaction[0].keterangan }}</q-tr> -->
+          </q-td>
+          <q-td>
+            <q-tr><strong>Sub Total</strong></q-tr>
+            <q-tr
+              v-for="item in props.row.penerimaan_transaction"
+              :key="item.id"
+            >
+              {{ formatRp(item.sub_total) }}
+            </q-tr>
+            <!-- <q-tr>{{ formatRp(props.row.penerimaan_transaction[0].sub_total) }}</q-tr> -->
+          </q-td>
+          <!-- <q-td>
+            <q-tr><strong>Nama</strong></q-tr>
             <q-tr>{{ props.row.penerimaan_transaction[0].penerimaan.nama }}</q-tr>
           </q-td>
           <q-td>
@@ -257,7 +299,7 @@
             <q-tr><strong>Keterangan</strong></q-tr>
             <q-tr>{{ props.row.penerimaan_transaction[0].keterangan }}</q-tr>
           </q-td>
-          <q-td />
+          <q-td /> -->
         </q-tr>
         <q-tr
           v-show="props.expand"
@@ -269,17 +311,36 @@
           </q-td>
           <q-td>
             <q-tr><strong>Nama</strong></q-tr>
-            <q-tr>{{ props.row.beban_transaction[0].beban.nama }}</q-tr>
-          </q-td>
-          <q-td>
-            <q-tr><strong>Jumlah</strong></q-tr>
-            <q-tr>{{ formatRp(props.row.beban_transaction[0].sub_total) }}</q-tr>
-          </q-td>
-          <q-td>
-            <q-tr><strong>Keterangan</strong></q-tr>
-            <q-tr>{{ props.row.beban_transaction[0].keterangan }}</q-tr>
+            <q-tr
+              v-for="item in props.row.beban_transaction"
+              :key="item.id"
+            >
+              {{ item.beban.nama }}
+            </q-tr>
+            <!-- <q-tr>{{ props.row.beban_transaction[0].beban.nama }}</q-tr> -->
           </q-td>
           <q-td />
+
+          <q-td>
+            <q-tr><strong>Keterangan</strong></q-tr>
+            <q-tr
+              v-for="item in props.row.beban_transaction"
+              :key="item.id"
+            >
+              {{ item.keterangan }}
+            </q-tr>
+            <!-- <q-tr>{{ props.row.beban_transaction[0].keterangan }}</q-tr> -->
+          </q-td>
+          <q-td>
+            <q-tr><strong>Sub Total</strong></q-tr>
+            <q-tr
+              v-for="item in props.row.beban_transaction"
+              :key="item.id"
+            >
+              {{ formatRp(item.sub_total) }}
+            </q-tr>
+            <!-- <q-tr>{{ formatRp(props.row.beban_transaction[0].sub_total) }}</q-tr> -->
+          </q-td>
         </q-tr>
         <q-tr
           v-show="props.expand"
