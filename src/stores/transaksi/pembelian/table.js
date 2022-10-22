@@ -7,6 +7,7 @@ import { Dialog } from 'quasar'
 import { usePembelianDialog } from './form'
 import { routerInstance } from 'src/boot/router'
 import { usePrintStore } from 'src/stores/print'
+import { useSettingStore } from 'src/stores/setting/setting'
 
 export const usePembelianTable = defineStore('pembelian_table', {
   state: () => ({
@@ -333,6 +334,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
             }
           })
           .catch((err) => {
+            useSettingStore().transaksiLoading = false
             this.loading = false
             reject(err)
           })

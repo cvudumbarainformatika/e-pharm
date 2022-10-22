@@ -15,9 +15,11 @@ import { routerInstance } from 'src/boot/router'
 import { usePenjualanDialog } from 'src/stores/transaksi/penjualan/form'
 // import { uniqueId } from 'src/modules/utils'
 import { uniqueId } from 'src/modules/utils'
+import { useSettingStore } from 'src/stores/setting/setting'
 // const coba = () => {
 // routerInstance.currentRoute.value.params.slug = slug
 // }
+useSettingStore().transaksiLoading = true
 
 const table = usePenjualanTable()
 const store = usePenjualanDialog()
@@ -28,6 +30,7 @@ const oldSlug = routerInstance.currentRoute.value.params.slug
 // table.ambilDataDokter()
 // table.ambilDataDistributor()
 table.getDetailTransaksi().then(data => {
+  useSettingStore().transaksiLoading = false
   if (data !== undefined) {
     routerInstance.replace({ name: 'penjualan', params: { slug: oldSlug } })
     table.form.reff = oldSlug

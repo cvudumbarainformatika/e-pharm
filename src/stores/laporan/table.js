@@ -104,14 +104,14 @@ export const useLaporanTable = defineStore('laporan_table', {
         }
       ]
 
-      if (this.form.nama === 'BEBAN' || this.form.nama === 'PENERIMAAN') {
+      if (this.form.nama === 'PENGELUARAN' || this.form.nama === 'PENDAPATAN') {
         this.columns = kolom
       } else {
         this.columns = kolom2
       }
     },
     setVisibleCol() {
-      if (this.form.nama === 'BEBAN' || this.form.nama === 'PPENERIMAAN') {
+      if (this.form.nama === 'PENGELUARAN' || this.form.nama === 'PENDAPATAN') {
         this.visibleColumns = ['nama', 'keterangan', 'qty', 'harga', 'total']
       } else {
         this.visibleColumns = ['nama', 'qty', 'harga', 'total']
@@ -209,9 +209,9 @@ export const useLaporanTable = defineStore('laporan_table', {
         delete this.form.umum
       }
       // console.log('form seseudah if', this.form)
-      if (this.form.nama === 'BEBAN') {
+      if (this.form.nama === 'PENGELUARAN') {
         this.getDataTransactions('beban')
-      } else if (this.form.nama === 'PENERIMAAN') {
+      } else if (this.form.nama === 'PENDAPATAN') {
         this.getDataTransactions('penerimaan')
       } else {
         this.getDataTransactions('detail-transaksi')

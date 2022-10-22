@@ -1,5 +1,7 @@
 <template>
-  <Suspense>
+  <Suspense
+    @fallback="loading"
+  >
     <!-- main content -->
     <AsyncComp />
 
@@ -10,9 +12,13 @@
   </Suspense>
 </template>
 <script setup>
+import { useSettingStore } from 'src/stores/setting/setting'
 import { defineAsyncComponent } from 'vue'
 
 const AsyncComp = defineAsyncComponent(() =>
   import('./PembelianPage.vue')
 )
+const loading = () => {
+  useSettingStore().transaksiLoading = true
+}
 </script>

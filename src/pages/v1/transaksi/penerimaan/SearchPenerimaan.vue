@@ -8,7 +8,7 @@
         clearable
         option-value="id"
         option-label="nama"
-        label="Cari Penerimaan"
+        label="Cari Pendapatan"
         :options="options"
         behavior="menu"
         hide-dropdown-icon

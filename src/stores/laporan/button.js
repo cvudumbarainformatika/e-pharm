@@ -7,8 +7,8 @@ export const useLaporanMorphStore = defineStore('laporan_morph_button', {
     transactions: [
       { name: 'Pembelian', value: 'PEMBELIAN' },
       { name: 'Penjualan', value: 'PENJUALAN' },
-      { name: 'Beban / Biaya', value: 'BEBAN' },
-      { name: 'Penerimaan', value: 'PENERIMAAN' },
+      { name: 'Pengeluaran', value: 'PENGELUARAN' },
+      { name: 'Pendapatan', value: 'PENDAPATAN' },
       { name: 'Retur Pembelian', value: 'RETUR PEMBELIAN' },
       { name: 'Retur Penjualan', value: 'RETUR PENJUALAN' }
     ],

@@ -10,6 +10,7 @@ import { useCustomerFormStore } from 'src/stores/master/customer/form'
 import { useDokterFormStore } from 'src/stores/master/dokter/form'
 import { usePrintStore } from 'src/stores/print'
 import { findWithAttr, notifErrVue } from 'src/modules/utils'
+import { useSettingStore } from 'src/stores/setting/setting'
 
 export const usePenjualanTable = defineStore('penjualan_table', {
   state: () => ({
@@ -596,6 +597,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
             }
           })
           .catch((err) => {
+            useSettingStore().transaksiLoading = false
             this.detailLoading = false
             reject(err)
           })

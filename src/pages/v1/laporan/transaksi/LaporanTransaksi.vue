@@ -228,7 +228,7 @@
         </q-tr>
         <!-- v-show="props.expand" -->
         <q-tr
-          v-if="props.row.nama === 'PENERIMAAN'"
+          v-if="props.row.nama === 'PENDAPATAN'"
           :props="props"
         >
           <q-td>
@@ -236,21 +236,40 @@
           </q-td>
           <q-td>
             <q-tr><strong>Nama</strong></q-tr>
-            <q-tr>{{ props.row.penerimaan_transaction[0].penerimaan.nama }}</q-tr>
-          </q-td>
-          <q-td>
-            <q-tr><strong>Jumlah</strong></q-tr>
-            <q-tr>{{ formatRp(props.row.penerimaan_transaction[0].sub_total) }}</q-tr>
-          </q-td>
-          <q-td>
-            <q-tr><strong>Keterangan</strong></q-tr>
-            <q-tr>{{ props.row.penerimaan_transaction[0].keterangan }}</q-tr>
+            <q-tr
+              v-for="item in props.row.penerimaan_transaction"
+              :key="item.id"
+            >
+              {{ item.penerimaan.nama }}
+            </q-tr>
+            <!-- <q-tr>{{ props.row.penerimaan_transaction[0].penerimaan.nama }}</q-tr> -->
           </q-td>
           <q-td />
+
+          <q-td>
+            <q-tr><strong>Keterangan</strong></q-tr>
+            <q-tr
+              v-for="item in props.row.penerimaan_transaction"
+              :key="item.id"
+            >
+              {{ item.keterangan }}
+            </q-tr>
+            <!-- <q-tr>{{ props.row.penerimaan_transaction[0].keterangan }}</q-tr> -->
+          </q-td>
+          <q-td class="text-right">
+            <q-tr><strong>Sub Total</strong></q-tr>
+            <q-tr
+              v-for="item in props.row.penerimaan_transaction"
+              :key="item.id"
+            >
+              {{ formatRp(item.sub_total) }}
+            </q-tr>
+            <!-- <q-tr>{{ formatRp(props.row.penerimaan_transaction[0].sub_total) }}</q-tr> -->
+          </q-td>
         </q-tr>
         <!-- v-show="props.expand" -->
         <q-tr
-          v-if="props.row.nama === 'BEBAN'"
+          v-if="props.row.nama === 'PENGELUARAN'"
           :props="props"
         >
           <q-td>
@@ -258,30 +277,34 @@
           </q-td>
           <q-td>
             <q-tr><strong>Nama</strong></q-tr>
-            <q-tr>{{ props.row.beban_transaction[0].beban.nama }}</q-tr>
-          </q-td>
-          <q-td>
-            <q-tr><strong>Jumlah</strong></q-tr>
-            <q-tr>{{ formatRp(props.row.beban_transaction[0].sub_total) }}</q-tr>
-          </q-td>
-          <q-td>
-            <q-tr><strong>Keterangan</strong></q-tr>
-            <q-tr>{{ props.row.beban_transaction[0].keterangan }}</q-tr>
+            <q-tr
+              v-for="item in props.row.beban_transaction"
+              :key="item.id"
+            >
+              {{ item.beban.nama }}
+            </q-tr>
+            <!-- <q-tr>{{ props.row.beban_transaction[0].beban.nama }}</q-tr> -->
           </q-td>
           <q-td />
-        </q-tr>
-        <!-- v-show="props.expand" -->
-        <q-tr
-          v-if="props.row.nama=== 'RETUR'"
-          :props="props"
-        >
           <q-td>
-            <div class="text-left" />
+            <q-tr><strong>Keterangan</strong></q-tr>
+            <q-tr
+              v-for="item in props.row.beban_transaction"
+              :key="item.id"
+            >
+              {{ item.keterangan }}
+            </q-tr>
+            <!-- <q-tr>{{ props.row.beban_transaction[0].keterangan }}</q-tr> -->
           </q-td>
-          <q-td>
-            <div class="text-left">
-              This is expand slot for row above: {{ props.row.nama }}.
-            </div>
+          <q-td class="text-right">
+            <q-tr><strong>Sub Total</strong></q-tr>
+            <q-tr
+              v-for="item in props.row.beban_transaction"
+              :key="item.id"
+            >
+              {{ formatRp(item.sub_total) }}
+            </q-tr>
+            <!-- <q-tr>{{ formatRp(props.row.beban_transaction[0].sub_total) }}</q-tr> -->
           </q-td>
         </q-tr>
       </template>

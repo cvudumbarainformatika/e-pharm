@@ -4,7 +4,23 @@
   >
     <!-- style="max-width: 150px" -->
     <q-card>
+      <div
+        v-if="setting.transaksiLoading"
+        class="flex column flex-center bg-loading-bg__table"
+        style="height:200px"
+      >
+        <div>
+          <q-spinner-cube
+            color="primary"
+            size="40px"
+          />
+        </div>
+        <div :class="'text-primary q-mt-sm'">
+          Mohon maaf, masih loading ...
+        </div>
+      </div>
       <q-list
+        v-if="!setting.transaksiLoading"
         bordered
         padding
         class="rounded-borders text-primary"

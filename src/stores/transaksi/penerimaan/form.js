@@ -11,7 +11,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
       isOpen: false,
       items: [],
       form: {
-        nama: 'PENERIMAAN',
+        nama: 'PENDAPATAN',
         reff: null,
         total: 0,
         tanggal: null,
@@ -36,7 +36,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         for (let i = 0; i < columns.length; i++) {
           this.setForm(columns[i], '')
         }
-        this.setForm('nama', 'PENERIMAAN')
+        this.setForm('nama', 'PENDAPATAN')
         this.setForm('reff', null)
         this.setForm('total', 0)
         this.setForm('status', 1)

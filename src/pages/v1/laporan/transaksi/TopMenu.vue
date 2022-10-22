@@ -22,9 +22,9 @@
             @clicked="pilihPembelian"
           />
         </div>
-        <div v-if="table.form.nama==='BEBAN' ">
+        <div v-if="table.form.nama==='PENGELUARAN' ">
           <ButtonDropdownMenu
-            :label="transaksi.hutang==='all'?'Beban Berdasarkan': transaksi.hutangL"
+            :label="transaksi.hutang==='all'?'Pengeluaran Berdasarkan': transaksi.hutangL"
             :items="transaksi.hutangs"
             :aktif="transaksi.hutang"
             @clicked="pilihBeban"
@@ -38,9 +38,9 @@
             @clicked="pilihPenjualan"
           />
         </div>
-        <div v-if="table.form.nama==='PENERIMAAN'">
+        <div v-if="table.form.nama==='PENDAPATAN'">
           <ButtonDropdownMenu
-            :label="transaksi.piutang==='all'?'Penerimaan Berdasarkan':transaksi.piutangL"
+            :label="transaksi.piutang==='all'?'Pendapatan Berdasarkan':transaksi.piutangL"
             :items="transaksi.piutangs"
             :aktif="transaksi.Piutang"
             @clicked="pilihPiutang"
@@ -53,15 +53,15 @@
         <div v-if="table.form.nama==='PEMBELIAN' && transaksi.pembelian==='supplier'">
           <SelectMenu
             url="v1/supplier/index"
-            title="Supplier"
+            title="Distributor"
             @on-select="pilihSupplier"
           />
         </div>
 
-        <div v-if="table.form.nama==='BEBAN' && transaksi.hutang==='supplier'">
+        <div v-if="table.form.nama==='PENGELUARAN' && transaksi.hutang==='supplier'">
           <SelectMenu
             url="v1/supplier/index"
-            title="Supplier"
+            title="Distributor"
             @on-select="pilihSupplier"
           />
         </div>
@@ -77,14 +77,14 @@
         <div v-if="table.form.nama==='PENJUALAN' && transaksi.penjualan==='customer'">
           <SelectMenu
             url="v1/customer/index"
-            title="Distributor"
+            title="Customer"
             @on-select="pilihDistributor"
           />
         </div>
-        <div v-if="table.form.nama==='PENERIMAAN' && transaksi.piutang==='customer'">
+        <div v-if="table.form.nama==='PENDAPATAN' && transaksi.piutang==='customer'">
           <SelectMenu
             url="v1/customer/index"
-            title="Distributor"
+            title="Customer"
             @on-select="pilihDistributor"
           />
         </div>
@@ -255,14 +255,14 @@ const pilihPenjualan = val => {
 
 const pilihSupplier = val => {
   table.form.supplier_id = val.id
-  table.person = 'Supplier : ' + val.nama
+  table.person = 'Distributor : ' + val.nama
   table.beforeGetData()
   // console.log('pilih supplier ', val)
 }
 
 const pilihDistributor = val => {
   table.form.customer_id = val.id
-  table.person = 'Distributor : ' + val.nama
+  table.person = 'Customer : ' + val.nama
   table.beforeGetData()
 }
 

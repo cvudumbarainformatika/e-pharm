@@ -10,7 +10,7 @@ export const cobaMorphStore = defineStore('coba_morph', {
     transactions: [
       { name: 'Pembelian', value: 'PEMBELIAN' },
       { name: 'Penjualan', value: 'PENJUALAN' },
-      { name: 'Beban / Biaya', value: 'BEBAN' },
+      { name: 'Beban / Biaya', value: 'PENGELUARAN' },
       { name: 'Penerimaan', value: 'PENERIMAAN' },
       { name: 'Retur Pembelian', value: 'RETUR PEMBELIAN' },
       { name: 'Retur Penjualan', value: 'RETUR PENJUALAN' }

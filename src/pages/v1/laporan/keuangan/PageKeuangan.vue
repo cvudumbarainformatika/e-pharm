@@ -155,7 +155,7 @@
           D.
         </div>
         <div class="col-7">
-          BEBAN / BIAYA
+          PENGELUARAN
         </div>
         <div class="col-2 text-right" />
         <div class="col-2 text-right" />
@@ -190,7 +190,7 @@
           E.
         </div>
         <div class="col-7">
-          PENERIMAAN
+          PENDAPATAN
         </div>
         <div class="col-2 text-right" />
         <div class="col-2 text-right" />

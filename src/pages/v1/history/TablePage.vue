@@ -239,7 +239,7 @@
         </q-tr>
         <q-tr
           v-show="props.expand"
-          v-if="props.row.nama === 'PENERIMAAN'"
+          v-if="props.row.nama === 'PENDAPATAN'"
           :props="props"
         >
           <q-td>
@@ -261,7 +261,7 @@
         </q-tr>
         <q-tr
           v-show="props.expand"
-          v-if="props.row.nama === 'BEBAN'"
+          v-if="props.row.nama === 'PENGELUARAN'"
           :props="props"
         >
           <q-td>

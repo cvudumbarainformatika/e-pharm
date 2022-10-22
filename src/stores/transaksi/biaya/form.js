@@ -1,15 +1,16 @@
 import { defineStore } from 'pinia'
-import { notifSuccess, uniqueId, waitLoad } from 'src/modules/utils'
+import { findWithAttr, notifSuccess, uniqueId, waitLoad } from 'src/modules/utils'
 import { api } from 'boot/axios'
-import { hurufBesar, olahUang } from 'src/modules/formatter'
+import { hurufBesar } from 'src/modules/formatter'
 import { useSupplierTable } from 'src/stores/master/supplier/table'
+import { date } from 'quasar'
 
 export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', {
   state: () => ({
     isOpen: false,
     items: [],
     form: {
-      nama: 'BEBAN',
+      nama: 'PENGELUARAN',
       reff: null,
       total: 0,
       tanggal: null,
@@ -20,6 +21,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       beban_id: null,
       keterangan: ''
     },
+    bebans: [],
     kasirs: [],
     suppliers: [],
     loading: false,
@@ -33,26 +35,27 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       for (let i = 0; i < columns.length; i++) {
         this.setForm(columns[i], '')
       }
-      this.setForm('nama', 'BEBAN')
-      this.setForm('reff', null)
+      this.setForm('nama', 'PENGELUARAN')
       this.setForm('total', 0)
       this.setForm('status', 1)
-      this.setForm('tanggal', null)
       this.setForm('kasir_id', null)
       this.setForm('beban_id', null)
       this.setForm('tanggal', null)
       this.hutang = null
     },
+    resetInput() {
+      this.setForm('sub_total', '')
+      this.setForm('beban_id', null)
+    },
     setToday() {
-      const date = new Date()
-      const year = date.getFullYear()
-      const month = ('0' + (date.getMonth() + 1)).slice(-2)
-      const day = ('0' + date.getDate()).slice(-2)
-      const formatDb = year + '-' + month + '-' + day
-      this.form.tanggal = formatDb
+      const hari = new Date()
+      this.form.tanggal = date.formatDate(hari, 'YYYY-mm-dd H:m:s')
     },
     setForm(nama, val) {
       this.form[nama] = val
+    },
+    setNotaBaru() {
+      this.form.reff = 'BBN-' + uniqueId()
     },
     setOpen() {
       this.isOpen = !this.isOpen
@@ -71,7 +74,52 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       // kecuali yang ada di object user
       this.isOpen = !this.isOpen
     },
+    assignForm(data) {
+      this.setForm('reff', data.reff)
+      this.setForm('nama', data.nama)
+      this.setForm('total', data.total)
+      this.setForm('kasir_id', data.kasir_id)
+    },
+    total() {
+      const index = findWithAttr(this.items, 'reff', this.form.reff)
+      const transaksi = this.items[index]
+      if (index >= 0) {
+        const bb = findWithAttr(transaksi.beban_transaction, 'beban_id', this.form.beban_id)
+        if (bb >= 0) {
+          transaksi.beban_transaction[bb].sub_total = this.form.sub_total
+        } else {
+          const apem = {
+            beban_id: this.form.beban_id,
+            keterangan: this.form.keterangan,
+            sub_total: this.form.sub_total
+          }
+          transaksi.beban_transaction.push(apem)
+        }
+        const total = transaksi.beban_transaction.map(data => {
+          return data.sub_total
+        }).reduce((a, b) => { return a + b })
+        this.form.total = total
+      } else {
+        this.form.total = this.form.sub_total
+      }
+    },
+    cekKasir() {
+      const index = findWithAttr(this.items, 'reff', this.form.reff)
+      const transaksi = this.items[index]
+      if (transaksi.kasir_id !== this.form.kasir_id) {
+        this.setNotaBaru()
+      }
+    },
     // api related actions
+    getMasterBeban() {
+      return new Promise(resolve => {
+        api.get('v1/beban/beban')
+          .then(resp => {
+            this.bebans = resp.data.data
+            resolve(resp.data)
+          })
+      })
+    },
     // ambil data supplier
     getDataSupplier() {
       const supp = useSupplierTable()
@@ -151,26 +199,46 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
           })
       })
     },
-
+    // ambil data pengeluaran bulan ini
+    getPengeluaran() {
+      this.loading = true
+      return new Promise((resolve, reject) => {
+        api.get('v1/transaksi/pengeluaran')
+          .then(resp => {
+            this.loading = false
+            console.log('pengeluaran', resp.data)
+            this.items = resp.data.data
+            this.assignForm(resp.data.data[0])
+            resolve(resp)
+          })
+          .catch(err => {
+            this.loading = false
+            reject(err)
+          })
+      })
+    },
     // tambah
     saveForm() {
       waitLoad('show')
-      this.form.reff = 'BBN-' + uniqueId()
+      // this.form.reff = 'BBN-' + uniqueId()
       const data = hurufBesar(this.form.nama)
       this.form.nama = data
       this.setForm('status', 2)
-      const total = olahUang(this.form.sub_total)
-      this.form.sub_total = total
-      this.setForm('total', this.form.sub_total)
-      this.setToday()
+      this.cekKasir()
+      this.total()
+      // const total = this.form.total === 0 ? olahUang(this.form.sub_total) : olahUang(this.form.total) + olahUang(this.form.sub_total)
+      // this.form.total = total
+      // this.setForm('total', this.form.sub_total)
+      // this.setToday()
       return new Promise((resolve, reject) => {
         api
           .post('v1/transaksi/store', this.form)
           .then((resp) => {
             // console.log('save data', resp)
             notifSuccess(resp)
-            this.getDataBeban()
-            this.resetFORM()
+            // this.getDataBeban()
+            this.getPengeluaran()
+            // this.resetFORM()
             waitLoad('done')
             this.isOpen = false
             resolve(resp)

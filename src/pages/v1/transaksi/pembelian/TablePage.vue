@@ -25,6 +25,7 @@
         <div class="col-3">
           <div class="row items-center">
             <app-input
+              ref="refFaktur"
               v-model="table.form.faktur"
               label="Faktur"
               outlined
@@ -314,6 +315,7 @@ const refExpired = ref(null)
 const refBesar = ref(null)
 const refKecil = ref(null)
 const refHarga = ref(null)
+const refFaktur = ref(null)
 
 const produk = val => {
   // console.log('key', val.key)
@@ -358,6 +360,7 @@ const besar = val => {
     // console.log(refExpired.value)
   }
 }
+
 const kecil = val => {
   // console.log('key', val.key)
   if (val.key === 'ArrowRight') {
@@ -392,12 +395,20 @@ const keyCheck = val => {
   }
 }
 
+const resetVAlidation = () => {
+  refKecil.value.$refs.refInput.resetVAlidation()
+  refBesar.value.$refs.refInput.resetVAlidation()
+  refExpired.value.resetVAlidation()
+  refHarga.value.$refs.refInput.resetVAlidation()
+  refProduk.value.$refs.refAuto.resetVAlidation()
+}
 const table = usePembelianTable()
 const store = usePembelianDialog()
 // table.getDetailTransaksi()
 const cekRequired = () => {
   if (table.form.faktur) {
     store.openDialog()
+    resetVAlidation()
   } else {
     notifErrVue('Faktur harus di isi')
   }

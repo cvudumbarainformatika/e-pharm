@@ -8,6 +8,7 @@ import { usePenjualanTable } from '../transaksi/penjualan/table'
 export const useSettingStore = defineStore('setting', {
   state: () => ({
     dark: false,
+    transaksiLoading: false,
     info: {
       nama: 'apotek sehat selalu',
       alamat: 'alamat belum di isi',

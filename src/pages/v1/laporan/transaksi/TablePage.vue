@@ -44,7 +44,7 @@
           </q-td>
           <!-- kolom keterangan -->
           <q-td
-            v-if="table.form.nama === 'BEBAN' || table.form.nama === 'PENERIMAAN'"
+            v-if="table.form.nama === 'PENGELUARAN' || table.form.nama === 'PENDAPATAN'"
             key="keterangan"
             :props="props"
           >
