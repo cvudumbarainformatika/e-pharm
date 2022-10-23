@@ -180,9 +180,9 @@
               class="text-right"
               label=" "
               type="number"
-              @blur="updateQty"
               @keyup.enter="updateQty"
             />
+            <!-- @blur="updateQty" -->
           </q-td>
           <q-td>
             {{ formatter.formatRp(table.form.harga) }}

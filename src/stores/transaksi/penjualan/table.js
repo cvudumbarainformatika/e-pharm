@@ -304,7 +304,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
 
     setTotal() {
       // console.log('rows ', this.rows)
-      if (this.rows !== undefined) {
+      if (this.rows.length) {
         const subTotal = []
         this.rows.forEach((val, index) => {
           subTotal[index] = val.harga * val.qty

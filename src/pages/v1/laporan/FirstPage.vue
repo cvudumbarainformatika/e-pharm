@@ -22,11 +22,11 @@
         label="Kas"
         no-caps
       />
-      <q-tab
+      <!-- <q-tab
         name="keuangan"
         label="Keuangan"
         no-caps
-      />
+      /> -->
     </q-tabs>
 
     <div class="q-gutter-y-sm">
