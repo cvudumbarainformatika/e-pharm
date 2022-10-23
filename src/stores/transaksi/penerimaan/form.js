@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { notifSuccess, uniqueId, waitLoad } from 'src/modules/utils'
+import { findWithAttr, notifSuccess, uniqueId, waitLoad } from 'src/modules/utils'
 import { api } from 'boot/axios'
-import { hurufBesar, olahUang } from 'src/modules/formatter'
+import { hurufBesar } from 'src/modules/formatter'
 import { useCustomerTable } from 'src/stores/master/customer/table'
 
 export const usePenerimaanTransaksiFormStore = defineStore(
@@ -16,7 +16,6 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         total: 0,
         tanggal: null,
         kasir_id: null,
-        customer_id: null,
         status: 1,
 
         sub_total: 0,
@@ -24,6 +23,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         keterangan: ''
       },
       kasirs: [],
+      penerimaans: [],
       customers: [],
       loading: false,
       hutang: null
@@ -46,6 +46,10 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         this.setForm('tanggal', null)
         this.hutang = null
       },
+      resetInput() {
+        this.setForm('sub_total', '')
+        this.setForm('penerimaan_id', null)
+      },
       setToday() {
         const date = new Date()
         const year = date.getFullYear()
@@ -56,6 +60,9 @@ export const usePenerimaanTransaksiFormStore = defineStore(
       },
       setForm(nama, val) {
         this.form[nama] = val
+      },
+      setNotaBaru() {
+        this.form.reff = 'TRM-' + uniqueId()
       },
       setOpen() {
         this.isOpen = !this.isOpen
@@ -74,11 +81,57 @@ export const usePenerimaanTransaksiFormStore = defineStore(
         // kecuali yang ada di object user
         this.isOpen = !this.isOpen
       },
+      assignForm(data) {
+        this.setForm('reff', data.reff)
+        this.setForm('nama', data.nama)
+        this.setForm('total', data.total)
+        this.setForm('kasir_id', data.kasir_id)
+      },
+      total() {
+        const index = findWithAttr(this.items, 'reff', this.form.reff)
+        const transaksi = this.items[index]
+        if (index >= 0) {
+          const bb = findWithAttr(
+            transaksi.penerimaan_transaction,
+            'penerimaan_id',
+            this.form.penerimaan_id
+          )
+          if (bb >= 0) {
+            transaksi.penerimaan_transaction[bb].sub_total = this.form.sub_total
+          } else {
+            const apem = {
+              penerimaan_id: this.form.penerimaan_id,
+              keterangan: this.form.keterangan,
+              sub_total: this.form.sub_total
+            }
+            transaksi.penerimaan_transaction.push(apem)
+          }
+          const total = transaksi.penerimaan_transaction
+            .map((data) => {
+              return data.sub_total
+            })
+            .reduce((a, b) => {
+              return a + b
+            })
+          this.form.total = total
+        } else {
+          this.form.total = this.form.sub_total
+        }
+      },
+      cekKasir() {
+        const index = findWithAttr(this.items, 'reff', this.form.reff)
+        if (index >= 0) {
+          const transaksi = this.items[index]
+          if (transaksi.kasir_id !== this.form.kasir_id) {
+            this.setNotaBaru()
+          }
+        }
+      },
       // api related actions
       // ambil data customer
       getDataDistributor() {
         const dist = useCustomerTable()
-        dist.getDataTable().then(data => {
+        dist.getDataTable().then((data) => {
           // console.log('distibutor ', data)
           this.customers = data
         })
@@ -103,6 +156,15 @@ export const usePenerimaanTransaksiFormStore = defineStore(
             })
         })
       },
+      getMasterPenerimaan() {
+        return new Promise((resolve) => {
+          api.get('v1/penerimaan/penerimaan').then((resp) => {
+            console.log('master penerimaan', resp.data)
+            this.penerimaans = resp.data.data
+            resolve(resp.data)
+          })
+        })
+      },
       // ambil data Transaksi Penerimaan
       getDataPenerimaan() {
         waitLoad('show')
@@ -122,6 +184,24 @@ export const usePenerimaanTransaksiFormStore = defineStore(
               reject(err)
             })
         })
+      }, // ambil data pengeluaran bulan ini
+      getPenerimaan() {
+        this.loading = true
+        return new Promise((resolve, reject) => {
+          api
+            .get('v1/transaksi/penerimaan')
+            .then((resp) => {
+              this.loading = false
+              console.log('penerimaan', resp.data)
+              this.items = resp.data.data
+              if (resp.data.data.length) this.assignForm(resp.data.data[0])
+              resolve(resp)
+            })
+            .catch((err) => {
+              this.loading = false
+              reject(err)
+            })
+        })
       },
       piutangDistributor(val) {
         // console.log('piutang distributor', val)
@@ -132,8 +212,9 @@ export const usePenerimaanTransaksiFormStore = defineStore(
           }
         }
         return new Promise((resolve, reject) => {
-          api.get('v1/laporan/get-piutang-customer', params)
-            .then(resp => {
+          api
+            .get('v1/laporan/get-piutang-customer', params)
+            .then((resp) => {
               // console.log(resp.data)
               this.loading = false
 
@@ -145,12 +226,14 @@ export const usePenerimaanTransaksiFormStore = defineStore(
               if (resp.data.dibayar.length) {
                 dibayar = resp.data.dibayar[0].total
               }
-              const jmlHutang = hutang.reduce((total, num) => { return total + num })
+              const jmlHutang = hutang.reduce((total, num) => {
+                return total + num
+              })
               this.hutang = resp.data.awal + jmlHutang - dibayar
               // console.log(jmlHutang, 'hutang ', hutang, 'dibayar', dibayar, 'sisa', this.hutang)
               resolve(resp)
             })
-            .catch(err => {
+            .catch((err) => {
               this.loading = false
               reject(err)
             })
@@ -160,22 +243,24 @@ export const usePenerimaanTransaksiFormStore = defineStore(
       // tambah
       saveForm() {
         waitLoad('show')
-        this.form.reff = 'TRM-' + uniqueId()
+        // this.form.reff = "TRM-" + uniqueId();
         const data = hurufBesar(this.form.nama)
         this.form.nama = data
         this.setForm('status', 2)
-        const total = olahUang(this.form.sub_total)
-        this.form.sub_total = total
-        this.setForm('total', this.form.sub_total)
-        this.setToday()
+        // const total = olahUang(this.form.sub_total);
+        // this.form.sub_total = total;
+        // this.setForm("total", this.form.sub_total);
+        this.cekKasir()
+        this.total()
+        // this.setToday();
         return new Promise((resolve, reject) => {
           api
             .post('v1/transaksi/store', this.form)
             .then((resp) => {
               // console.log('save data', resp)
               notifSuccess(resp)
-              this.getDataPenerimaan()
-              this.resetFORM()
+              this.getPenerimaan()
+              // this.resetFORM()
               waitLoad('done')
               this.isOpen = false
               resolve(resp)

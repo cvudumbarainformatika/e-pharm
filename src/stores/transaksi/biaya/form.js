@@ -105,9 +105,11 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
     },
     cekKasir() {
       const index = findWithAttr(this.items, 'reff', this.form.reff)
-      const transaksi = this.items[index]
-      if (transaksi.kasir_id !== this.form.kasir_id) {
-        this.setNotaBaru()
+      if (index >= 0) {
+        const transaksi = this.items[index]
+        if (transaksi.kasir_id !== this.form.kasir_id) {
+          this.setNotaBaru()
+        }
       }
     },
     // api related actions
@@ -208,7 +210,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
             this.loading = false
             console.log('pengeluaran', resp.data)
             this.items = resp.data.data
-            this.assignForm(resp.data.data[0])
+            if (resp.data.data.length) this.assignForm(resp.data.data[0])
             resolve(resp)
           })
           .catch(err => {
