@@ -7,7 +7,7 @@
       <q-card-section class="items-center justify-center">
         <div class="row q-col-gutter-sm">
           <div class="col-3">
-            Faktur : {{ item.faktur }}
+            Nota : {{ item.reff }}
           </div>
           <div class="col-3">
             <div class="row">
@@ -21,17 +21,27 @@
               </div>
             </div>
           </div>
-          <div class="col-3">
-            Dist : {{ item.supplier.nama }}
+          <div
+            v-if="item.dokter"
+            class="col-3"
+          >
+            Dokter : {{ item.dokter.nama }}
+          </div>
+          <div
+            v-if="item.customer"
+            class="col-3"
+          >
+            Cust : {{ item.customer.nama }}
           </div>
           <div class="col-3">
             <q-btn
               v-close-popup
-              label="Bayar"
+              label="Tagih"
               color="primary"
               dense
               no-caps
               class="q-px-md"
+              :loading="store.loading && item.reff === store.form.nota"
               @click="assign(item)"
             >
               <!-- self="top left" -->
@@ -50,13 +60,13 @@
                       </div>
                     </div>
                     <div class="row q-mb-sm">
-                      <div class="col-12">
-                        <strong>Bayar untuk Faktur : {{ item.faktur }}</strong>
-                      </div>
+                      <!-- <div class="col-12">
+                        <strong>Bayar untuk Nota : {{ item.reff }}</strong>
+                      </div> -->
                     </div>
                     <div class="row q-mb-sm">
                       <div class="col-12">
-                        <strong>Nota Pembelian : {{ item.reff }}</strong>
+                        <strong>Nota Penjualan: {{ item.reff }}</strong>
                       </div>
                     </div>
                     <div class="row q-mb-sm">
@@ -67,7 +77,7 @@
                           option-label="name"
                           option-value="id"
                           autocomplete="name"
-                          :source="biaya.kasirs"
+                          :source="penerimaan.kasirs"
                           autofocus
                           outlined
                         />
@@ -103,8 +113,13 @@
                     />
                     <app-btn
                       v-close-popup
-                      label="Bayar"
+                      label="Tagih"
                       @click="kirim(item)"
+                    />
+                    <app-btn
+                      v-close-popup
+                      label="Tagih nota baru"
+                      @click="bedaNota(item)"
                     />
                   </q-card-actions>
                 </q-card>
@@ -118,32 +133,33 @@
 </template>
 <script setup>
 import { dateFormat, formatRp, olahUang } from 'src/modules/formatter'
-import { useBebanTransaksiHutang } from 'src/stores/transaksi/biaya/hutang'
 import { ref } from 'vue'
 import AppInput from 'src/components/~global/AppInput.vue'
-import { useBebanTransaksiFormStore } from 'src/stores/transaksi/biaya/form'
+import { useTagihanPiutang } from 'src/stores/transaksi/penerimaan/piutang'
+import { usePenerimaanTransaksiFormStore } from 'src/stores/transaksi/penerimaan/form'
 // import { findWithAttr } from 'src/modules/utils'
 
-const store = useBebanTransaksiHutang()
-const biaya = useBebanTransaksiFormStore()
+const store = useTagihanPiutang()
+const penerimaan = usePenerimaanTransaksiFormStore()
 const jumlah = ref('')
 const assign = data => {
   console.log('assign', data)
   jumlah.value = data.total
-  const temp = biaya.bebans.map((apem, index) => {
+  const temp = penerimaan.penerimaans.map((apem, index) => {
     let apem2 = 0
-    if (apem.nama.includes('HUTANG')) {
+    if (apem.nama.includes('PIUTANG')) {
       apem2 = index
     }
     return apem2
   }).reduce((a, b) => { return a + b })
-  const beban = biaya.bebans[temp]
-  store.setForm('beban_id', beban.id)
-  store.setForm('pbreff', data.reff)
+  const terima = penerimaan.penerimaans[temp]
+  store.setForm('penerimaan_id', terima.id)
+  store.setForm('pjreff', data.reff)
   store.setForm('sub_total', data.total)
-  store.setForm('supplier_id', data.supplier_id)
-  store.setForm('faktur', data.faktur)
-  store.setForm('keterangan', `bayar hutang untuk faktur ${data.faktur}`)
+  store.setForm('customer_id', data.customer_id)
+  store.setForm('dokter_id', data.dokter_id)
+  store.setForm('nota', data.reff)
+  store.setForm('keterangan', `tagihan piutang untuk nota ${data.reff}`)
 
   // console.log('beban', beban)
 }
@@ -152,7 +168,18 @@ const kirim = val => {
   store.setForm('sub_total', olahUang(jumlah.value))
   store.saveForm().then(() => {
     store.resetInput()
-    store.setNotaBaru()
+    // store.setNotaBaru()
+  })
+  console.log('val ', val)
+  // console.log('jumlah', jumlah.value)
+  console.log('form', store.form)
+}
+const bedaNota = val => {
+  store.setNotaBaru()
+  store.setForm('sub_total', olahUang(jumlah.value))
+  store.saveForm().then(() => {
+    store.resetInput()
+    // store.setNotaBaru()
   })
   console.log('val ', val)
   // console.log('jumlah', jumlah.value)

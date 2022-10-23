@@ -14,7 +14,7 @@
       <q-tab
         class="text-primary"
         name="tagihan"
-        label="Tagihan"
+        label="Buat Tagihan"
         no-caps
       />
       <q-tab
@@ -45,16 +45,15 @@
         </q-tab-panel>
 
         <q-tab-panel name="tagihan">
-          belum
-          <!-- <div class="row q-col-gutter-sm">
+          <div class="row q-col-gutter-sm">
             <div class="col-5">
-              <HutangAll />
+              <TagihanAll />
             </div>
             <div class="col-7">
-              <app-no-data v-if="!hutang.bayars.length" />
-              <HutangList v-if="hutang.bayars.length" />
+              <app-no-data v-if="!tagihan.notas.length" />
+              <TagihanList v-if="tagihan.notas.length" />
             </div>
-          </div> -->
+          </div>
         </q-tab-panel>
 
         <q-tab-panel name="tagihan terbayar">
@@ -93,19 +92,26 @@
 // import NoDataPage from './NoDataPage.vue'
 // import ListPage from './pendapatan/ListPage.vue'
 import { usePenerimaanTransaksiFormStore } from 'src/stores/transaksi/penerimaan/form'
+import { useTagihanPiutang } from 'src/stores/transaksi/penerimaan/piutang'
 import { onMounted, ref } from 'vue'
 import AllPendapatan from './pendapatan/AllPendapatan.vue'
 import ListPage from './pendapatan/ListPage.vue'
+import TagihanAll from './tagihan/TagihanAll.vue'
+import TagihanList from './tagihan/TagihanList.vue'
 const store = usePenerimaanTransaksiFormStore()
+const tagihan = useTagihanPiutang()
 const tab = ref('pendapatan')
 
 store.setNotaBaru()
+tagihan.setNotaBaru()
 onMounted(() => {
   store.getDataKasirs()
   store.getMasterPenerimaan()
   // store.getDataPenerimaan()
   store.getDataDistributor()
   store.getPenerimaan()
+  tagihan.getTagihan()
+  tagihan.getNotaTagihan()
 })
 // coment sik
 </script>

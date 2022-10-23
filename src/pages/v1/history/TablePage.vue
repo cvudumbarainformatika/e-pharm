@@ -97,7 +97,7 @@
                 dense
               />
             </div>
-            <div v-else-if="props.row.status === 3 && props.row.nama !== 'PEMBELIAN'">
+            <div v-else-if="props.row.status === 3 && props.row.nama === 'PENJUALAN'">
               <q-chip
                 color="grey"
                 label="Returned"
@@ -108,6 +108,26 @@
               />
             </div>
             <div v-else-if="props.row.status === 3 && props.row.nama === 'PEMBELIAN'">
+              <q-chip
+                color="green"
+                label="Dibayar"
+                text-color="white"
+                rounded
+                no-caps
+                dense
+              />
+            </div>
+            <div v-else-if="props.row.status === 4 && props.row.nama === 'PENJUALAN'">
+              <q-chip
+                color="yellow"
+                label="Tertagih"
+                text-color="white"
+                rounded
+                no-caps
+                dense
+              />
+            </div>
+            <div v-else-if="props.row.status === 5 && props.row.nama === 'PENJUALAN'">
               <q-chip
                 color="green"
                 label="Dibayar"

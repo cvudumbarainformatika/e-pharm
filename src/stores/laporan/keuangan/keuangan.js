@@ -143,7 +143,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
                   apem.nominal = p.total
                   x = p.total
                 }
-                console.log('beban true', apem.nama, ' ', apem.nominal)
+                // console.log('beban true', apem.nama, ' ', apem.nominal)
               }
             })
             return x
@@ -175,7 +175,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
                   apem.nominal = p.total
                   x = p.total
                 }
-                console.log('penerimaan true', apem.nama, ' ', apem.nominal)
+                // console.log('penerimaan true', apem.nama, ' ', apem.nominal)
               }
             })
             return x
@@ -266,11 +266,11 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       this.rugi = labaRugi < 0 ? -labaRugi : 0
       this.labaKas = labaRugiKas > 0 ? labaRugiKas : 0
       this.rugiKas = labaRugiKas < 0 ? -labaRugiKas : 0
-      console.log('beban tanpat hutang', this.bebanNoHut)
-      console.log('ppendapatan tanpat Piutnga', this.penerimaanNoPiu)
-      console.log('laba rugi', labaRugiKas)
-      console.log('laba kas', this.labaKas)
-      console.log('rugi kas', this.rugiKas)
+      // console.log('beban tanpat hutang', this.bebanNoHut)
+      // console.log('ppendapatan tanpat Piutnga', this.penerimaanNoPiu)
+      // console.log('laba rugi', labaRugiKas)
+      // console.log('laba kas', this.labaKas)
+      // console.log('rugi kas', this.rugiKas)
       // console.log('persediaan Awal', persediaanAwal)
       // console.log('persediaan Akhir', persediaanAkhir)
       // console.log('pembelian dg kredit', pembelianDgKredit)
