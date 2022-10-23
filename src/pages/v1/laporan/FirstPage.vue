@@ -18,6 +18,11 @@
         no-caps
       />
       <q-tab
+        name="kas"
+        label="Kas"
+        no-caps
+      />
+      <q-tab
         name="keuangan"
         label="Keuangan"
         no-caps
@@ -67,6 +72,14 @@
           <StokTable />
         </q-tab-panel>
 
+        <q-tab-panel name="kas">
+          <KasTopMenu />
+          <!-- <div class="text-h6">
+            Keuangan
+          </div> -->
+          <PageKas />
+        </q-tab-panel>
+
         <q-tab-panel name="keuangan">
           <KeuanganTopMenu />
           <!-- <div class="text-h6">
@@ -99,6 +112,8 @@ import { useLaporanKeuanganStore } from 'src/stores/laporan/keuangan/keuangan'
 import { date } from 'quasar'
 import { titleCase } from 'src/modules/formatter'
 import { useLaporanStokTable } from 'src/stores/laporan/stok/table'
+import KasTopMenu from './kas/KasTopMenu.vue'
+import PageKas from './kas/PageKas.vue'
 
 const setting = useSettingStore()
 

@@ -20,11 +20,17 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
     persediaanAwal: 0,
     persediaanAkhir: 0,
     bebans: [],
+    bebanNos: [],
     beban: 0,
+    bebanNoHut: 0,
     penerimaans: [],
+    penerimaanNos: [],
     penerimaan: 0,
+    penerimaanNoPiu: 0,
     laba: 0,
     rugi: 0,
+    labaKas: 0,
+    rugiKas: 0,
 
     params: {
       q: '',
@@ -102,12 +108,13 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       })
       if (data.length) {
         data.map((p) => {
-          const x = null
+          const x = 0
           this.penerimaans.forEach((apem) => {
             if (apem.id === p.penerimaan_id) {
               apem.nominal = p.total
               // console.log('penerimaan true', apem)
             }
+            // console.log('penerimaan', apem.nominal)
           })
           return x
         })
@@ -117,6 +124,69 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
             return temp
           })
           .reduce((x, y) => x + y)
+      }
+    },
+    prosesBebanNoHutang(data) {
+      this.bebanNos.forEach((apem) => {
+        apem.nominal = 0
+      })
+      if (data.length) {
+        this.bebanNoHut = data
+          .map((p) => {
+            let x = 0
+            this.bebanNos.forEach((apem) => {
+              if (apem.id === p.beban_id) {
+                if (apem.nama.includes('HUTANG')) {
+                  apem.nominal = 0
+                  x = 0
+                } else {
+                  apem.nominal = p.total
+                  x = p.total
+                }
+                console.log('beban true', apem.nama, ' ', apem.nominal)
+              }
+            })
+            return x
+          })
+          .reduce((x, y) => x + y)
+        // this.bebanNoHut = this.bebanNos
+        //   .map((apem) => {
+        //     const temp = apem.nominal
+        //     return temp
+        //   })
+        //   .reduce((x, y) => x + y)
+      }
+      // console.log('beban', data)
+    },
+    prosesPenerimaanNoPiutang(data) {
+      this.penerimaanNos.forEach((apem) => {
+        apem.nominal = 0
+      })
+      if (data.length) {
+        this.penerimaanNoPiu = data
+          .map((p) => {
+            let x = 0
+            this.penerimaanNos.forEach((apem) => {
+              if (apem.id === p.penerimaan_id) {
+                if (apem.nama.includes('PIUTANG')) {
+                  apem.nominal = 0
+                  x = 0
+                } else {
+                  apem.nominal = p.total
+                  x = p.total
+                }
+                console.log('penerimaan true', apem.nama, ' ', apem.nominal)
+              }
+            })
+            return x
+          })
+          .reduce((x, y) => x + y)
+        // this.penerimaanNoPiu = this.penerimaanNos
+        //   .map((apem) => {
+        //     const temp = apem.nominal
+        //     return temp
+        //   })
+        //   .reduce((x, y) => x + y)
       }
     },
     // hpp = pemelian bersih + persediaan awal - persediaan akhir
@@ -191,8 +261,16 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       this.persediaanAwal = persediaanAwal
       this.persediaanAkhir = persediaanAkhir
       const labaRugi = this.penjualanBersih - this.HPP - this.beban + this.penerimaan
+      const labaRugiKas = this.penjualanBersih - this.HPP - this.bebanNoHut + this.penerimaanNoPiu
       this.laba = labaRugi > 0 ? labaRugi : 0
       this.rugi = labaRugi < 0 ? -labaRugi : 0
+      this.labaKas = labaRugiKas > 0 ? labaRugiKas : 0
+      this.rugiKas = labaRugiKas < 0 ? -labaRugiKas : 0
+      console.log('beban tanpat hutang', this.bebanNoHut)
+      console.log('ppendapatan tanpat Piutnga', this.penerimaanNoPiu)
+      console.log('laba rugi', labaRugiKas)
+      console.log('laba kas', this.labaKas)
+      console.log('rugi kas', this.rugiKas)
       // console.log('persediaan Awal', persediaanAwal)
       // console.log('persediaan Akhir', persediaanAkhir)
       // console.log('pembelian dg kredit', pembelianDgKredit)
@@ -256,6 +334,8 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       // pembelian bersih
       // this.pembelianBersih = this.pembelian - this.returPembelian
 
+      this.prosesBebanNoHutang(data.beban)
+      this.prosesPenerimaanNoPiutang(data.penerimaan)
       this.prosesBeban(data.beban)
       this.prosesPenerimaan(data.penerimaan)
     },
@@ -266,6 +346,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
           // console.log('beben keuangan', resp.data)
           if (resp.status === 200) {
             this.bebans = resp.data.data
+            this.bebanNos = resp.data.data
             resolve(resp.data.data)
           }
         })
@@ -277,6 +358,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
           // console.log('penerimaan keuangan', resp.data)
           if (resp.status === 200) {
             this.penerimaans = resp.data.data
+            this.penerimaanNos = resp.data.data
             resolve(resp.data.data)
           }
         })
