@@ -57,12 +57,16 @@
         </q-tab-panel>
 
         <q-tab-panel name="tagihan terbayar">
-          belum
-          <!-- <app-no-data v-if="!hutang.pembelians.length" />
-          <PembelianList v-if="hutang.pembelians.length" />
-          <div class="row">
-            <div class="col-12" />
-          </div> -->
+          <div class="row q-col-gutter-sm">
+            <div class="col-4">
+              <app-no-data v-if="!tagihan.notas.length" />
+              <PembayaranAll v-if="tagihan.notas.length" />
+            </div>
+            <div class="col-8">
+              <app-no-data v-if="!tagihan.dibayars.length" />
+              <ListTerbayar v-if="tagihan.dibayars.length" />
+            </div>
+          </div>
         </q-tab-panel>
       </q-tab-panels>
     </div>
@@ -98,6 +102,8 @@ import AllPendapatan from './pendapatan/AllPendapatan.vue'
 import ListPage from './pendapatan/ListPage.vue'
 import TagihanAll from './tagihan/TagihanAll.vue'
 import TagihanList from './tagihan/TagihanList.vue'
+import PembayaranAll from './pembayaran/PembayaranAll.vue'
+import ListTerbayar from './pembayaran/ListTerbayar.vue'
 const store = usePenerimaanTransaksiFormStore()
 const tagihan = useTagihanPiutang()
 const tab = ref('pendapatan')
@@ -112,6 +118,7 @@ onMounted(() => {
   store.getPenerimaan()
   tagihan.getTagihan()
   tagihan.getNotaTagihan()
+  tagihan.getTerbayar()
 })
 // coment sik
 </script>

@@ -6,11 +6,13 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
   state: () => ({
     items: [],
     notas: [],
+    dibayars: [],
     loading: false,
     form: {
       nama: 'TAGIHAN'
     },
-    totalTagihan: 0
+    totalTagihan: 0,
+    totalTerbayar: 0
   }),
   actions: {
     setForm(key, val) {
@@ -25,21 +27,22 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
       this.form.reff = 'TGH-' + uniqueId()
     },
     total() {
-      const index = findWithAttr(this.items, 'reff', this.form.reff)
-      const transaksi = this.items[index]
+      const index = findWithAttr(this.notas, 'reff', this.form.reff)
+      const transaksi = this.notas[index]
       if (index >= 0) {
-        const bb = findWithAttr(transaksi.penerimaan_transaction, 'penerimaan_id', this.form.penerimaan_id)
+        const bb = findWithAttr(transaksi.details, 'nota', this.form.nota)
         if (bb >= 0) {
-          transaksi.penerimaan_transaction[bb].sub_total = this.form.sub_total
+          transaksi.details[bb].sub_total = this.form.sub_total
         } else {
           const apem = {
             penerimaan_id: this.form.penerimaan_id,
+            nota: this.form.nota,
             keterangan: this.form.keterangan,
             sub_total: this.form.sub_total
           }
-          transaksi.penerimaan_transaction.push(apem)
+          transaksi.details.push(apem)
         }
-        const total = transaksi.penerimaan_transaction
+        const total = transaksi.details
           .map((data) => {
             return data.sub_total
           })
@@ -71,6 +74,30 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
           })
       })
     },
+    getTerbayar() {
+      this.loading = true
+      return new Promise((resolve, reject) => {
+        api
+          .get('v1/tagihan/tagihan-terbayar')
+          .then((resp) => {
+            this.loading = false
+            console.log('dibayar', resp)
+            if (resp.status === 200) {
+              this.dibayars = resp.data
+              if (this.dibayars.length) {
+                this.totalTerbayar = this.dibayars.map(data => {
+                  return data.total
+                }).reduce((c, d) => { return c + d })
+              }
+            }
+            resolve(resp)
+          })
+          .catch((err) => {
+            this.loading = false
+            reject(err)
+          })
+      })
+    },
     getNotaTagihan() {
       this.loading = true
       return new Promise((resolve, reject) => {
@@ -80,10 +107,12 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
             console.log('nota tagihan', resp.data)
             if (resp.status === 200) {
               this.notas = resp.data
-              this.form.reff = resp.data[0].reff
-              this.totalTagihan = this.notas.map(data => {
-                return data.total
-              }).reduce((c, d) => { return c + d })
+              if (this.notas.length) {
+                this.form.reff = resp.data[0].reff
+                this.totalTagihan = this.notas.map(data => {
+                  return data.total
+                }).reduce((c, d) => { return c + d })
+              } else { this.setNotaBaru() }
               // console.log('nota', resp.data.);
             }
             resolve(resp)
@@ -105,6 +134,25 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
             notifSuccess(resp)
             this.getTagihan()
             this.getNotaTagihan()
+            resolve(resp)
+          })
+          .catch(err => {
+            this.loading = false
+            reject(err)
+          })
+      })
+    },
+    saveDibayar(data) {
+      this.loading = true
+      return new Promise((resolve, reject) => {
+        api.post('v1/tagihan/dibayar', data)
+          .then(resp => {
+            this.loading = false
+            console.log('dibayar', resp.data)
+            notifSuccess(resp)
+            this.getTagihan()
+            this.getNotaTagihan()
+            this.getTerbayar()
             resolve(resp)
           })
           .catch(err => {
