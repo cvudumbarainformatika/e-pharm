@@ -284,7 +284,10 @@
       <!-- </template>
     </q-card> -->
     </q-table>
-    <DialogPage v-model="store.isOpen" />
+    <DialogPage
+      v-model="store.isOpen"
+      @selesai="resetValidation"
+    />
 
     <formDialog v-model="supplier.isOpen" />
     <!-- <app-btn
@@ -395,12 +398,13 @@ const keyCheck = val => {
   }
 }
 
-const resetVAlidation = () => {
-  refKecil.value.$refs.refInput.resetVAlidation()
-  refBesar.value.$refs.refInput.resetVAlidation()
-  refExpired.value.resetVAlidation()
-  refHarga.value.$refs.refInput.resetVAlidation()
-  refProduk.value.$refs.refAuto.resetVAlidation()
+const resetValidation = () => {
+  refKecil.value.$refs.refInput.resetValidation()
+  refBesar.value.$refs.refInput.resetValidation()
+  refExpired.value.resetValidation()
+  refHarga.value.$refs.refInput.resetValidation()
+  refFaktur.value.$refs.refInput.resetValidation()
+  refProduk.value.$refs.refAuto.resetValidation()
 }
 const table = usePembelianTable()
 const store = usePembelianDialog()
@@ -408,7 +412,7 @@ const store = usePembelianDialog()
 const cekRequired = () => {
   if (table.form.faktur) {
     store.openDialog()
-    resetVAlidation()
+    resetValidation()
   } else {
     notifErrVue('Faktur harus di isi')
   }

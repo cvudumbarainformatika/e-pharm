@@ -1,5 +1,5 @@
 <template>
-  <q-card style="margin-left:80px; width:800px;">
+  <q-card style="margin-left:0px; width:76mm;">
     <q-card-section>
       <div class="text-center">
         {{ setting.info.nama }}
@@ -175,13 +175,15 @@ const setting = useSettingStore()
 // const total = computed(() => { return store.harga * store.qty })
 </script>
 <style lang="scss" scoped>
-.top-line-tipis{
+.top-line-tipis {
   border-top: 0.5px solid;
 }
-.top-line{
+
+.top-line {
   border-top: 2px solid;
 }
-.bottom-line{
+
+.bottom-line {
   border-bottom: 2px solid;
 }
 </style>

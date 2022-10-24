@@ -236,12 +236,13 @@ import { useSupplierFormStore } from 'src/stores/master/supplier/form'
 // import { usePrintStore } from 'src/stores/print'
 const supplier = useSupplierFormStore()
 // const print = usePrintStore()
-
+const emits = defineEmits(['selesai'])
 const formReff = ref(null)
 const store = usePembelianDialog()
 store.setToday()
 const onSubmit = () => {
   store.simpanTransaksi()
+  emits('selesai')
   // window.print()
   if (formReff.value != null) { formReff.value.resetValidation() }
 }

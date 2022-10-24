@@ -6,6 +6,7 @@ import { notifSuccess, uniqueId } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
 // import { useAuthStore } from 'src/stores/auth'
 import { usePrintStore } from 'src/stores/print'
+import { usePenjualanTable } from '../penjualan/table'
 import { usePembelianTable } from './table'
 
 export const usePembelianDialog = defineStore('pembelian_store', {
@@ -156,6 +157,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       })
     },
     simpanTransaksi() {
+      const penjualan = usePenjualanTable()
       const user = useAuthStore()
       const admin = user.userGetter
       const total = olahUang(this.form.total)
@@ -197,6 +199,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
             table.form.reff = slug
             table.getDetailTransaksi(slug)
             this.isOpen = false
+            penjualan.ambilDataProduk()
           })
           .catch((err) => {
             this.loading = false
