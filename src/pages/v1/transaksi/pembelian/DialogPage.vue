@@ -1,6 +1,7 @@
 <template>
   <q-dialog>
     <app-print-page class="print-only" />
+    <!-- <app-print-page /> -->
     <app-card
       class="my-card print-hide"
       title="Pembayaran"
@@ -162,6 +163,7 @@
                 prefix="Rp "
                 currency
                 valid
+                readonly
               />
             </div>
           </div>

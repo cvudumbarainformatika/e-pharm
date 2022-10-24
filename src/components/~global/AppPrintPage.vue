@@ -39,7 +39,7 @@
         class="text-center"
       >
         <div class="row">
-          <div class="col-4">
+          <div class="col-4 text-left">
             {{ produk.product.nama }}
           </div>
           <div class="col-2">
