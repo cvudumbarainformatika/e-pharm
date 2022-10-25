@@ -50,10 +50,10 @@ api.interceptors.request.use(interceptRequest, interceptReqErrors)
 const getDataSetting = () => {
   return new Promise(resolve => {
     api
-      .get('v1/setting/info')
+      .get('v1/public/info')
       .then((resp) => {
-        console.log('setting axios', resp.data[0].themes)
-        const themes = resp.data[0].themes
+        console.log('setting axios', resp.data.themes)
+        const themes = resp.data.themes
         for (let i = 0; i < themes.length; i++) {
           setCssVar(themes[i].name, themes[i].value)
         }

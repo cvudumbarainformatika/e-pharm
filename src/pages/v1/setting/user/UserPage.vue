@@ -55,7 +55,7 @@
                               style="width:220px"
                               square
                               dense
-                              color="deep-purple"
+                              color="accent"
                               text-color="white"
                             >
                               {{ item.email }}
@@ -67,7 +67,7 @@
                               square
                               dense
                               text-color="white"
-                              color="indigo"
+                              color="info"
                             >
                               {{ item.role }}
                             </q-chip>
