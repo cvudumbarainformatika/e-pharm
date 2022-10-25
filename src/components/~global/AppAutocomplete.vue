@@ -40,6 +40,14 @@
         @click.stop.prevent="bersihkan"
       />
     </template>
+    <template
+      v-if="icon"
+      #prepend
+    >
+      <q-icon
+        :name="icon"
+      />
+    </template>
     <template #option="scope">
       <q-item v-bind="scope.itemProps">
         <q-item-section>
@@ -83,7 +91,8 @@ const props = defineProps({
   outlined: { type: Boolean, default: false },
   valid: { type: Boolean, default: false },
   model: { type: String, default: '' },
-  fokus: { type: Boolean, default: false }
+  fokus: { type: Boolean, default: false },
+  icon: { type: String, default: '' }
 })
 const optionx = ref([])
 const refAuto = ref(null)

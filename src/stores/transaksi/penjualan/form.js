@@ -101,7 +101,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.dokter = table.dokter
       this.form.distributor = table.distributor
       this.form.dokter = table.dokter
-      this.form.pasien = table.dataPasien ? table.dataPasien : null
+      this.form.pasien = Object.keys(table.dataPasien).length ? table.dataPasien : null
       if (table.form.dokter_id !== null && table.pasien === 'BPJS') {
         this.form.jenis = 'piutang'
       } else {

@@ -8,6 +8,7 @@ export const useSettingUserStore = defineStore('setting_user', {
     roles: [
       { nama: 'Owner', value: 'owner' },
       { nama: 'Admin', value: 'admin' },
+      { nama: 'Gudang', value: 'gudang' },
       { nama: 'Kasir', value: 'kasir' }
     ],
     role: '',
@@ -24,12 +25,14 @@ export const useSettingUserStore = defineStore('setting_user', {
     setParams(key, val) {
       this.params[key] = val
     },
+    assignForm(val) {
+      this.form = val
+    },
     setForm(key, val) {
       this.form[key] = val
     },
     resetForm() {
       this.form = {}
-      this.role = ''
     },
     getAllUser() {
       this.loading = true
@@ -56,6 +59,20 @@ export const useSettingUserStore = defineStore('setting_user', {
       this.loading = true
       return new Promise((resolve, reject) => {
         api.post('v1/user/update', this.form)
+          .then(resp => {
+            this.loading = false
+            resolve(resp)
+          })
+          .catch(err => {
+            this.loading = false
+            reject(err)
+          })
+      })
+    },
+    registerUser() {
+      this.loading = true
+      return new Promise((resolve, reject) => {
+        api.post('v1/auth/register', this.form)
           .then(resp => {
             this.loading = false
             resolve(resp)
