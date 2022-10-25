@@ -5,7 +5,7 @@
       desc="Create, Edit, Delete User"
     >
       <template #content>
-        <div class="text-right q-mr-lg">
+        <div class="text-right q-mr-lg q-mb-md">
           <q-btn
             class="q-mr-md"
             color="primary"
@@ -19,7 +19,7 @@
           />
         </div>
         <div class="row q-col-gutter-sm">
-          <div class="col-5">
+          <div class="col-7">
             <app-loading v-if="user.loading" />
             <app-no-data v-if="!user.users.length && !user.loading" />
             <!-- {{ currentUser }} -->
@@ -41,6 +41,7 @@
                         <div class="row q-col-gutter-sm">
                           <div class="col-3">
                             <q-chip
+                              style="width:130px"
                               dense
                               outline
                               square
@@ -51,18 +52,20 @@
                           </div>
                           <div class="col-5">
                             <q-chip
-                              dense
+                              style="width:220px"
                               square
+                              dense
                               color="deep-purple"
                               text-color="white"
                             >
                               {{ item.email }}
                             </q-chip>
                           </div>
-                          <div class="col-2 cursor-pointer">
+                          <div class="col-2">
                             <q-chip
-                              dense
+                              style="width:90px"
                               square
+                              dense
                               text-color="white"
                               color="indigo"
                             >
@@ -119,7 +122,7 @@
             </div>
           </div>
           <q-slide-transition>
-            <div class="col-7">
+            <div class="col-5">
               <app-loading v-if="user.loading" />
               <app-no-data
                 v-if="!Object.keys(user.form).length && !user.loading && !add"

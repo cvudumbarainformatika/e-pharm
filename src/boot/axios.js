@@ -2,6 +2,7 @@ import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 import { getLocalToken } from 'src/modules/storage'
 import { notifErr } from 'src/modules/utils'
+import { setCssVar } from 'quasar'
 
 const SERVER = 'http://api.eparm.test/api'
 // const SERVER = 'http://api.eparm.test:8080/api'
@@ -46,9 +47,25 @@ const interceptRequest = (config) => {
 }
 api.interceptors.request.use(interceptRequest, interceptReqErrors)
 
+const getDataSetting = () => {
+  return new Promise(resolve => {
+    api
+      .get('v1/setting/info')
+      .then((resp) => {
+        console.log('setting axios', resp.data[0].themes)
+        const themes = resp.data[0].themes
+        for (let i = 0; i < themes.length; i++) {
+          setCssVar(themes[i].name, themes[i].value)
+        }
+        resolve(resp)
+      })
+  })
+}
+
 export default boot(({ app }) => {
   app.config.globalProperties.$axios = axios
   app.config.globalProperties.$api = api
+  getDataSetting()
 })
 
 // eslint-disable-next-line no-return-assign

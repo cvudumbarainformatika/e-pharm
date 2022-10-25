@@ -8,6 +8,7 @@ import { usePenjualanTable } from '../transaksi/penjualan/table'
 export const useSettingStore = defineStore('setting', {
   state: () => ({
     dark: false,
+    loading: false,
     transaksiLoading: false,
     info: {
       nama: 'apotek sehat selalu',
@@ -16,7 +17,22 @@ export const useSettingStore = defineStore('setting', {
     },
     menus: [],
     levels: [],
-    themes: [],
+    themes: [
+      { name: 'primary', value: '#30268f' },
+      { name: 'secondary', value: '#06b8b8' },
+      { name: 'accent', value: '#9C27B0' },
+      { name: 'primary-light', value: '#cac5f0' },
+      { name: 'dark', value: '#0d101a' },
+      { name: 'dark-page', value: '#0d101a' },
+      { name: 'dark-light', value: '#262e47' },
+      { name: 'positive', value: '#198754' },
+      { name: 'negative', value: '#dc3545' },
+      { name: 'info', value: '#0d6efd' },
+      { name: 'warning', value: '#d6a100' },
+      { name: 'danger', value: '#990000' },
+      { name: 'white', value: '#ffffff' }
+    ],
+    infos: [],
     menu: 'user',
     form: {
       nama: 'eAchy'
@@ -60,6 +76,10 @@ export const useSettingStore = defineStore('setting', {
       console.log('menu', this.menu)
       console.log(val)
     },
+    setTheme(key, val) {
+      this.themes[key].value = val
+      this.saveSetting()
+    },
     // api related function
 
     getDataSetting() {
@@ -69,8 +89,10 @@ export const useSettingStore = defineStore('setting', {
           .then((resp) => {
             console.log('setting', resp.data[0])
             this.menus = resp.data[0].menus
-            this.levels = resp.data[0].levels
+            // this.levels = resp.data[0].levels
             this.themes = resp.data[0].themes
+            this.infos = resp.data[0].infos
+            this.info = this.infos
             resolve(resp)
           })
           .catch((err) => {
@@ -80,14 +102,17 @@ export const useSettingStore = defineStore('setting', {
     },
     saveSetting() {
       this.form.menus = this.menus
+      this.form.infos = this.infos
       // this.form.levels = this.levels
-      // this.form.themes = this.themes
+      this.form.themes = this.themes
       this.loading = true
       return new Promise((resolve, reject) => {
-        api.post('v1/setting/store-info', this.form)
+        api
+          .post('v1/setting/store-info', this.form)
           .then((resp) => {
             this.loading = false
             console.log('simpan', resp)
+            this.getDataSetting()
             resolve(resp)
           })
           .catch((err) => {
