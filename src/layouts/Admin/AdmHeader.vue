@@ -26,11 +26,11 @@
       </div>
       <!-- RIGHT -->
       <div :class="!mobile?'q-pr-md':'q-pr-sm'">
-        <q-btn
+        <!-- <q-btn
           flat
           round
           icon="icon-eva-bell-outline"
-        />
+        /> -->
         <q-avatar
           size="40px"
           class="q-ml-sm cursor-pointer bg-grey"

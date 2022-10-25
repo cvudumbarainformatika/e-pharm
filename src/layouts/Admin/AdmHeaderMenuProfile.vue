@@ -8,6 +8,7 @@
       <q-item
         v-close-popup
         clickable
+        to="/profile"
       >
         <q-item-section avatar>
           <q-icon
@@ -20,6 +21,7 @@
       <q-item
         v-close-popup
         clickable
+        to="/setting"
       >
         <q-item-section avatar>
           <q-icon
