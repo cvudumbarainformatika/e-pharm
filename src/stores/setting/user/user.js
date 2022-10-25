@@ -82,6 +82,20 @@ export const useSettingUserStore = defineStore('setting_user', {
             reject(err)
           })
       })
+    },
+    deleteUser() {
+      this.loading = true
+      return new Promise((resolve, reject) => {
+        api.post('v1/user/delete', this.form)
+          .then(resp => {
+            this.loading = false
+            resolve(resp)
+          })
+          .catch(err => {
+            this.loading = false
+            reject(err)
+          })
+      })
     }
   }
 })

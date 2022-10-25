@@ -94,7 +94,7 @@
                                 round
                                 color="grey"
                                 icon="icon-mat-delete_sweep"
-                                @click="deleteOne(item.id)"
+                                @click="deleteOne(item)"
                               >
                                 <q-tooltip
                                   anchor="top middle"
@@ -204,6 +204,7 @@
   </div>
 </template>
 <script setup>
+import { Dialog } from 'quasar'
 import { notifErrCenterVue } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
 import { useSettingUserStore } from 'src/stores/setting/user/user'
@@ -217,13 +218,31 @@ const add = ref(false)
 
 const editData = (item) => {
   if (item.role === 'root') { return notifErrCenterVue('root tidak boleh di edit') }
-  edit.value = true
   user.assignForm(item)
+  edit.value = true
   console.log(item)
 }
 
-const deleteOne = (id) => {
-  console.log(id)
+const deleteOne = (item) => {
+  user.resetForm()
+  if (item.role === 'root') { return notifErrCenterVue('root tidak boleh di hapus') }
+  Dialog.create({
+    title: 'Konfirmasi',
+    message: `Apakah <strong>User: ${item.name}</strong> Akan dihapus?`,
+    cancel: true,
+    html: true
+    // persistent: true
+  })
+    .onOk(() => {
+      user.assignForm(item)
+      user.deleteUser().then(() => {
+        user.getAllUser()
+        user.resetForm()
+      })
+    })
+    .onCancel(() => {
+      console.log('Cancel')
+    })
 }
 const roleSelected = val => {
   user.setForm('role', val)
