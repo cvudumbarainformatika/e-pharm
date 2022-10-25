@@ -13,7 +13,7 @@
           v-ripple
           class="menu"
           :active="table.nama===item.value"
-          :active-class="setting.dark ? 'page-dark text-white aktif-dark' : ' bg-grey-4 text-primary aktif'"
+          :active-class="setting.dark ? 'bg-grey-9 text-white aktif-dark' : ' bg-grey-4 text-primary aktif'"
           clickable
           exact
           @click="table.pilihTransaksi(item)"

@@ -28,8 +28,9 @@
         :to="`/${menu.link}`"
         replace
         class="sidebar flex flex-center"
-        :active-class="props.dark ? 'page-dark text-white aktif-dark' : 'bg-grey-4 text-primary aktif'"
+        :active-class="props.dark ? 'bg-grey-9 text-white aktif-dark' : 'bg-grey-4 text-primary aktif'"
         exact
+        @click="menuClick(menu)"
       >
         <!-- :class="!dark?'page-light':'page-dark'" -->
         <q-tooltip
@@ -58,6 +59,13 @@
 // import { ref } from 'vue'
 // import { useRouter } from 'vue-router'
 
+import { routerInstance } from 'src/boot/router'
+// import { uniqueId } from 'src/modules/utils'
+// import { useSettingStore } from 'src/stores/setting/setting'
+// import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
+// import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
+// import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
+
 const props = defineProps({
   dark: {
     type: Boolean,
@@ -66,6 +74,76 @@ const props = defineProps({
   menus: { type: Object, default: () => {} }
 })
 
+const menuClick = val => {
+  // console.log('menu path', val.link)
+  // console.log('curent path', routerInstance.currentRoute.value.path)
+  // console.log('menu name ', val.name)
+  // console.log('menu value', val.value)
+  // console.log('curent name', routerInstance.currentRoute.value.name)
+  // const gaPunya = val.submenus
+  // console.log('name', !!val.submenus)
+  // const store = usePembelianDialog()
+  // const setting = useSettingStore()
+  // const table = usePembelianTable()
+
+  if (val.name === 'transaksi') {
+    // console.log('transaksi')
+    const oldSlug = routerInstance.currentRoute.value.params.slug
+    // const name = routerInstance.currentRoute.value.name
+    let nama = ''
+    switch (routerInstance.currentRoute.value.name) {
+      case 'biaya':
+        nama = 'biaya'
+        break
+      case 'pembelian':
+        nama = 'pembelian'
+        break
+      case 'transaksi.penerimaan':
+        nama = 'transaksi.penerimaan'
+        break
+      case 'penjualan':
+        nama = 'penjualan'
+        break
+      case 'retur':
+        nama = 'retur'
+        break
+      case 'detail.retur':
+        nama = 'detail.retur'
+        break
+
+      default:
+        nama = val.submenus[0].value
+        break
+    }
+    // console.log(name)
+
+    routerInstance.replace({ name: nama, params: { slug: oldSlug } })
+    // table.getDetailTransaksi().then(data => {
+    //   setting.transaksiLoading = false
+    //   if (data !== undefined) {
+    //     table.form.reff = oldSlug
+    //     store.form.reff = oldSlug
+    //   } else {
+    //     routerInstance.replace({ name: nama, params: { slug } })
+    //     table.resetData()
+    //     store.resetData()
+    //     table.form.reff = slug
+    //     store.form.reff = slug
+    //   }
+    // })
+  } else if (val.submenus.length) {
+    // console.log('ada sub menus')
+    // console.log('masuk', val.submenus[0])
+    // console.log('value', val.value)
+    if (val.name === 'history' || val.name === 'dashboard' || val.name === 'setting') { return }
+    const nama = val.submenus[0].value
+    routerInstance.replace({ name: nama })
+  } else {
+    console.log('ga masuk', val.submenus)
+    const nama = val.name
+    routerInstance.replace({ name: nama })
+  }
+}
 // const menus = ref([
 //   { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard', link: 'dashboard' },
 //   { id: 2, name: 'master', icon: 'icon-mat-dataset', link: 'master' },

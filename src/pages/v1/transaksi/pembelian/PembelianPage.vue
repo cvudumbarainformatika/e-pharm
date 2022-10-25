@@ -19,9 +19,9 @@ import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
 import { uniqueId } from 'src/modules/utils'
 import { useSettingStore } from 'src/stores/setting/setting'
 
-const table = usePembelianTable()
 const store = usePembelianDialog()
 const setting = useSettingStore()
+const table = usePembelianTable()
 
 const slug = 'PBL-' + uniqueId()
 const oldSlug = routerInstance.currentRoute.value.params.slug

@@ -17,7 +17,7 @@
           :key="i"
           v-ripple
           class="menu"
-          :active-class="setting.dark ? 'page-dark text-white aktif-dark' : 'bg-grey-4 text-primary aktif'"
+          :active-class="setting.dark ? 'bg-grey-9 text-white aktif-dark' : 'bg-grey-4 text-primary aktif'"
           :to="`${menu.link}`"
           clickable
           exact

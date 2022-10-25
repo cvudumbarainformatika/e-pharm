@@ -353,7 +353,7 @@ const uLinkMenu = val => { linkMenu.value = val }
 
 const tambahMenu = () => {
   // setting.menus = sub // ini untuk seed all data
-  const temp = { name: namaMenu.value, icon: iconMenu.value, link: linkMenu.value, submenus: [] }
+  const temp = { name: namaMenu.value, icon: iconMenu.value, value: linkMenu.value.toLowerCase(), link: linkMenu.value, submenus: [] }
   setting.menus.push(temp)
   save()
   // console.log(temp)
@@ -376,7 +376,7 @@ const beforeEdit = (val, i) => {
   indexEdit = i
 }
 const saveEdit = val => {
-  const temp = { name: namaMenu.value, icon: iconMenu.value, link: linkMenu.value, submenus: subMenu.value }
+  const temp = { name: namaMenu.value, icon: iconMenu.value, link: linkMenu.value, value: linkMenu.value.toLowerCase(), submenus: subMenu.value }
   setting.menus[indexEdit] = temp
   curentmenu.value = temp.name
   save()
