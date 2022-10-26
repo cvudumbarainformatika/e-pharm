@@ -4,6 +4,7 @@ import { findWithAttr, notifSuccess, uniqueId } from 'src/modules/utils'
 
 export const useTagihanPiutang = defineStore('tagihan_piutang', {
   state: () => ({
+    printTagihan: false,
     items: [],
     notas: [],
     dibayars: [],
@@ -15,6 +16,12 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
     totalTerbayar: 0
   }),
   actions: {
+    openTagihan() {
+      this.printTagihan = true
+    },
+    closeTagihan() {
+      this.printTagihan = false
+    },
     setForm(key, val) {
       this.form[key] = val
     },

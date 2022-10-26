@@ -20,6 +20,14 @@
       >
         <q-separator />
         <div class="text-right  q-mt-sm">
+          <q-btn
+            class="q-mr-md"
+            color="primary"
+            round
+            flat
+            icon="icon-mat-print"
+            @click="emits('print',item)"
+          />
           <app-btn
             label="Pakai nota ini"
             @click="gantiNota(item)"
@@ -83,7 +91,7 @@
 <script setup>
 import { dateFullFormat, formatRp } from 'src/modules/formatter'
 import { useTagihanPiutang } from 'src/stores/transaksi/penerimaan/piutang'
-
+const emits = defineEmits(['print'])
 const store = useTagihanPiutang()
 const gantiNota = val => {
   store.setForm('reff', val.reff)

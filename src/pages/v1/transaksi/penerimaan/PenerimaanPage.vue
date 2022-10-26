@@ -51,7 +51,15 @@
             </div>
             <div class="col-7">
               <app-no-data v-if="!tagihan.notas.length" />
-              <TagihanList v-if="tagihan.notas.length" />
+              <TagihanList
+                v-if="tagihan.notas.length"
+                @print="printTagihan"
+              />
+              <PrintTagihanPage
+                v-model="tagihan.printTagihan"
+                :items="tagihanDiPrint"
+                @tutup="tagihan.closeTagihan()"
+              />
             </div>
           </div>
         </q-tab-panel>
@@ -102,6 +110,7 @@ import AllPendapatan from './pendapatan/AllPendapatan.vue'
 import ListPage from './pendapatan/ListPage.vue'
 import TagihanAll from './tagihan/TagihanAll.vue'
 import TagihanList from './tagihan/TagihanList.vue'
+import PrintTagihanPage from './tagihan/PrintTagihanPage.vue'
 import PembayaranAll from './pembayaran/PembayaranAll.vue'
 import ListTerbayar from './pembayaran/ListTerbayar.vue'
 const store = usePenerimaanTransaksiFormStore()
@@ -120,5 +129,11 @@ onMounted(() => {
   tagihan.getNotaTagihan()
   tagihan.getTerbayar()
 })
+const tagihanDiPrint = ref({})
+const printTagihan = val => {
+  console.log(val)
+  tagihanDiPrint.value = val
+  tagihan.openTagihan()
+}
 // coment sik
 </script>

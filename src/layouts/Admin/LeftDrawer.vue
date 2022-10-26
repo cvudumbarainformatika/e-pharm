@@ -88,7 +88,7 @@ const menuClick = val => {
 
   if (val.name === 'transaksi') {
     // console.log('transaksi')
-    const oldSlug = routerInstance.currentRoute.value.params.slug
+    const oldSlug = routerInstance.currentRoute.value.params.slug ? routerInstance.currentRoute.value.params.slug : 'apem'
     // const name = routerInstance.currentRoute.value.name
     let nama = ''
     switch (routerInstance.currentRoute.value.name) {
