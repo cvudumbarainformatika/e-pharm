@@ -11,11 +11,11 @@
       @toggle-left="toggleLeftDrawer"
     />
     <LeftDrawer
-      v-if="!mobile"
+      v-if="!mobile && role !=='kasir'"
       v-model="leftDrawerOpen"
       :dark="dark"
       class="print-hide"
-      :menus="setting.menus"
+      :menus="menus"
     />
     <q-drawer
       v-model="rightDrawerOpen"
@@ -29,9 +29,9 @@
 
     <!-- menu bottom mobile -->
     <adm-footer-menu
-      v-if="mobile"
+      v-if="mobile && role !== 'kasir'"
       :dark="dark"
-      :menus="setting.menus"
+      :menus="menus"
     />
     <q-page-container>
       <router-view />
@@ -76,6 +76,7 @@ const $q = useQuasar()
 const mobile = $q.screen.lt.md
 const history = useHistoryTable()
 const setting = useSettingStore()
+const role = store.userGetter ? store.userGetter.role : 'kasir'
 
 const dark = computed(() => {
   return $q.dark.isActive
@@ -92,6 +93,15 @@ function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 
+console.log('menus atas', setting.menus)
+const menus = computed(() => {
+  console.log('role', store.userGetter.role)
+  if (store.userGetter.role === 'gudang') {
+    console.log('menus', setting.menus)
+    return setting.menus.filter(data => { return data.name === 'transaksi' || data.name === 'master' })
+  } else { return setting.menus }
+})
+console.log('menus bawah', menus.value)
 // const menus = ref([
 //   { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard', link: 'dashboard' },
 //   { id: 2, name: 'master', icon: 'icon-mat-dataset', link: 'master' },

@@ -29,7 +29,7 @@
         replace
       > -->
         <q-item
-          v-for="(menu,i) in menus.submenus"
+          v-for="(menu,i) in menus"
           :key="i"
           v-ripple
           class="menu"
@@ -54,14 +54,47 @@
 import { useSettingStore } from 'src/stores/setting/setting'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
+import { useAuthStore } from 'src/stores/auth'
+const setting = useSettingStore()
 
 const menus = computed(() => {
   const apem = setting.menus.filter(data => { return data.name === 'transaksi' })
-  if (apem.length) return apem[0]
+  let submenu
+  if (apem.length) {
+    const user = useAuthStore().userGetter
+    switch (user.role) {
+      case 'kasir':
+        submenu = apem[0].submenus.filter(data => { return data.value === 'penjualan' })
+        break
+      case 'gudang':
+        submenu = apem[0].submenus.filter(data => { return data.value === 'pembelian' })
+        break
+
+      default:
+        submenu = apem[0].submenus
+        break
+    }
+    return submenu
+  }
   return [0, 0]
 })
+console.log('menu', menus.value)
+// let submenu = []
+// if (menus.value) {
+//   const user = useAuthStore().userGetter
+//   switch (user.role) {
+//     case 'kasir':
+//       submenu = menus.value.submenus.filter(data => { return data.value === 'penjualan' })
+//       break
+//     case 'gudang':
+//       submenu = menus.value.submenus.filter(data => { return data.value === 'pembelian' })
+//       break
 
-const setting = useSettingStore()
+//     default:
+//       submenu = menus.value.submenus
+//       break
+//   }
+// }
 const path = computed(() => useRoute().name)
 // import { computed, ref } from 'vue'
 // console.log('path', path)

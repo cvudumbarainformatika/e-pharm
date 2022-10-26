@@ -19,6 +19,7 @@
         <q-item-section>Profile</q-item-section>
       </q-item>
       <q-item
+        v-if="!store.userGetter.role === 'kasir'"
         v-close-popup
         clickable
         to="/setting"

@@ -21,16 +21,16 @@ export const useSettingStore = defineStore('setting', {
       { name: 'primary', value: '#30268f' },
       { name: 'secondary', value: '#06b8b8' },
       { name: 'accent', value: '#9C27B0' },
-      { name: 'primary-light', value: '#cac5f0' },
+      // { name: 'primary-light', value: '#cac5f0' },
       { name: 'dark', value: '#0d101a' },
-      { name: 'dark-page', value: '#0d101a' },
-      { name: 'dark-light', value: '#262e47' },
+      // { name: 'dark-page', value: '#0d101a' },
+      // { name: 'dark-light', value: '#262e47' },
       { name: 'positive', value: '#198754' },
       { name: 'negative', value: '#dc3545' },
       { name: 'info', value: '#0d6efd' },
-      { name: 'warning', value: '#d6a100' },
-      { name: 'danger', value: '#990000' },
-      { name: 'white', value: '#ffffff' }
+      { name: 'warning', value: '#d6a100' }
+      // { name: 'danger', value: '#990000' }
+      // { name: 'white', value: '#ffffff' }
     ],
     infos: [],
     menu: 'user',

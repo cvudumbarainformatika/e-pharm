@@ -1,6 +1,6 @@
 <template>
   <div
-    v-for="(item, i) in items.submenus"
+    v-for="(item, i) in items"
     :key="i"
   >
     <q-card>
@@ -30,11 +30,20 @@
   </div>
 </template>
 <script setup>
+import { useAuthStore } from 'src/stores/auth'
 import { useSettingStore } from 'src/stores/setting/setting'
 import { computed } from 'vue'
+const auth = useAuthStore().userGetter.role
 const items = computed(() => {
   const apem = setting.menus.filter(data => { return data.name === 'setting' })
-  if (apem.length) return apem[0]
+  if (apem.length) {
+    console.log(apem[0].submenus)
+    if (auth === 'root') {
+      return apem[0].submenus
+    } else {
+      return apem[0].submenus.filter(data => { return data.value !== 'menu' })
+    }
+  }
   return [0, 0]
 })
 

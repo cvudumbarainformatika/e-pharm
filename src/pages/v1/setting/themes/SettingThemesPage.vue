@@ -7,10 +7,11 @@
         class="col-12 col-md-3 col-xs-12"
       >
         <!-- :class="`bg-${list.name}`" -->
+        <!-- :class="list.name==='white' ? '' : ' text-white ' +' cursor-pointer'" -->
         <q-card
           flat
-          :class="list.name==='white' ? '' : ' text-white ' +' cursor-pointer'"
-          :style="`background-color:${list.value};`"
+          class="text-white cursor-pointer"
+          :class="`bg-${list.name }`"
         >
           <q-card-section class="text-center">
             {{ list.name }}

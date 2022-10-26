@@ -115,26 +115,9 @@ const menuClick = val => {
         nama = val.submenus[0].value
         break
     }
-    // console.log(name)
 
     routerInstance.replace({ name: nama, params: { slug: oldSlug } })
-    // table.getDetailTransaksi().then(data => {
-    //   setting.transaksiLoading = false
-    //   if (data !== undefined) {
-    //     table.form.reff = oldSlug
-    //     store.form.reff = oldSlug
-    //   } else {
-    //     routerInstance.replace({ name: nama, params: { slug } })
-    //     table.resetData()
-    //     store.resetData()
-    //     table.form.reff = slug
-    //     store.form.reff = slug
-    //   }
-    // })
   } else if (val.submenus.length) {
-    // console.log('ada sub menus')
-    // console.log('masuk', val.submenus[0])
-    // console.log('value', val.value)
     if (val.name === 'history' || val.name === 'dashboard' || val.name === 'setting') { return }
     const nama = val.submenus[0].value
     routerInstance.replace({ name: nama })

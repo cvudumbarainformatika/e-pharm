@@ -3,9 +3,15 @@ const routes = [
   {
     path: '/',
     component: () => import('layouts/Admin/AdminLayout.vue'),
-    meta: { requireAuth: true },
+    meta: { requireAuth: true, visitor: false },
     children: [
-      { path: '', redirect: '/dashboard' },
+      { path: '', redirect: '/apem' },
+      {
+        path: '/apem',
+        name: 'apem',
+        // component: () => import('pages/IndexPage.vue')
+        component: () => import('pages/IndexPage.vue')
+      },
       {
         path: '/dashboard',
         name: 'dashboard',
@@ -118,7 +124,8 @@ const routes = [
             path: '/pembelian/:slug',
             name: 'pembelian',
             component: () =>
-              import('src/pages/v1/transaksi/pembelian/IndexPage.vue')
+              import('src/pages/v1/transaksi/pembelian/IndexPage.vue'),
+            meta: { role: 'gudang' }
           },
           {
             path: '/transaksi/penerimaan',
@@ -130,7 +137,8 @@ const routes = [
             path: '/penjualan/:slug',
             name: 'penjualan',
             component: () =>
-              import('src/pages/v1/transaksi/penjualan/IndexPage.vue')
+              import('src/pages/v1/transaksi/penjualan/IndexPage.vue'),
+            meta: { role: 'kasir' }
           },
           {
             path: '/retur',
@@ -170,7 +178,7 @@ const routes = [
   {
     path: '/login',
     component: () => import('layouts/Auth/AuthLayout.vue'),
-    meta: { requireAuth: false },
+    meta: { requireAuth: false, visitor: true },
     children: [
       {
         path: '',
