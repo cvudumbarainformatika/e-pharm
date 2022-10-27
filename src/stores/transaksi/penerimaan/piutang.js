@@ -69,7 +69,7 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
           .get('v1/tagihan/piutang')
           .then((resp) => {
             this.loading = false
-            console.log('tagihan', resp)
+            // console.log('tagihan', resp)
             if (resp.status === 200) {
               this.items = resp.data
             }
@@ -88,7 +88,7 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
           .get('v1/tagihan/tagihan-terbayar')
           .then((resp) => {
             this.loading = false
-            console.log('dibayar', resp)
+            // console.log('dibayar', resp)
             if (resp.status === 200) {
               this.dibayars = resp.data
               if (this.dibayars.length) {
@@ -111,7 +111,7 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
         api.get('v1/tagihan/tagihan')
           .then(resp => {
             this.loading = false
-            console.log('nota tagihan', resp.data)
+            // console.log('nota tagihan', resp.data)
             if (resp.status === 200) {
               this.notas = resp.data
               if (this.notas.length) {
@@ -155,7 +155,7 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
         api.post('v1/tagihan/dibayar', data)
           .then(resp => {
             this.loading = false
-            console.log('dibayar', resp.data)
+            // console.log('dibayar', resp.data)
             notifSuccess(resp)
             this.getTagihan()
             this.getNotaTagihan()

@@ -71,7 +71,7 @@ export const useBebanTransaksiHutang = defineStore('beban_hutang', {
         api
           .get('v1/hutang/hutang')
           .then((resp) => {
-            console.log('hutnag', resp)
+            // console.log('hutnag', resp)
             this.loading = false
             if (resp.status === 200) {
               this.items = resp.data
@@ -90,7 +90,7 @@ export const useBebanTransaksiHutang = defineStore('beban_hutang', {
         api
           .get('v1/hutang/terbayar')
           .then((resp) => {
-            console.log('pembelian', resp)
+            // console.log('pembelian', resp)
             this.loading = false
             if (resp.status === 200) {
               this.pembelians = resp.data
@@ -109,7 +109,7 @@ export const useBebanTransaksiHutang = defineStore('beban_hutang', {
         api
           .get('v1/hutang/bayar')
           .then((resp) => {
-            console.log('dibayar', resp)
+            // console.log('dibayar', resp)
             this.loading = false
             if (resp.status === 200) {
               this.bayars = resp.data

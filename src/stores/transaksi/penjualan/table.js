@@ -428,7 +428,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         data.stokSekarang = data.stok_awal + data.stokBerjalan
       })
       this.produks = product
-      console.log('produk', product)
+      // console.log('produk', product)
     },
 
     // api related functions
@@ -513,7 +513,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       }
     },
     setForm(value) {
-      console.log('set form', value)
+      // console.log('set form', value)
       const store = usePenjualanDialog()
       store.form = value
       this.form = value
@@ -538,7 +538,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       return new Promise((resolve, reject) => {
         api.get('v1/laporan/all-stok', params)
           .then(resp => {
-            console.log('produk penjualan', resp.data)
+            // console.log('produk penjualan', resp.data)
             this.produkLoading = false
             this.prosesData(resp.data)
             // this.produks = resp.data.data
@@ -610,7 +610,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         api.get('v1/laporan/single-product', params)
           .then(resp => {
             this.produkUpdateLoading = false
-            console.log('update produk', resp.data)
+            // console.log('update produk', resp.data)
             resolve(resp.data)
           })
           .catch(err => {
@@ -627,7 +627,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           .post('v1/transaksi/store', data)
           .then((resp) => {
             this.simpanDetailLoading = false
-            console.log('save detail ', resp.data)
+            // console.log('save detail ', resp.data)
             resolve(resp.data.data)
             this.getDetailTransaksi()
           })

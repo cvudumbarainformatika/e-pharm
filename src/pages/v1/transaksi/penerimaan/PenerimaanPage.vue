@@ -58,6 +58,7 @@
               <PrintTagihanPage
                 v-model="tagihan.printTagihan"
                 :items="tagihanDiPrint"
+                :info="setting.infos"
                 @tutup="tagihan.closeTagihan()"
               />
             </div>
@@ -113,8 +114,10 @@ import TagihanList from './tagihan/TagihanList.vue'
 import PrintTagihanPage from './tagihan/PrintTagihanPage.vue'
 import PembayaranAll from './pembayaran/PembayaranAll.vue'
 import ListTerbayar from './pembayaran/ListTerbayar.vue'
+import { useSettingStore } from 'src/stores/setting/setting'
 const store = usePenerimaanTransaksiFormStore()
 const tagihan = useTagihanPiutang()
+const setting = useSettingStore()
 const tab = ref('pendapatan')
 
 store.setNotaBaru()

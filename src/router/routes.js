@@ -150,9 +150,7 @@ const routes = [
                 path: '/retur/:slug',
                 name: 'detail.retur',
                 component: () =>
-                  import(
-                    'src/pages/v1/transaksi/retur/detail/IndexPage.vue'
-                  )
+                  import('src/pages/v1/transaksi/retur/detail/IndexPage.vue')
               }
             ]
           }
@@ -165,14 +163,6 @@ const routes = [
       }
     ]
   },
-  // {
-  //   path: '/master',
-  //   component: () => import('layouts/Master/MasterLayout.vue'),
-  //   meta: { requireAuth: true },
-  //   children: [
-
-  //   ]
-  // },
 
   // login
   {
@@ -184,6 +174,14 @@ const routes = [
         path: '',
         component: () => import('pages/auth/AuthPage.vue')
       }
+    ]
+  },
+  {
+    path: '/test',
+    component: () => import('pages/test/TestPage.vue'),
+    // meta: { requireAuth: true },
+    children: [
+
     ]
   },
 

@@ -164,7 +164,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       const produk = apem.filter((data) => {
         return data.id === val
       })
-      console.log(produk[0])
+      // console.log(produk[0])
 
       if (produk.length) {
         this.form.product_id = produk[0].id
@@ -182,11 +182,11 @@ export const usePembelianTable = defineStore('pembelian_table', {
     },
     inputSatuanBesar(val) {
       this.form.qty = parseFloat(this.satuan.besar) * parseFloat(this.satuan.pengali) + parseFloat(this.satuan.kecil)
-      console.log('satuan besar', val)
+      // console.log('satuan besar', val)
     },
     inputSatuanKecil(val) {
       this.form.qty = parseFloat(this.satuan.besar) * parseFloat(this.satuan.pengali) + parseFloat(this.satuan.kecil)
-      console.log('satuan kecil', val)
+      // console.log('satuan kecil', val)
     },
 
     resetInput() {
@@ -208,7 +208,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       if (val.key === 'F2') {
         alert('tembol F2 ditekan')
       }
-      console.log(' tombol ditekan', val.key)
+      // console.log(' tombol ditekan', val.key)
     },
     onEnter() {
       const store = usePembelianDialog()

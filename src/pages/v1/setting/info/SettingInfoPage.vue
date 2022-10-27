@@ -28,6 +28,13 @@
               outlined
               :loading="setting.loading"
             />
+            <app-input
+              v-model="setting.infos.pemilik"
+              class="q-mb-sm"
+              label="Pemilik Toko"
+              outlined
+              :loading="setting.loading"
+            />
             <div class="text-right">
               <app-btn
                 label="Simpan"

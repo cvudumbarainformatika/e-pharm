@@ -159,7 +159,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
       getMasterPenerimaan() {
         return new Promise((resolve) => {
           api.get('v1/penerimaan/penerimaan').then((resp) => {
-            console.log('master penerimaan', resp.data)
+            // console.log('master penerimaan', resp.data)
             this.penerimaans = resp.data.data
             resolve(resp.data)
           })
@@ -192,7 +192,7 @@ export const usePenerimaanTransaksiFormStore = defineStore(
             .get('v1/transaksi/penerimaan')
             .then((resp) => {
               this.loading = false
-              console.log('penerimaan', resp.data)
+              // console.log('penerimaan', resp.data)
               this.items = resp.data.data
               if (resp.data.data.length) this.assignForm(resp.data.data[0])
               resolve(resp)

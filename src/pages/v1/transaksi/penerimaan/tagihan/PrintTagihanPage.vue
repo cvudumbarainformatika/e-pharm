@@ -7,11 +7,18 @@
     <q-card
       class="full-width"
     >
-      <!-- <div>
-        {{ props.items }}
-        Nota Nomor {{ props.items.nota }}
-      </div> -->
-      <div>
+      <q-card-section>
+        <div class="text-center text-weight-bold f-16">
+          {{ props.info.nama }}
+        </div>
+        <div class="text-center f-12">
+          {{ props.info.alamat }}
+        </div>
+        <div class="text-center f-12">
+          {{ props.info.tlp }}
+        </div>
+      </q-card-section>
+      <q-card-section>
         <!-- v-for="(item,i) in props.items"
           :key="i" -->
         <div
@@ -76,8 +83,22 @@
             </div>
           </div>
         </div> -->
-      </div>
-      <q-card-actions class="text-right">
+      </q-card-section>
+      <q-card-actions
+        align="right"
+      >
+        <div class="text-center q-mr-lg">
+          ttd <br>
+          <br>
+          <br>
+          <br>
+          <br>
+          ({{ props.info.pemilik }})
+        </div>
+      </q-card-actions>
+      <q-card-actions
+        align="right"
+      >
         <div class="row q-col-gutter-lg">
           <!-- <div class="col-3" /> -->
           <div class="col-6">
@@ -103,7 +124,9 @@ import { dateFullFormat, formatRp } from 'src/modules/formatter'
 const emits = defineEmits(['tutup'])
 const props = defineProps({
   items: { type: Object, default: () => {} },
+  info: { type: Object, default: () => {} },
   nota: { type: String, default: '' }
+
   // total: { type: Number, default: 0 }
 })
 const printLah = () => {

@@ -28,6 +28,7 @@ switch (user.role) {
   default:
     console.log('default', user.role)
     routerInstance.replace({ name: 'dashboard' })
+    // routerInstance.replace({ path: '/test' })
 
     break
 }

@@ -208,7 +208,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
         api.get('v1/transaksi/pengeluaran')
           .then(resp => {
             this.loading = false
-            console.log('pengeluaran', resp.data)
+            // console.log('pengeluaran', resp.data)
             this.items = resp.data.data
             if (resp.data.data.length) this.assignForm(resp.data.data[0])
             resolve(resp)
