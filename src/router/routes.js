@@ -16,7 +16,7 @@ const routes = [
         path: '/dashboard',
         name: 'dashboard',
         // component: () => import('pages/IndexPage.vue')
-        component: () => import('pages/Dashboard.vue')
+        component: () => import('pages/DashboardPage.vue')
       },
       // { path: '/surveyor', name: 'surveyor', component: () => import('pages/v1/surveyor/IndexPage.vue') },
       {
@@ -174,14 +174,6 @@ const routes = [
         path: '',
         component: () => import('pages/auth/AuthPage.vue')
       }
-    ]
-  },
-  {
-    path: '/test',
-    component: () => import('pages/test/TestPage.vue'),
-    // meta: { requireAuth: true },
-    children: [
-
     ]
   },
 

@@ -1,29 +1,31 @@
 <template>
-  <q-page class="q-pa-sm">
-    <Suspense>
-      <!-- main content -->
-      <div class="row">
-        <div class="col-2">
-          <TransaksiMenu />
-        </div>
-        <div class="col-10">
-          <q-page v-if="path !== '/transaksi'">
-            <router-view />
-          </q-page>
-          <div v-else>
-            <q-card>
-              <NoSelectedPage />
-            </q-card>
+  <div>
+    <q-page class="q-pa-sm">
+      <Suspense>
+        <!-- main content -->
+        <div class="row">
+          <div class="col-2">
+            <TransaksiMenu />
+          </div>
+          <div class="col-10">
+            <q-page v-if="path !== '/transaksi'">
+              <router-view />
+            </q-page>
+            <div v-else>
+              <q-card>
+                <NoSelectedPage />
+              </q-card>
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- loading state -->
-      <template #fallback>
-        <app-loading />
-      </template>
-    </Suspense>
-  </q-page>
+        <!-- loading state -->
+        <template #fallback>
+          <app-loading />
+        </template>
+      </Suspense>
+    </q-page>
+  </div>
 </template>
 <script setup>
 import TransaksiMenu from './TransaksiMenu.vue'

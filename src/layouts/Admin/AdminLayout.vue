@@ -35,6 +35,17 @@
     />
     <q-page-container>
       <router-view />
+      <!-- :name="transitionName" -->
+      <!-- <router-view v-slot="{ Component }">
+        <transition
+          enter-active-class="slide-left"
+          leave-active-class="slide-right"
+          :duration="300"
+          appear
+        >
+          <component :is="Component" />
+        </transition>
+      </router-view> -->
     </q-page-container>
     <q-page-sticky
       position="bottom-right"
@@ -68,6 +79,7 @@ import AdmFooterMenu from './AdmFooterMenu.vue'
 import { useAuthStore } from 'src/stores/auth'
 import { useHistoryTable } from 'src/stores/history/table'
 import { useSettingStore } from 'src/stores/setting/setting'
+// import { routerInstance } from 'src/boot/router'
 
 const store = useAuthStore()
 const leftDrawerOpen = ref(false)
@@ -83,6 +95,17 @@ const role = computed(() => {
 const dark = computed(() => {
   return $q.dark.isActive
 })
+
+// const transitionName = ref('slide-left')
+// const route = routerInstance
+// console.log('Layout route ', routerInstance)
+// watch(() => routerInstance, (to, from) => {
+//   console.log('Layout route ', routerInstance)
+//   const toDepth = to.path.split('/').length
+//   const fromDepth = from.path.split('/').length
+//   transitionName.value = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+//   console.log('app : ', fromDepth, ' - ', toDepth)
+// })
 
 function setDark(val) {
   const x = !val

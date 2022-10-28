@@ -19,6 +19,7 @@
         style="height:calc(100%-50px) ;padding-top:50px"
       > -->
     <div
+      v-if="Object.keys(menus).length"
       class="flex column flex-center full-height"
       style="height:calc(100%-60px) "
     >
@@ -50,6 +51,60 @@
       </router-link>
     </div>
     <!-- </q-scroll-area> -->
+    <!-- skeleton -->
+    <div
+      v-if="!Object.keys(menus).length"
+      class="flex column flex-center full-height"
+      style="height:calc(100%-60px) "
+    >
+      <div class="sidebar flex flex-center">
+        <q-skeleton
+          animation="pulse"
+          width="25px"
+          height="25px"
+        />
+      </div>
+
+      <div class="sidebar flex flex-center">
+        <q-skeleton
+          animation="pulse"
+          width="25px"
+          height="25px"
+        />
+      </div>
+
+      <div class="sidebar flex flex-center">
+        <q-skeleton
+          animation="pulse"
+          width="25px"
+          height="25px"
+        />
+      </div>
+
+      <div class="sidebar flex flex-center">
+        <q-skeleton
+          animation="pulse"
+          width="25px"
+          height="25px"
+        />
+      </div>
+
+      <div class="sidebar flex flex-center">
+        <q-skeleton
+          animation="pulse"
+          width="25px"
+          height="25px"
+        />
+      </div>
+
+      <div class="sidebar flex flex-center">
+        <q-skeleton
+          animation="pulse"
+          width="25px"
+          height="25px"
+        />
+      </div>
+    </div>
 
     <div class="just-shadow absolute-full overflow-hidden no-pointer-events" />
   </q-drawer>
@@ -87,7 +142,7 @@ const menuClick = val => {
   // const table = usePembelianTable()
 
   if (val.name === 'transaksi') {
-    console.log('transaksi')
+    // console.log('transaksi')
     const oldSlug = routerInstance.currentRoute.value.params.slug ? routerInstance.currentRoute.value.params.slug : 'apem'
     // const name = routerInstance.currentRoute.value.name
     let nama = ''
@@ -118,13 +173,13 @@ const menuClick = val => {
 
     routerInstance.replace({ name: nama, params: { slug: oldSlug } })
   } else if (val.submenus.length) {
-    console.log('Bukan transaksi', val.name)
+    // console.log('Bukan transaksi', val.name)
     if (val.name === 'history' || val.name === 'dashboard' || val.name === 'setting') { return }
-    console.log('Bukan transaksi ga balik', val.submenus)
+    // console.log('Bukan transaksi ga balik', val.submenus)
     const nama = val.submenus[0].value
     routerInstance.replace({ name: nama })
   } else {
-    console.log('ga masuk', val.submenus)
+    // console.log('ga masuk', val.submenus)
     const nama = val.name
     routerInstance.replace({ name: nama })
   }
