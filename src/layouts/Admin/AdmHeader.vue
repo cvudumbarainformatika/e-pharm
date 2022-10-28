@@ -35,7 +35,7 @@
           size="40px"
           class="q-ml-sm cursor-pointer bg-grey"
         >
-          <img src="~assets/images/actor.svg">
+          <img :src="image">
           <adm-header-menu-profile />
         </q-avatar>
       </div>
@@ -45,6 +45,10 @@
 
 <script setup>
 import AdmHeaderMenuProfile from './AdmHeaderMenuProfile.vue'
+import { ref, watch } from 'vue'
+import { useAuthStore } from 'src/stores/auth'
+import { imageSever } from 'src/boot/axios'
+const store = useAuthStore()
 const emit = defineEmits(['toggleLeft'])
 defineProps({
   dark: {
@@ -55,6 +59,12 @@ defineProps({
     type: Boolean,
     default: false
   }
+})
+
+const image = ref(new URL('../../assets/images/actor.svg', import.meta.url).href)
+watch(() => store.user, (apem) => {
+  console.log('watch apem', apem)
+  image.value = apem.image !== null ? (imageSever + apem.image) : new URL('../../assets/images/actor.svg', import.meta.url).href
 })
 </script>
 

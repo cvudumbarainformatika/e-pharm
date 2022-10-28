@@ -87,7 +87,7 @@ const menuClick = val => {
   // const table = usePembelianTable()
 
   if (val.name === 'transaksi') {
-    // console.log('transaksi')
+    console.log('transaksi')
     const oldSlug = routerInstance.currentRoute.value.params.slug ? routerInstance.currentRoute.value.params.slug : 'apem'
     // const name = routerInstance.currentRoute.value.name
     let nama = ''
@@ -118,7 +118,9 @@ const menuClick = val => {
 
     routerInstance.replace({ name: nama, params: { slug: oldSlug } })
   } else if (val.submenus.length) {
+    console.log('Bukan transaksi', val.name)
     if (val.name === 'history' || val.name === 'dashboard' || val.name === 'setting') { return }
+    console.log('Bukan transaksi ga balik', val.submenus)
     const nama = val.submenus[0].value
     routerInstance.replace({ name: nama })
   } else {

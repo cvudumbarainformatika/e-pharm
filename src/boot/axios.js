@@ -4,9 +4,11 @@ import { getLocalToken } from 'src/modules/storage'
 import { notifErr } from 'src/modules/utils'
 import { setCssVar } from 'quasar'
 
-const SERVER = 'http://api.eparm.test/api'
-// const SERVER = 'http://api.eparm.test:8080/api'
-// const SERVER = 'https://api.udumbarainformatika.my.id/api'
+const base = 'http://api.eparm.test'
+// const base = 'http://api.eparm.test:8080'
+// const base = 'https://api.udumbarainformatika.my.id'
+const SERVER = base + '/api'
+const imageSever = base + '/storage/'
 
 const api = axios.create({ baseURL: SERVER })
 api.defaults.headers.get.Accepts = 'application/json'
@@ -74,4 +76,4 @@ const setToken = (token) => {
 }
 const deleteToken = () => delete api.defaults.headers.common.Authorization
 
-export { axios, api, setToken, deleteToken }
+export { axios, api, setToken, deleteToken, imageSever }

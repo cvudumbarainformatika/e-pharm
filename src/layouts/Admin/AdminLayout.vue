@@ -76,7 +76,9 @@ const $q = useQuasar()
 const mobile = $q.screen.lt.md
 const history = useHistoryTable()
 const setting = useSettingStore()
-const role = store.userGetter ? store.userGetter.role : 'kasir'
+const role = computed(() => {
+  return store.userGetter.role
+})
 
 const dark = computed(() => {
   return $q.dark.isActive
@@ -95,7 +97,7 @@ function toggleLeftDrawer() {
 
 console.log('menus atas', setting.menus)
 const menus = computed(() => {
-  console.log('role', store.userGetter.role)
+  // console.log('role', store.userGetter.role)
   if (store.userGetter.role === 'gudang') {
     console.log('menus', setting.menus)
     return setting.menus.filter(data => { return data.name === 'transaksi' || data.name === 'master' })

@@ -10,7 +10,10 @@ export const useAuthStore = defineStore('auth', {
       token: localStorage.getItem('token') ? storage.getLocalToken() : null,
       user: localStorage.getItem('user') ? storage.getUser() : null,
       loading: false
-    })
+    }),
+    token: localStorage.getItem('token') ? storage.getLocalToken() : null,
+    user: localStorage.getItem('user') ? storage.getUser() : null,
+    loading: false
   }),
   getters: {
     isAuth (state) {
@@ -61,7 +64,7 @@ export const useAuthStore = defineStore('auth', {
     },
     async getUser () {
       await api.get('v1/user/profile').then(resp => {
-        // console.log('me k', resp.data)
+        console.log('me k', resp.data)
         storage.setUser(resp.data)
         this.user = resp.data
       })
