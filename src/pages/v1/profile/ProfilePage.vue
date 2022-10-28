@@ -48,10 +48,14 @@ const currentUser = auth.state().user
 
 const fileRef = ref(null)
 const tempImg = ref(null)
-const imgUrl = ref(new URL('../../../assets/images/actor.svg', import.meta.url).href)
+const imgUrl = ref(auth.user.image ? (imageSever + auth.user.image) : new URL('../../../assets/images/actor.svg', import.meta.url).href)
 watch(() => auth.user, (apem) => {
   console.log('watch apem', apem)
-  imgUrl.value = apem.image !== null ? (imageSever + apem.image) : new URL('../../../assets/images/actor.svg', import.meta.url).href
+  if (apem) {
+    imgUrl.value = apem.image !== null ? (imageSever + apem.image) : new URL('../../../assets/images/actor.svg', import.meta.url).href
+  } else {
+    imgUrl.value = new URL('../../../assets/images/actor.svg', import.meta.url).href
+  }
 })
 // const previewImage = computed(() => {
 //   const imgUrl = imageSever + currentUser.image
@@ -76,6 +80,7 @@ const simpanGambar = () => {
       .then(resp => {
         notifSuccess(resp)
         auth.getUser()
+        tempImg.value = null
         resolve(resp)
       })
       .catch(err => {
@@ -83,6 +88,5 @@ const simpanGambar = () => {
       })
   })
 }
-// watchEffect(auth.userGetter, previewImage)
 
 </script>

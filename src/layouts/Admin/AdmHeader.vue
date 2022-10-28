@@ -45,7 +45,7 @@
 
 <script setup>
 import AdmHeaderMenuProfile from './AdmHeaderMenuProfile.vue'
-import { ref, watch } from 'vue'
+import { computed } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
 import { imageSever } from 'src/boot/axios'
 const store = useAuthStore()
@@ -61,11 +61,21 @@ defineProps({
   }
 })
 
-const image = ref(new URL('../../assets/images/actor.svg', import.meta.url).href)
-watch(() => store.user, (apem) => {
-  console.log('watch apem', apem)
-  image.value = apem.image !== null ? (imageSever + apem.image) : new URL('../../assets/images/actor.svg', import.meta.url).href
+const image = computed(() => {
+  let imgUrl = new URL('../../assets/images/actor.svg', import.meta.url).href
+  if (store.user) {
+    if (store.user.image) {
+      imgUrl = imageSever + store.user.image
+    } else {
+      imgUrl = new URL('../../assets/images/actor.svg', import.meta.url).href
+    }
+  }
+  return imgUrl
 })
+// watch(() => store.user, (apem) => {
+//   console.log('watch apem', apem)
+//   image.value = apem.image !== null ? (imageSever + apem.image) : new URL('../../assets/images/actor.svg', import.meta.url).href
+// })
 </script>
 
 <style lang="scss" scoped>

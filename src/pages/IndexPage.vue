@@ -13,7 +13,7 @@ import { routerInstance } from 'src/boot/router'
 import { useAuthStore } from 'src/stores/auth'
 
 const slug = 'apem'
-const user = useAuthStore().userGetter
+const user = useAuthStore().user
 console.log(user)
 switch (user.role) {
   case 'kasir':

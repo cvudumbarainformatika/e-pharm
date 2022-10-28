@@ -60,8 +60,8 @@ const setting = useSettingStore()
 const menus = computed(() => {
   const apem = setting.menus.filter(data => { return data.name === 'transaksi' })
   let submenu
-  if (apem.length) {
-    const user = useAuthStore().userGetter
+  const user = useAuthStore().user
+  if (apem.length && user) {
     switch (user.role) {
       case 'kasir':
         submenu = apem[0].submenus.filter(data => { return data.value === 'penjualan' })
@@ -81,7 +81,7 @@ const menus = computed(() => {
 console.log('menu', menus.value)
 // let submenu = []
 // if (menus.value) {
-//   const user = useAuthStore().userGetter
+//   const user = useAuthStore().user
 //   switch (user.role) {
 //     case 'kasir':
 //       submenu = menus.value.submenus.filter(data => { return data.value === 'penjualan' })

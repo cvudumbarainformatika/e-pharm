@@ -132,7 +132,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     },
     ambilDataKasir() {
       const user = useAuthStore()
-      this.kasirs = [user.userGetter]
+      this.kasirs = [user.user]
     },
     // ambilDataSupplier(val) {
     //   if (val !== '') {
@@ -159,7 +159,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     // },
     simpanTransaksi() {
       const user = useAuthStore()
-      const kasir = user.userGetter
+      const kasir = user.user
       const total = olahUang(this.form.total)
       const ongkir = olahUang(this.form.ongkir)
       const potongan = olahUang(this.form.potongan)

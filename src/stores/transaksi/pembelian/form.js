@@ -133,7 +133,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
           })
       })
       // console.log('user ', user.user)
-      // console.log('user getter', user.userGetter)
+      // console.log('user getter', user.user)
     },
     ambilDataSupplier(val) {
       if (val !== '') { this.params.q = val }
@@ -159,7 +159,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     simpanTransaksi() {
       const penjualan = usePenjualanTable()
       const user = useAuthStore()
-      const admin = user.userGetter
+      const admin = user.user
       const total = olahUang(this.form.total)
       const ongkir = olahUang(this.form.ongkir)
       const potongan = olahUang(this.form.potongan)

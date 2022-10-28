@@ -4,9 +4,9 @@ import { getLocalToken } from 'src/modules/storage'
 import { notifErr } from 'src/modules/utils'
 import { setCssVar } from 'quasar'
 
-const base = 'http://api.eparm.test'
+// const base = 'http://api.eparm.test'
 // const base = 'http://api.eparm.test:8080'
-// const base = 'https://api.udumbarainformatika.my.id'
+const base = 'https://api.udumbarainformatika.my.id'
 const SERVER = base + '/api'
 const imageSever = base + '/storage/'
 

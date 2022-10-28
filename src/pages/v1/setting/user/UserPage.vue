@@ -215,7 +215,7 @@ import { ref } from 'vue'
 
 const user = useSettingUserStore()
 const auth = useAuthStore()
-const currentUser = auth.state().user
+const currentUser = auth.user
 const edit = ref(false)
 const add = ref(false)
 

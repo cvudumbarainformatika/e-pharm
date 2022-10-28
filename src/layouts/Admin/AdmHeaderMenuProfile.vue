@@ -19,7 +19,7 @@
         <q-item-section>Profile</q-item-section>
       </q-item>
       <q-item
-        v-if="role !== 'kasir'"
+        v-if="role"
         v-close-popup
         clickable
         to="/setting"
@@ -55,7 +55,13 @@ import { computed } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
 const store = useAuthStore()
 const role = computed(() => {
-  return store.userGetter.role
+  let rule = true
+  if (store.user) {
+    if (store.user.role === 'kasir' || store.user.role === 'gudang') {
+      rule = false
+    }
+  }
+  return rule
 })
 
 function signOut() {

@@ -77,7 +77,7 @@ const mobile = $q.screen.lt.md
 const history = useHistoryTable()
 const setting = useSettingStore()
 const role = computed(() => {
-  return store.userGetter.role
+  return store.user ? store.user.role : 'kasir'
 })
 
 const dark = computed(() => {
@@ -97,8 +97,8 @@ function toggleLeftDrawer() {
 
 console.log('menus atas', setting.menus)
 const menus = computed(() => {
-  // console.log('role', store.userGetter.role)
-  if (store.userGetter.role === 'gudang') {
+  console.log('role', role.value)
+  if (role.value === 'gudang') {
     console.log('menus', setting.menus)
     return setting.menus.filter(data => { return data.name === 'transaksi' || data.name === 'master' })
   } else { return setting.menus }

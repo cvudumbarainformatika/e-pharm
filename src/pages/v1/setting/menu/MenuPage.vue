@@ -33,7 +33,7 @@
 import { useAuthStore } from 'src/stores/auth'
 import { useSettingStore } from 'src/stores/setting/setting'
 import { computed } from 'vue'
-const auth = useAuthStore().userGetter.role
+const auth = useAuthStore().user.role
 const items = computed(() => {
   const apem = setting.menus.filter(data => { return data.name === 'setting' })
   if (apem.length) {
