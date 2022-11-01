@@ -118,15 +118,15 @@ function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value
 }
 
-console.log('menus atas', setting.menus)
+// console.log('menus atas', setting.menus)
 const menus = computed(() => {
-  console.log('role', role.value)
+  // console.log('role', role.value)
   if (role.value === 'gudang') {
-    console.log('menus', setting.menus)
+    // console.log('menus', setting.menus)
     return setting.menus.filter(data => { return data.name === 'transaksi' || data.name === 'master' })
   } else { return setting.menus }
 })
-console.log('menus bawah', menus.value)
+// console.log('menus bawah', menus.value)
 // const menus = ref([
 //   { id: 1, name: 'dashboard', icon: 'icon-mat-dashboard', link: 'dashboard' },
 //   { id: 2, name: 'master', icon: 'icon-mat-dataset', link: 'master' },

@@ -23,7 +23,7 @@ export const useDashboardStore = defineStore('dashboard_store', {
   actions: {
     // local related function
     monthlyMap() {
-      console.log(Object.keys(this.rank))
+      // console.log(Object.keys(this.rank))
       if (Object.keys(this.rank.monthly).length) {
         this.series = this.rank.monthly.series_sub_total
       }
@@ -90,12 +90,12 @@ export const useDashboardStore = defineStore('dashboard_store', {
             this.dayly[index] = this.daylyAll[index]
           }
         }
-        console.log('monthly', this.monthly)
-        console.log('month all', this.monthlyAll)
-        console.log('weekly', this.weekly)
-        console.log('week all', this.weeklyAll)
-        console.log('dayly', this.dayly)
-        console.log('day all', this.daylyAll)
+        // console.log('monthly', this.monthly)
+        // console.log('month all', this.monthlyAll)
+        // console.log('weekly', this.weekly)
+        // console.log('week all', this.weeklyAll)
+        // console.log('dayly', this.dayly)
+        // console.log('day all', this.daylyAll)
       } else {
         console.log('produk kosong bos')
       }
@@ -107,7 +107,7 @@ export const useDashboardStore = defineStore('dashboard_store', {
         api
           .get('v1/dashboard/hutang')
           .then((resp) => {
-            console.log('hutang', resp.data)
+            // console.log('hutang', resp.data)
             this.hutangs = resp.data
             this.loading = false
             resolve(resp)
@@ -124,7 +124,7 @@ export const useDashboardStore = defineStore('dashboard_store', {
         api
           .get('v1/dashboard/tagihan')
           .then((resp) => {
-            console.log('tagihan', resp.data)
+            // console.log('tagihan', resp.data)
             this.rank = resp.data
             this.loading = false
             resolve(resp)
@@ -141,7 +141,7 @@ export const useDashboardStore = defineStore('dashboard_store', {
         api
           .get('v1/dashboard/rank')
           .then((resp) => {
-            console.log('rank', resp.data)
+            // console.log('rank', resp.data)
             this.rank = resp.data
             this.loading = false
             this.monthlyMap()

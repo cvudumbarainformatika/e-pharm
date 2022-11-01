@@ -28,7 +28,7 @@ export const useAuthStore = defineStore('auth', {
       waitLoad('show')
       try {
         await api.post('v1/auth/login', payload).then(resp => {
-          console.log('login', resp.data)
+          // console.log('login', resp.data)
           storage.setLocalToken(resp.data.access_token)
           storage.setUser(resp.data.user)
           const hdd = storage.getLocalToken()

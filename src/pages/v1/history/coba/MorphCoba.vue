@@ -137,14 +137,14 @@ const nextMorph = () => {
 const transactionSelected = (val) => {
   morphGroupModel.value = 'card2'
   morphStore.transaction = val.value
-  console.log(val)
+  // console.log(val)
 }
 const statusSelected = val => {
   morphGroupModel.value = 'btn'
   morphStore.status = val.value
   morphStore.getDataNamaStatus()
   // notifCenterVue(`telah di pilih transaksi : ${morphStore.transaction} dengan status ${morphStore.status} (${val.name})`)
-  console.log(val)
+  // console.log(val)
 }
 const cari = () => {
   morphStore.getDataSearch()

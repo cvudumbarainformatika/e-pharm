@@ -80,8 +80,8 @@ export const useSettingStore = defineStore('setting', {
     },
     pilihItem(val) {
       this.menu = val.value
-      console.log('menu', this.menu)
-      console.log(val)
+      // console.log('menu', this.menu)
+      // console.log(val)
     },
     setTheme(key, val) {
       this.themes[key].value = val
@@ -94,7 +94,7 @@ export const useSettingStore = defineStore('setting', {
         api
           .get('v1/setting/info')
           .then((resp) => {
-            console.log('setting', resp.data[0])
+            // console.log('setting', resp.data[0])
             this.menus = resp.data[0].menus
             // this.levels = resp.data[0].levels
             this.themes = resp.data[0].themes
@@ -118,7 +118,7 @@ export const useSettingStore = defineStore('setting', {
           .post('v1/setting/store-info', this.form)
           .then((resp) => {
             this.loading = false
-            console.log('simpan', resp)
+            // console.log('simpan', resp)
             this.getDataSetting()
             resolve(resp)
           })

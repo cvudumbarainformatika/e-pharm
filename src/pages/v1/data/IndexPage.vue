@@ -43,7 +43,7 @@ import barWithLabel from './BarWithLabel.vue'
 import ProductRank from './ProductPageRank.vue'
 const store = useDashboardStore()
 usePenjualanTable().ambilDataProduk().then(resp => {
-  console.log('produk', resp)
+  // console.log('produk', resp)
   store.produks = resp.product
   store.getDataRank()
 })

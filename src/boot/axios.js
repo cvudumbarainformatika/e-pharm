@@ -54,7 +54,7 @@ const getDataSetting = () => {
     api
       .get('v1/public/info')
       .then((resp) => {
-        console.log('setting axios', resp.data.themes)
+        // console.log('setting axios', resp.data.themes)
         const themes = resp.data.themes
         for (let i = 0; i < themes.length; i++) {
           setCssVar(themes[i].name, themes[i].value)
