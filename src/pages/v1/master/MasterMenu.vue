@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="menus"
     class="q-pa-sm "
   >
     <!-- style="max-width: 150px" -->
@@ -32,6 +33,9 @@
       </q-list>
     </q-card>
   </div>
+  <div v-if="!menus">
+    <app-loading />
+  </div>
 </template>
 <script setup>
 import { useSettingStore } from 'src/stores/setting/setting'
@@ -39,7 +43,7 @@ import { computed } from 'vue'
 const menus = computed(() => {
   const apem = setting.menus.filter(data => { return data.name === 'master' })
   if (apem.length) return apem[0]
-  return [0, 0]
+  return false
 })
 
 // import { ref } from 'vue'

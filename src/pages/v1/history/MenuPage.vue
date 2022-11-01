@@ -1,32 +1,37 @@
 <template>
-  <div
-    v-for="(item, i) in items.submenus"
-    :key="i"
-  >
-    <q-card>
-      <q-list
-        bordered
-        padding
-        class="rounded-borders text-primary"
-      >
-        <q-item
-          v-ripple
-          class="menu"
-          :active="table.nama===item.value"
-          :active-class="setting.dark ? 'bg-grey-9 text-white aktif-dark' : ' bg-grey-4 text-primary aktif'"
-          clickable
-          exact
-          @click="table.pilihTransaksi(item)"
+  <div v-if="items">
+    <div
+      v-for="(item, i) in items.submenus"
+      :key="i"
+    >
+      <q-card>
+        <q-list
+          bordered
+          padding
+          class="rounded-borders text-primary"
         >
-          <q-item-section avatar>
-            <q-icon :name="item.icon" />
-          </q-item-section>
-          <q-item-section>
-            {{ item.name }}
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </q-card>
+          <q-item
+            v-ripple
+            class="menu"
+            :active="table.nama===item.value"
+            :active-class="setting.dark ? 'bg-grey-9 text-white aktif-dark' : ' bg-grey-4 text-primary aktif'"
+            clickable
+            exact
+            @click="table.pilihTransaksi(item)"
+          >
+            <q-item-section avatar>
+              <q-icon :name="item.icon" />
+            </q-item-section>
+            <q-item-section>
+              {{ item.name }}
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-card>
+    </div>
+  </div>
+  <div v-if="!items">
+    <app-loading />
   </div>
 </template>
 <script setup>
@@ -36,7 +41,7 @@ import { computed } from 'vue'
 const items = computed(() => {
   const apem = setting.menus.filter(data => { return data.name === 'history' })
   if (apem.length) return apem[0]
-  return [0, 0]
+  return false
 })
 // import { ref } from 'vue'
 // const items = ref([
