@@ -30,7 +30,7 @@ const props = defineProps({
 })
 const chartOptions = ref({
   chart: {
-    height: 150,
+    height: 350,
     type: 'area',
     zoom: {
       enabled: true

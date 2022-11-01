@@ -21,13 +21,13 @@
       </div>
     </div>
     <div class="row q-col-gutter-sm q-mb-sm">
-      <div class="col-4">
+      <div class="col-6">
         <barWithLabel
           judul="Bulan ini"
           :series="store.series"
         />
       </div>
-      <div class="col-4">
+      <div class="col-6">
         <barWithLabel
           judul="Minggu ini"
           :series="store.series7"
