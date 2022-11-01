@@ -326,7 +326,7 @@ import { notifErrCenterVue, uniqueId } from 'src/modules/utils'
 const table = usePenjualanTable()
 const store = usePenjualanDialog()
 const keyCheck = val => {
-  console.log('key', val.key)
+  // console.log('key', val.key)
   if (val.key === 'F2') {
     cekRequired()
   }

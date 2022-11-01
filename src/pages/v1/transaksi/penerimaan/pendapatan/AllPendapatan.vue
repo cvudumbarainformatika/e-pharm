@@ -118,7 +118,7 @@ import { usePenerimaanTransaksiFormStore } from 'src/stores/transaksi/penerimaan
 const store = usePenerimaanTransaksiFormStore()
 const jumlah = ref('')
 const assign = data => {
-  console.log('assign', data)
+  // console.log('assign', data)
   if (store.items.length) {
     const index = findWithAttr(store.items, 'reff', store.form.reff)
     const transaksi = store.items[index]

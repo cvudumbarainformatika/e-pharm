@@ -50,7 +50,7 @@ const fileRef = ref(null)
 const tempImg = ref(null)
 const imgUrl = ref(auth.user.image ? (imageSever + auth.user.image) : new URL('../../../assets/images/actor.svg', import.meta.url).href)
 watch(() => auth.user, (apem) => {
-  console.log('watch apem', apem)
+  // console.log('watch apem', apem)
   if (apem) {
     imgUrl.value = apem.image !== null ? (imageSever + apem.image) : new URL('../../../assets/images/actor.svg', import.meta.url).href
   } else {
@@ -63,14 +63,14 @@ watch(() => auth.user, (apem) => {
 // })
 function imgClick () {
   fileRef.value.pickFiles()
-  console.log('ambil')
+  // console.log('ambil')
 }
 const simpanGambar = () => {
   const form = new FormData()
   form.append('id', currentUser.id)
   form.append('image', tempImg.value)
 
-  console.log('simpan', form)
+  // console.log('simpan', form)
   return new Promise((resolve, reject) => {
     api.post('v1/user/upload', form, {
       headers: {

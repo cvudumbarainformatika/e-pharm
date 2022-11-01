@@ -137,7 +137,7 @@ const store = useBebanTransaksiHutang()
 const biaya = useBebanTransaksiFormStore()
 const jumlah = ref('')
 const assign = data => {
-  console.log('assign', data)
+  // console.log('assign', data)
   jumlah.value = data.total
   const temp = biaya.bebans.map((apem, index) => {
     let apem2 = 0
@@ -163,8 +163,8 @@ const kirim = val => {
     store.resetInput()
     store.setNotaBaru()
   })
-  console.log('val ', val)
+  // console.log('val ', val)
   // console.log('jumlah', jumlah.value)
-  console.log('form', store.form)
+  // console.log('form', store.form)
 }
 </script>

@@ -391,7 +391,7 @@ const harga = val => {
   }
 }
 const keyCheck = val => {
-  console.log('key', val.key)
+  // console.log('key', val.key)
   if (val.key === 'F2') {
     // alert('tembol F2 ditekan')
     cekRequired()

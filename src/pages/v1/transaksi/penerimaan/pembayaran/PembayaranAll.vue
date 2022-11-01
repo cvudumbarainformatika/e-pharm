@@ -186,7 +186,7 @@ const atas = ref(null)
 // const penerimaan = usePenerimaanTransaksiFormStore()
 // const jumlah = ref('')
 const assign = data => {
-  console.log('assign', data)
+  // console.log('assign', data)
   // jumlah.value = data.total
   // const temp = penerimaan.penerimaans.map((apem, index) => {
   //   let apem2 = 0
@@ -214,9 +214,9 @@ const kirim = val => {
   //   store.resetInput()
   //   // store.setNotaBaru()
   // })
-  console.log('val ', val)
+  // console.log('val ', val)
   // console.log('jumlah', jumlah.value)
-  console.log('form', store.form)
+  // console.log('form', store.form)
 }
 // const bedaNota = val => {
 // store.setNotaBaru()

@@ -134,7 +134,7 @@ onMounted(() => {
 })
 const tagihanDiPrint = ref({})
 const printTagihan = val => {
-  console.log(val)
+  // console.log(val)
   tagihanDiPrint.value = val
   tagihan.openTagihan()
 }
