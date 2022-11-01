@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { notifErrCenterVue } from 'src/modules/utils'
+import { useDashboardStore } from '../dashboard'
 import { useLaporanStokTable } from '../laporan/stok/table'
 import { usePembelianTable } from '../transaksi/pembelian/table'
 import { usePenjualanTable } from '../transaksi/penjualan/table'
@@ -47,7 +48,8 @@ export const useSettingStore = defineStore('setting', {
     },
     stok: useLaporanStokTable(),
     penjualan: usePenjualanTable(),
-    pembelian: usePembelianTable()
+    pembelian: usePembelianTable(),
+    dashboar: useDashboardStore()
   }),
   actions: {
     getInitialData() {
@@ -55,8 +57,13 @@ export const useSettingStore = defineStore('setting', {
       this.stok.getDataRak()
       this.penjualan.ambilDataDistributor()
       this.penjualan.ambilDataDokter()
-      this.penjualan.ambilDataProduk()
+      this.penjualan.ambilDataProduk().then((resp) => {
+        this.dashboar.produks = resp.product
+        this.dashboar.getDataRank()
+      })
       this.pembelian.ambilDataProduk()
+      this.dashboar.getDataHutang()
+      this.dashboar.getDataTagihan()
     },
     increment() {
       this.counter++

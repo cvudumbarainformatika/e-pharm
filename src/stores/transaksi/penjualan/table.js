@@ -542,7 +542,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
             this.produkLoading = false
             this.prosesData(resp.data)
             // this.produks = resp.data.data
-            resolve(resp.data.data)
+            resolve(resp.data)
           }).catch(err => {
             reject(err)
             this.produkLoading = false

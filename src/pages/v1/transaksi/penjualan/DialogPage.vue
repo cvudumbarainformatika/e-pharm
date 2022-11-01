@@ -238,6 +238,8 @@
 </template>
 <script setup>
 // import { olahUang } from 'src/modules/formatter'
+import { olahUang } from 'src/modules/formatter'
+import { notifErrVue } from 'src/modules/utils'
 import { usePenjualanDialog } from 'src/stores/transaksi/penjualan/form'
 import { ref } from 'vue'
 // import { useSupplierFormStore } from 'src/stores/master/supplier/form'
@@ -247,6 +249,9 @@ const formReff = ref(null)
 const store = usePenjualanDialog()
 store.setToday()
 const onSubmit = () => {
+  if (parseFloat(olahUang(store.form.bayar)) < parseFloat(olahUang(store.totalSemua))) {
+    return notifErrVue('periksa kembali jumlah pembayaran')
+  }
   store.simpanTransaksi()
   if (formReff.value != null) { formReff.value.resetValidation() }
 }

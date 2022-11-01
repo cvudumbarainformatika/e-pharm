@@ -1,14 +1,18 @@
 <template>
-  <div>
-    <q-page class="flex flex-center">
-      <img
-        alt="Quasar logo"
-        src="~assets/quasar-logo-vertical.svg"
-        style="width: 200px; height: 200px"
-      >
-    </q-page>
-  </div>
+  <Suspense>
+    <!-- main content -->
+    <AsyncComp />
+
+    <!-- loading state -->
+    <template #fallback>
+      <app-loading />
+    </template>
+  </Suspense>
 </template>
 
 <script setup>
+import { defineAsyncComponent } from 'vue'
+const AsyncComp = defineAsyncComponent(() =>
+  import('./v1/data/IndexPage.vue')
+)
 </script>

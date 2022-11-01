@@ -4,6 +4,7 @@ import { routerInstance } from 'src/boot/router'
 import { olahUang } from 'src/modules/formatter'
 import { notifErrVue, notifSuccess, uniqueId } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
+import { useDashboardStore } from 'src/stores/dashboard'
 import { usePrintStore } from 'src/stores/print'
 import { usePenjualanTable } from './table'
 
@@ -208,6 +209,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
             table.form.reff = slug
             table.getDetailTransaksi(slug)
             this.isOpen = false
+            useDashboardStore().getDataRank()
           })
           .catch((err) => {
             this.loading = false

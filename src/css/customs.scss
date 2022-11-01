@@ -23,3 +23,7 @@
 .table-dark{
   background-color: $dark-light;
 }
+.left-primary-border{
+    border-radius: 10px 0px 0px 10px;
+    border-left: 3px solid $primary;
+}

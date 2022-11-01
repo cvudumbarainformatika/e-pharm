@@ -7,7 +7,16 @@
       <q-card-section class="items-center justify-center">
         <div class="row q-col-gutter-sm">
           <div class="col-3">
-            Faktur : {{ item.faktur }}
+            <div class="row">
+              <div class="col-12">
+                Faktur : {{ item.faktur }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                {{ dateFormat(item.tanggal) }}
+              </div>
+            </div>
           </div>
           <div class="col-3">
             <div class="row">
@@ -17,7 +26,7 @@
             </div>
             <div class="row">
               <div class="col-12">
-                {{ dateFormat(item.tanggal) }}
+                {{ dateFormat(item.tempo) }}
               </div>
             </div>
           </div>
