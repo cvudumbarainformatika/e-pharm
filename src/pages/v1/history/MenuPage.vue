@@ -11,6 +11,7 @@
           class="rounded-borders text-primary"
         >
           <q-item
+            v-close-popup
             v-ripple
             class="menu"
             :active="table.nama===item.value"

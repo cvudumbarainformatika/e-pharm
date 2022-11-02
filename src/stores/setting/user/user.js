@@ -44,7 +44,6 @@ export const useSettingUserStore = defineStore('setting_user', {
           .then(resp => {
             this.loading = false
             if (resp.status === 200) {
-              console.log('user', resp.data)
               this.users = resp.data.data
             }
             resolve(resp)

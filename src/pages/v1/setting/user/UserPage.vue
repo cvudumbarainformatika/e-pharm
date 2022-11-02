@@ -223,7 +223,7 @@ const editData = (item) => {
   if (item.role === 'root') { return notifErrCenterVue('root tidak boleh di edit') }
   user.assignForm(item)
   edit.value = true
-  console.log(item)
+  // console.log(item)
 }
 
 const deleteOne = (item) => {
@@ -244,7 +244,7 @@ const deleteOne = (item) => {
       })
     })
     .onCancel(() => {
-      console.log('Cancel')
+      // console.log('Cancel')
     })
 }
 const roleSelected = val => {
@@ -277,7 +277,7 @@ const simpan = (val) => {
     edit.value = false
   })
   // console.log('simpan', temp)
-  console.log('form', user.form)
+  // console.log('form', user.form)
 }
 const tambah = (val) => {
   user.registerUser().then(() => {
@@ -285,6 +285,6 @@ const tambah = (val) => {
     user.resetForm()
     add.value = false
   })
-  console.log('form', user.form)
+  // console.log('form', user.form)
 }
 </script>

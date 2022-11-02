@@ -1,25 +1,28 @@
 <template>
-  <q-page class="q-mb-lg q-pb-lg">
-    <div class="row">
-      <div class="col-2">
+  <div>
+    <q-page class="q-mb-lg q-pb-lg">
+      <!-- <q-menu
+        v-model="table.tableMenu"
+        transition-show="slide-right"
+        transition-hide="slide-left"
+        :offset="[0,-600]"
+      >
         <MenuPage />
+      </q-menu> -->
+      <div v-if="table.selected">
+        <TablePage />
       </div>
-      <div class="col-10">
-        <div v-if="table.selected">
-          <TablePage />
-        </div>
-        <div v-else>
-          <q-card>
-            <app-no-selected-page icon="icon-mat-arrow_back" />
-          </q-card>
-        </div>
+      <div v-else>
+        <q-card>
+          <app-no-selected-page icon="icon-mat-arrow_back" />
+        </q-card>
       </div>
-    </div>
-  </q-page>
+    </q-page>
+  </div>
 </template>
 <script setup>
 import { useHistoryTable } from 'src/stores/history/table'
-import MenuPage from './MenuPage.vue'
+// import MenuPage from './MenuPage.vue'
 import TablePage from './TablePage.vue'
 const table = useHistoryTable()
 table.setColumns()

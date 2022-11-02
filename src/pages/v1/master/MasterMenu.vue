@@ -1,10 +1,10 @@
 <template>
   <div
     v-if="menus"
-    class="q-pa-sm "
   >
-    <!-- style="max-width: 150px" -->
-    <q-card>
+    <q-card
+      style="width: 200px"
+    >
       <q-list
         bordered
         padding
@@ -16,6 +16,7 @@
         <q-item
           v-for="(menu,i) in menus.submenus"
           :key="i"
+          v-close-popup
           v-ripple
           class="menu"
           :active-class="setting.dark ? 'bg-grey-9 text-white aktif-dark' : 'bg-grey-4 text-primary aktif'"

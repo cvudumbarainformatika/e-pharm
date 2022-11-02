@@ -27,3 +27,17 @@
     border-radius: 10px 0px 0px 10px;
     border-left: 3px solid $primary;
 }
+
+.menu-bar{
+  width: calc(100%);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.menu-button{
+  margin-left:-15px ;
+}
+
+.halaman{
+  margin-left: 25px;
+}

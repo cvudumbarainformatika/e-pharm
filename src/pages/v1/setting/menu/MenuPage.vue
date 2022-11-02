@@ -3,13 +3,16 @@
     v-for="(item, i) in items"
     :key="i"
   >
-    <q-card>
+    <q-card
+      style="width:200px;"
+    >
       <q-list
         bordered
         padding
         class="rounded-borders text-primary q-mb-sm"
       >
         <q-item
+          v-close-popup
           v-ripple
           class="menu"
           :active="setting.menu===item.value"
@@ -37,7 +40,7 @@ const auth = useAuthStore().user.role
 const items = computed(() => {
   const apem = setting.menus.filter(data => { return data.name === 'setting' })
   if (apem.length) {
-    console.log(apem[0].submenus)
+    // console.log(apem[0].submenus)
     if (auth === 'root') {
       return apem[0].submenus
     } else {

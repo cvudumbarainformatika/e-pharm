@@ -1,19 +1,19 @@
 <template>
   <div class="q-ml-sm q-mt-sm">
     <div class="row q-col-gutter-sm q-mb-sm">
-      <div class="col-4">
+      <div class="col-md-4 col-xs-12">
         <ProductRank
           judul="Bulan ini"
           :data="store.monthly"
         />
       </div>
-      <div class="col-4">
+      <div class="col-md-4 col-xs-12">
         <ProductRank
           judul="Minggu ini"
           :data="store.weekly"
         />
       </div>
-      <div class="col-4">
+      <div class="col-md-4 col-xs-12">
         <ProductRank
           judul="Hari ini"
           :data="store.dayly"
@@ -21,13 +21,13 @@
       </div>
     </div>
     <div class="row q-col-gutter-sm q-mb-sm">
-      <div class="col-6">
+      <div class="col-md-6 col-xs-12">
         <barWithLabel
           judul="Bulan ini"
           :series="store.series"
         />
       </div>
-      <div class="col-6">
+      <div class="col-md-6 col-xs-12">
         <barWithLabel
           judul="Minggu ini"
           :series="store.series7"

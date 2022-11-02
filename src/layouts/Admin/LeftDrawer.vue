@@ -111,15 +111,9 @@
 </template>
 
 <script setup>
-// import { ref } from 'vue'
-// import { useRouter } from 'vue-router'
-
 import { routerInstance } from 'src/boot/router'
-// import { uniqueId } from 'src/modules/utils'
-// import { useSettingStore } from 'src/stores/setting/setting'
-// import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
-// import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
-// import { usePembelianTable } from 'src/stores/transaksi/pembelian/table'
+import { useHistoryTable } from 'src/stores/history/table'
+import { useSettingStore } from 'src/stores/setting/setting'
 
 const props = defineProps({
   dark: {
@@ -128,23 +122,36 @@ const props = defineProps({
   },
   menus: { type: Object, default: () => {} }
 })
-
+const setting = useSettingStore()
+const history = useHistoryTable()
+const menuHover = (menu) => {
+  setting.setOpen()
+  // console.log('menu', menu)
+  if (menu.name === 'setting') {
+    setting.menuOpen()
+  } else {
+    setting.menuClose()
+  }
+  if (menu.name === 'master') {
+    setting.masterOpen()
+  } else {
+    setting.masterClose()
+  }
+  if (menu.name === 'transaksi') {
+    setting.transaksiOpen()
+  } else {
+    setting.transaksiClose()
+  }
+  if (menu.name === 'history') {
+    history.menuOpen()
+  } else {
+    history.menuClose()
+  }
+}
 const menuClick = val => {
-  // console.log('menu path', val.link)
-  // console.log('curent path', routerInstance.currentRoute.value.path)
-  // console.log('menu name ', val.name)
-  // console.log('menu value', val.value)
-  // console.log('curent name', routerInstance.currentRoute.value.name)
-  // const gaPunya = val.submenus
-  // console.log('name', !!val.submenus)
-  // const store = usePembelianDialog()
-  // const setting = useSettingStore()
-  // const table = usePembelianTable()
-
+  menuHover(val)
   if (val.name === 'transaksi') {
-    // console.log('transaksi')
     const oldSlug = routerInstance.currentRoute.value.params.slug ? routerInstance.currentRoute.value.params.slug : 'apem'
-    // const name = routerInstance.currentRoute.value.name
     let nama = ''
     switch (routerInstance.currentRoute.value.name) {
       case 'biaya':
@@ -173,13 +180,10 @@ const menuClick = val => {
 
     routerInstance.replace({ name: nama, params: { slug: oldSlug } })
   } else if (val.submenus.length) {
-    // console.log('Bukan transaksi', val.name)
     if (val.name === 'history' || val.name === 'dashboard' || val.name === 'setting') { return }
-    // console.log('Bukan transaksi ga balik', val.submenus)
     const nama = val.submenus[0].value
     routerInstance.replace({ name: nama })
   } else {
-    // console.log('ga masuk', val.submenus)
     const nama = val.name
     routerInstance.replace({ name: nama })
   }

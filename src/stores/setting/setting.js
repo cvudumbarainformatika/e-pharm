@@ -8,6 +8,10 @@ import { usePenjualanTable } from '../transaksi/penjualan/table'
 
 export const useSettingStore = defineStore('setting', {
   state: () => ({
+    sMenu: false,
+    submenuEvent: false,
+    submenuMaster: false,
+    submenuTransaksi: false,
     dark: false,
     loading: false,
     transaksiLoading: false,
@@ -52,6 +56,27 @@ export const useSettingStore = defineStore('setting', {
     dashboar: useDashboardStore()
   }),
   actions: {
+    setOpen() {
+      this.sMenu = !this.sMenu
+    },
+    menuOpen() {
+      this.submenuEvent = true
+    },
+    menuClose() {
+      this.submenuEvent = false
+    },
+    masterOpen() {
+      this.submenuMaster = true
+    },
+    masterClose() {
+      this.submenuMaster = false
+    },
+    transaksiOpen() {
+      this.submenuTransaksi = true
+    },
+    transaksiClose() {
+      this.submenuTransaksi = false
+    },
     getInitialData() {
       this.getDataSetting()
       this.stok.getDataRak()

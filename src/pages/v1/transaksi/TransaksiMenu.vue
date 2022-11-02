@@ -1,9 +1,8 @@
 <template>
-  <div
-    class="q-pa-sm "
-  >
-    <!-- style="max-width: 150px" -->
-    <q-card>
+  <div>
+    <q-card
+      style="width: 200px"
+    >
       <div
         v-if="setting.transaksiLoading"
         class="flex column flex-center bg-loading-bg__table"
@@ -78,7 +77,7 @@ const menus = computed(() => {
   }
   return [0, 0]
 })
-console.log('menu', menus.value)
+// console.log('menu', menus.value)
 // let submenu = []
 // if (menus.value) {
 //   const user = useAuthStore().user

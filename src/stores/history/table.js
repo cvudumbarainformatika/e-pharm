@@ -6,6 +6,7 @@ import { notifSuccess } from 'src/modules/utils'
 
 export const useHistoryTable = defineStore('history_table', {
   state: () => ({
+    tableMenu: false,
     dark: false,
     rows: [],
     columns: [],
@@ -24,6 +25,12 @@ export const useHistoryTable = defineStore('history_table', {
   }),
   actions: {
     // local related function
+    menuOpen() {
+      this.tableMenu = true
+    },
+    menuClose() {
+      this.tableMenu = false
+    },
     setColumns() {
       const kolom = [
         {

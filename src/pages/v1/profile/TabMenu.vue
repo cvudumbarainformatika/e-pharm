@@ -136,7 +136,7 @@ const form = ref({
 })
 const loading = ref(false)
 const simpan = () => {
-  console.log(form.value)
+  // console.log(form.value)
   loading.value = true
   return new Promise((resolve, reject) => {
     api.post('v1/user/reset-password', form.value)
@@ -176,5 +176,5 @@ const update = () => {
       })
   })
 }
-console.log(authUser)
+// console.log(authUser)
 </script>

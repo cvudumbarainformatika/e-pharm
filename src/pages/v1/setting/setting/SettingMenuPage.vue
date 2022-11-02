@@ -257,7 +257,7 @@ const setting = useSettingStore()
 
 const index = computed(() => {
   const ind = findWithAttr(setting.menus, 'name', curentmenu.value)
-  console.log('index', ind)
+  // console.log('index', ind)
   return ind
 })
 
@@ -421,7 +421,7 @@ const tambahSubMenu = () => {
   setting.menus[ind].submenus = subMenus.value
   // setting.menus[ind].submenus = sub
   save()
-  console.log(temp)
+  // console.log(temp)
 }
 const batalSub = () => {
   namaSubMenu.value = null
@@ -438,8 +438,8 @@ const beforeSubEdit = (val, index) => {
   linkSubMenu.value = val.link
   iconSubMenu.value = val.icon
   indexSubEdit = index
-  console.log('before menu', setting.menus[indexEdit])
-  console.log('before sub', setting.menus[indexEdit].submenus[index])
+  // console.log('before menu', setting.menus[indexEdit])
+  // console.log('before sub', setting.menus[indexEdit].submenus[index])
   // console.log('before sub', sub)
 }
 const curentSubMenu = ref('')
@@ -448,7 +448,7 @@ const saveSubEdit = val => {
   const menu = setting.menus[indexEdit].submenus
   menu[indexSubEdit] = temp
   save()
-  console.log('edit', menu)
+  // console.log('edit', menu)
   curentSubMenu.value = temp.name
 }
 const deleteSubMenu = (val, index) => {
@@ -469,7 +469,7 @@ const deleteSubMenu = (val, index) => {
 }
 const pilihSubMenu = val => {
   curentSubMenu.value = val.name
-  console.log(val)
+  // console.log(val)
 }
 </script>
 <style lang="scss" scoped>
