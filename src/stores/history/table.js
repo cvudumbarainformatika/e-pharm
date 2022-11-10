@@ -80,6 +80,10 @@ export const useHistoryTable = defineStore('history_table', {
       this.params[key] = val
     },
     pilihTransaksi(val) {
+      const namaRoute = routerInstance.currentRoute.value.name
+      if (namaRoute !== 'history') {
+        routerInstance.push('/history')
+      }
       this.selected = true
       this.nama = val.value
       this.title = val.name

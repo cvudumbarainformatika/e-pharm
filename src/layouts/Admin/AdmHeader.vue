@@ -23,11 +23,10 @@
             <img src="~assets/logos/logo.png">
           </q-avatar>
         </div>
-        <div
-          style="margin-top:40px;"
-        >
-          <q-menu
+        <div>
+          <!-- <q-menu
             v-model="setting.sMenu"
+            style="margin-top:40px;"
             transition-show="slide-right"
             transition-hide="slide-left"
           >
@@ -35,7 +34,7 @@
             <MasterMenu v-if="setting.submenuMaster" />
             <SettingMenuPage v-if="setting.submenuEvent" />
             <TransaksiMenu v-if="setting.submenuTransaksi" />
-          </q-menu>
+          </q-menu> -->
         </div>
         <!-- <q-menu
           v-model=""
@@ -65,19 +64,19 @@
 </template>
 
 <script setup>
-import HistoryMenuPage from 'src/pages/v1/history/MenuPage.vue'
-import MasterMenu from 'src/pages/v1/master/MasterMenu.vue'
-import SettingMenuPage from 'src/pages/v1/setting/menu/MenuPage.vue'
+// import HistoryMenuPage from 'src/pages/v1/history/MenuPage.vue'
+// import MasterMenu from 'src/pages/v1/master/MasterMenu.vue'
+// import SettingMenuPage from 'src/pages/v1/setting/menu/MenuPage.vue'
+// import TransaksiMenu from 'src/pages/v1/transaksi/TransaksiMenu.vue'
 import AdmHeaderMenuProfile from './AdmHeaderMenuProfile.vue'
 import { computed } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
 import { imageSever } from 'src/boot/axios'
-import { useHistoryTable } from 'src/stores/history/table'
-import { useSettingStore } from 'src/stores/setting/setting'
-import TransaksiMenu from 'src/pages/v1/transaksi/TransaksiMenu.vue'
+// import { useHistoryTable } from 'src/stores/history/table'
+// import { useSettingStore } from 'src/stores/setting/setting'
 const store = useAuthStore()
-const history = useHistoryTable()
-const setting = useSettingStore()
+// const history = useHistoryTable()
+// const setting = useSettingStore()
 const emit = defineEmits(['toggleLeft'])
 defineProps({
   dark: {

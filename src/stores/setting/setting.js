@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
+import { routerInstance } from 'src/boot/router'
 import { notifErrCenterVue } from 'src/modules/utils'
 import { useDashboardStore } from '../dashboard'
 import { useLaporanStokTable } from '../laporan/stok/table'
@@ -104,6 +105,10 @@ export const useSettingStore = defineStore('setting', {
       }
     },
     pilihItem(val) {
+      const namaRoute = routerInstance.currentRoute.value.name
+      if (namaRoute !== 'setting') {
+        routerInstance.push('/setting')
+      }
       this.menu = val.value
       // console.log('menu', this.menu)
       // console.log(val)
