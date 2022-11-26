@@ -1,3 +1,5 @@
+<!-- @format -->
+
 <template>
   <router-view v-slot="{ Component }">
     <transition
@@ -19,15 +21,12 @@ import { defineComponent } from 'vue'
 import { useQuasar } from 'quasar'
 
 import customIcons from 'src/custom-icons/custom-icons'
-import { usePenjualanTable } from './stores/transaksi/penjualan/table'
 // import { routerInstance } from './boot/router'
 
 export default defineComponent({
   name: 'App',
   setup() {
     const $q = useQuasar()
-    const penjualan = usePenjualanTable()
-    penjualan.ambilDataDistributor()
     // console.log($q.dark.isActive)
     $q.dark.set(false)
     $q.iconSet.set(customIcons)

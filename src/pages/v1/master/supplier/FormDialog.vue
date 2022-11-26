@@ -87,6 +87,7 @@
                 outlined
                 number
                 currency
+                valid
               />
             </div>
           </div>

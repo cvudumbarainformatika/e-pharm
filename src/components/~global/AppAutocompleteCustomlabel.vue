@@ -66,7 +66,7 @@
   </q-select>
 </template>
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 const emits = defineEmits([
   'on-enter',
   'getSource',
@@ -184,4 +184,8 @@ function anotherValid (val) {
   }
   return (val !== null && val !== '') || 'Harap diisi'
 }
+watch(() => props.source, (obj) => {
+  // console.log('watch', obj)
+  optionx.value = obj
+})
 </script>

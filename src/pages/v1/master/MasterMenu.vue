@@ -20,7 +20,7 @@
           v-ripple
           class="menu"
           :active-class="setting.dark ? 'bg-grey-9 text-white aktif-dark' : 'bg-grey-4 text-primary aktif'"
-          :to="`${menu.link}`"
+          :to="`/${menu.link}`"
           clickable
           exact
         >
@@ -43,6 +43,7 @@ import { useSettingStore } from 'src/stores/setting/setting'
 import { computed } from 'vue'
 const menus = computed(() => {
   const apem = setting.menus.filter(data => { return data.name === 'master' })
+  // console.log('master menu', apem)
   if (apem.length) return apem[0]
   return false
 })

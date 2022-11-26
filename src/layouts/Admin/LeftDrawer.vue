@@ -87,6 +87,7 @@
                   <div class="text-weight-bold f-12">
                     <q-item :to="`/${menu.link}`">
                       <q-item-section>{{ menu.name }}</q-item-section>
+                      <!-- {{ aktif(path) }}= {{ menu.link }} -->
                     </q-item>
                   </div>
                   <div class="q-my-sm">
@@ -242,7 +243,8 @@ const history = useHistoryTable()
 const path = computed(() => useRoute().name)
 
 const aktif = (apem) => {
-  const temp = apem.split('/')
+  const temp = apem.split('.')
+  // console.log('aktif', temp)
   return temp[0]
 }
 const refItem = ref(null)

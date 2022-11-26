@@ -21,7 +21,213 @@ export const useSettingStore = defineStore('setting', {
       alamat: 'alamat belum di isi',
       tlp: 'nomor telepon belum ada'
     },
-    menus: [],
+    menus: [
+      {
+        icon: 'icon-mat-dashboard',
+        link: 'dashboard',
+        name: 'dashboard',
+        route: 'dashboard',
+        submenus: []
+      },
+      {
+        icon: 'icon-mat-dataset',
+        link: 'master',
+        name: 'master',
+        route: 'master',
+        submenus: [
+          {
+            icon: 'icon-mat-gas_meter',
+            name: 'Satuan',
+            link: 'master/satuan',
+            value: 'master.satuan'
+          },
+          {
+            icon: 'icon-mat-table_rows',
+            name: 'Rak',
+            link: 'master/rak',
+            value: 'master.rak'
+          },
+          {
+            icon: 'icon-mat-category',
+            name: 'Kategori',
+            link: 'master/kategori',
+            value: 'master.kategori'
+          },
+          {
+            icon: 'icon-mat-rv_hookup',
+            name: 'Distributor',
+            link: 'master/supplier',
+            value: 'master.supplier'
+          },
+          {
+            icon: 'icon-mat-medication',
+            name: 'Dokter',
+            link: 'master/dokter',
+            value: 'master.dokter'
+          },
+          {
+            icon: 'icon-mat-workspaces',
+            name: 'Produk',
+            link: 'master/produk',
+            value: 'master.produk'
+          },
+          {
+            icon: 'icon-mat-assessment',
+            name: 'Pengeluaran',
+            link: 'master/beban',
+            value: 'master.beban'
+          },
+          {
+            icon: 'icon-mat-attach_money',
+            name: 'Pendapatan',
+            link: 'master/penerimaan',
+            value: 'master.penerimaan'
+          },
+          {
+            icon: 'icon-mat-local_shipping',
+            name: 'Customer',
+            link: 'master/customer',
+            value: 'master.customer'
+          },
+          {
+            icon: 'icon-mat-auto_awesome_mosaic',
+            name: 'Merk',
+            link: 'master/merk',
+            value: 'master.merk'
+          },
+          {
+            icon: 'icon-mat-business',
+            name: 'Perusahaan',
+            link: 'master/perusahaan',
+            value: 'master.perusahaan'
+          }
+        ]
+      },
+      {
+        icon: 'icon-mat-sync_alt',
+        link: 'transaksi',
+        name: 'transaksi',
+        submenus: [
+          {
+            icon: 'icon-mat-inventory_2',
+            link: '/pembelian/PBL-',
+            name: 'Pembelian',
+            value: 'pembelian'
+          },
+          {
+            icon: 'icon-mat-shopping_bag',
+            link: '/penjualan/PJL-',
+            name: 'Penjualan',
+            value: 'penjualan'
+          },
+          {
+            icon: 'icon-mat-account_balance_wallet',
+            link: '/transaksi/penerimaan',
+            name: 'Pendapatan',
+            value: 'transaksi.penerimaan'
+          },
+          {
+            icon: 'icon-mat-payment',
+            link: '/biaya',
+            name: 'Pengeluaran',
+            value: 'biaya'
+          },
+          {
+            icon: 'icon-mat-assignment_return',
+            link: '/retur',
+            name: 'Retur',
+            value: 'retur'
+          }
+        ]
+      },
+      {
+        icon: 'icon-mat-history',
+        link: 'history',
+        name: 'history',
+        submenus: [
+          {
+            icon: 'icon-mat-density_small',
+            name: 'Seluruhnya',
+            value: 'all'
+          },
+          {
+            icon: 'icon-mat-insert_drive_file',
+            name: 'Draft',
+            value: 'draft'
+          },
+          {
+            icon: 'icon-mat-inventory_2',
+            name: 'Pembelian',
+            value: 'PEMBELIAN'
+          },
+          {
+            icon: 'icon-mat-shopping_bag',
+            name: 'Penjualan',
+            value: 'PENJUALAN'
+          },
+          {
+            icon: 'icon-mat-account_balance_wallet',
+            name: 'Pendapatan',
+            value: 'PENDAPATAN'
+          },
+          {
+            icon: 'icon-mat-payment',
+            name: 'Pengeluaran',
+            value: 'PENGELUARAN'
+          },
+          {
+            icon: 'icon-mat-assignment_return',
+            name: 'Retur Pembelian',
+            value: 'RETUR PEMBELIAN'
+          },
+          {
+            icon: 'icon-mat-assignment_return',
+            name: 'Retur Penjualan',
+            value: 'RETUR PENJUALAN'
+          },
+          {
+            icon: 'icon-mat-tune',
+            name: 'Form Penyesuaian',
+            value: 'FORM PENYESUAIAN'
+          }
+        ]
+      },
+      {
+        icon: 'icon-mat-description',
+        link: 'laporan',
+        name: 'laporan',
+        submenus: []
+      },
+      {
+        icon: 'icon-mat-settings',
+        link: 'setting',
+        name: 'setting',
+        submenus: [
+          {
+            icon: 'icon-mat-density_small',
+            name: 'User',
+            value: 'user'
+          },
+          // {
+          //   icon: 'icon-mat-insert_drive_file',
+          //   name: 'Menu',
+          //   value: 'menu'
+          // },
+          {
+            icon: 'icon-mat-home',
+            link: null,
+            name: 'Info',
+            value: 'info'
+          },
+          {
+            icon: 'icon-mat-dvr',
+            link: null,
+            name: 'Themes',
+            value: 'theme'
+          }
+        ]
+      }
+    ],
     levels: [],
     themes: [
       { name: 'primary', value: '#30268f' },
@@ -91,6 +297,17 @@ export const useSettingStore = defineStore('setting', {
       this.dashboar.getDataHutang()
       this.dashboar.getDataTagihan()
     },
+    dataPembelian() {
+      this.pembelian.ambilDataProduk()
+    },
+    dataPenjualan() {
+      this.penjualan.ambilDataDistributor()
+      this.penjualan.ambilDataDokter()
+      this.penjualan.ambilDataProduk().then((resp) => {
+        this.dashboar.produks = resp.product
+        this.dashboar.getDataRank()
+      })
+    },
     increment() {
       this.counter++
     },
@@ -125,7 +342,7 @@ export const useSettingStore = defineStore('setting', {
           .get('v1/setting/info')
           .then((resp) => {
             // console.log('setting', resp.data[0])
-            this.menus = resp.data[0].menus
+            // this.menus = resp.data[0].menus
             // this.levels = resp.data[0].levels
             this.themes = resp.data[0].themes
             this.infos = resp.data[0].infos

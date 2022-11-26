@@ -26,63 +26,63 @@ const routes = [
         meta: { requireAuth: true },
         children: [
           {
-            path: '/satuan',
-            name: 'satuan',
+            path: '/master/satuan',
+            name: 'master.satuan',
             component: () => import('src/pages/v1/master/satuan/IndexPage.vue')
           },
           {
-            path: '/penerimaan',
-            name: 'penerimaan',
+            path: '/master/penerimaan',
+            name: 'master.penerimaan',
             component: () =>
               import('src/pages/v1/master/penerimaan/IndexPage.vue')
           },
           {
-            path: '/kategori',
-            name: 'kategori',
+            path: '/master/kategori',
+            name: 'master.kategori',
             component: () =>
               import('src/pages/v1/master/kategori/IndexPage.vue')
           },
           {
-            path: '/produk',
-            name: 'produk',
+            path: '/master/produk',
+            name: 'master.produk',
             component: () => import('src/pages/v1/master/produk/IndexPage.vue')
           },
           {
-            path: '/supplier',
-            name: 'supplier',
+            path: '/master/supplier',
+            name: 'master.supplier',
             component: () =>
               import('src/pages/v1/master/supplier/IndexPage.vue')
           },
           {
-            path: '/dokter',
-            name: 'dokter',
+            path: '/master/dokter',
+            name: 'master.dokter',
             component: () => import('src/pages/v1/master/dokter/IndexPage.vue')
           },
           {
-            path: '/beban',
-            name: 'beban',
+            path: '/master/beban',
+            name: 'master.beban',
             component: () => import('src/pages/v1/master/beban/IndexPage.vue')
           },
           {
-            path: '/customer',
-            name: 'customer',
+            path: '/master/customer',
+            name: 'master.customer',
             component: () =>
               import('src/pages/v1/master/customer/IndexPage.vue')
           },
           {
-            path: '/merk',
-            name: 'merk',
+            path: '/master/merk',
+            name: 'master.merk',
             component: () => import('src/pages/v1/master/merk/IndexPage.vue')
           },
           {
-            path: '/perusahaan',
-            name: 'perusahaan',
+            path: '/master/perusahaan',
+            name: 'master.perusahaan',
             component: () =>
               import('src/pages/v1/master/perusahaan/IndexPage.vue')
           },
           {
-            path: '/rak',
-            name: 'rak',
+            path: '/master/rak',
+            name: 'master.rak',
             component: () => import('src/pages/v1/master/rak/IndexPage.vue')
           }
         ]

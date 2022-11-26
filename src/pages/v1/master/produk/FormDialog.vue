@@ -79,6 +79,7 @@
                 label="Stok Awal*"
                 outlined
                 number
+                valid
               />
             </div>
             <div class="col-md-6 col-xs-12">

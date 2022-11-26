@@ -8,6 +8,7 @@ import { olahUang } from 'src/modules/formatter'
 import { useMerkTable } from '../merk/table'
 import { useKategoriTable } from '../kategori/table'
 import { useSatuanBesarStore } from '../satuan/besar/crud'
+import { useSettingStore } from 'src/stores/setting/setting'
 
 export const useProdukFormStore = defineStore('produk_form', {
   state: () => ({
@@ -124,6 +125,14 @@ export const useProdukFormStore = defineStore('produk_form', {
       // kecuali yang ada di object user
       this.isOpen = !this.isOpen
     },
+    sanitazeForm() {
+      const formini = Object.keys(this.form)
+      formini.forEach((data) => {
+        if (this.form[data] === null || this.form[data] === '') {
+          delete this.form[data]
+        }
+      })
+    },
 
     // api related actions
 
@@ -133,13 +142,14 @@ export const useProdukFormStore = defineStore('produk_form', {
       const umum = olahUang(this.form.harga_jual_umum)
       const resep = olahUang(this.form.harga_jual_resep)
       const cust = olahUang(this.form.harga_jual_cust)
-
+      // if (!this.form.stok_awal || this.form.stok_awal < 0) { this.form.stok_awal = 0 }
       // console.log('beli ', beli, ' umum ', umum, ' resep ', resep, ' cust ', cust)
       this.form.harga_beli = beli
       this.form.harga_jual_cust = cust
       this.form.harga_jual_resep = resep
       this.form.harga_jual_umum = umum
       this.loading = true
+      this.sanitazeForm()
       return new Promise((resolve, reject) => {
         api
           .post('v1/produk/store', this.form)
@@ -147,7 +157,10 @@ export const useProdukFormStore = defineStore('produk_form', {
             // console.log('save data', resp)
             notifSuccess(resp)
             const table = useProdukTable()
+            const setting = useSettingStore()
             table.getDataTable()
+            setting.dataPembelian()
+            setting.dataPenjualan()
             this.loading = false
             this.isOpen = false
             resolve(resp)

@@ -80,6 +80,10 @@ import { useAuthStore } from 'src/stores/auth'
 import { useHistoryTable } from 'src/stores/history/table'
 import { useSettingStore } from 'src/stores/setting/setting'
 // import { routerInstance } from 'src/boot/router'
+// import { usePenjualanTable } from 'src/stores/transaksi/penjualan/table'
+
+// const penjualan = usePenjualanTable()
+// penjualan.ambilDataDistributor()
 
 const store = useAuthStore()
 const leftDrawerOpen = ref(false)

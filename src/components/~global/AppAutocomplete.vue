@@ -77,7 +77,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 const emits = defineEmits(['on-enter', 'getSource', 'set-model', 'buang', 'on-select', 'clear', 'em-fokus'])
 const props = defineProps({
   source: { type: Array, default: () => [] },
@@ -197,10 +197,10 @@ function anotherValid (val) {
   }
   return (val !== null && val !== '') || 'Harap diisi'
 }
-// watch(() => props.source, (obj) => {
-//   console.log('watch', obj)
-//   optionx.value = obj
-// })
+watch(() => props.source, (obj) => {
+  // console.log('watch', obj)
+  optionx.value = obj
+})
 </script>
 
 <style lang="scss" scoped>
