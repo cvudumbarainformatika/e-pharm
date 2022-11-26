@@ -16,7 +16,7 @@ export const useSupplierTable = defineStore('supplier_table', {
       sort: 'desc'
     },
     columns: [],
-    columnHide: ['id', 'uuid', 'perusahaan_id', 'created_at', 'updated_at']
+    columnHide: ['id', 'uuid', 'saldo_awal_hutang', 'perusahaan_id', 'created_at', 'updated_at']
   }),
   getters: {
     getterColumns(state) {

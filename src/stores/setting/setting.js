@@ -54,7 +54,7 @@ export const useSettingStore = defineStore('setting', {
             value: 'master.kategori'
           },
           {
-            icon: 'icon-mat-rv_hookup',
+            icon: 'icon-fa-truck_arrow_right_solid',
             name: 'Distributor',
             link: 'master/supplier',
             value: 'master.supplier'
@@ -110,33 +110,33 @@ export const useSettingStore = defineStore('setting', {
         submenus: [
           {
             icon: 'icon-mat-inventory_2',
-            link: '/pembelian/PBL-',
             name: 'Pembelian',
-            value: 'pembelian'
+            link: '/transaksi/pembelian/PBL-',
+            value: 'transaksi.pembelian'
           },
           {
             icon: 'icon-mat-shopping_bag',
-            link: '/penjualan/PJL-',
             name: 'Penjualan',
-            value: 'penjualan'
+            link: '/transaksi/penjualan/PJL-',
+            value: 'transaksi.penjualan'
+          },
+          {
+            icon: 'icon-mat-assignment_return',
+            name: 'Retur',
+            link: '/transaksi/retur',
+            value: 'transaksi.retur'
           },
           {
             icon: 'icon-mat-account_balance_wallet',
-            link: '/transaksi/penerimaan',
             name: 'Pendapatan',
+            link: '/transaksi/penerimaan',
             value: 'transaksi.penerimaan'
           },
           {
             icon: 'icon-mat-payment',
-            link: '/biaya',
             name: 'Pengeluaran',
-            value: 'biaya'
-          },
-          {
-            icon: 'icon-mat-assignment_return',
-            link: '/retur',
-            name: 'Retur',
-            value: 'retur'
+            link: '/transaksi/biaya',
+            value: 'transaksi.biaya'
           }
         ]
       },

@@ -43,7 +43,7 @@ const route = useRoute()
 let slug = routerInstance.currentRoute.value.params.slug
 let name = routerInstance.currentRoute.value.name
 if (name === 'transaksi') {
-  name = 'pembelian'
+  name = 'transaksi.pembelian'
   slug = 'apem'
 }
 routerInstance.replace({ name, params: { slug } })

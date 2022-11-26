@@ -32,11 +32,11 @@ const oldSlug = routerInstance.currentRoute.value.params.slug
 table.getDetailTransaksi().then(data => {
   useSettingStore().transaksiLoading = false
   if (data !== undefined) {
-    routerInstance.replace({ name: 'penjualan', params: { slug: oldSlug } })
+    routerInstance.replace({ name: 'transaksi.penjualan', params: { slug: oldSlug } })
     table.form.reff = oldSlug
     store.form.reff = oldSlug
   } else {
-    routerInstance.replace({ name: 'penjualan', params: { slug } })
+    routerInstance.replace({ name: 'transaksi.penjualan', params: { slug } })
     table.resetData()
     store.resetData()
     table.form.reff = slug

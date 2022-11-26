@@ -31,11 +31,11 @@ setting.transaksiLoading = true
 table.getDetailTransaksi().then(data => {
   setting.transaksiLoading = false
   if (data !== undefined) {
-    routerInstance.replace({ name: 'pembelian', params: { slug: oldSlug } })
+    routerInstance.replace({ name: 'transaksi.pembelian', params: { slug: oldSlug } })
     table.form.reff = oldSlug
     store.form.reff = oldSlug
   } else {
-    routerInstance.replace({ name: 'pembelian', params: { slug } })
+    routerInstance.replace({ name: 'transaksi.pembelian', params: { slug } })
     table.resetData()
     store.resetData()
     table.form.reff = slug

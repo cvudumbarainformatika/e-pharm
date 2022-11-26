@@ -1,5 +1,5 @@
 <template>
-  <q-card style="margin-left:0px; width:76mm;">
+  <q-card style="margin-left:0px; width:80mm;">
     <q-card-section>
       <div class="text-center">
         {{ setting.info.nama }}

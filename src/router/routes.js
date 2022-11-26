@@ -115,14 +115,14 @@ const routes = [
               import('src/pages/v1/transaksi/bayar hutang/BayarHutangPage.vue')
           },
           {
-            path: '/biaya',
-            name: 'biaya',
+            path: '/transaksi/biaya',
+            name: 'transaksi.biaya',
             component: () =>
               import('src/pages/v1/transaksi/biaya/IndexPage.vue')
           },
           {
-            path: '/pembelian/:slug',
-            name: 'pembelian',
+            path: '/transaksi/pembelian/:slug',
+            name: 'transaksi.pembelian',
             component: () =>
               import('src/pages/v1/transaksi/pembelian/IndexPage.vue'),
             meta: { role: 'gudang' }
@@ -134,21 +134,21 @@ const routes = [
               import('src/pages/v1/transaksi/penerimaan/IndexPage.vue')
           },
           {
-            path: '/penjualan/:slug',
-            name: 'penjualan',
+            path: '/transaksi/penjualan/:slug',
+            name: 'transaksi.penjualan',
             component: () =>
               import('src/pages/v1/transaksi/penjualan/IndexPage.vue'),
             meta: { role: 'kasir' }
           },
           {
-            path: '/retur',
-            name: 'retur',
+            path: '/transaksi/retur',
+            name: 'transaksi.retur',
             component: () =>
               import('src/pages/v1/transaksi/retur/IndexPage.vue'),
             children: [
               {
-                path: '/retur/:slug',
-                name: 'detail.retur',
+                path: '/transaksi/retur/:slug',
+                name: 'transaksi.detail.retur',
                 component: () =>
                   import('src/pages/v1/transaksi/retur/detail/IndexPage.vue')
               }

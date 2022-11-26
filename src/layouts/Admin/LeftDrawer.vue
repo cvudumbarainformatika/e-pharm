@@ -301,23 +301,23 @@ const menuClick = val => {
     const oldSlug = routerInstance.currentRoute.value.params.slug ? routerInstance.currentRoute.value.params.slug : 'apem'
     let nama = ''
     switch (routerInstance.currentRoute.value.name) {
-      case 'biaya':
-        nama = 'biaya'
+      case 'transaksi.biaya':
+        nama = 'transaksi.biaya'
         break
-      case 'pembelian':
-        nama = 'pembelian'
+      case 'transaksi.pembelian':
+        nama = 'transaksi.pembelian'
         break
       case 'transaksi.penerimaan':
         nama = 'transaksi.penerimaan'
         break
-      case 'penjualan':
-        nama = 'penjualan'
+      case 'transaksi.penjualan':
+        nama = 'transaksi.penjualan'
         break
-      case 'retur':
-        nama = 'retur'
+      case 'transaksi.retur':
+        nama = 'transaksi.retur'
         break
-      case 'detail.retur':
-        nama = 'detail.retur'
+      case 'transaksi.detail.retur':
+        nama = 'transaksi.detail.retur'
         break
 
       default:

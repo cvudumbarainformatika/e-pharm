@@ -79,7 +79,7 @@
           </div>
           <!-- <div class="row q-col-gutter-md">
           </div> -->
-          <div class="row q-col-gutter-md q-my-sm">
+          <!-- <div class="row q-col-gutter-md q-my-sm">
             <div class="col-md-12 col-xs-12">
               <app-input
                 v-model="store.form.saldo_awal_hutang"
@@ -90,7 +90,7 @@
                 valid
               />
             </div>
-          </div>
+          </div> -->
           <q-separator class="q-my-md" />
           <div class="text-right">
             <app-btn

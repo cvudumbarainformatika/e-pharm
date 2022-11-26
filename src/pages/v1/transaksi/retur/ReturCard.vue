@@ -160,7 +160,7 @@ async function filterOptions(val, update) {
 function onSubmit() {
   const transactionTable = useReturDetailTable()
   const retur = useReturTable()
-  routerInstance.replace({ name: 'detail.retur', params: { slug: model.value.reff } })
+  routerInstance.replace({ name: 'transaksi.detail.retur', params: { slug: model.value.reff } })
   transactionTable.getDetailTransaksi(model.value.reff).then(() => {
     model.value = null
   })
