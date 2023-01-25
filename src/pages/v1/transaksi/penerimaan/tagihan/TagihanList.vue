@@ -19,6 +19,14 @@
         class="q-mb-md"
       >
         <q-separator />
+        <!-- <div
+          v-if="item.details.length"
+          class="text-left q-ml-md text-weight-bold"
+        >
+          <div>
+            Kepada : {{ item.details[0].dokter ? 'dr. ' + item.details[0].dokter.nama : item.details[0].customer ? item.details[0].customer.nama :'-' }}
+          </div>
+        </div> -->
         <div class="text-right  q-mt-sm">
           <q-btn
             class="q-mr-md"
@@ -58,15 +66,17 @@
 
           <q-separator />
           <div class="f-14 q-ml-md  q-py-sm">
-            Detail Tagihan :
+            Detail Tagihan Kepada : {{ item.details[0].dokter ? 'dr. ' + item.details[0].dokter.nama : item.details[0].customer ?
+              item.details[0].customer.nama :'-' }}
           </div>
           <q-separator />
           <q-item class="text-weight-bold">
             <!-- <q-item-section>Nama Pengeluaran </q-item-section> -->
-            <q-item-section>Ditagihkan kepada </q-item-section>
+            <!-- <q-item-section>Ditagihkan kepada </q-item-section> -->
             <q-item-section>Nota Jual </q-item-section>
             <q-item-section>Jumlah Pengeluaran</q-item-section>
             <q-item-section>Keterangan</q-item-section>
+            <q-item-section>Pasien</q-item-section>
           </q-item>
           <q-separator />
           <div
@@ -77,10 +87,15 @@
               v-ripple
               class="menu"
             >
-              <q-item-section>{{ detail.dokter ? 'dr. '+ detail.dokter.nama : detail.customer ? detail.customer.nama :'-' }}</q-item-section>
+              <!-- <q-item-section>{{ detail.dokter ? 'dr. '+ detail.dokter.nama : detail.customer ? detail.customer.nama :'-' }}</q-item-section> -->
               <q-item-section>{{ detail.nota }}</q-item-section>
               <q-item-section>{{ formatRp(detail.sub_total) }}</q-item-section>
               <q-item-section>{{ detail.keterangan }}</q-item-section>
+              <q-item-section>
+                <div>Nama : {{ detail.penjualan ? detail.penjualan.pasien.nama:'-' }}</div>
+                <div>Alamat : {{ detail.penjualan ? detail.penjualan.pasien.alamat:'-' }}</div>
+                <div>Nomor Kartu : {{ detail.penjualan ? detail.penjualan.pasien.nokartu:'-' }}</div>
+              </q-item-section>
             </q-item>
           </div>
         </q-list>

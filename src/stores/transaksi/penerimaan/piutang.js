@@ -111,7 +111,7 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
         api.get('v1/tagihan/tagihan')
           .then(resp => {
             this.loading = false
-            // console.log('nota tagihan', resp.data)
+            console.log('nota tagihan', resp.data)
             if (resp.status === 200) {
               this.notas = resp.data
               if (this.notas.length) {

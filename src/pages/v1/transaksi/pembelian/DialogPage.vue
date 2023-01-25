@@ -89,13 +89,13 @@
           </div>
           <div class="row q-col-gutter-md q-mt-sm items-center">
             <div class="col-md-4 col-xs-4">
-              Ongkir / Admin
+              PPN
             </div>
             <div class="col-md-8 col-xs-8">
               <app-input
                 v-model="store.form.ongkir"
                 label=" "
-                prefix="Rp "
+                suffix="  %"
                 outlined
                 currency
                 valid
@@ -105,14 +105,14 @@
           </div>
           <div class="row q-col-gutter-md q-mt-sm items-center">
             <div class="col-md-4 col-xs-4">
-              Potongan
+              Diskon
             </div>
             <div class="col-md-8 col-xs-8">
               <app-input
                 v-model="store.form.potongan"
                 label=" "
                 outlined
-                prefix="Rp "
+                suffix="  %"
                 currency
                 valid
                 @update:model-value="store.totalSeluruhnya"

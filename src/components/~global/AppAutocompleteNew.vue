@@ -82,7 +82,7 @@ const clear = val => {
 }
 fetchData()
 function filterFn (val, update) {
-  console.log('filterFn ', val)
+  // console.log('filterFn ', val)
   if (val === '') {
     update(() => {
       optionx.value = props.source
@@ -103,13 +103,13 @@ function filterFn (val, update) {
     const arr = refAuto.value.autocomplete
     if (arr === '') {
       optionx.value = props.source.filter(v => v.toLowerCase().indexOf(needle) > -1)
-      console.log('update if atas ', optionx.value)
+      // console.log('update if atas ', optionx.value)
     } else {
       const splits = arr.split('-')
       const multiFilter = (data = [], filterKeys = [], value = '') => data.filter((item) => filterKeys.some(key => item[key].toString().toLowerCase().includes(value.toLowerCase()) && item[key]))
       const filteredData = multiFilter(props.source, splits, needle)
       optionx.value = filteredData
-      console.log('update if bawah ', optionx.value)
+      // console.log('update if bawah ', optionx.value)
     }
     // }
   },

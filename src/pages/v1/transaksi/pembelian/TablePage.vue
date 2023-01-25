@@ -73,7 +73,9 @@
               option-label="nama"
               :source="table.produks"
               autofocus
+              :loading="produkTable.loading"
               @on-select="table.produkSelected"
+              @buang="cariDataProduk"
             />
           </q-td>
           <q-td
@@ -306,6 +308,7 @@ import { notifErrVue } from 'src/modules/utils'
 import { useSupplierFormStore } from 'src/stores/master/supplier/form'
 import formDialog from 'src/pages/v1/master/supplier/FormDialog.vue'
 import { ref } from 'vue'
+import { useProdukTable } from 'src/stores/master/produk/table'
 
 // const coba = () => {
 //   console.log(refTanggal.value)
@@ -319,6 +322,14 @@ const refBesar = ref(null)
 const refKecil = ref(null)
 const refHarga = ref(null)
 const refFaktur = ref(null)
+
+const table = usePembelianTable()
+const produkTable = useProdukTable()
+const cariDataProduk = val => {
+  // console.log('cari data produk', val)
+  produkTable.params.q = val
+  table.ambilDataProduk()
+}
 
 const produk = val => {
   // console.log('key', val.key)
@@ -406,7 +417,6 @@ const resetValidation = () => {
   refFaktur.value.$refs.refInput.resetValidation()
   refProduk.value.$refs.refAuto.resetValidation()
 }
-const table = usePembelianTable()
 const store = usePembelianDialog()
 // table.getDetailTransaksi()
 const cekRequired = () => {

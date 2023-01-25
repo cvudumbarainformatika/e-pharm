@@ -76,8 +76,8 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     },
     totalSeluruhnya() {
       const total = olahUang(this.form.total)
-      const potongan = olahUang(this.form.potongan)
-      const ongkir = olahUang(this.form.ongkir)
+      const potongan = olahUang(this.form.potongan) / 100 * total
+      const ongkir = olahUang(this.form.ongkir) / 100 * total
       // console.log('total ', total, ' potongan ', potongan)
       this.totalSemua = total - potongan + ongkir
       this.print.totalSemua = this.totalSemua
@@ -173,7 +173,9 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       this.form.bayar = bayar
       this.form.kembali = kembali
       this.form.status = 2
+      this.form.totalSemua = olahUang(this.totalSemua)
       print.form = this.form
+      console.log('form', this.form)
       if (this.printChek) { window.print() }
       this.loading = true
       return new Promise((resolve, reject) => {

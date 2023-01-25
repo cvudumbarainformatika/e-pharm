@@ -103,7 +103,9 @@
                   option-value="id"
                   option-label="nama"
                   :source="store.merks"
+                  :loading="merkTable.loading"
                   @on-enter="merk.addMerk"
+                  @buang="cariDataMerk"
                 />
                 <q-icon
                   size="16px"
@@ -136,7 +138,9 @@
                   option-value="id"
                   option-label="nama"
                   :source="store.raks"
+                  :loading="rakTable.loading"
                   @on-enter="rak.addRak"
+                  @buang="cariDataRak"
                 />
                 <q-icon
                   size="16px"
@@ -170,7 +174,9 @@
                   option-value="id"
                   option-label="nama"
                   :source="store.kategoris"
+                  :loading="kategoriTable.loading"
                   @on-enter="kategori.addKategori"
+                  @buang="cariDataKategori"
                 />
                 <q-icon
                   size="16px"
@@ -205,7 +211,9 @@
                     option-value="id"
                     option-label="nama"
                     :source="store.satuanBesars"
+                    :loading="satuanBesarTable.loading"
                     @on-enter="satuanBesar.addSatuan"
+                    @buang="cariSatuanBesar"
                   />
                   <q-icon
                     size="16px"
@@ -246,7 +254,9 @@
                     option-value="id"
                     option-label="nama"
                     :source="store.satuans"
+                    :loading="satuanTable.loading"
                     @on-enter="satuan.addSatuan"
+                    @buang="cariSatuan"
                   />
                   <q-icon
                     size="16px"
@@ -292,10 +302,15 @@
 
 <script setup>
 import { useKategoriFormStore } from 'src/stores/master/kategori/form'
+import { useKategoriTable } from 'src/stores/master/kategori/table'
 import { useMerkFormStore } from 'src/stores/master/merk/form'
+import { useMerkTable } from 'src/stores/master/merk/table'
 import { useProdukFormStore } from 'src/stores/master/produk/form'
 import { useRakFormStore } from 'src/stores/master/rak/form'
+import { useRakTable } from 'src/stores/master/rak/table'
+import { useSatuanBesarStore } from 'src/stores/master/satuan/besar/crud'
 import { useSatuanBesarFormStore } from 'src/stores/master/satuan/besar/form'
+import { useSatuanStore } from 'src/stores/master/satuan/crud'
 import { useSatuanFormStore } from 'src/stores/master/satuan/form'
 import { ref, onMounted } from 'vue'
 // import { Dialog } from 'quasar'
@@ -308,6 +323,11 @@ const satuan = useSatuanFormStore()
 const satuanBesar = useSatuanBesarFormStore()
 const kategori = useKategoriFormStore()
 const merk = useMerkFormStore()
+const rakTable = useRakTable()
+const merkTable = useMerkTable()
+const kategoriTable = useKategoriTable()
+const satuanTable = useSatuanStore()
+const satuanBesarTable = useSatuanBesarStore()
 
 onMounted(() => {
   store.ambilDataRak()
@@ -323,6 +343,27 @@ onMounted(() => {
 //   const randomness = Math.random().toString(36).substring(2, 7)
 //   return dateString + randomness
 // }
+const cariDataRak = val => {
+  // console.log('cari data rak', val)
+  rakTable.params.q = val
+  store.ambilDataRak()
+}
+const cariDataMerk = val => {
+  merkTable.params.q = val
+  store.ambilDataMerk()
+}
+const cariDataKategori = val => {
+  kategoriTable.params.q = val
+  store.ambilDatakategori()
+}
+const cariSatuan = val => {
+  satuanTable.params.q = val
+  store.ambilDataSatuan()
+}
+const cariSatuanBesar = val => {
+  satuanBesarTable.params.q = val
+  store.ambilDataSatuanBesar()
+}
 const formReff = ref(null)
 const onSubmit = () => {
   store.saveForm().then(() => {
