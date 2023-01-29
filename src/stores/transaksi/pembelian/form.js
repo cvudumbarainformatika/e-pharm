@@ -198,7 +198,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
             }
             const slug = 'PBL-' + uniqueId()
             routerInstance.replace({
-              name: 'pembelian',
+              name: 'transaksi.pembelian',
               params: { slug }
             })
             // routerInstance.currentRoute.value.params.slug = slug

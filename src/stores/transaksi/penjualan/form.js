@@ -197,19 +197,19 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
               notifSuccess(resp)
               table.resetData()
               this.resetData()
+              const slug = 'PJL-' + uniqueId()
+              routerInstance.replace({
+                name: 'transaksi.penjualan',
+                params: { slug }
+              })
+              // routerInstance.currentRoute.value.params.slug = slug
+              this.form.reff = slug
+              table.form.reff = slug
+              table.getDetailTransaksi(slug)
+              this.isOpen = false
+              useDashboardStore().getDataRank()
               resolve(resp.data.data)
             }
-            const slug = 'PJL-' + uniqueId()
-            routerInstance.replace({
-              name: 'penjualan',
-              params: { slug }
-            })
-            // routerInstance.currentRoute.value.params.slug = slug
-            this.form.reff = slug
-            table.form.reff = slug
-            table.getDetailTransaksi(slug)
-            this.isOpen = false
-            useDashboardStore().getDataRank()
           })
           .catch((err) => {
             this.loading = false
