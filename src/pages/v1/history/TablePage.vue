@@ -61,13 +61,14 @@
             :props="props"
             @click="table.clicked(props)"
           >
-            <q-avatar
+            <!-- <q-avatar
               text-color="negative"
               :color="table.dark === true ? 'dark':'white'"
               icon="icon-mat-delete_filled"
               dense
               clickable
-            />
+            /> -->
+            {{ props.rowIndex +1 }}
           </q-td>
           <!-- kolom transaksi -->
           <q-td
@@ -204,6 +205,15 @@
               />
             </div>
             <div v-if="props.row.status > 1">
+              <q-btn
+                class="q-mr-md"
+                color="primary"
+                round
+                flat
+                dense
+                icon="icon-mat-print"
+                @click="print(props.row)"
+              />
               <q-avatar
                 text-color="primary"
                 :color="table.dark === true ? 'dark':'white'"
@@ -438,6 +448,9 @@
 import { useHistoryTable } from 'src/stores/history/table'
 import { dateFormat, formatRp } from 'src/modules/formatter'
 
+const print = val => {
+  console.log('print', val)
+}
 const getTotal = (val) => {
   if (val === undefined) { return }
   if (val.length >= 1) {

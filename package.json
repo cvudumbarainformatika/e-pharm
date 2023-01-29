@@ -11,6 +11,7 @@
     "custom-icons:watch": "watch \"npm run custom-icons\" src/custom-icons/svg"
   },
   "dependencies": {
+    "@quasar/cli": "^2.0.0",
     "@quasar/extras": "^1.0.0",
     "apexcharts": "^3.36.0",
     "axios": "^0.21.1",

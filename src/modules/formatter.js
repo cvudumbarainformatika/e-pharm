@@ -32,6 +32,15 @@ const formatDouble = (value, dg) => {
       .replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1,')
   }
 }
+const formatRpDouble = (value, dg) => {
+  if (value !== null) {
+    return 'Rp. ' + Number(value)
+      .toFixed(dg)
+      .replace('.', ',')
+      .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+      // .replace(/(\d)(?=(\d{3})+(?:\.\d+)?$)/g, '$1.')
+  }
+}
 
 function formatMoney(amount, decimalCount = 2, decimal = '.', thousands = ',') {
   try {
@@ -60,12 +69,17 @@ const olahUang = (val) => {
   // console.log('olah uang type', typeof val)
   if (typeof val === 'string') {
     let data = ''
+    let temp = ''
     const array = val.split('.')
+    const koma = val.split(',')
     for (let i = 0; i < array.length; i++) {
       data += array[i]
     }
-    // console.log('olah uang return', parseFloat(data))
-    return parseFloat(data)
+    if (koma.length > 1) {
+      temp = data + '.' + koma[1]
+    } else (temp = data)
+    console.log('olah uang return', parseFloat(temp))
+    return parseFloat(temp)
   } else { return val }
 }
 
@@ -95,6 +109,7 @@ export {
   dateDbFormat,
   formatRp,
   formatDouble,
+  formatRpDouble,
   formatMoney,
   hurufBesar,
   olahUang,

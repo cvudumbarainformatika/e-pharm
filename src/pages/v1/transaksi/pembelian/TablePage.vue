@@ -53,7 +53,7 @@
         </div>
         <div class="col-3">
           <div class="text-h6 text-right">
-            Total : {{ formatter.formatRp(table.form.total) }}
+            Total : {{ formatter.formatRpDouble(table.form.total,2) }}
           </div>
         </div>
       </template>
@@ -167,6 +167,7 @@
             /> -->
             {{ table.form.qty }}
           </q-td>
+
           <q-td
             @keydown.capture="harga"
           >
@@ -180,7 +181,18 @@
               @keyup.enter="table.onEnter"
             />
           </q-td>
-
+          <q-td @keydown.capture="diskon">
+            <app-input
+              ref="refDiskon"
+              v-model="table.form.diskon"
+              class="text-right"
+              label=" "
+              number
+              suffix="%"
+              @update:model-value="table.inputDiskon"
+              @keyup.enter="table.onEnter"
+            />
+          </q-td>
           <!-- <q-td>
             <app-input
               v-model="table.form.harga_jual_umum"
@@ -213,7 +225,8 @@
           </q-td> -->
           <q-td>
             <strong>
-              {{ formatter.formatRp(parseFloat(formatter.olahUang(table.form.harga_beli)) * parseFloat(table.form.qty)) }}
+              <!-- {{ formatter.formatRp(parseFloat(formatter.olahUang(table.form.harga_beli)) * parseFloat(table.form.qty)) }} -->
+              {{ formatter.formatRpDouble(table.form.sub_total,2) }}
             </strong>
           </q-td>
         </q-tr>
@@ -322,6 +335,7 @@ const refBesar = ref(null)
 const refKecil = ref(null)
 const refHarga = ref(null)
 const refFaktur = ref(null)
+const refDiskon = ref(null)
 
 const table = usePembelianTable()
 const produkTable = useProdukTable()
@@ -388,17 +402,31 @@ const kecil = val => {
     // console.log(refBesar.value.$refs)
   }
 }
+
 const harga = val => {
   // console.log('key', val.key)
   if (val.key === 'ArrowRight') {
     // console.log(refProduk.value.$refs)
-    refProduk.value.$refs.refAuto.focus()
+    refDiskon.value.$refs.refInput.focus()
     refHarga.value.$refs.refInput.blur()
   }
   if (val.key === 'ArrowLeft') {
     // console.log(refKecil.value.$refs)
     refKecil.value.$refs.refInput.focus()
     refHarga.value.$refs.refInput.blur()
+  }
+}
+const diskon = val => {
+  // console.log('key', val.key)
+  if (val.key === 'ArrowRight') {
+    // console.log(refProduk.value.$refs)
+    refProduk.value.$refs.refAuto.focus()
+    refDiskon.value.$refs.refInput.blur()
+  }
+  if (val.key === 'ArrowLeft') {
+    // console.log(refKecil.value.$refs)
+    refHarga.value.$refs.refInput.focus()
+    refDiskon.value.$refs.refInput.blur()
   }
 }
 const keyCheck = val => {
@@ -414,6 +442,7 @@ const resetValidation = () => {
   refBesar.value.$refs.refInput.resetValidation()
   refExpired.value.resetValidation()
   refHarga.value.$refs.refInput.resetValidation()
+  refDiskon.value.$refs.refInput.resetValidation()
   refFaktur.value.$refs.refInput.resetValidation()
   refProduk.value.$refs.refAuto.resetValidation()
 }

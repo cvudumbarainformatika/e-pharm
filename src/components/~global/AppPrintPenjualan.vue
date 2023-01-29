@@ -59,10 +59,10 @@
           class="row"
         >
           <div class="col-6 text-right">
-            <strong>Potongan</strong>
+            <strong>Diskon</strong>
           </div>
           <div class="col-6 text-right">
-            {{ formatRp(olahUang(store.form.potongan)) }}
+            {{ store.form.potongan }} %
           </div>
         </div>
         <div
@@ -73,7 +73,7 @@
             <strong>Ongkir</strong>
           </div>
           <div class="col-6 text-right">
-            {{ formatRp(olahUang(store.form.ongkir)) }}
+            {{ store.form.ongkir }} %
           </div>
         </div>
         <div class="row">

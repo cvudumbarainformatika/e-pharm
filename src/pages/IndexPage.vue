@@ -18,11 +18,11 @@ console.log(user)
 switch (user.role) {
   case 'kasir':
     console.log('kasir', user.role)
-    routerInstance.replace({ name: 'penjualan', params: { slug } })
+    routerInstance.replace({ name: 'transaksi.penjualan', params: { slug } })
     break
   case 'gudang':
     console.log('gudang', user.role)
-    routerInstance.replace({ name: 'pembelian', params: { slug } })
+    routerInstance.replace({ name: 'transaksi.pembelian', params: { slug } })
     break
 
   default:

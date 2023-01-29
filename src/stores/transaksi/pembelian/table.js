@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
 import { notifErrVue, detailBesar, detailKecil } from 'src/modules/utils'
-import { formatRp, olahUang } from 'src/modules/formatter'
+import { formatRp, formatRpDouble, olahUang } from 'src/modules/formatter'
 import { Dialog } from 'quasar'
 import { usePembelianDialog } from './form'
 import { routerInstance } from 'src/boot/router'
@@ -34,6 +34,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       harga_jual_cust: 0,
       qty: 0,
       harga: 0,
+      diskon: 0,
       total: 0,
       sub_total: 0,
       nama: 'PEMBELIAN',
@@ -80,6 +81,13 @@ export const usePembelianTable = defineStore('pembelian_table', {
         field: 'harga',
         format: (val) => formatRp(val)
       },
+      {
+        name: 'diskon',
+        align: 'right',
+        label: 'Diskon ',
+        field: 'diskon',
+        format: (val) => val + ' %'
+      },
       // {
       //   name: 'harga_jual_umum',
       //   align: 'right',
@@ -105,8 +113,8 @@ export const usePembelianTable = defineStore('pembelian_table', {
         name: 'sub_total',
         align: 'right',
         label: 'Sub total',
-        field: (row) => row.harga * row.qty,
-        format: (val) => formatRp(val)
+        field: (row) => row.diskon > 0 ? (row.harga * row.qty) - (row.harga * row.qty * (row.diskon / 100)) : row.harga * row.qty,
+        format: (val) => formatRpDouble(val, 2)
       }
     ],
     visbleColumns: [
@@ -173,11 +181,13 @@ export const usePembelianTable = defineStore('pembelian_table', {
         this.form.harga_jual_cust = produk[0].harga_jual_cust
         this.form.harga_jual_umum = produk[0].harga_jual_umum
         this.form.harga_jual_resep = produk[0].harga_jual_resep
+        this.form.diskon = 0
         this.satuan.besar = 1
         this.satuan.pengali = produk[0].pengali
         this.form.qty = this.satuan.besar * this.satuan.pengali
         this.namaSatuan.besar = produk[0].satuanBesar.nama
         this.namaSatuan.kecil = produk[0].satuan.nama
+        this.form.sub_total = parseFloat(this.form.qty) * olahUang(this.form.harga)
       }
     },
     inputSatuanBesar(val) {
@@ -188,6 +198,13 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.qty = parseFloat(this.satuan.besar) * parseFloat(this.satuan.pengali) + parseFloat(this.satuan.kecil)
       // console.log('satuan kecil', val)
     },
+    inputDiskon(val) {
+      this.form.sub_total = this.form.diskon > 0 ? (parseFloat(this.form.qty) * olahUang(this.form.harga)) - (parseFloat(this.form.qty) * olahUang(this.form.harga) * (parseFloat(this.form.diskon) / 100)) : parseFloat(this.form.qty) * olahUang(this.form.harga)
+      // console.log('qty', this.form.qty)
+      // console.log('harga', this.form.harga)
+      // console.log('diskon', this.form.diskon)
+      // console.log('sub_total', this.form.sub_total)
+    },
 
     resetInput() {
       this.form.product_id = ''
@@ -197,6 +214,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.harga_jual_umum = 0
       this.form.harga_jual_resep = 0
       this.form.qty = 0
+      this.form.diskon = 0
       this.satuan.besar = 0
       this.satuan.kecil = 0
       this.satuan.pengali = 0
@@ -227,7 +245,11 @@ export const usePembelianTable = defineStore('pembelian_table', {
       if (this.rows !== undefined) {
         const subTotal = []
         this.rows.forEach((val, index) => {
-          subTotal[index] = val.harga * val.qty
+          if (val.diskon > 0) {
+            subTotal[index] = (val.harga * val.qty) - (val.harga * val.qty * (val.diskon / 100))
+          } else {
+            subTotal[index] = val.harga * val.qty
+          }
         })
         // console.log('sub total', subTotal)
         const total = subTotal.reduce((total, num) => {
@@ -352,7 +374,8 @@ export const usePembelianTable = defineStore('pembelian_table', {
       data.product_id = this.form.product_id
       data.harga = olahUang(this.form.harga)
       data.qty = this.form.qty
-      data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga)
+      data.diskon = this.form.diskon
+      data.sub_total = parseFloat(this.form.diskon) > 0 ? (parseFloat(this.form.qty) * olahUang(this.form.harga)) - (parseFloat(this.form.qty) * olahUang(this.form.harga) * (parseFloat(this.form.diskon) / 100)) : olahUang(this.form.qty) * olahUang(this.form.harga)
       if (olahUang(this.form.harga) !== olahUang(this.form.harga_beli)) { data.update_harga = true } else { data.update_harga = false }
 
       this.loading = true

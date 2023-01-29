@@ -76,10 +76,15 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     },
     totalSeluruhnya() {
       const total = olahUang(this.form.total)
-      const potongan = olahUang(this.form.potongan) / 100 * total
-      const ongkir = olahUang(this.form.ongkir) / 100 * total
-      // console.log('total ', total, ' potongan ', potongan)
-      this.totalSemua = total - potongan + ongkir
+      // potongan = diskon
+      const potongan = this.form.potongan > 0 ? parseFloat(this.form.potongan / 100 * total).toFixed(2) : 0
+      const totalDgPotongan = total - parseFloat(potongan)
+      // ongkir = ppn
+      const ongkir = this.form.ongkir > 0 ? parseFloat(this.form.ongkir / 100 * totalDgPotongan).toFixed(2) : 0
+
+      console.log('total ', total, ' potongan ', potongan, 'onkir', ongkir)
+
+      this.totalSemua = totalDgPotongan + parseFloat(ongkir)
       this.print.totalSemua = this.totalSemua
       this.print.potongan = potongan
       this.print.ongkir = ongkir

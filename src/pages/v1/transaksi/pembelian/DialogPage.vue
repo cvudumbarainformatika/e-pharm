@@ -60,6 +60,7 @@
                 :loading="store.loading"
                 @set-model="store.searchSupplier"
                 @on-select="store.setSupplier"
+                @buang="store.searchSupplier"
               />
             </div>
             <div class="col-md-1 col-xs-1 text-center">
@@ -76,15 +77,16 @@
             <div class="col-md-4 col-xs-4">
               Total Pembelian
             </div>
-            <div class="col-md-8 col-xs-8">
-              <app-input
+            <div class="col-md-8 col-xs-8 text-right">
+              {{ formatRpDouble(store.form.total,2) }}
+              <!-- <app-input
                 v-model="store.form.total"
                 label=" "
                 outlined
                 disable
                 prefix="Rp "
                 currency
-              />
+              /> -->
             </div>
           </div>
           <div class="row q-col-gutter-md q-mt-sm items-center">
@@ -97,7 +99,6 @@
                 label=" "
                 suffix="  %"
                 outlined
-                currency
                 valid
                 @update:model-value="store.totalSeluruhnya"
               />
@@ -113,7 +114,6 @@
                 label=" "
                 outlined
                 suffix="  %"
-                currency
                 valid
                 @update:model-value="store.totalSeluruhnya"
               />
@@ -124,7 +124,9 @@
               <div class="text-right">
                 Total Seluruhnya
               </div>
-              <app-input
+              <div class="text-right">
+                {{ formatRpDouble(store.totalSemua,2) }}
+              <!-- <app-input
                 v-model="store.totalSemua"
                 label=" "
                 outlined
@@ -132,7 +134,8 @@
                 disable
                 currency
                 valid
-              />
+              /> -->
+              </div>
             </div>
           </div>
           <div
@@ -230,7 +233,7 @@
   </q-dialog>
 </template>
 <script setup>
-// import { olahUang } from 'src/modules/formatter'
+import { formatRpDouble } from 'src/modules/formatter'
 import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
 import { ref } from 'vue'
 import { useSupplierFormStore } from 'src/stores/master/supplier/form'

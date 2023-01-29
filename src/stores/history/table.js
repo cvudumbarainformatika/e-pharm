@@ -93,21 +93,21 @@ export const useHistoryTable = defineStore('history_table', {
     },
     // dari icon delete
     clicked(val) {
-      const params = val.row
-      Dialog.create({
-        title: 'Konfirmasi',
-        message: `Apakah Transaksi :<strong> ${params.nama.toLowerCase()}</strong> dengan nomor Nota :<strong> ${params.reff}</strong> akan di hapus?`,
-        cancel: true,
-        html: true
-      })
-        .onOk(() => {
-          this.rows = []
-          this.deleteTransaction(params)
-        })
-        .onCancel(() => {
-          // console.log('cancel')
-        })
-      // console.log(val)
+      // const params = val.row
+      // Dialog.create({
+      //   title: 'Konfirmasi',
+      //   message: `Apakah Transaksi :<strong> ${params.nama.toLowerCase()}</strong> dengan nomor Nota :<strong> ${params.reff}</strong> akan di hapus?`,
+      //   cancel: true,
+      //   html: true
+      // })
+      //   .onOk(() => {
+      //     this.rows = []
+      //     this.deleteTransaction(params)
+      //   })
+      //   .onCancel(() => {
+      //     // console.log('cancel')
+      //   })
+      console.log(val)
     },
     // dari icon buka
     openTransaction(val) {
