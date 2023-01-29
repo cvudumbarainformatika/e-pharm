@@ -27,7 +27,10 @@ export const useSettingStore = defineStore('setting', {
         link: 'dashboard',
         name: 'dashboard',
         route: 'dashboard',
-        submenus: []
+        submenus: [
+
+        ],
+        roles: 'root owner'
       },
       {
         icon: 'icon-mat-dataset',
@@ -39,67 +42,78 @@ export const useSettingStore = defineStore('setting', {
             icon: 'icon-mat-gas_meter',
             name: 'Satuan',
             link: 'master/satuan',
-            value: 'master.satuan'
+            value: 'master.satuan',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-table_rows',
             name: 'Rak',
             link: 'master/rak',
-            value: 'master.rak'
+            value: 'master.rak',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-category',
             name: 'Kategori',
             link: 'master/kategori',
-            value: 'master.kategori'
+            value: 'master.kategori',
+            roles: 'root owner'
           },
           {
             icon: 'icon-fa-truck_arrow_right_solid',
             name: 'Distributor',
             link: 'master/supplier',
-            value: 'master.supplier'
+            value: 'master.supplier',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-medication',
             name: 'Dokter',
             link: 'master/dokter',
-            value: 'master.dokter'
+            value: 'master.dokter',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-workspaces',
             name: 'Produk',
             link: 'master/produk',
-            value: 'master.produk'
+            value: 'master.produk',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-assessment',
             name: 'Pengeluaran',
             link: 'master/beban',
-            value: 'master.beban'
+            value: 'master.beban',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-attach_money',
             name: 'Pendapatan',
             link: 'master/penerimaan',
-            value: 'master.penerimaan'
+            value: 'master.penerimaan',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-local_shipping',
             name: 'Customer',
             link: 'master/customer',
-            value: 'master.customer'
+            value: 'master.customer',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-auto_awesome_mosaic',
             name: 'Merk',
             link: 'master/merk',
-            value: 'master.merk'
+            value: 'master.merk',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-business',
             name: 'Perusahaan',
             link: 'master/perusahaan',
-            value: 'master.perusahaan'
+            value: 'master.perusahaan',
+            roles: 'root owner'
           }
         ]
       },
@@ -112,31 +126,36 @@ export const useSettingStore = defineStore('setting', {
             icon: 'icon-mat-inventory_2',
             name: 'Pembelian',
             link: '/transaksi/pembelian/PBL-',
-            value: 'transaksi.pembelian'
+            value: 'transaksi.pembelian',
+            roles: 'root owner gudang'
           },
           {
             icon: 'icon-mat-shopping_bag',
             name: 'Penjualan',
             link: '/transaksi/penjualan/PJL-',
-            value: 'transaksi.penjualan'
+            value: 'transaksi.penjualan',
+            roles: 'root owner kasir'
           },
           {
             icon: 'icon-mat-assignment_return',
             name: 'Retur',
             link: '/transaksi/retur',
-            value: 'transaksi.retur'
+            value: 'transaksi.retur',
+            roles: 'root owner kasir'
           },
           {
             icon: 'icon-mat-account_balance_wallet',
             name: 'Pendapatan',
             link: '/transaksi/penerimaan',
-            value: 'transaksi.penerimaan'
+            value: 'transaksi.penerimaan',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-payment',
             name: 'Pengeluaran',
             link: '/transaksi/biaya',
-            value: 'transaksi.biaya'
+            value: 'transaksi.biaya',
+            roles: 'root owner'
           }
         ]
       },
@@ -148,47 +167,56 @@ export const useSettingStore = defineStore('setting', {
           {
             icon: 'icon-mat-density_small',
             name: 'Seluruhnya',
-            value: 'all'
+            value: 'all',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-insert_drive_file',
             name: 'Draft',
-            value: 'draft'
+            value: 'draft',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-inventory_2',
             name: 'Pembelian',
-            value: 'PEMBELIAN'
+            value: 'PEMBELIAN',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-shopping_bag',
             name: 'Penjualan',
-            value: 'PENJUALAN'
+            value: 'PENJUALAN',
+            roles: 'root owner kasir'
           },
           {
             icon: 'icon-mat-account_balance_wallet',
             name: 'Pendapatan',
-            value: 'PENDAPATAN'
+            value: 'PENDAPATAN',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-payment',
             name: 'Pengeluaran',
-            value: 'PENGELUARAN'
+            value: 'PENGELUARAN',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-assignment_return',
             name: 'Retur Pembelian',
-            value: 'RETUR PEMBELIAN'
+            value: 'RETUR PEMBELIAN',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-assignment_return',
             name: 'Retur Penjualan',
-            value: 'RETUR PENJUALAN'
+            value: 'RETUR PENJUALAN',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-tune',
             name: 'Form Penyesuaian',
-            value: 'FORM PENYESUAIAN'
+            value: 'FORM PENYESUAIAN',
+            roles: 'root owner'
           }
         ]
       },
@@ -196,7 +224,8 @@ export const useSettingStore = defineStore('setting', {
         icon: 'icon-mat-description',
         link: 'laporan',
         name: 'laporan',
-        submenus: []
+        submenus: [],
+        roles: 'root owner'
       },
       {
         icon: 'icon-mat-settings',
@@ -206,7 +235,8 @@ export const useSettingStore = defineStore('setting', {
           {
             icon: 'icon-mat-density_small',
             name: 'User',
-            value: 'user'
+            value: 'user',
+            roles: 'root owner'
           },
           // {
           //   icon: 'icon-mat-insert_drive_file',
@@ -217,13 +247,15 @@ export const useSettingStore = defineStore('setting', {
             icon: 'icon-mat-home',
             link: null,
             name: 'Info',
-            value: 'info'
+            value: 'info',
+            roles: 'root owner'
           },
           {
             icon: 'icon-mat-dvr',
             link: null,
             name: 'Themes',
-            value: 'theme'
+            value: 'theme',
+            roles: 'root owner'
           }
         ]
       }

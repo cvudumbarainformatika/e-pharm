@@ -63,10 +63,10 @@ const menus = computed(() => {
   if (apem.length && user) {
     switch (user.role) {
       case 'kasir':
-        submenu = apem[0].submenus.filter(data => { return data.value === 'penjualan' })
+        submenu = apem[0].submenus.filter(data => { return data.roles.includes('kasir') })
         break
       case 'gudang':
-        submenu = apem[0].submenus.filter(data => { return data.value === 'pembelian' })
+        submenu = apem[0].submenus.filter(data => { return data.roles.includes('gudang') })
         break
 
       default:

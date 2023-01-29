@@ -11,7 +11,7 @@
       @toggle-left="toggleLeftDrawer"
     />
     <LeftDrawer
-      v-if="!mobile && role !=='kasir'"
+      v-if="!mobile"
       v-model="leftDrawerOpen"
       :dark="dark"
       class="print-hide"
@@ -29,7 +29,7 @@
 
     <!-- menu bottom mobile -->
     <adm-footer-menu
-      v-if="mobile && role !== 'kasir'"
+      v-if="mobile"
       :dark="dark"
       :menus="menus"
     />
@@ -125,10 +125,38 @@ function toggleLeftDrawer() {
 // console.log('menus atas', setting.menus)
 const menus = computed(() => {
   // console.log('role', role.value)
-  if (role.value === 'gudang') {
-    // console.log('menus', setting.menus)
-    return setting.menus.filter(data => { return data.name === 'transaksi' || data.name === 'master' })
-  } else { return setting.menus }
+  // if (role.value === 'gudang') {
+  //   // console.log('menus', setting.menus)
+  //   return setting.menus.filter(data => { return data.name === 'transaksi' || data.name === 'master' })
+  // } else { return setting.menus }
+  const menu = setting.menus.map(menu => {
+    if (menu.submenus.length) {
+      const submenu = menu.submenus.filter(sub => {
+        const apem = sub.roles.includes(role.value) ? sub : false
+        // console.log('sub', sub.roles.includes(role.value), apem)
+        return apem
+        // return sub.roles.includes(role.value) ? sub : false
+      })
+      menu.submenus = submenu
+      if (submenu.length) return menu
+      else return false
+    } else {
+      const temp = menu.roles ? menu.roles.includes(role.value) ? menu : false : false
+      // console.log('mnu', menu.roles.includes(role.value), temp)
+      return temp
+    }
+  })
+  const apem = menu.filter(men => {
+    let temp = false
+    if (men) {
+      temp = men
+    }
+    return temp
+  })
+  console.log('role', role.value)
+  console.log('menus', menu)
+  console.log('apem', apem)
+  return apem
 })
 // console.log('menus bawah', menus.value)
 // const menus = ref([

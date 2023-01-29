@@ -27,8 +27,10 @@ import TablePage from './TablePage.vue'
 const table = useHistoryTable()
 table.setColumns()
 table.selected = true
-table.nama = 'all'
-table.setParams('nama', 'all')
-table.title = 'Seluruhnya'
+if (!table.params.nama) {
+  table.nama = 'all'
+  table.setParams('nama', 'all')
+  table.title = 'Seluruhnya'
+}
 table.getDataTransactions()
 </script>
