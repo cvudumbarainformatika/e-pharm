@@ -93,7 +93,7 @@ const mobile = $q.screen.lt.md
 const history = useHistoryTable()
 const setting = useSettingStore()
 const role = computed(() => {
-  return store.user ? store.user.role : 'kasir'
+  return store.user ? store.user.role : null
 })
 
 const dark = computed(() => {
@@ -130,10 +130,10 @@ const menus = computed(() => {
   //   return setting.menus.filter(data => { return data.name === 'transaksi' || data.name === 'master' })
   // } else { return setting.menus }
   const menu = setting.menus.map(menu => {
-    if (menu.submenus.length) {
+    if (menu.submenus.length && role.value !== null) {
       const submenu = menu.submenus.filter(sub => {
         const apem = sub.roles.includes(role.value) ? sub : false
-        // console.log('sub', sub.roles.includes(role.value), apem)
+        // console.log('sub', apem)
         return apem
         // return sub.roles.includes(role.value) ? sub : false
       })
@@ -142,7 +142,7 @@ const menus = computed(() => {
       else return false
     } else {
       const temp = menu.roles ? menu.roles.includes(role.value) ? menu : false : false
-      // console.log('mnu', menu.roles.includes(role.value), temp)
+      // console.log('mnu', temp)
       return temp
     }
   })

@@ -51,6 +51,12 @@
           round
           icon="icon-eva-bell-outline"
         /> -->
+        <q-badge
+          color="primary"
+          class="q-mr-sm"
+        >
+          Anda Login Sebagai : {{ role }}
+        </q-badge>
         <q-avatar
           size="40px"
           class="q-ml-sm cursor-pointer bg-grey"
@@ -99,6 +105,9 @@ const image = computed(() => {
     }
   }
   return imgUrl
+})
+const role = computed(() => {
+  return store.user ? store.user.role : 'kasir'
 })
 // watch(() => store.user, (apem) => {
 //   console.log('watch apem', apem)

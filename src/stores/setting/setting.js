@@ -141,7 +141,7 @@ export const useSettingStore = defineStore('setting', {
             name: 'Retur',
             link: '/transaksi/retur',
             value: 'transaksi.retur',
-            roles: 'root owner kasir'
+            roles: 'root owner kasir gudang'
           },
           {
             icon: 'icon-mat-account_balance_wallet',
@@ -180,7 +180,7 @@ export const useSettingStore = defineStore('setting', {
             icon: 'icon-mat-inventory_2',
             name: 'Pembelian',
             value: 'PEMBELIAN',
-            roles: 'root owner'
+            roles: 'root owner gudang'
           },
           {
             icon: 'icon-mat-shopping_bag',

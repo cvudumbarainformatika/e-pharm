@@ -55,27 +55,33 @@ import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
 const setting = useSettingStore()
+const auth = useAuthStore()
 
+const role = computed(() => {
+  return auth.user ? auth.user.role : null
+})
 const menus = computed(() => {
   const apem = setting.menus.filter(data => { return data.name === 'transaksi' })
-  let submenu
-  const user = useAuthStore().user
-  if (apem.length && user) {
-    switch (user.role) {
-      case 'kasir':
-        submenu = apem[0].submenus.filter(data => { return data.roles.includes('kasir') })
-        break
-      case 'gudang':
-        submenu = apem[0].submenus.filter(data => { return data.roles.includes('gudang') })
-        break
+  // let submenu
+  console.log('transaksi', role.value, apem)
+  if (apem.length && role.value !== null) {
+    // switch (user.role) {
+    //   case 'kasir':
+    //     submenu = apem[0].submenus.filter(data => { return data.roles.includes('kasir') })
+    //     break
+    //   case 'gudang':
+    //     submenu = apem[0].submenus.filter(data => { return data.roles.includes('gudang') })
+    //     break
 
-      default:
-        submenu = apem[0].submenus
-        break
-    }
+    //   default:
+    //     submenu = apem[0].submenus
+    //     break
+    // }
+    const submenu = apem[0].submenus.filter(data => { return data.roles.includes(role.value) })
     return submenu
+  } else {
+    return [0, 0]
   }
-  return [0, 0]
 })
 // console.log('menu', menus.value)
 // let submenu = []
