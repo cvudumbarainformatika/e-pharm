@@ -462,6 +462,7 @@ const cekRequired = () => {
   refProduk.value.$refs.refAuto.resetValidation()
   console.log('table reff', tableReff)
 }
+
 const newTransaction = () => {
   // table.resetData()
   // store.resetData()

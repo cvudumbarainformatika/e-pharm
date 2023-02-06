@@ -40,36 +40,54 @@
               />
             </div>
             <div class="col-md-6 col-xs-12">
-              <app-input
-                v-model="store.form.harga_jual_umum"
-                label="Harga Jual Reguler*"
-                outlined
-                number
-                currency
-                prefix="Rp"
-              />
+              <div class="row">
+                <app-input
+                  v-model="store.form.harga_jual_umum"
+                  style="width:80%"
+                  label="Harga Jual Reguler*"
+                  outlined
+                  number
+                  currency
+                  prefix="Rp"
+                />
+                <q-badge>
+                  {{ parseInt((store.form.harga_jual_umum - store.form.harga_beli)/store.form.harga_beli * 100) }} %
+                </q-badge>
+              </div>
             </div>
           </div>
           <div class="row q-col-gutter-md q-mt-sm">
             <div class="col-md-6 col-xs-12">
-              <app-input
-                v-model="store.form.harga_jual_cust"
-                label="Harga Jual Grosir*"
-                outlined
-                number
-                currency
-                prefix="Rp"
-              />
+              <div class="row">
+                <app-input
+                  v-model="store.form.harga_jual_cust"
+                  label="Harga Jual Grosir*"
+                  style="width:80%"
+                  outlined
+                  number
+                  currency
+                  prefix="Rp"
+                />
+                <q-badge>
+                  {{ parseInt((store.form.harga_jual_cust - store.form.harga_beli)/store.form.harga_beli * 100) }} %
+                </q-badge>
+              </div>
             </div>
             <div class="col-md-6 col-xs-12">
-              <app-input
-                v-model="store.form.harga_jual_resep"
-                label="Harga Jual Resep*"
-                outlined
-                number
-                currency
-                prefix="Rp"
-              />
+              <div class="row">
+                <app-input
+                  v-model="store.form.harga_jual_resep"
+                  label="Harga Jual Resep*"
+                  style="width:80%"
+                  outlined
+                  number
+                  currency
+                  prefix="Rp"
+                />
+                <q-badge>
+                  {{ parseInt((store.form.harga_jual_resep - store.form.harga_beli)/store.form.harga_beli * 100) }} %
+                </q-badge>
+              </div>
             </div>
           </div>
           <div class="row q-col-gutter-md q-mt-sm">

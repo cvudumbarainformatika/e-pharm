@@ -72,6 +72,7 @@ const props = defineProps({
   },
   mask: {
     type: String,
+    // default: '#.###.###.###.###.###.###,##'
     default: '#.###.###.###.###.###.###'
   },
   fillMask: {

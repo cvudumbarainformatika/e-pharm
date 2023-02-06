@@ -538,7 +538,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       return new Promise((resolve, reject) => {
         api.get('v1/laporan/all-stok', params)
           .then(resp => {
-            // console.log('produk penjualan', resp.data)
+            console.log('produk penjualan', resp.data)
             this.produkLoading = false
             this.prosesData(resp.data)
             // this.produks = resp.data.data

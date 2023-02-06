@@ -60,16 +60,16 @@
               <div>{{ row.kategori !==null? row.kategori.nama : '-' }}</div>
             </template>
             <template #cell-harga_beli="{row}">
-              <div>{{ formatter.formatRp(row.harga_beli) }}</div>
+              <div>{{ formatter.formatRpDouble(row.harga_beli) }}</div>
             </template>
             <template #cell-harga_jual_umum="{row}">
-              <div>{{ formatter.formatRp(row.harga_jual_umum) }}</div>
+              <div>{{ formatter.formatRpDouble(row.harga_jual_umum) }}</div>
             </template>
             <template #cell-harga_jual_resep="{row}">
-              <div>{{ formatter.formatRp(row.harga_jual_resep) }}</div>
+              <div>{{ formatter.formatRpDouble(row.harga_jual_resep) }}</div>
             </template>
             <template #cell-harga_jual_cust="{row}">
-              <div>{{ formatter.formatRp(row.harga_jual_cust) }}</div>
+              <div>{{ formatter.formatRpDouble(row.harga_jual_cust) }}</div>
             </template>
           </app-table>
           <!--

@@ -194,6 +194,9 @@ export const usePembelianDialog = defineStore('pembelian_store', {
               notifSuccess(resp)
               table.resetData()
               this.resetData()
+              if (resp.data.update_harga !== '') {
+                table.ambilDataProduk()
+              }
               resolve(resp.data.data)
             }
             const slug = 'PBL-' + uniqueId()
