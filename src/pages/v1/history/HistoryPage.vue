@@ -24,7 +24,22 @@
 import { useHistoryTable } from 'src/stores/history/table'
 // import MenuPage from './MenuPage.vue'
 import TablePage from './TablePage.vue'
+import * as storage from 'src/modules/storage'
+const user = storage.getUser()
 const table = useHistoryTable()
+if (user.role === 'kasir') {
+  table.nama = 'PENJUALAN'
+  table.setParams('nama', 'PENJUALAN')
+  table.title = 'Penjualan'
+} else if (user.role === 'gudang') {
+  table.setParams('nama', 'PEMBELIAN')
+  table.nama = 'PEMBELIAN'
+  table.title = 'Pembelian'
+} else {
+  table.nama = 'all'
+  table.setParams('nama', 'all')
+  table.title = 'Seluruhnya'
+}
 table.setColumns()
 table.selected = true
 if (!table.params.nama) {

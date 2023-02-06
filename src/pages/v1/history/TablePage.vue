@@ -1,5 +1,6 @@
 <template>
   <div class="q-mb-lg">
+    <PrintDialog :nama="printAs" />
     <!-- title="Tabel History" -->
     <q-table
       :title="'Tabel History ' + table.nama"
@@ -205,7 +206,9 @@
               />
             </div>
             <div v-if="props.row.status > 1">
+              <!-- v-if="props.row.nama === 'PEMBELIAN' || props.row.nama === 'PENJUALAN'" -->
               <q-btn
+                v-if="props.row.nama === 'PENJUALAN'"
                 class="q-mr-md"
                 color="primary"
                 round
@@ -443,12 +446,29 @@
       @prev="table.goTo(table.meta.current_page - 1)"
     />
   </div>
+  <PrintDialog
+    v-model="model"
+    :nama="printAs"
+  />
 </template>
 <script setup>
 import { useHistoryTable } from 'src/stores/history/table'
 import { dateFormat, formatRp } from 'src/modules/formatter'
-
+import { usePrintStore } from 'src/stores/print'
+import { ref } from 'vue'
+import PrintDialog from './PrintDialog.vue'
+const printAs = ref(null)
+const model = ref(false)
+const printStore = usePrintStore()
 const print = val => {
+  model.value = true
+  printAs.value = val.nama
+  printStore.form = val
+  printStore.produks = val.detail_transaction
+  setTimeout(() => {
+    window.print()
+  }, 500)
+  // model.value = false
   console.log('print', val)
 }
 const getTotal = (val) => {

@@ -81,7 +81,7 @@
             <strong>Total</strong>
           </div>
           <div class="col-6 text-right">
-            {{ formatRp(store.totalSemua) }}
+            {{ store.totalSemua ? formatRp(store.totalSemua) : formatRp(store.form.total) }}
           </div>
         </div>
         <div
@@ -115,7 +115,7 @@
           <strong>Kasir</strong>
         </div>
         <div class="col-6 text-right">
-          {{ store.form.kasir }}
+          {{ Object.keys(store.form.kasir).length ? store.form.kasir.name : store.form.kasir }}
         </div>
       </div>
       <div
@@ -126,7 +126,7 @@
           <strong>Supplier</strong>
         </div>
         <div class="col-6 text-right">
-          {{ store.form.supplier }}
+          {{ Object.keys(store.form.supplier).length ? store.form.supplier.nama : store.form.supplier }}
         </div>
       </div>
       <div
@@ -137,7 +137,7 @@
           <strong>Distributor</strong>
         </div>
         <div class="col-6 text-right">
-          {{ store.form.distributor }}
+          {{ Object.keys(store.form.distributor).length ? store.form.distributor.nama : store.form.distributor }}
         </div>
       </div>
       <div
@@ -148,7 +148,7 @@
           <strong>Dokter</strong>
         </div>
         <div class="col-6 text-right">
-          {{ store.form.dokter }}
+          {{ Object.keys(store.form.dokter).length ? store.form.dokter.nama : store.form.dokter }}
         </div>
       </div>
       <div
