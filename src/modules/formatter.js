@@ -78,7 +78,7 @@ const olahUang = (val) => {
     if (koma.length > 1) {
       temp = data + '.' + koma[1]
     } else (temp = data)
-    console.log('olah uang return', parseFloat(temp))
+    // console.log('olah uang return', parseFloat(temp))
     return parseFloat(temp)
   } else { return val }
 }

@@ -134,6 +134,12 @@ const routes = [
               import('src/pages/v1/transaksi/penerimaan/IndexPage.vue')
           },
           {
+            path: '/transaksi/kasir',
+            name: 'transaksi.kasir',
+            component: () =>
+              import('src/pages/v1/transaksi/kasir/IndexPage.vue')
+          },
+          {
             path: '/transaksi/penjualan/:slug',
             name: 'transaksi.penjualan',
             component: () =>

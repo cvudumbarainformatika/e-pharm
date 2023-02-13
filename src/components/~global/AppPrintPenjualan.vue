@@ -38,7 +38,7 @@
         :key="i"
         class="text-center"
       >
-        <div class="row">
+        <div class="row items-center">
           <div class="col-4">
             {{ produk.product.nama }}
           </div>

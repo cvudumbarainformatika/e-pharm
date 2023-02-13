@@ -137,6 +137,13 @@ export const useSettingStore = defineStore('setting', {
             roles: 'root owner kasir'
           },
           {
+            icon: 'icon-mat-request_quote',
+            name: 'Kasir',
+            link: '/transaksi/kasir',
+            value: 'transaksi.kasir',
+            roles: 'root owner kasir'
+          },
+          {
             icon: 'icon-mat-assignment_return',
             name: 'Retur',
             link: '/transaksi/retur',

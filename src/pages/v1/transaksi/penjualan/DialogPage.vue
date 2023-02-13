@@ -163,7 +163,7 @@
             class="row q-col-gutter-md items-center"
           >
             <div class="col-md-12">
-              <app-input
+              <!-- <app-input
                 v-model="store.form.kembali"
                 readonly
                 label=" Kembalian"
@@ -171,7 +171,13 @@
                 prefix="Rp "
                 currency
                 valid
-              />
+              /> -->
+              <div
+                class="text-right q-mr-sm"
+                :class="store.form.kembali<0?'text-negative':''"
+              >
+                {{ formatRp(store.form.kembali) }}
+              </div>
             </div>
           </div>
           <div
@@ -238,7 +244,7 @@
 </template>
 <script setup>
 // import { olahUang } from 'src/modules/formatter'
-import { olahUang } from 'src/modules/formatter'
+import { olahUang, formatRp } from 'src/modules/formatter'
 import { notifErrVue } from 'src/modules/utils'
 import { usePenjualanDialog } from 'src/stores/transaksi/penjualan/form'
 import { ref } from 'vue'

@@ -7,6 +7,7 @@ import { api } from 'boot/axios'
 import { routerInstance } from 'src/boot/router'
 import { formatRp, olahUang } from 'src/modules/formatter'
 import { useReturTable } from './retur'
+import { useAuthStore } from 'src/stores/auth'
 
 export const useReturDetailTable = defineStore('retur_detail_table', {
   state: () => ({
@@ -277,8 +278,15 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       data.total = retur.form.total
       data.status = 2
       data.reff = reff
+      const auth = useAuthStore()
+      // console.log('kasir transaksi', auth.user)
+      if (auth.user.role === 'kasir') {
+        data.kasir_id = auth.user.id
+      }
+
       // console.log('total ', this.form.total)
       // console.log('form ', this.form)
+      // console.log('data ', data)
 
       return new Promise((resolve, reject) => {
         api
