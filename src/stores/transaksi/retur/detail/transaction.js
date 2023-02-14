@@ -47,6 +47,11 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       { nama: 'TUNAI', value: 'tunai' },
       { nama: 'HUTANG', value: 'hutang' }
     ],
+    jenisJuales: [
+      { nama: 'TUNAI', value: 'tunai' },
+      { nama: 'NON-TUNAI', value: 'non-tunai' }
+    ],
+    prevjenis: 'tunai',
     produk: '',
     columns: [
       {
@@ -198,7 +203,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       this.produk = params
       this.setOpen()
       // console.log('params ', params)
-      // console.log('val ', val.row.id)
+      console.log('clicked val ', val)
     },
 
     setFaktur(data) {
@@ -237,9 +242,11 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
                 this.setFaktur(resp.data.data[0])
+                this.prevjenis = resp.data.data[0].jenis
                 this.rows = resp.data.data[0].detail_transaction
                 this.setTotal()
                 this.meta = resp.data.meta
+                console.log('retur table', this.prevjenis)
               }
               // this.setColumns(resp.data.data)
               resolve(resp.data.data[0])

@@ -2,10 +2,11 @@
   <q-dialog>
     <app-card
       class="my-card"
-      title="Retur Pembelian"
+      :title=" returDetail.form.nama"
       desc="Retur proser retur barang"
     >
       <template #content>
+        <!-- {{ returDetail }} -->
         <!-- ref="formReff" -->
         <q-form
           @submit="onSubmit"
@@ -15,13 +16,43 @@
             <div class="col-6">
               Akan melakukan retur <strong>{{ returDetail.produk.product.nama }}</strong> sejumlah :
             </div>
-            <div class="col-md-6">
+            <div
+              v-if="returDetail.prevjenis==='tunai'"
+              class="col-md-6"
+            >
               <app-input
                 v-model="returDetail.form.qty"
                 label="qty"
                 outlined
                 type="number"
                 autofocus
+              />
+            </div>
+            <div
+              v-if="returDetail.prevjenis==='non-tunai'"
+              class="col-md-4"
+            >
+              <app-input
+                v-model="returDetail.form.qty"
+                label="qty"
+                outlined
+                type="number"
+                autofocus
+              />
+            </div>
+
+            <div
+              v-if="returDetail.prevjenis==='non-tunai'"
+              class="col-md-2"
+            >
+              <app-autocomplete
+                v-model="returDetail.form.jenis"
+                label="Pilih tunai atau hutang"
+                autocomplete="nama"
+                option-value="value"
+                option-label="nama"
+                outlined
+                :source="returDetail.jenisJuales"
               />
             </div>
           </div>

@@ -50,6 +50,19 @@
                 @on-select="store.jenisSelected"
               />
             </div>
+            <div class="col-md-12">
+              <app-autocomplete
+                v-if="store.distributor === ''"
+                v-model="store.form.jenis"
+                label="Pilih tunai atau hutang"
+                autocomplete="nama"
+                option-value="value"
+                option-label="nama"
+                outlined
+                :source="store.jenisTunai"
+                @on-select="store.jenisSelected"
+              />
+            </div>
           </div>
           <!-- <div
             v-if="store.form.piutang "

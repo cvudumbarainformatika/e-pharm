@@ -12,6 +12,12 @@
         <div class="col-2">
           {{ store.hariIni ? formatRp(store.hariIni.penjualan) :0 }}
         </div>
+        <div class="col-2">
+          Penjualan Non Tunai
+        </div>
+        <div class="col-2">
+          {{ store.hariIni ? formatRp(store.hariIni.penjualanNon) :0 }}
+        </div>
       </div>
       <div class="row">
         <div class="col-2">
@@ -19,6 +25,12 @@
         </div>
         <div class="col-2">
           {{ store.hariIni ? formatRp(store.hariIni.retur_penjualan) :0 }}
+        </div>
+        <div class="col-2">
+          Retur Penjualan Non Tunai
+        </div>
+        <div class="col-2">
+          {{ store.hariIni ? formatRp(store.hariIni.retur_penjualanNon) :0 }}
         </div>
       </div>
       <div class="row">

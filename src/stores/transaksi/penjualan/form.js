@@ -35,6 +35,10 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       { nama: 'TUNAI', value: 'tunai' },
       { nama: 'PIUTANG', value: 'piutang' }
     ],
+    jenisTunai: [
+      { nama: 'TUNAI', value: 'tunai' },
+      { nama: 'NON-TUNAI', value: 'non-tunai' }
+    ],
     kasirs: [],
     suppliers: [],
     dokter: '',
@@ -125,7 +129,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     },
     jenisSelected(val) {
       // console.log('jenis selected ', val)
-      if (val === 'tunai') {
+      if (val === 'tunai' || val === 'non-tunai') {
         this.piutang = false
       } else {
         this.piutang = true
