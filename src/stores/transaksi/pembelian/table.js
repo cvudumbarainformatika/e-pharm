@@ -193,9 +193,11 @@ export const usePembelianTable = defineStore('pembelian_table', {
     inputSatuanBesar(val) {
       this.form.qty = parseFloat(this.satuan.besar) * parseFloat(this.satuan.pengali) + parseFloat(this.satuan.kecil)
       // console.log('satuan besar', val)
+      this.inputDiskon()
     },
     inputSatuanKecil(val) {
       this.form.qty = parseFloat(this.satuan.besar) * parseFloat(this.satuan.pengali) + parseFloat(this.satuan.kecil)
+      this.inputDiskon()
       // console.log('satuan kecil', val)
     },
     inputDiskon(val) {
