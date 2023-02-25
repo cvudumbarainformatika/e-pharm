@@ -2,7 +2,7 @@
   <q-input
     ref="refInputDate"
     :dense="dense"
-    :filled="!outlined?filled:!filled"
+    :filled="!outlined ? filled : !filled"
     :outlined="outlined"
     :label="label"
     :hide-bottom-space="true"
@@ -16,16 +16,15 @@
     :readonly="readonly"
     :model-value="modelProp"
     @click="showDate"
-    @focus="showDate"
-    @update:model-value="closeDate()"
   >
     <template
-      v-if="icon!==null"
+      v-if="icon !== null"
       #append
     >
       <q-icon
         :name="icon"
         size="18px"
+        @click="showDate"
       />
     </template>
     <template #prepend>
@@ -37,10 +36,11 @@
       >
         <!-- <q-menu v-model="showing"> -->
         <q-date
+          v-if="typeDate"
           v-model="modelProp"
           mask="YYYY-MM-DD"
           today-btn
-          @input="closeDate()"
+          @update:model-value="closeDate()"
         >
           <div class="row items-center justify-end">
             <q-btn
@@ -51,6 +51,20 @@
             />
           </div>
         </q-date>
+        <q-time
+          v-else
+          v-model="modelProp"
+          format24h
+        >
+          <div class="row items-center justify-end">
+            <q-btn
+              v-close-popup
+              label="Close"
+              color="primary"
+              flat
+            />
+          </div>
+        </q-time>
         <!-- </q-menu> -->
       </q-popup-proxy>
     </template>
@@ -85,6 +99,10 @@ const props = defineProps({
     type: String,
     default: null
   },
+  typeDate: {
+    type: Boolean,
+    default: true
+  },
   valid: { type: Boolean, default: false },
   autofocus: { type: Boolean, default: false },
   dense: { type: Boolean, default: true },
@@ -111,7 +129,7 @@ const refPopup = ref(null)
 // const modelProxy = ref()
 
 onMounted(() => {
-//   console.log(refInputDate.value.modelValue)
+  //   console.log(refInputDate.value.modelValue)
   // modelProxy.value = refInputDate.value.modelValue
 })
 
@@ -123,11 +141,13 @@ function anotherValid (val) {
 }
 
 function closeDate () {
+  // console.log('hide', refPopup.value)
   refPopup.value.hide()
 }
 function showDate () {
+  // console.log('show', refPopup.value)
   refPopup.value.show()
-//   showing.value = true
+  //   showing.value = true
 }
 
 // function coba (val) {
@@ -137,14 +157,15 @@ function showDate () {
 
 <style lang="scss" scoped>
 .q-field--dense .q-field__bottom {
-    display:none;
+  display: none;
 }
 
 .q-field--error .q-field--highligted {
   background: none;
 }
+
 .q-field--standout.q-field--highlighted .q-field__control {
-    box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);
-    background: rgb(250, 173, 173);
+  box-shadow: 0 1px 5px rgb(0 0 0 / 20%), 0 2px 2px rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 12%);
+  background: rgb(250, 173, 173);
 }
 </style>

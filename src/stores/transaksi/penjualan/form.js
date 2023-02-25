@@ -17,6 +17,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       nama: 'PENJUALAN',
       jenis: 'tunai',
       total: 0,
+      diskon: 0,
       ongkir: 0,
       potongan: 0,
       bayar: 0,
@@ -63,6 +64,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.tanggal = null
       this.form.jenis = 'tunai'
       this.form.total = 0
+      this.form.diskon = 0
       this.form.ongkir = 0
       this.form.potongan = 0
       this.form.bayar = 0

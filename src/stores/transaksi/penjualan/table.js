@@ -39,6 +39,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       harga_jual_resep: 0,
       harga_jual_cust: 0,
       qty: 0,
+      diskon: 0,
       harga: 0,
       total: 0,
       sub_total: 0,
@@ -166,6 +167,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.harga_jual_resep = 0
       this.form.harga_jual_cust = 0
       this.form.qty = 0
+      this.form.diskon = 0
       this.form.expired = null
       this.form.harga = 0
       this.form.total = 0
@@ -261,6 +263,14 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.expired = ''
       console.log('reset input')
     },
+    clearNullForm() {
+      const key = Object.keys(this.form)
+      key.forEach(val => {
+        if (this.form[val] === null) {
+          delete this.form[val]
+        }
+      })
+    },
     onEnter() {
       const store = usePenjualanDialog()
       // store.form.reff = this.form.reff
@@ -281,6 +291,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         store.setForm('expired', this.form.expired)
         // data.expired = this.form.expired
       }
+      // this.clearNullForm()
       const data = store.form
 
       console.log('form penjualan', data)

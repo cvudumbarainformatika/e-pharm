@@ -16,6 +16,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       faktur: null,
       reff: null,
       tanggal: null,
+      tanggal_faktur: null,
       nama: 'PEMBELIAN',
       jenis: 'tunai',
       total: 0,
@@ -73,6 +74,9 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     setSupplier(val) {
       const temp = this.suppliers.filter(data => { return data.id === val })
       this.print.form.supplier = temp[0].nama
+      console.log('supplier', temp)
+      console.log('supplier keys', Object.keys(this.print.form.supplier))
+      console.log('supplier keys leng', Object.keys(this.print.form.supplier).length)
     },
     totalSeluruhnya() {
       const total = olahUang(this.form.total)
@@ -101,6 +105,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
 
       this.form.faktur = table.form.faktur
       this.form.reff = table.form.reff
+      this.form.tanggal_faktur = table.form.tanggal_faktur
       this.form.total = table.form.total
       this.totalSeluruhnya()
       this.print.form = this.form
@@ -166,6 +171,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       const user = useAuthStore()
       const admin = user.user
       const total = olahUang(this.form.total)
+      // const total = olahUang(this.totalSemua)
       const ongkir = olahUang(this.form.ongkir)
       const potongan = olahUang(this.form.potongan)
       const bayar = olahUang(this.form.bayar)
@@ -181,6 +187,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       this.form.totalSemua = olahUang(this.totalSemua)
       print.form = this.form
       console.log('form', this.form)
+      console.log('print form', this.print.form)
       if (this.printChek) { window.print() }
       this.loading = true
       return new Promise((resolve, reject) => {

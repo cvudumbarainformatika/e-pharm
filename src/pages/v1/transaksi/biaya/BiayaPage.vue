@@ -45,6 +45,60 @@
         </q-tab-panel>
 
         <q-tab-panel name="hutang">
+          <div class="row q-col-gutter-sm q-mb-sm">
+            <div class="col-4 text-weight-bold f-14 text-center">
+              Terhutang
+            </div>
+            <div class="col-8 text-weight-bold f-14 text-center">
+              Terbayar
+            </div>
+          </div>
+          <q-separator />
+          <div
+            class="row justify-center cursor-pointer q-mt-sm q-mb-sm"
+            clickable
+          >
+            <div class="col-4 text-center" />
+            <div class="col-5 text-center">
+              Periode :
+              <q-badge>
+                {{ hutang.tanggalBayar.from !== '' ? dateFullFormat(hutang.tanggalBayar.from) : '-' }}
+              </q-badge>
+              sampai
+              <q-badge>
+                {{ hutang.tanggalBayar.to !== '' ? dateFullFormat(hutang.tanggalBayar.to) : '-' }}
+              </q-badge>
+              <q-popup-proxy
+                cover
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <div class="text-center">
+                  <q-date
+                    v-model="hutang.tanggalBayar"
+                    range
+                    @update:model-value="hutang.gantiTanggalBayar"
+                  >
+                    <div class="row items-center justify-end q-gutter-sm">
+                      <q-btn
+                        v-close-popup
+                        label="Cancel"
+                        color="primary"
+                        flat
+                      />
+                      <q-btn
+                        v-close-popup
+                        label="OK"
+                        color="primary"
+                        flat
+                      />
+                    <!-- @click="save" -->
+                    </div>
+                  </q-date>
+                </div>
+              </q-popup-proxy>
+            </div>
+          </div>
           <div class="row q-col-gutter-sm">
             <div class="col-5">
               <HutangAll />
@@ -57,6 +111,50 @@
         </q-tab-panel>
 
         <q-tab-panel name="pembelian terbayar">
+          <div
+            class="row justify-center cursor-pointer q-mt-sm q-mb-sm"
+            clickable
+          >
+            <div class="col-12 text-center">
+              Periode :
+              <q-badge>
+                {{ hutang.tanggal.from !== '' ? dateFullFormat(hutang.tanggal.from) : '-' }}
+              </q-badge>
+              sampai
+              <q-badge>
+                {{ hutang.tanggal.to !== '' ? dateFullFormat(hutang.tanggal.to) : '-' }}
+              </q-badge>
+              <q-popup-proxy
+                cover
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <div class="text-center">
+                  <q-date
+                    v-model="hutang.tanggal"
+                    range
+                    @update:model-value="hutang.gantiTanggal"
+                  >
+                    <div class="row items-center justify-end q-gutter-sm">
+                      <q-btn
+                        v-close-popup
+                        label="Cancel"
+                        color="primary"
+                        flat
+                      />
+                      <q-btn
+                        v-close-popup
+                        label="OK"
+                        color="primary"
+                        flat
+                      />
+                    <!-- @click="save" -->
+                    </div>
+                  </q-date>
+                </div>
+              </q-popup-proxy>
+            </div>
+          </div>
           <app-no-data v-if="!hutang.pembelians.length" />
           <PembelianList v-if="hutang.pembelians.length" />
           <div class="row">
@@ -100,6 +198,7 @@ import AllBiaya from './biaya/AllBiaya.vue'
 import HutangAll from './hutang/HutangAll.vue'
 import HutangList from './hutang/HutangList.vue'
 import PembelianList from './pembelian/PembelianList.vue'
+import { dateFullFormat } from 'src/modules/formatter'
 const store = useBebanTransaksiFormStore()
 const hutang = useBebanTransaksiHutang()
 const tab = ref('pengeluaran')
@@ -107,6 +206,7 @@ const tab = ref('pengeluaran')
 store.setNotaBaru()
 hutang.setNotaBaru()
 onMounted(() => {
+  hutang.setTanggal()
   store.getDataKasirs()
   store.getDataBeban()
   store.getDataSupplier()

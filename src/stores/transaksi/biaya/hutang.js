@@ -1,7 +1,8 @@
 import { defineStore } from 'pinia'
+import { date } from 'quasar'
 import { api } from 'src/boot/axios'
 import { hurufBesar } from 'src/modules/formatter'
-import { findWithAttr, notifSuccess, uniqueId, waitLoad } from 'src/modules/utils'
+import { daysInMonth, findWithAttr, notifSuccess, uniqueId, waitLoad } from 'src/modules/utils'
 
 export const useBebanTransaksiHutang = defineStore('beban_hutang', {
   state: () => ({
@@ -12,7 +13,9 @@ export const useBebanTransaksiHutang = defineStore('beban_hutang', {
     items: [],
     bayars: [],
     pembelians: [],
-    totalBayar: 0
+    totalBayar: 0,
+    tanggal: { from: '', to: '' },
+    tanggalBayar: { from: '', to: '' }
   }),
   actions: {
     // local related function
@@ -28,6 +31,7 @@ export const useBebanTransaksiHutang = defineStore('beban_hutang', {
       this.setForm('kasir_id', null)
       this.setForm('beban_id', null)
       this.setForm('tanggal', null)
+      this.setForm('tanggal_bayar', null)
       this.hutang = null
     },
     resetInput() {
@@ -39,6 +43,48 @@ export const useBebanTransaksiHutang = defineStore('beban_hutang', {
     },
     setNotaBaru() {
       this.form.reff = 'BBN-' + uniqueId()
+    },
+    gantiTanggal(val) {
+      // console.log('ganti tanggal val', val)
+      // console.log('ganti tanggal', this.tanggal)
+      this.getPembelian()
+    },
+    gantiTanggalBayar(val) {
+      // console.log('ganti tanggal val', val)
+      // console.log('ganti tanggal bayar', this.tanggalBayar)
+      this.getDibayar()
+    },
+    setTanggalBayar(val) {
+      const skr = Date.now()
+      const tmpSkr = new Date(skr)
+      const jam = tmpSkr.getHours().toString().length === 1 ? '0' + tmpSkr.getHours().toString() : tmpSkr.getHours().toString()
+      const menit = tmpSkr.getMinutes().toString().length === 1 ? '0' + tmpSkr.getMinutes().toString() : tmpSkr.getMinutes().toString()
+      const det = tmpSkr.getSeconds().toString().length === 1 ? '0' + tmpSkr.getSeconds().toString() : tmpSkr.getSeconds().toString()
+      this.form.tanggal_bayar = val + ' ' + jam + ':' + menit + ':' + det
+      console.log('skr', val, jam, menit, det)
+      console.log('skr tgl', this.form.tanggal_bayar, jam, menit, det)
+    },
+    setTanggal() {
+      const tgl = Date.now()
+      const tmpTgl = new Date(tgl)
+      const bulan = tmpTgl.getMonth() + 1
+      const tahun = tmpTgl.getFullYear()
+      const lastDay = daysInMonth(bulan, tahun)
+      // console.log('bulan tahun', bulan, tahun, lastDay)
+      const stringBulan = bulan.toString().length === 1 ? '0' + bulan.toString() : bulan.toString()
+      const stringTahun = tahun.toString()
+      this.tanggal.from = stringTahun + '-' + stringBulan + '-01'
+      this.tanggal.to = stringTahun + '-' + stringBulan + '-' + lastDay.toString()
+      this.tanggalBayar.from = stringTahun + '-' + stringBulan + '-01'
+      this.tanggalBayar.to = stringTahun + '-' + stringBulan + '-' + lastDay.toString()
+      // tgl bayar store
+      const tmpSkr = new Date(tgl)
+      const anu = date.formatDate(tgl, 'YYYY-MM-DD')
+      const jam = tmpSkr.getHours().toString().length === 1 ? '0' + tmpSkr.getHours().toString() : tmpSkr.getHours().toString()
+      const menit = tmpSkr.getMinutes().toString().length === 1 ? '0' + tmpSkr.getMinutes().toString() : tmpSkr.getMinutes().toString()
+      const det = tmpSkr.getSeconds().toString().length === 1 ? '0' + tmpSkr.getSeconds().toString() : tmpSkr.getSeconds().toString()
+      this.form.tanggal_bayar = anu + ' ' + jam + ':' + menit + ':' + det
+      // console.log('tanggal', this.tanggal)
     },
     total() {
       const index = findWithAttr(this.items, 'reff', this.form.reff)
@@ -85,10 +131,11 @@ export const useBebanTransaksiHutang = defineStore('beban_hutang', {
       })
     },
     getPembelian() {
+      const params = { params: this.tanggal }
       this.loading = true
       return new Promise((resolve, reject) => {
         api
-          .get('v1/hutang/terbayar')
+          .get('v1/hutang/terbayar', params)
           .then((resp) => {
             // console.log('pembelian', resp)
             this.loading = false
@@ -104,18 +151,21 @@ export const useBebanTransaksiHutang = defineStore('beban_hutang', {
       })
     },
     getDibayar() {
+      const params = { params: this.tanggalBayar }
       this.loading = true
       return new Promise((resolve, reject) => {
         api
-          .get('v1/hutang/bayar')
+          .get('v1/hutang/bayar', params)
           .then((resp) => {
             // console.log('dibayar', resp)
             this.loading = false
             if (resp.status === 200) {
               this.bayars = resp.data
-              this.totalBayar = this.bayars.map(data => {
-                return data.total
-              }).reduce((c, d) => { return c + d })
+              if (resp.data.length) {
+                this.totalBayar = this.bayars.map(data => {
+                  return data.total
+                }).reduce((c, d) => { return c + d })
+              }
             }
             resolve(resp)
           })

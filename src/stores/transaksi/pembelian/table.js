@@ -39,6 +39,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       sub_total: 0,
       nama: 'PEMBELIAN',
       expired: null,
+      tanggal_faktur: null,
       update_harga: false
     },
     satuan: {
@@ -159,6 +160,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.total = 0
       this.form.sub_total = 0
       this.form.expired = null
+      this.form.tanggal_faktur = null
       this.rows = []
       this.satuan.besar = 0
       this.satuan.kecil = 0
@@ -234,6 +236,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       const store = usePembelianDialog()
       store.form.reff = this.form.reff
       store.setToday()
+      store.form.tanggal_faktur = this.form.tanggal_faktur
       if (this.form.faktur !== '' && this.form.product_id !== '' && this.form.qty !== 0) {
         store.form.faktur = this.form.faktur
         this.simpanDetailTransaksi()
@@ -318,6 +321,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       // const store = usePembelianDialog()
       if (data.faktur !== '') {
         this.form.faktur = data.faktur
+        this.form.tanggal_faktur = data.tanggal_faktur
       }
       // store.form.total = data.total
       // store.form.jenis = data.jenis
@@ -349,6 +353,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
                 print.form.nama = this.form.nama
                 print.form.reff = this.form.reff
                 print.form.faktur = this.form.faktur
+                print.form.tanggal_faktur = this.form.tanggal_faktur
                 print.produks = this.rows
                 this.setTotal()
                 this.meta = resp.data.meta

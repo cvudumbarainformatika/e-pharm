@@ -70,6 +70,17 @@
                     </div>
                     <div class="row q-mb-sm">
                       <div class="col-12">
+                        <app-input-date
+                          :model="store.form.tanggal_bayar"
+                          label="Tanggal Bayar"
+                          outlined
+                          @set-model="store.setTanggalBayar"
+                        />
+                        <!-- @update:model-value="store.setTanggalBayar" -->
+                      </div>
+                    </div>
+                    <div class="row q-mb-sm">
+                      <div class="col-12">
                         <app-autocomplete-new
                           v-model="store.form.kasir_id"
                           label="Pilih Kasir"
@@ -88,8 +99,6 @@
                           v-model="jumlah"
                           label="Jumlah Pengeluaran"
                           outlined
-                          currency
-                          prefix="Rp "
                         />
                       </div>
                     </div>
@@ -137,7 +146,7 @@ const store = useBebanTransaksiHutang()
 const biaya = useBebanTransaksiFormStore()
 const jumlah = ref('')
 const assign = data => {
-  // console.log('assign', data)
+  console.log('assign', data)
   jumlah.value = data.total
   const temp = biaya.bebans.map((apem, index) => {
     let apem2 = 0

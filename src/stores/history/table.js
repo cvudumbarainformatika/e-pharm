@@ -111,10 +111,10 @@ export const useHistoryTable = defineStore('history_table', {
     },
     // dari icon buka
     openTransaction(val) {
-      const name = val.row.nama.toLowerCase()
+      console.log('open ', val)
+      const name = 'transaksi.' + val.row.nama.toLowerCase()
       const slug = val.row.reff
       routerInstance.replace({ name, params: { slug } })
-      // console.log('open ', val)
     },
     // paginasi
     goTo(val) {

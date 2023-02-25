@@ -23,7 +23,7 @@
         v-if="store.form.faktur!==null"
         class="text-center"
       >
-        Tanggal Faktur : {{ store.form.tanggal_faktur }}
+        Tanggal Faktur : {{ dateFullFormat(store.form.tanggal_faktur) }}
       </div>
       <div class="row top-line">
         <div class="col-4">
@@ -121,7 +121,7 @@
           <strong>Kasir</strong>
         </div>
         <div class="col-6 text-right">
-          {{ Object.keys(store.form.kasir).length ? store.form.kasir.name : store.form.kasir }}
+          {{ typeof (store.form.kasir)==='string' ? store.form.kasir: store.form.kasir.name }}
         </div>
       </div>
       <div
@@ -132,7 +132,7 @@
           <strong>Supplier</strong>
         </div>
         <div class="col-6 text-right">
-          {{ Object.keys(store.form.supplier).length ? store.form.supplier.nama : store.form.supplier }}
+          {{ typeof(store.form.supplier)==='string'? store.form.supplier:store.form.supplier.nama }}
         </div>
       </div>
       <div
@@ -143,7 +143,7 @@
           <strong>Distributor</strong>
         </div>
         <div class="col-6 text-right">
-          {{ Object.keys(store.form.distributor).length ? store.form.distributor.nama : store.form.distributor }}
+          {{ typeof(store.form.distributor)==='string' ? store.form.distributor:store.form.distributor.nama }}
         </div>
       </div>
       <div
@@ -154,7 +154,7 @@
           <strong>Dokter</strong>
         </div>
         <div class="col-6 text-right">
-          {{ Object.keys(store.form.dokter).length ? store.form.dokter.nama : store.form.dokter }}
+          {{ typeof(store.form.dokter)==='string' ? store.form.dokter:store.form.dokter.nama }}
         </div>
       </div>
       <div
@@ -172,7 +172,7 @@
   </q-card>
 </template>
 <script setup>
-import { formatRp, olahUang, dateFormat } from 'src/modules/formatter'
+import { formatRp, olahUang, dateFormat, dateFullFormat } from 'src/modules/formatter'
 import { usePrintStore } from 'src/stores/print'
 import { useSettingStore } from 'src/stores/setting/setting'
 // import { computed } from 'vue'

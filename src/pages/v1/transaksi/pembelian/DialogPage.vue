@@ -38,6 +38,7 @@
                 autocomplete="name"
                 option-value="id"
                 option-label="name"
+                valid
                 :source="store.kasirs"
                 outlined
                 :loading="store.loading"
@@ -181,6 +182,7 @@
                 label="Jatuh Tempo"
                 mask="date"
                 outlined
+                valid
                 :rules="['date']"
               >
                 <template #append>
