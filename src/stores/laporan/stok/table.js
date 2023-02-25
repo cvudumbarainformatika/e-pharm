@@ -15,7 +15,8 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
     form: {
       from: null,
       to: null,
-      per_page: 5,
+      per_page: 10,
+      page: 1,
       order_by: 'created_at',
       sort: 'desc'
     },
@@ -117,6 +118,15 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
     },
     setForm(key, val) {
       this.form[key] = val
+    },
+    setPerPage(val) {
+      this.form.per_page = val
+      this.form.page = 1
+      this.getDataStok()
+    },
+    setPage(val) {
+      this.form.page = val
+      this.getDataStok()
     },
     editData(val) {
       // const keys = Object.keys(val)

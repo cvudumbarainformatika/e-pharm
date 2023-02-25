@@ -9,7 +9,17 @@
           <div class="col-3">
             <div class="row">
               <div class="col-12">
-                Faktur : {{ item.faktur }}
+                Faktur :
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                {{ item.faktur }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                tgl transaksi :
               </div>
             </div>
             <div class="row">
@@ -21,7 +31,17 @@
           <div class="col-3">
             <div class="row">
               <div class="col-12">
-                {{ formatRp(item.total) }}
+                Total :
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                {{ formatRpDouble(item.totalSemua,2) }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                tempo :
               </div>
             </div>
             <div class="row">
@@ -31,7 +51,18 @@
             </div>
           </div>
           <div class="col-3">
-            Dist : {{ item.supplier.nama }}
+            <div class="row">
+              Distributor :
+            </div>
+            <div class="row">
+              {{ item.supplier.nama }}
+            </div>
+            <div class="row">
+              Tgl Faktur :
+            </div>
+            <div class="row">
+              {{ item.tanggal_faktur?dateFormat(item.tanggal_faktur):'-' }}
+            </div>
           </div>
           <div class="col-3">
             <q-btn
@@ -135,7 +166,7 @@
   </div>
 </template>
 <script setup>
-import { dateFormat, formatRp, olahUang } from 'src/modules/formatter'
+import { dateFormat, formatRpDouble, olahUang } from 'src/modules/formatter'
 import { useBebanTransaksiHutang } from 'src/stores/transaksi/biaya/hutang'
 import { ref } from 'vue'
 import AppInput from 'src/components/~global/AppInput.vue'
@@ -147,7 +178,7 @@ const biaya = useBebanTransaksiFormStore()
 const jumlah = ref('')
 const assign = data => {
   console.log('assign', data)
-  jumlah.value = data.total
+  jumlah.value = data.totalSemua
   const temp = biaya.bebans.map((apem, index) => {
     let apem2 = 0
     if (apem.nama.includes('HUTANG')) {
@@ -158,7 +189,7 @@ const assign = data => {
   const beban = biaya.bebans[temp]
   store.setForm('beban_id', beban.id)
   store.setForm('pbreff', data.reff)
-  store.setForm('sub_total', data.total)
+  store.setForm('sub_total', data.totalSemua)
   store.setForm('supplier_id', data.supplier_id)
   store.setForm('faktur', data.faktur)
   store.setForm('keterangan', `bayar hutang untuk faktur ${data.faktur}`)

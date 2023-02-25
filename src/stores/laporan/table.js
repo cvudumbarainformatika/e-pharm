@@ -226,7 +226,7 @@ export const useLaporanTable = defineStore('laporan_table', {
         api.get('v1/laporan/total-by-date', params).then((resp) => {
           if (resp.status === 200) {
             this.totalTransaction = resp.data[0]
-            // console.log(this.totalTransaction)
+            console.log('totel transactions', this.totalTransaction)
             resolve(resp.data)
           }
         })

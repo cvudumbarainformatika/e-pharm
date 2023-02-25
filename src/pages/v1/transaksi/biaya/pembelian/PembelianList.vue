@@ -31,10 +31,14 @@
           class="rounded-borders"
         >
           <q-item class="text-weight-bold">
-            <q-item-section>Tanggal</q-item-section>
+            <q-item-section>Tanggal Transaksi</q-item-section>
+            <q-item-section>Tanggal Bayar</q-item-section>
             <q-item-section>Nota</q-item-section>
             <!-- <q-item-section>Kasir</q-item-section> -->
             <q-item-section>Distributor</q-item-section>
+            <q-item-section>Sub Total</q-item-section>
+            <q-item-section>Diskon</q-item-section>
+            <q-item-section>PPN</q-item-section>
             <q-item-section>Total</q-item-section>
             <!-- <q-item-section>Nama Pengeluaran</q-item-section> -->
             <!-- <q-item-section>
@@ -51,10 +55,14 @@
             class="menu"
           >
             <q-item-section>{{ dateFullFormat(item.tanggal) }}</q-item-section>
+            <q-item-section>{{ item.tanggal_bayar?dateFullFormat(item.tanggal_bayar):'-' }}</q-item-section>
             <q-item-section>{{ item.reff }}</q-item-section>
             <!-- <q-item-section>{{ item.kasir!==null?item.kasir.name : 'owner' }}</q-item-section> -->
             <q-item-section>{{ item.supplier!==null?item.supplier.nama : '-' }}</q-item-section>
             <q-item-section>{{ formatRp(item.total) }}</q-item-section>
+            <q-item-section>{{ item.potongan }} %</q-item-section>
+            <q-item-section>{{ item.ongkir }} %</q-item-section>
+            <q-item-section>{{ formatRpDouble(item.totalSemua,2) }} </q-item-section>
             <!-- <q-item-section>{{ item.beban_transaction[0].beban.nama }}</q-item-section> -->
             <!-- <q-item-section>
               <div class="text-right">
@@ -74,6 +82,7 @@
             <q-item-section>Nama Produk </q-item-section>
             <q-item-section>Jumlah </q-item-section>
             <q-item-section>harga</q-item-section>
+            <q-item-section>Diskon</q-item-section>
             <q-item-section>Sub Total</q-item-section>
           </q-item>
           <q-separator />
@@ -88,6 +97,7 @@
               <q-item-section>{{ detail.product?detail.product.nama:'-' }}</q-item-section>
               <q-item-section>{{ detail.qty }}</q-item-section>
               <q-item-section>{{ formatRp(detail.harga) }}</q-item-section>
+              <q-item-section>{{ detail.diskon }} %</q-item-section>
               <q-item-section>{{ formatRp(detail.sub_total) }}</q-item-section>
             </q-item>
           </div>
@@ -97,7 +107,7 @@
   </q-card>
 </template>
 <script setup>
-import { dateFullFormat, formatRp } from 'src/modules/formatter'
+import { dateFullFormat, formatRp, formatRpDouble } from 'src/modules/formatter'
 import { useBebanTransaksiHutang } from 'src/stores/transaksi/biaya/hutang'
 
 const store = useBebanTransaksiHutang()

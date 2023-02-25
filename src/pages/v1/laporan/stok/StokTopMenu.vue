@@ -90,6 +90,7 @@ const today = () => {
   selection.value.next = 'tillToday'
   more.setParams('selection', 'tillToday')
   table.setForm('from', awalBulan)
+  table.setForm('page', 1)
   table.setForm('selection', 'tillToday')
   table.setPeriode()
   table.getDataStok()
