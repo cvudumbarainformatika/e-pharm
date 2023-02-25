@@ -334,12 +334,12 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       // more.setParams('selection', this.date)
       more.setParams('id', val.id)
       more.setParams('nama', val.nama)
-      more.setParams('selection', this.date)
+      // more.setParams('selection', this.date)
       more.setParams('from', this.form.from)
       more.setParams('to', this.form.to)
       more.getDetailsDataProduct()
       more.setOpen()
-      // console.log('see', val)
+      console.log('see', val, this.date)
     },
     setSearch(val) {
       this.form.q = val

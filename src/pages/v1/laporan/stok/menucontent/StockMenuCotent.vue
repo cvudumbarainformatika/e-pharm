@@ -84,6 +84,7 @@ const rangeSelected = () => {
   table.form.to = rangeDate.value.to
   more.setParams('from', rangeDate.value.from)
   more.setParams('to', rangeDate.value.to)
+  more.setParams('selection', 'range')
   table.setForm('selection', 'range')
   emits('selected', 'range')
   table.setRange()
@@ -94,6 +95,7 @@ const rangeSelected = () => {
 const spesifikSelected = () => {
   table.form.from = tgl.value
   more.setParams('from', tgl.value)
+  more.setParams('selection', 'spesifik')
   table.setForm('selection', 'spesifik')
   emits('selected', 'spesifik')
   table.setSpesifik()

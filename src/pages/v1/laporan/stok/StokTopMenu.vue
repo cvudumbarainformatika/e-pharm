@@ -71,6 +71,7 @@ const selection = ref({ prev: '', next: '' })
 const hide = () => {
   if (selection.value.next === '') {
     table.date = selection.value.prev
+    more.date = selection.value.prev
   }
   // console.log('I am hide', selection.value)
 }
@@ -99,11 +100,13 @@ const pilihTgl = () => {
   selection.value.prev = table.date
   table.setSpesifik()
   table.date = 'spesifik'
+  more.date = 'spesifik'
 }
 const pilihRange = () => {
   selection.value.prev = table.date
   table.setRange()
   table.date = 'range'
+  more.date = 'range'
 }
 
 </script>

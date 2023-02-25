@@ -79,7 +79,7 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
     // api related function
     // get more details data
     getDetailsDataProduct() {
-      // console.log('params', this.params)
+      console.log('params', this.params)
       this.loading = true
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
