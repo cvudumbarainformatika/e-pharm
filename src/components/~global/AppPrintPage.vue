@@ -19,6 +19,12 @@
       >
         Faktur : {{ store.form.faktur }}
       </div>
+      <div
+        v-if="store.form.faktur!==null"
+        class="text-center"
+      >
+        Tanggal Faktur : {{ store.form.tanggal_faktur }}
+      </div>
       <div class="row top-line">
         <div class="col-4">
           <strong>Nama</strong>

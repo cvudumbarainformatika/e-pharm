@@ -51,7 +51,7 @@
                   prefix="Rp"
                 />
                 <q-badge>
-                  {{ parseInt((store.form.harga_jual_umum - store.form.harga_beli)/store.form.harga_beli * 100) }} %
+                  {{ parseInt((olahUang(store.form.harga_jual_umum) - olahUang(store.form.harga_beli))/olahUang(store.form.harga_beli) * 100) }} %
                 </q-badge>
               </div>
             </div>
@@ -69,7 +69,7 @@
                   prefix="Rp"
                 />
                 <q-badge>
-                  {{ parseInt((store.form.harga_jual_cust - store.form.harga_beli)/store.form.harga_beli * 100) }} %
+                  {{ parseInt((olahUang(store.form.harga_jual_cust) - olahUang(store.form.harga_beli))/ olahUang(store.form.harga_beli) * 100) }} %
                 </q-badge>
               </div>
             </div>
@@ -85,7 +85,7 @@
                   prefix="Rp"
                 />
                 <q-badge>
-                  {{ parseInt((store.form.harga_jual_resep - store.form.harga_beli)/store.form.harga_beli * 100) }} %
+                  {{ parseInt((olahUang(store.form.harga_jual_resep) - olahUang(store.form.harga_beli))/ olahUang(store.form.harga_beli) * 100) }} %
                 </q-badge>
               </div>
             </div>
@@ -319,6 +319,7 @@
 </template>
 
 <script setup>
+import { olahUang } from 'src/modules/formatter'
 import { useKategoriFormStore } from 'src/stores/master/kategori/form'
 import { useKategoriTable } from 'src/stores/master/kategori/table'
 import { useMerkFormStore } from 'src/stores/master/merk/form'

@@ -20,7 +20,7 @@
       <q-tab
         class="text-primary"
         name="tagihan terbayar"
-        label="Tagihan Terbayar"
+        label="Tagihan Tertagih dan Terbayar"
         no-caps
       />
     </q-tabs>
@@ -66,7 +66,59 @@
         </q-tab-panel>
 
         <q-tab-panel name="tagihan terbayar">
-          <div class="row q-col-gutter-sm">
+          <div class="row q-col-gutter-sm q-mb-sm">
+            <div class="col-4 text-weight-bold f-14 text-center">
+              Tertagih
+            </div>
+            <div class="col-8 text-weight-bold f-14 text-center">
+              Terbayar
+            </div>
+          </div>
+          <q-separator />
+          <div
+            class="row justify-center cursor-pointer q-mt-sm"
+            clickable
+          >
+            <div class="col-4 text-center" />
+            <div class="col-5 text-center">
+              Periode :
+              <q-badge>
+                {{ tagihan.tanggal.from !== '' ? dateFullFormat(tagihan.tanggal.from) : '-' }}
+              </q-badge>
+              sampai
+              <q-badge>
+                {{ tagihan.tanggal.to !== '' ? dateFullFormat(tagihan.tanggal.to) : '-' }}
+              </q-badge>
+              <q-popup-proxy
+                cover
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-date
+                  v-model="tagihan.tanggal"
+                  range
+                  @update:model-value="tagihan.gantiTanggal"
+                >
+                  <div class="row items-center justify-end q-gutter-sm">
+                    <q-btn
+                      v-close-popup
+                      label="Cancel"
+                      color="primary"
+                      flat
+                    />
+                    <q-btn
+                      v-close-popup
+                      label="OK"
+                      color="primary"
+                      flat
+                    />
+                    <!-- @click="save" -->
+                  </div>
+                </q-date>
+              </q-popup-proxy>
+            </div>
+          </div>
+          <div class="row q-col-gutter-sm q-mt-sm">
             <div class="col-4">
               <app-no-data v-if="!tagihan.notas.length" />
               <PembayaranAll v-if="tagihan.notas.length" />
@@ -115,6 +167,7 @@ import PrintTagihanPage from './tagihan/PrintTagihanPage.vue'
 import PembayaranAll from './pembayaran/PembayaranAll.vue'
 import ListTerbayar from './pembayaran/ListTerbayar.vue'
 import { useSettingStore } from 'src/stores/setting/setting'
+import { dateFullFormat } from 'src/modules/formatter'
 const store = usePenerimaanTransaksiFormStore()
 const tagihan = useTagihanPiutang()
 const setting = useSettingStore()
@@ -123,6 +176,7 @@ const tab = ref('pendapatan')
 store.setNotaBaru()
 tagihan.setNotaBaru()
 onMounted(() => {
+  tagihan.setTanggal()
   store.getDataKasirs()
   store.getMasterPenerimaan()
   // store.getDataPenerimaan()

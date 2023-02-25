@@ -1,13 +1,13 @@
 <template>
   <q-card class="full-width">
     <div>
-      <div class="text-center text-weight-bold q-mb-md f-14">
-        <div class="row">
+      <div class="text-center q-mb-md ">
+        <div class="row text-weight-bold f-14">
           <div class="col-12">
             Daftar Tagihan
           </div>
         </div>
-        <div class="row">
+        <div class="row text-weight-bold f-14">
           <div class="col-12">
             Total : {{ formatRp(store.totalTerbayar) }}
           </div>
@@ -85,6 +85,7 @@ import { dateFullFormat, formatRp } from 'src/modules/formatter'
 import { useTagihanPiutang } from 'src/stores/transaksi/penerimaan/piutang'
 
 const store = useTagihanPiutang()
+// store.setTanggal()
 // const gantiNota = val => {
 //   store.setForm('reff', val.reff)
 // }

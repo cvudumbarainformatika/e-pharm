@@ -162,7 +162,12 @@ const detailKecil = (qty, pengali) => {
   return Math.round(temp)
 }
 
+const daysInMonth = (month, year) => {
+  return new Date(year, month, 0).getDate()
+}
+
 export {
+  daysInMonth,
   detailKecil,
   detailBesar,
   notifSuccess,

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
-import { findWithAttr, notifSuccess, uniqueId } from 'src/modules/utils'
+import { daysInMonth, findWithAttr, notifSuccess, uniqueId } from 'src/modules/utils'
 
 export const useTagihanPiutang = defineStore('tagihan_piutang', {
   state: () => ({
@@ -13,7 +13,8 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
       nama: 'TAGIHAN'
     },
     totalTagihan: 0,
-    totalTerbayar: 0
+    totalTerbayar: 0,
+    tanggal: { from: '', to: '' }
   }),
   actions: {
     openTagihan() {
@@ -29,9 +30,26 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
       this.setForm('sub_total', '')
       this.setForm('penerimaan_id', null)
     },
-
     setNotaBaru() {
       this.form.reff = 'TGH-' + uniqueId()
+    },
+    gantiTanggal(val) {
+      console.log('ganti tanggal val', val)
+      console.log('ganti tanggal', this.tanggal)
+      this.getTerbayar()
+    },
+    setTanggal() {
+      const tgl = Date.now()
+      const tmpTgl = new Date(tgl)
+      const bulan = tmpTgl.getMonth() + 1
+      const tahun = tmpTgl.getFullYear()
+      const lastDay = daysInMonth(bulan, tahun)
+      // console.log('bulan tahun', bulan, tahun, lastDay)
+      const stringBulan = bulan.toString().length === 1 ? '0' + bulan.toString() : bulan.toString()
+      const stringTahun = tahun.toString()
+      this.tanggal.from = stringTahun + '-' + stringBulan + '-01'
+      this.tanggal.to = stringTahun + '-' + stringBulan + '-' + lastDay.toString()
+      console.log('tanggal', this.tanggal)
     },
     total() {
       const index = findWithAttr(this.notas, 'reff', this.form.reff)
@@ -83,9 +101,10 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
     },
     getTerbayar() {
       this.loading = true
+      const params = { params: this.tanggal }
       return new Promise((resolve, reject) => {
         api
-          .get('v1/tagihan/tagihan-terbayar')
+          .get('v1/tagihan/tagihan-terbayar', params)
           .then((resp) => {
             this.loading = false
             // console.log('dibayar', resp)
