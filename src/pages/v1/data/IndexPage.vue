@@ -20,14 +20,14 @@
         />
       </div>
     </div>
-    <div class="row q-col-gutter-sm q-mb-sm">
-      <div class="col-md-6 col-xs-12">
+    <div class="row q-col-gutter-md q-mb-sm">
+      <div class="col-md-5 col-xs-12">
         <barWithLabel
           judul="Bulan ini"
           :series="store.series"
         />
       </div>
-      <div class="col-md-6 col-xs-12">
+      <div class="col-md-5 col-xs-12">
         <barWithLabel
           judul="Minggu ini"
           :series="store.series7"
