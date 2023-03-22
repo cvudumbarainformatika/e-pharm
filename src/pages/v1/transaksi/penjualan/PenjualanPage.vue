@@ -34,12 +34,14 @@ table.getDetailTransaksi().then(data => {
   if (data !== undefined) {
     routerInstance.replace({ name: 'transaksi.penjualan', params: { slug: oldSlug } })
     table.form.reff = oldSlug
+    table.produkParams.reff = oldSlug
     store.form.reff = oldSlug
   } else {
     routerInstance.replace({ name: 'transaksi.penjualan', params: { slug } })
     table.resetData()
     store.resetData()
     table.form.reff = slug
+    table.produkParams.reff = slug
     store.form.reff = slug
   }
 

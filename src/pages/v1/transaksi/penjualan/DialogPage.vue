@@ -39,7 +39,7 @@
           <div class="row q-col-gutter-md">
             <div class="col-md-12">
               <app-autocomplete
-                v-if="store.distributor !== ''"
+                v-if="(store.form.distributor !== '' || store.form.dokter !== '')"
                 v-model="store.form.jenis"
                 label="Pilih tunai atau hutang"
                 autocomplete="nama"
@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-12">
               <app-autocomplete
-                v-if="store.distributor === ''"
+                v-if="(store.form.distributor === '' && store.form.dokter === '')"
                 v-model="store.form.jenis"
                 label="Pilih tunai atau hutang"
                 autocomplete="nama"

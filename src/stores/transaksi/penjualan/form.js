@@ -211,6 +211,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
               // routerInstance.currentRoute.value.params.slug = slug
               this.form.reff = slug
               table.form.reff = slug
+              table.produkParams.reff = slug
               table.getDetailTransaksi(slug)
               this.isOpen = false
               useDashboardStore().getDataRank()
