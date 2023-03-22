@@ -41,7 +41,7 @@ export const useDashboardStore = defineStore('dashboard_store', {
               all: data.sum_sub_total,
               cash: cash >= 0 ? this.rank.monthlyCash.prod[cash].sum_sub_total : 0,
               claim: cash >= 0 ? data.sum_sub_total - this.rank.monthlyCash.prod[cash].sum_sub_total : data.sum_sub_total ? data.sum_sub_total : 0,
-              nama: this.produks[index].nama
+              nama: this.produks[index] ? this.produks[index].nama : '-'
             }
           })
           const limit = this.monthlyAll.length < 3 ? this.monthlyAll.length : 3
