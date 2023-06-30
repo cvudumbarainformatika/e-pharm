@@ -182,6 +182,17 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/print',
+    component: () => import('layouts/print/PrintLayout.vue'),
+    meta: { requireAuth: true, visitor: false },
+    children: [
+      {
+        path: '',
+        component: () => import('pages/v1/print/IndexPage.vue')
+      }
+    ]
+  },
 
   // Always leave this as last one,
   // but you can also remove it

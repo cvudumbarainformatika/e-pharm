@@ -1,6 +1,10 @@
 <template>
   <div class="q-mb-lg">
     <PrintDialog :nama="printAs" />
+    <!-- <app-print-penjualan
+      id="printMe"
+      class="print-only"
+    /> -->
     <!-- title="Tabel History" -->
     <q-table
       :title="'Tabel History ' + table.nama"
@@ -207,6 +211,7 @@
             </div>
             <div v-if="props.row.status > 1">
               <!-- v-if="props.row.nama === 'PEMBELIAN' || props.row.nama === 'PENJUALAN'" -->
+              <!-- v-print="printObj" -->
               <q-btn
                 v-if="props.row.nama === 'PENJUALAN'"
                 class="q-mr-md"
@@ -455,20 +460,28 @@
 import { useHistoryTable } from 'src/stores/history/table'
 import { dateFormat, formatRp } from 'src/modules/formatter'
 import { usePrintStore } from 'src/stores/print'
+
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 import { ref } from 'vue'
 import PrintDialog from './PrintDialog.vue'
 const printAs = ref(null)
 const model = ref(false)
 const printStore = usePrintStore()
 const print = val => {
-  model.value = true
+  // model.value = true
   printAs.value = val.nama
   printStore.form = val
+  printStore.prevUrl = '/history'
   printStore.produks = val.detail_transaction
   setTimeout(() => {
-    window.print()
+    // window.print()
+    // printObj
+    router.push({ path: '/print' })
   }, 500)
-  // model.value = false
+  // // model.value = false
   console.log('print', val)
 }
 const getTotal = (val) => {
@@ -487,5 +500,26 @@ const getTotal = (val) => {
   }
 }
 const table = useHistoryTable()
-
+// const printObj = {
+//   asyncUrl(reslove, vue) {
+//     setTimeout(() => {
+//       reslove('http://localhost:9000/print')
+//     }, 500)
+//   },
+//   previewBeforeOpenCallback() {
+//     console.log('正在加载预览窗口')
+//   },
+//   previewOpenCallback() {
+//     console.log('已经加载完预览窗口')
+//   },
+//   beforeOpenCallback(vue) {
+//     console.log('打开之前')
+//   },
+//   openCallback(vue) {
+//     console.log('执行了打印')
+//   },
+//   closeCallback(vue) {
+//     console.log('关闭了打印工具')
+//   }
+// }
 </script>

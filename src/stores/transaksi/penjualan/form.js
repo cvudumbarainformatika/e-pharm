@@ -2,11 +2,12 @@ import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { routerInstance } from 'src/boot/router'
 import { olahUang } from 'src/modules/formatter'
-import { notifErrVue, notifSuccess, uniqueId } from 'src/modules/utils'
+import { notifErrVue, uniqueId } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
 import { useDashboardStore } from 'src/stores/dashboard'
 import { usePrintStore } from 'src/stores/print'
 import { usePenjualanTable } from './table'
+// import { useRouter } from 'vue-router'
 
 export const usePenjualanDialog = defineStore('penjualan_store', {
   state: () => ({
@@ -181,6 +182,9 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.kembali = kembali
       this.form.status = 2
       this.print.form = this.form
+
+      const slug = 'PJL-' + uniqueId()
+      this.print.prevUrl = '/transaksi/penjualan/' + slug
       // console.log('kasir', kasir)
       // console.log(this.form)
       if (bayar < total && this.form.jenis === 'tunai') {
@@ -188,7 +192,8 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
         return
       }
       if (this.printChek) {
-        window.print()
+        // const router = useRouter()
+        routerInstance.push({ path: '/print' })
       }
       // console.log('form', this.form)
       this.loading = true
@@ -200,14 +205,16 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
             // console.log('transaksi ', resp)
             const table = usePenjualanTable()
             if (resp.status === 201) {
-              notifSuccess(resp)
+              // notifSuccess(resp)
               table.resetData()
               this.resetData()
-              const slug = 'PJL-' + uniqueId()
-              routerInstance.replace({
-                name: 'transaksi.penjualan',
-                params: { slug }
-              })
+              // const slug = 'PJL-' + uniqueId()
+              if (!this.printChek) {
+                routerInstance.replace({
+                  name: 'transaksi.penjualan',
+                  params: { slug }
+                })
+              }
               // routerInstance.currentRoute.value.params.slug = slug
               this.form.reff = slug
               table.form.reff = slug

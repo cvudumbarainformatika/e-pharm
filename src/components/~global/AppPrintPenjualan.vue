@@ -1,5 +1,8 @@
 <template>
-  <q-card style="margin-left:0px; width:80mm;">
+  <q-card
+    style="margin:0px;"
+    flat
+  >
     <q-card-section>
       <div class="text-center">
         {{ setting.info.nama }}
@@ -186,4 +189,11 @@ const setting = useSettingStore()
 .bottom-line {
   border-bottom: 2px solid;
 }
+
+/* change height as you like */
+    @media print {
+        body.sheet {
+            width: 80mm
+        }
+    }
 </style>

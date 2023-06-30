@@ -12,7 +12,8 @@ export const usePrintStore = defineStore('print_store', {
       customer: null,
       dokter: null
     },
-    produks: []
+    produks: [],
+    prevUrl: ''
 
   }),
   actions: {

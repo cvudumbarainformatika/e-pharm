@@ -1,6 +1,12 @@
 <template>
   <q-dialog>
-    <app-print-penjualan class="print-only" />
+    <!-- <div
+      class="print-only"
+    >
+      <app-print-pjl-new
+        id="printMe"
+      />
+    </div> -->
     <app-card
       class="my-card print-hide"
       title="Pembayaran"
@@ -245,6 +251,7 @@
               label="Cancel"
               class="q-mr-md"
             />
+            <!-- v-print="printObj" -->
             <app-btn
               label="Simpan"
               :loading="store.loading"
@@ -278,6 +285,24 @@ const onReset = () => {
   if (formReff.value != null) { formReff.value.resetValidation() }
   store.setOpen()
 }
+
+// const printObj = {
+//   id: 'printMe',
+//   popTitle: 'Laporan Rekap',
+//   // extraCss: 'https://cdn.bootcdn.net/ajax/libs/animate.css/4.1.1/animate.compat.css, https://cdn.bootcdn.net/ajax/libs/hover.css/2.3.1/css/hover-min.css',
+//   // extraHead: '<meta http-equiv="Content-Language"content="zh-cn"/>',
+//   beforeOpenCallback (vue) {
+//     // printed.value = true
+//     console.log('wait...')
+//   },
+//   openCallback (vue) {
+//     console.log('opened')
+//   },
+//   closeCallback (vue) {
+//     // printed.value = false
+//     console.log('closePrint')
+//   }
+// }
 // const totalSeluruhnya = () => {
 //   const total = olahUang(store.form.total)
 //   const potongan = olahUang(store.form.potongan)
