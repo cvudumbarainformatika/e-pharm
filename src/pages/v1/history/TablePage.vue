@@ -81,7 +81,7 @@
             :props="props"
           >
             <div>
-              {{ props.row.nama.toLowerCase() }} : {{ props.row.reff }}
+              {{ props.row.nama.toLowerCase() }} : {{ props.row.nota?props.row.nota:'-' }}
             </div>
 
             <div class="text-italic text-caption">

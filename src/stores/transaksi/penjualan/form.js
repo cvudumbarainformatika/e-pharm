@@ -191,10 +191,6 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
         notifErrVue('periksa input bayar')
         return
       }
-      if (this.printChek) {
-        // const router = useRouter()
-        routerInstance.push({ path: '/print' })
-      }
       // console.log('form', this.form)
       this.loading = true
       return new Promise((resolve, reject) => {
@@ -209,6 +205,12 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
               table.resetData()
               this.resetData()
               // const slug = 'PJL-' + uniqueId()
+
+              if (this.printChek) {
+                // const router = useRouter()
+                this.print.form.nota = resp.data.data.nota
+                routerInstance.push({ path: '/print' })
+              }
               if (!this.printChek) {
                 routerInstance.replace({
                   name: 'transaksi.penjualan',

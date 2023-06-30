@@ -14,7 +14,7 @@
     </div> -->
     <div class="top-line-dash" />
     <div class="q-px-sm">
-      NOTA: {{ store.form.reff }}
+      NOTA: {{ store.form.nota? store.form.nota:'-' }}
     </div>
     <div class="q-px-sm">
       TANGGAL:{{ dateFormat(store.form.tanggal) }}

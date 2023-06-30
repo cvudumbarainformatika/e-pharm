@@ -28,7 +28,7 @@
         <template #option="scope">
           <q-item v-bind="scope.itemProps">
             <q-item-section>
-              <q-item-label>{{ scope.opt.nama }} : {{ scope.opt.reff }}</q-item-label>
+              <q-item-label>{{ scope.opt.nama }} : {{ scope.opt.nota }}</q-item-label>
               <q-item-label
                 v-if="scope.opt.faktur!==null"
                 caption
@@ -56,7 +56,7 @@
       <q-card-section v-if="model">
         <div class="flex">
           <div class="right__side column">
-            <div>Nota : <strong>{{ model.reff }}</strong> </div>
+            <div>Nota : <strong>{{ model.nota }}</strong> </div>
             <div>Tanggal : <strong>{{ dateHumanHour(model.tanggal) }}</strong> </div>
             <div v-if="model.faktur!==null">
               Faktur : <strong>{{ model.faktur }}</strong>
