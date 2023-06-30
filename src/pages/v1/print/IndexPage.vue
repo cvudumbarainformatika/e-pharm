@@ -1,38 +1,36 @@
 <template>
   <div
     id="printMe"
-    class="column f-12"
+    class="column f-10"
   >
-    <div class="toko text-center text-weight-bold">
+    <div class="toko text-left text-weight-bold">
       {{ setting.info.nama }}
     </div>
-    <div class="toko text-center">
+    <div class="toko text-left">
       {{ setting.info.alamat }}
     </div>
-    <div class="toko text-center">
+    <!-- <div class="toko text-left">
       {{ setting.info.tlp }}
+    </div> -->
+    <div class="top-line-dash" />
+    <div class="q-px-sm">
+      NOTA: {{ store.form.reff }}
     </div>
-    <div class="top-line" />
-    <div class="flex items-center justify-between q-px-sm">
-      <div>
-        NOTA: {{ store.form.reff }}
-      </div>
-      <div>
-        TANGGAL:{{ dateFormat(store.form.tanggal) }}
-      </div>
+    <div class="q-px-sm">
+      TANGGAL:{{ dateFormat(store.form.tanggal) }}
     </div>
     <div
       v-if="store.form.faktur !== null"
-      class="flex items-center justify-between q-px-xs"
+      class="q-px-xs"
     >
-      <div>
-        FAKTUR: {{ store.form.faktur }}
-      </div>
-      <div>
-        TANGGALF: {{ dateFormat(store.form.tanggal_faktur) }}
-      </div>
+      FAKTUR: {{ store.form.faktur }}
     </div>
-    <div class="top-line" />
+    <div
+      v-if="store.form.faktur !== null"
+    >
+      TANGGALF: {{ dateFormat(store.form.tanggal_faktur) }}
+    </div>
+    <div class="top-line-dash" />
     <div
       v-for="(produk, i) in store.produks"
       :key="i"
@@ -51,55 +49,61 @@
       </div>
     </div>
 
-    <div class="top-line" />
+    <div class="top-line-dash" />
     <div class="text-right q-px-xs text-weight-bold">
       TOTAL : {{ store.totalSemua ? formatRp(store.totalSemua) : formatRp(store.form.total) }}
     </div>
     <div
       v-if="store.form.jenis == 'tunai'"
-      class="text-right q-px-xs text-weight-bold"
+      class="text-right q-px-xs"
     >
-      BAYAR : {{ store.form.bayar? formatRp(olahUang(store.form.bayar)):0 }}
+      Bayar : {{ store.form.bayar? formatRp(olahUang(store.form.bayar)):0 }}
     </div>
     <div
       v-if="store.form.jenis == 'tunai'"
-      class="text-right q-px-xs text-weight-bold"
+      class="text-right q-px-xs"
     >
-      KEMBALI : {{ store.form.kembali?formatRp(olahUang(store.form.kembali)):0 }}
+      Kembali : {{ store.form.kembali?formatRp(olahUang(store.form.kembali)):0 }}
     </div>
+    <div class="top-line-dash" />
     <div
       v-if="store.form.kasir"
-      class="text-right q-px-xs text-weight-bold"
+      class="text-left q-px-xs"
     >
-      KASIR : {{ Object.keys(store.form.kasir).length ? store.form.kasir.name : store.form.kasir }}
+      Kasir : {{ Object.keys(store.form.kasir).length ? store.form.kasir.name : store.form.kasir }}
     </div>
     <div
       v-if="store.form.supplier"
-      class="text-right q-px-xs text-weight-bold"
+      class="text-left q-px-xs"
     >
-      SUPPLIER : {{ Object.keys(store.form.supplier).length ? store.form.supplier.nama : store.form.supplier }}
+      Supplier : {{ Object.keys(store.form.supplier).length ? store.form.supplier.nama : store.form.supplier }}
     </div>
     <div
       v-if="store.form.distributor"
-      class="text-right q-px-xs text-weight-bold"
+      class="text-left q-px-xs"
     >
-      DISTRIBUTOR : {{ Object.keys(store.form.supplier).length ? store.form.supplier.nama : store.form.supplier }}
+      Distributor : {{ Object.keys(store.form.supplier).length ? store.form.supplier.nama : store.form.supplier }}
     </div>
     <div
       v-if="store.form.dokter"
-      class="text-right q-px-xs text-weight-bold"
+      class="text-left q-px-xs"
     >
-      DOKTER : {{ Object.keys(store.form.dokter).length ? store.form.dokter.nama : store.form.dokter }}
+      Dokter : {{ Object.keys(store.form.dokter).length ? store.form.dokter.nama : store.form.dokter }}
     </div>
     <div
       v-if="store.form.jenis === 'hutang' || store.form.jenis === 'piutang'"
-      class="text-right q-px-xs text-weight-bold"
+      class="text-left q-px-xs"
     >
-      TEMPO : {{ dateFormat(store.form.tempo) }}
+      Tempo : {{ dateFormat(store.form.tempo) }}
     </div>
-    <div class="top-line" />
-    <div class="text-center q-pb-xl">
-      Terimakasih Sudah Membeli Obat-obatan di Apotik Kami
+    <div
+      class="text-left q-px-xs"
+    >
+      Item : {{ store.produks.length }}
+    </div>
+    <div class="top-line-dash" />
+    <div class="text-left q-pb-xl">
+      Barang yang sudah dibeli tidak bisa ditukar / dikembalikan. Terima Kasih
     </div>
   </div>
 </template>
@@ -164,13 +168,16 @@ function myPrinting () {
     /* change height as you like */
     @media print {
         body.sheet {
-            width: 80mm
+            width: 76mm
         }
     }
 .top-line-tipis {
   border-top: 0.5px solid black;
 }
 
+.top-line-dash {
+  border-top: 1.5px dashed black;
+}
 .top-line {
   border-top: 2px solid black;
 }
