@@ -4,11 +4,13 @@
       <template #content> -->
     <q-table
       ref="tableReff"
+      v-model:pagination="pagination"
       title="Input Penjualan"
       :columns="table.columns"
       :column-hide="table.columnHide"
       :rows="table.rows"
       row-key="id"
+      :rows-per-page="0"
       :meta="table.meta"
       :visible-columns="table.visibleColumns"
       :per-page="table.params.per_page"
@@ -27,7 +29,7 @@
           <div class="row ">
             <app-autocomplete-new
               v-model="table.form.customer_id"
-              label="pilih Distributor"
+              label="pilih Customer"
               autocomplete="nama"
               option-value="id"
               option-label="nama"
@@ -263,6 +265,13 @@
       <!-- </template>
     </q-card> -->
     </q-table>
+    <div
+      v-for="(r,i) in table.rows"
+      :key="i"
+    >
+      <div>{{ r.product.nama }}</div>
+    </div>
+
     <!-- <app-btn
       label="coba"
       @click="coba"
@@ -334,6 +343,9 @@ const keyCheck = val => {
 
 const refProduk = ref(null)
 const refJumlah = ref(null)
+const pagination = ref({
+  rowsPerPage: 0
+})
 
 const produk = val => {
   // console.log('key', val.key)
