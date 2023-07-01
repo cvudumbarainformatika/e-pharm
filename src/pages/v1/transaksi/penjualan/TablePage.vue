@@ -265,12 +265,12 @@
       <!-- </template>
     </q-card> -->
     </q-table>
-    <div
+    <!-- <div
       v-for="(r,i) in table.rows"
       :key="i"
     >
       <div>{{ r.product.nama }}</div>
-    </div>
+    </div> -->
 
     <!-- <app-btn
       label="coba"

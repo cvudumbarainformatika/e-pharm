@@ -76,13 +76,13 @@
       v-if="store.form.supplier"
       class="text-left q-px-xs"
     >
-      Supplier : {{ Object.keys(store.form.supplier).length ? store.form.supplier.nama : store.form.supplier }}
+      Distributor : {{ Object.keys(store.form.supplier).length ? store.form.supplier.nama : store.form.supplier }}
     </div>
     <div
-      v-if="store.form.distributor"
+      v-if="store.form.customer"
       class="text-left q-px-xs"
     >
-      Distributor : {{ Object.keys(store.form.supplier).length ? store.form.supplier.nama : store.form.supplier }}
+      Customer : {{ Object.keys(store.form.customer).length ? store.form.customer.nama : store.form.customer }}
     </div>
     <div
       v-if="store.form.dokter"

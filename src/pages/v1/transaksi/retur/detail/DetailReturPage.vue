@@ -4,6 +4,7 @@
       <template #content> -->
     <q-table
       ref="tableReff"
+      v-model:pagination="pagination"
       title="Transaksi yang akan Retur"
       :columns="table.columns"
       :column-hide="table.columnHide"
@@ -32,7 +33,7 @@
         </div>
         <div class="col-6  ">
           <div class="text-h6">
-            Nomor Nota : {{ table.form.reff }}
+            Nomor Nota : {{ table.form.nota? table.form.nota: table.form.reff }}
           </div>
         </div>
         <div class="col-3">
@@ -123,9 +124,14 @@ import { useReturDetailTable } from 'src/stores/transaksi/retur/detail/transacti
 import { useReturTable } from 'src/stores/transaksi/retur/detail/retur'
 import ReturTable from './ReturTable.vue'
 import { formatRp } from 'src/modules/formatter'
+import { ref } from 'vue'
 
 const table = useReturDetailTable()
 const retur = useReturTable()
+
+const pagination = ref({
+  rowsPerPage: 0
+})
 // table.getDetailTransaksi()
 // const cekRequired = () => {
 //   if (table.form.faktur) {
