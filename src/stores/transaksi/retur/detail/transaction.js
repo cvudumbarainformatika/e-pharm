@@ -213,6 +213,9 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       if (data.faktur !== '') {
         this.form.faktur = data.faktur
       }
+      if (data.nota !== '') {
+        this.form.nota = data.nota
+      }
     },
     setForm(name, value) {
       this.form[name] = value

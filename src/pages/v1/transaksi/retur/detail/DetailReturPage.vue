@@ -2,6 +2,7 @@
   <div style="width: 800px;">
     <!-- <q-card flat>
       <template #content> -->
+    <!-- {{ table.form }} -->
     <q-table
       ref="tableReff"
       v-model:pagination="pagination"
