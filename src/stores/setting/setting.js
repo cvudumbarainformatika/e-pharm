@@ -71,7 +71,7 @@ export const useSettingStore = defineStore('setting', {
             name: 'Dokter',
             link: 'master/dokter',
             value: 'master.dokter',
-            roles: ' root owner '
+            roles: ' root owner kasir '
           },
           {
             icon: 'icon-mat-workspaces',
@@ -99,7 +99,7 @@ export const useSettingStore = defineStore('setting', {
             name: 'Customer',
             link: 'master/customer',
             value: 'master.customer',
-            roles: ' root owner '
+            roles: ' root owner kasir '
           },
           {
             icon: 'icon-mat-auto_awesome_mosaic',
