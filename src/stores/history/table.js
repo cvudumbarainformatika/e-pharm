@@ -166,7 +166,7 @@ export const useHistoryTable = defineStore('history_table', {
             if (resp.status === 200) {
               this.rows = resp.data.data
               this.meta = resp.data.meta
-              // console.log('history ', resp.data)
+              console.log('history ', resp.data)
               resolve(resp.data.data)
             }
           })

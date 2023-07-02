@@ -153,9 +153,9 @@ const menus = computed(() => {
     }
     return temp
   })
-  console.log('role', role.value)
-  console.log('menus', menu)
-  console.log('apem', apem)
+  // console.log('role', role.value)
+  // console.log('menus', menu)
+  // console.log('apem', apem)
   return apem
 })
 // console.log('menus bawah', menus.value)

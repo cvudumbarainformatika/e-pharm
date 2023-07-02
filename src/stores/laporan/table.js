@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { useLaporanTransaksiStore } from './transaksi'
+import { date } from 'quasar'
 // import { filterDuplicateArrays } from 'src/modules/utils'
 
 export const useLaporanTable = defineStore('laporan_table', {
@@ -15,15 +16,20 @@ export const useLaporanTable = defineStore('laporan_table', {
     transactions: [],
     meta: {},
     form: {
-      date: null,
-      to: null,
-      from: null,
+      from: date.formatDate(Date.now(), 'YYYY-MM-01'),
+      to: date.formatDate(Date.now(), 'YYYY-MM-DD'),
       nama: '',
       hari: null,
       bulan: null,
       tahun: null
     },
+    display: {
+      from: date.formatDate(Date.now(), '01 MMMM YYYY'),
+      to: date.formatDate(Date.now(), 'DD MMMM YYYY')
+    },
     params: {
+      from: date.formatDate(Date.now(), 'YYYY-MM-01'),
+      to: date.formatDate(Date.now(), 'YYYY-MM-DD'),
       page: 1,
       per_page: 10
     },
@@ -34,9 +40,11 @@ export const useLaporanTable = defineStore('laporan_table', {
     columns: [],
     selected: false,
     penjualanType: 'umum',
+    namaRetur: '',
     periode: '',
     person: null,
     totalTransaksi: null,
+    totalReturTransaction: null,
     totalTransaction: null
   }),
   actions: {
@@ -44,7 +52,6 @@ export const useLaporanTable = defineStore('laporan_table', {
     resetData() {
       this.transactions = []
       this.meta = {}
-      this.form = {}
       this.selected = false
       this.periode = ''
       this.person = null
@@ -53,6 +60,9 @@ export const useLaporanTable = defineStore('laporan_table', {
     },
     setForm(key, val) {
       this.form[key] = val
+    },
+    setParams(key, val) {
+      this.params[key] = val
     },
     setColumns() {
       const kolom = [
@@ -167,17 +177,6 @@ export const useLaporanTable = defineStore('laporan_table', {
         })
         this.totalTransaksi = jumlah
       }
-      // const hutang = []
-      //         resp.data.hutang.forEach((data, index) => {
-      //           hutang[index] = data.jml * data.harga
-      //         })
-      //         let dibayar = 0
-      //         if (resp.data.dibayar.length) {
-      //           dibayar = resp.data.dibayar[0].total
-      //         }
-      //         const jmlHutang = hutang.reduce((total, num) => { return total + num })
-      //         this.hutang = resp.data.awal + jmlHutang - dibayar
-      //         console.log(jmlHutang, 'hutang ', hutang, 'dibayar', dibayar, 'sisa', this.hutang)
     },
     beforeGetData() {
       const transaksi = useLaporanTransaksiStore()
@@ -208,7 +207,6 @@ export const useLaporanTable = defineStore('laporan_table', {
       if (this.form.umum !== undefined && transaksi.penjualan !== 'umum') {
         delete this.form.umum
       }
-      // console.log('form seseudah if', this.form)
       if (this.form.nama === 'PENGELUARAN') {
         this.getDataTransactions('beban')
       } else if (this.form.nama === 'PENDAPATAN') {
@@ -217,6 +215,7 @@ export const useLaporanTable = defineStore('laporan_table', {
         this.getDataTransactions('detail-transaksi')
       }
       this.getTotalTransactions()
+      this.getTotalReturTransactions()
       transaksi.getDataTransactions()
     },
     // api related functions
@@ -226,7 +225,20 @@ export const useLaporanTable = defineStore('laporan_table', {
         api.get('v1/laporan/total-by-date', params).then((resp) => {
           if (resp.status === 200) {
             this.totalTransaction = resp.data[0]
-            console.log('totel transactions', this.totalTransaction)
+            console.log('total transactions', this.totalTransaction)
+            resolve(resp.data)
+          }
+        })
+      })
+    },
+    getTotalReturTransactions() {
+      const params = { params: this.form }
+      return new Promise(resolve => {
+        api.get('v1/laporan/total-retur-by-date', params).then((resp) => {
+          if (resp.status === 200) {
+            this.totalReturTransaction = resp.data.data[0]
+            this.namaRetur = resp.data.nama
+            console.log('total rtur transactions', resp.data, this.totalReturTransaction)
             resolve(resp.data)
           }
         })
@@ -237,6 +249,7 @@ export const useLaporanTable = defineStore('laporan_table', {
       this.selected = true
       this.loading = true
       const params = { params: this.form }
+      console.log('param', this.form)
       this.setColumns()
       return new Promise((resolve, reject) => {
         api
@@ -246,7 +259,7 @@ export const useLaporanTable = defineStore('laporan_table', {
             if (resp.status === 200) {
               this.transactions = resp.data
               this.setRows()
-              // console.log('tr by items', resp)
+              console.log('tr by items', resp)
               resolve(resp.data)
             }
           })

@@ -29,25 +29,7 @@
           </div>
         </div>
         <q-separator />
-        <!-- <div class="q-pl-sm">
-          <q-input
-            v-model="transaksi.params.q"
-            class="search-big"
-            borderless
-            debounce="500"
-            clearable
-            dense
-            placeholder="Search..."
-            @keyup.enter="transaksi.getSearchData"
-          >
-            <template #prepend>
-              <q-icon
-                name="icon-mat-search"
-                size="20px"
-              />
-            </template>
-          </q-input>
-        </div> -->
+
         <q-separator />
       </template>
       <!-- body slot -->
@@ -109,27 +91,6 @@
               Status : PIUTANG, <span v-if="props.row.customer!==null"> Distributor : {{
                 props.row.customer!==null?props.row.customer.nama:'' }}</span>
             </div>
-
-            <!-- <div v-if="props.row.status === 1">
-              <q-chip
-                color="primary"
-                label="Complete"
-                text-color="white"
-                rounded
-                no-caps
-                dense
-              />
-            </div>
-            <div v-else>
-              <q-chip
-                dense
-                color="negative"
-                text-color="white"
-                label="Draft"
-                rounded
-                no-caps
-              />
-            </div> -->
           </q-td>
           <!-- kolom total -->
           <q-td
@@ -151,29 +112,8 @@
             <div>
               Total : {{ formatRp(props.row.total) }}
             </div>
-            <!-- <div
-              v-if="props.row.status === 0"
-              @click="transaksi.openTransaction(props)"
-            >
-              <q-avatar
-                text-color="negative"
-                :color="transaksi.dark === true ? 'dark':'white'"
-                icon="icon-mat-open_in_new"
-                clickable
-              />
-            </div>
-            <div v-if="props.row.status === 1">
-              <q-avatar
-                text-color="primary"
-                :color="transaksi.dark === true ? 'dark':'white'"
-                :icon="props.expand ? 'icon-mat-expand_less' : 'icon-mat-expand_more'"
-                clickable
-                @click="props.expand = !props.expand"
-              />
-            </div> -->
           </q-td>
         </q-tr>
-        <!-- v-show="props.expand" -->
         <q-tr
           v-if="props.row.nama === 'PEMBELIAN' || props.row.nama === 'PENJUALAN' || props.row.nama === 'RETUR PEMBELIAN' || props.row.nama === 'RETUR PENJUALAN'"
           :props="props"

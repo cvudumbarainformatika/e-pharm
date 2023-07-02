@@ -54,6 +54,12 @@ export const useLaporanTransaksiStore = defineStore('laporan_transaksi_store', {
     }
   }),
   actions: {
+    setForm(key, val) {
+      this.form[key] = val
+    },
+    setParams(key, val) {
+      this.params[key] = val
+    },
     resetForm() {
       this.form = {}
     },

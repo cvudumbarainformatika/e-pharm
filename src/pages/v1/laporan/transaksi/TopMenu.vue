@@ -42,7 +42,7 @@
           <ButtonDropdownMenu
             :label="transaksi.piutang==='all'?'Pendapatan Berdasarkan':transaksi.piutangL"
             :items="transaksi.piutangs"
-            :aktif="transaksi.Piutang"
+            :aktif="transaksi.piutang"
             @clicked="pilihPiutang"
           />
         </div>
@@ -143,15 +143,32 @@
           </q-menu>
         </q-btn>
         <div style="position: absolute; right: 10px;">
-          <q-btn
-            icon="icon-mat-print"
-            flat
-            :color="setting.dark? 'white':'primary'"
-            size="16px"
-            class="cursor-pointer"
+          <div class="row justify-between items-center">
+            <app-input-date-human
+              :model="table.display.from"
+              label="Dari"
+              outlined
+              @set-display="setDispDari"
+              @db-model="setDari"
+            />
+            <app-input-date-human
+              class="q-mx-xs"
+              :model="table.display.to"
+              label="Sampai"
+              outlined
+              @set-display="setDispSampai"
+              @db-model="setSampai"
+            />
+            <q-btn
+              icon="icon-mat-print"
+              flat
+              :color="setting.dark? 'white':'primary'"
+              size="16px"
+              class="cursor-pointer"
 
-            @click="Print"
-          />
+              @click="Print"
+            />
+          </div>
         </div>
       </div>
     </q-card-section>
@@ -182,12 +199,24 @@ const setting = useSettingStore()
 const options = ref([5, 10, 20, 50, 100])
 const selectPerPage = computed({
   get () { return transaksi.params.per_page },
-  set (val) { transaksi.params.per_page = val }
+  set (val) { transaksi.setParams('per_page ', val) }
 })
 const getTrData = () => {
-  transaksi.getDataTransactions()
+  // transaksi.getDataTransactions()
+  transaksi.goTo(1)
 }
-
+function setDispDari(val) {
+  table.display.from = val
+}
+function setDari(val) {
+  table.setForm('from', val)
+}
+function setDispSampai(val) {
+  table.display.to = val
+}
+function setSampai(val) {
+  table.setForm('to', val)
+}
 const Print = () => {
   // window.print()
   window.open('http://api.eparm.test/print?invoice=PJL-l87hlp2qhiwkg&total=21000&bayar=25000&kembali=4000', '_blank', 'withd=50%')

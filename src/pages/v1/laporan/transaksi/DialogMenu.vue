@@ -31,6 +31,7 @@
             class="flex column flex-center full-height"
           >
             <!-- style="height:calc(100%-60px) " -->
+            <!-- @mouseover="transactionSelected(menu)" -->
             <q-list>
               <div
                 v-for="(menu, i) in button.transactions"
@@ -38,7 +39,7 @@
                 class="sidebar flex items-center justify-start"
                 style="min-width:150px;"
                 exact
-                @mouseover="transactionSelected(menu)"
+                @click="transactionSelected(menu)"
               >
                 <q-item
                   clickable
@@ -48,16 +49,16 @@
                   <!-- @click="pilihDistributor(menu)" -->
                   <q-item-section>
                     <q-item-label style="min-width:120px;">
-                      <div class="row items-center">
-                        <div class="col-10 text-left">
+                      <div class="row items-center justify-between">
+                        <div class="text-left">
                           <strong class="">{{ menu.name }}</strong>
                         </div>
-                        <div class="col-2 text-right">
+                        <!-- <div class="text-right">
                           <q-icon
                             name="icon-mat-chevron_right"
                             size="25px"
                           />
-                        </div>
+                        </div> -->
                       </div>
                     </q-item-label>
                   </q-item-section>
@@ -66,7 +67,15 @@
             </q-list>
           </div>
         </q-card-section>
-        <q-card-section v-if="table.form.nama">
+        <!-- <q-card-section>
+          <div
+            class="flex column flex-center full-height"
+            style="height:calc(100%-60px) "
+          >
+            anau
+          </div>
+        </q-card-section> -->
+        <!-- <q-card-section v-if="table.form.nama">
           <div
             class="flex column flex-center full-height"
             style="height:calc(100%-60px) "
@@ -85,14 +94,12 @@
                   :active="button.date === menu.value"
                   active-class="text-white bg-primary"
                 >
-                  <!-- @click="pilihDistributor(menu)" -->
                   <q-item-section>
                     <q-item-label style="min-width:120px;">
                       <div class="row items-center">
                         <div class="col-10 text-left">
                           <strong class="">{{ menu.nama }}</strong>
                         </div>
-                        <!-- v-if="menu.value === 'harian' || menu.value === 'bulanan' || menu.value === 'range'" -->
                         <div
                           v-if="menu.value === 'today' ? false : menu.value === 'month' ? false : true "
                           class="col-2 text-right"
@@ -111,7 +118,6 @@
           </div>
         </q-card-section>
         <q-card-section class="q-pb-sm text-center text-subtitle2">
-          <!-- <div class="flex column flex-center full-height"> -->
           <q-list
             bordered
             padding
@@ -187,8 +193,7 @@
               />
             </div>
           </q-list>
-          <!-- </div> -->
-        </q-card-section>
+        </q-card-section> -->
 
         <!-- <q-card-actions
           v-if="table.form.date === 'range'"
@@ -199,14 +204,14 @@
   </q-menu>
 </template>
 <script setup>
-import { dateFullFormat } from 'src/modules/formatter'
+// import { dateFullFormat } from 'src/modules/formatter'
 import { useLaporanMorphStore } from 'src/stores/laporan/button'
 import { useLaporanTable } from 'src/stores/laporan/table'
 import { useLaporanTransaksiStore } from 'src/stores/laporan/transaksi'
-import { ref } from 'vue'
+// import { ref } from 'vue'
 
-const rangeDate = ref({ from: null, to: null })
-const tgl = ref(null)
+// const rangeDate = ref({ from: null, to: null })
+// const tgl = ref(null)
 const table = useLaporanTable()
 const button = useLaporanMorphStore()
 const emits = defineEmits(['tutup'])
@@ -215,53 +220,57 @@ const transactionSelected = (val) => {
   table.resetData()
   transaksi.resetData()
   table.form.nama = val.value
+  delete table.form.date
+  table.periode = '  ' + table.display.from + ' - ' + table.display.to
+  table.beforeGetData()
+  closePopup()
   // table.selected = false
   // console.log(val)
 }
-const dateSelected = (val) => {
-  button.date = val.value
-  table.form.date = val.date
-  table.form[val.date] = val.param
-  // console.log('date ', val)
-  table.periode = val.nama
-  if (val.next === 'btn') {
-    table.beforeGetData()
-    closePopup()
-  }
-}
-const daySelected = (val) => {
-  // console.log('day', val)
-  table.periode = ' Tanggal ' + val
-  table.beforeGetData()
-  closePopup()
-}
-const monthSelected = (val) => {
-  // console.log('month ', val)
-  table.periode = 'Bulan ' + val.nama
-  table.form.bulan = val.value
-  table.beforeGetData()
-  closePopup()
-  // console.log(table.form)
-}
-const rangeSelected = (val) => {
-  table.periode =
-    '  ' + dateFullFormat(rangeDate.value.from) + ' - ' + dateFullFormat(rangeDate.value.to)
-  // console.log('range ', val)
-  table.form.from = rangeDate.value.from
-  table.form.to = rangeDate.value.to
+// const dateSelected = (val) => {
+//   button.date = val.value
+//   table.form.date = val.date
+//   table.form[val.date] = val.param
+//   // console.log('date ', val)
+//   table.periode = val.nama
+//   if (val.next === 'btn') {
+//     table.beforeGetData()
+//     closePopup()
+//   }
+// }
+// const daySelected = (val) => {
+//   // console.log('day', val)
+//   table.periode = ' Tanggal ' + val
+//   table.beforeGetData()
+//   closePopup()
+// }
+// const monthSelected = (val) => {
+//   // console.log('month ', val)
+//   table.periode = 'Bulan ' + val.nama
+//   table.form.bulan = val.value
+//   table.beforeGetData()
+//   closePopup()
+//   // console.log(table.form)
+// }
+// const rangeSelected = (val) => {
+//   table.periode =
+//     '  ' + dateFullFormat(rangeDate.value.from) + ' - ' + dateFullFormat(rangeDate.value.to)
+//   // console.log('range ', val)
+//   table.form.from = rangeDate.value.from
+//   table.form.to = rangeDate.value.to
 
-  table.beforeGetData()
-  closePopup()
-  // console.log(rangeDate.value)
-  // console.log(table.form)
-}
-const spesifkSelected = () => {
-  table.periode = ' ' + dateFullFormat(tgl.value)
-  // console.log('tgl', tgl.value)
-  table.form.from = tgl.value
-  table.beforeGetData()
-  closePopup()
-}
+//   table.beforeGetData()
+//   closePopup()
+//   // console.log(rangeDate.value)
+//   // console.log(table.form)
+// }
+// const spesifkSelected = () => {
+//   table.periode = ' ' + dateFullFormat(tgl.value)
+//   // console.log('tgl', tgl.value)
+//   table.form.from = tgl.value
+//   table.beforeGetData()
+//   closePopup()
+// }
 const closePopup = () => {
   emits('tutup')
 }
