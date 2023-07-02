@@ -221,6 +221,9 @@ export const useReturTable = defineStore('retur_table', {
       if (data.faktur !== '') {
         this.form.faktur = data.faktur
       }
+      if (data.nota !== '') {
+        this.form.nota = data.nota
+      }
     },
     setForm(name, value) {
       this.form[name] = value

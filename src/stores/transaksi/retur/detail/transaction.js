@@ -267,7 +267,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
         status: 3
       }
       return new Promise(resolve => {
-        api.post('v1/transaksi/store', data)
+        api.post('v1/transaksi/ganti-status', data)
           .then(resp => {
             resolve(resp)
           })
@@ -296,7 +296,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
 
       // console.log('total ', this.form.total)
       // console.log('form ', this.form)
-      // console.log('data ', data)
+      console.log('data ', data)
 
       return new Promise((resolve, reject) => {
         api
