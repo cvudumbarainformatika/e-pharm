@@ -138,7 +138,10 @@ export const usePembelianTable = defineStore('pembelian_table', {
       'created_at',
       'updated_at'
     ],
-    rows: []
+    rows: [],
+    refProduk: null,
+    refExpired: null,
+    refTanggal: null
   }),
 
   actions: {
@@ -170,10 +173,12 @@ export const usePembelianTable = defineStore('pembelian_table', {
     },
     produkSelected(val) {
       const apem = this.produks
-
       const produk = apem.filter((data) => {
         return data.id === val
       })
+      // this.refExpired.focus()
+      // this.refProduk.blur()
+      // this.refTanggal.show()
       // console.log(produk[0])
 
       if (produk.length) {
@@ -315,6 +320,10 @@ export const usePembelianTable = defineStore('pembelian_table', {
       const produk = useProdukTable()
       produk.getDataTable().then((resp) => {
         this.produks = resp
+        if (this.produks.length === 1) {
+          console.log('produk', this.produks[0])
+          this.produkSelected(this.produks[0].id)
+        }
       })
     },
     setForm(data) {

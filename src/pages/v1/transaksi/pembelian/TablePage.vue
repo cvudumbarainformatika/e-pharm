@@ -105,16 +105,19 @@
           >
             <app-autocomplete-new
               ref="refProduk"
+              :key="table.form.product_id"
               v-model="table.form.product_id"
               label=" "
               autocomplete="nama"
               option-value="id"
               option-label="nama"
               :source="table.produks"
-              autofocus
+              :autofocus="autofocus"
               :loading="produkTable.loading"
+              clearable
               @on-select="table.produkSelected"
               @buang="cariDataProduk"
+              @clear="clearProduk"
             />
           </q-td>
           <q-td
@@ -359,13 +362,14 @@ import DialogPage from './DialogPage.vue'
 import { notifErrVue } from 'src/modules/utils'
 import { useSupplierFormStore } from 'src/stores/master/supplier/form'
 import formDialog from 'src/pages/v1/master/supplier/FormDialog.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useProdukTable } from 'src/stores/master/produk/table'
 
 // const coba = () => {
 //   console.log(refTanggal.value)
 // }
 
+const autofocus = ref(true)
 const supplier = useSupplierFormStore()
 const refTanggal = ref(null)
 const refProduk = ref(null)
@@ -378,10 +382,24 @@ const refDiskon = ref(null)
 
 const table = usePembelianTable()
 const produkTable = useProdukTable()
+onMounted(() => {
+  table.refProduk = refProduk.value.$refs.refAuto
+  table.refExpired = refExpired.value
+  table.refTanggal = refTanggal.value
+})
 const cariDataProduk = val => {
-  // console.log('cari data produk', val)
   produkTable.params.q = val
+  table.refProduk = refProduk.value.$refs.refAuto
+  table.refExpired = refExpired.value
+  table.refTanggal = refTanggal.value
   table.ambilDataProduk()
+  // .then(resp => {
+  //   console.log('cari data produk', resp)
+  // })
+}
+
+function clearProduk() {
+  console.log('clear')
 }
 
 const produk = val => {

@@ -165,9 +165,6 @@ function filterFn (val, update) {
       // refAuto.value.showPopup()
       if (filteredData.length === 1) {
         selected(filteredData[0].id)
-
-        // refAuto.value.hidePopup()
-        // refAuto.value.updateInputValue('')
       }
       // console.log('update if bawah ', optionx.value)
     }
