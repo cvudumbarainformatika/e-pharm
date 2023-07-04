@@ -181,6 +181,9 @@ export const usePenjualanTable = defineStore('penjualan_table', {
 
       }
     },
+    // setForm(key, val) {
+    //   this.form[key] = val
+    // },
     dokterSelected(val) {
       // console.log('dokter ', val)
       const store = usePenjualanDialog()
@@ -237,7 +240,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         return data.id === val
       })
       this.produk = produk[0]
-      console.log('selected', val, produk[0])
+      // console.log('selected', val, produk[0])
       this.form.product_id = produk[0].id
       this.form.harga_beli = produk[0].harga_beli
       this.form.harga_jual_cust = produk[0].harga_jual_cust

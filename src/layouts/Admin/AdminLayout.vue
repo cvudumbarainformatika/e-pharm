@@ -23,6 +23,7 @@
       overlay
       behavior="desktop"
       bordered
+      class="print-hide"
     >
       <!-- drawer content -->
     </q-drawer>
@@ -32,6 +33,7 @@
       v-if="mobile"
       :dark="dark"
       :menus="menus"
+      class="print-hide"
     />
     <q-page-container>
       <router-view />

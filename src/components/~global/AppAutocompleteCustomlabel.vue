@@ -10,13 +10,16 @@
     hide-dropdown-icon
     no-error-icon
     use-input
+    transition-show="slide-down"
+    transition-hide="slide-down"
+    transition-duration="400"
     :option-label="optionlabel"
     :disable="disable"
     :loading="loading"
     :model-value="modelProp"
     lazy-rules
+    behavior="default"
     :rules="[anotherValid]"
-    behavior="menu"
     map-options
     emit-value
     @update:model-value="selected"
@@ -86,7 +89,7 @@ const props = defineProps({
   filled: { type: Boolean, default: true },
   outlined: { type: Boolean, default: false },
   valid: { type: Boolean, default: false },
-  model: { type: String, default: '' }
+  model: { type: [String, Number], default: '' }
 })
 
 const optionx = ref([])
@@ -112,6 +115,7 @@ function fetchData () {
 const selected = (val) => {
   emits('on-select', val)
   anu.value = val
+  // refAuto.value.autofocus = false
   // console.log('modelProp', modelProp.value)
 }
 
@@ -127,7 +131,7 @@ const inputValue = (value) => {
 }
 
 function filterFn (val, update) {
-  // console.log('filterFn ', val)
+  // console.log('filterFn ', val, typeof val)
   // console.log('refAuto', refAuto.value)
   if (val === '') {
     update(() => {
@@ -148,20 +152,30 @@ function filterFn (val, update) {
     const needle = val.toLowerCase()
     const arr = refAuto.value.autocomplete
     // console.log('arr', arr)
+    // console.log('prop', props.source)
+    // console.log('ref', refAuto.value)
     if (arr === '') {
       optionx.value = props.source.filter(v => v.toLowerCase().indexOf(needle) > -1)
     } else {
       const splits = arr.split('-')
+      // console.log('spilt ', splits)
       const multiFilter = (data = [], filterKeys = [], value = '') => data.filter((item) => filterKeys.some(key => item[key].toString().toLowerCase().includes(value.toLowerCase()) && item[key]))
       const filteredData = multiFilter(props.source, splits, needle)
       optionx.value = filteredData
+      // refAuto.value.showPopup()
+      if (filteredData.length === 1) {
+        selected(filteredData[0].id)
+
+        // refAuto.value.hidePopup()
+        // refAuto.value.updateInputValue('')
+      }
       // console.log('update if bawah ', optionx.value)
     }
     // }
   },
   ref => {
-    // console.log(ref)
     if (val !== '' && ref.options.length > 0) {
+      // console.log(ref)
       ref.setOptionIndex(-1) // reset optionIndex in case there is something selected
       ref.moveOptionSelection(1, true) // focus the first selectable option and do not update the input-value
     }

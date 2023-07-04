@@ -159,18 +159,22 @@
           @keydown.capture="produk"
         >
           <!-- <q-td /> -->
-          <q-td colspan="2">
+          <q-td
+            colspan="2"
+          >
             <app-autocomplete-customlabel
+              :key="table.form.product_id"
               ref="refProduk"
-              v-model="table.form.product_id"
-              autofocus
+              :model="table.form.product_id"
+              :autofocus="autofocus"
               dense
               label=" "
-              autocomplete="nama"
               option-value="id"
               option-label="nama"
+              autocomplete="barcode"
               :source="table.produks"
               @on-select="produkDipilih"
+              @clear="clearProduk"
             />
           </q-td>
           <q-td
@@ -431,11 +435,22 @@ const alamat = val => {
     // console.log(refHarga.value.$refs)
   }
 }
-
+const autofocus = ref(true)
 const produkDipilih = val => {
+  autofocus.value = false
   table.produkSelected(val)
-  // refProduk.value.$refs.refAuto.blur()
-  // refJumlah.value.$refs.refInput.focus()
+  refProduk.value.$refs.refAuto.hidePopup()
+  refProduk.value.$refs.refAuto.blur()
+  refJumlah.value.$refs.refInput.focus()
+  console.log('blur ', refProduk.value.$refs.refAuto.blur())
+  console.log('Luar ', refProduk.value.$refs.refAuto)
+}
+function clearProduk() {
+  table.form.product_id = null
+  table.form.qty = 0
+  table.form.harga = 0
+  refProduk.value.$refs.refAuto.focus()
+  refJumlah.value.$refs.refInput.blur()
 }
 const updateQty = val => {
   // console.log('table qty', table.form.qty)
@@ -451,6 +466,7 @@ const updateQty = val => {
   table.onEnter()
   refJumlah.value.$refs.refInput.blur()
   refProduk.value.$refs.refAuto.focus()
+  refProduk.value.$refs.refAuto.updateInputValue('')
   refJumlah.value.$refs.refInput.resetValidation()
   refProduk.value.$refs.refAuto.resetValidation()
 }

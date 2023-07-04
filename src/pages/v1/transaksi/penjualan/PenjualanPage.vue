@@ -1,4 +1,5 @@
 <template>
+  <!-- <Print /> -->
   <q-page class="q-pa-sm">
     <div class="row">
       <TablePage />
@@ -16,6 +17,7 @@ import { usePenjualanDialog } from 'src/stores/transaksi/penjualan/form'
 // import { uniqueId } from 'src/modules/utils'
 import { uniqueId } from 'src/modules/utils'
 import { useSettingStore } from 'src/stores/setting/setting'
+// import Print from 'src/pages/v1/print/IndexPage.vue'
 // const coba = () => {
 // routerInstance.currentRoute.value.params.slug = slug
 // }

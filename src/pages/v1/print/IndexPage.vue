@@ -125,7 +125,7 @@ onMounted(() => {
   // btn.value.click()
   setTimeout(() => {
     myPrinting()
-  }, 1000)
+  }, 200)
 })
 
 function afterPrint () {
@@ -142,7 +142,7 @@ function myPrinting () {
   window.print()
   setTimeout(function () {
     afterPrint()
-  }, 500)
+  }, 200)
 }
 // const printObj = {
 //   id: 'printMe',
