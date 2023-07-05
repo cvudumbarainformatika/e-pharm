@@ -17,19 +17,32 @@
           <q-item
             v-for="(item, i) in props.data"
             :key="i"
-            style=" height:22px;"
+            style=" height:25px;"
           >
             <q-item-section>
-              <q-chip
+              <!-- <q-chip
                 style="width:80px;"
                 dense
                 :text-color="i === 0 ? 'red' : 'white'"
                 square
                 :color="i === 0 ? 'yellow-12' : i === 1 ? 'blue-grey-3': 'brown-4' "
-                class="f-10"
+                class="f-10 ellipsis"
               >
                 {{ item ? item.nama : '' }}
-              </q-chip>
+              </q-chip> -->
+              <div
+                style="width:80px;"
+                class="f-10 ellipsis"
+                :class="i === 0 ?'text-red bg-yellow-12': i === 1 ? 'bg-blue-grey-3': 'bg-brown-4 text-white'"
+              >
+                {{ item ? item.nama : '' }}
+                <q-tooltip
+                  class="primary"
+                  :offset="[10, 10]"
+                >
+                  {{ item ? item.nama : '' }}
+                </q-tooltip>
+              </div>
             </q-item-section>
             <q-item-section>
               {{ item ? formatRp(item.all) : 0 }}
