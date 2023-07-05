@@ -132,9 +132,23 @@ function filterFn (val, update) {
 //     // optionx.value = props.source
 //   }
 // }
-const inputValue = (value) => {
-  emits('buang', value)
+
+// debounce function
+function myDebounce (func, timeout = 400) {
+  let timer
+  return (...arg) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => { func.apply(this, arg) }, timeout)
+  }
 }
+const inputValue = myDebounce((val) => {
+  // console.log('proses val', val)
+  if (val !== '') emits('buang', val)
+})
+
+// const inputValue = (value) => {
+//   emits('buang', value)
+// }
 function createValue (val, done) {
   const result = new Promise((resolve) => emits('on-enter', val, resolve))
   emits('set-model', val)

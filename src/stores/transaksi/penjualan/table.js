@@ -239,20 +239,22 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       const produk = apem.filter((data) => {
         return data.id === val
       })
-      this.produk = produk[0]
-      // console.log('selected', val, produk[0])
-      this.form.product_id = produk[0].id
-      this.form.harga_beli = produk[0].harga_beli
-      this.form.harga_jual_cust = produk[0].harga_jual_cust
-      this.form.harga_jual_umum = produk[0].harga_jual_umum
-      this.form.harga_jual_resep = produk[0].harga_jual_resep
-      this.form.qty = 1
-      if (this.form.customer_id !== null) {
-        this.form.harga = this.form.harga_jual_cust
-      } else if (this.form.dokter_id !== null) {
-        this.form.harga = this.form.harga_jual_resep
-      } else {
-        this.form.harga = this.form.harga_jual_umum
+      if (produk.length) {
+        this.produk = produk[0]
+        // console.log('selected', val, produk[0])
+        this.form.product_id = produk[0].id
+        this.form.harga_beli = produk[0].harga_beli
+        this.form.harga_jual_cust = produk[0].harga_jual_cust
+        this.form.harga_jual_umum = produk[0].harga_jual_umum
+        this.form.harga_jual_resep = produk[0].harga_jual_resep
+        this.form.qty = 1
+        if (this.form.customer_id !== null) {
+          this.form.harga = this.form.harga_jual_cust
+        } else if (this.form.dokter_id !== null) {
+          this.form.harga = this.form.harga_jual_resep
+        } else {
+          this.form.harga = this.form.harga_jual_umum
+        }
       }
       // console.log('Product ', this.form)
     },
@@ -285,7 +287,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       // data.harga = olahUang(this.form.harga)
       // data.qty = this.form.qty
       // data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga)
-      console.log('form ', this.form)
+      // console.log('form ', this.form)
       // store.setForm('product_id', this.form.product_id)
       // store.setForm('harga', olahUang(this.form.harga))
       // store.setForm('qty', olahUang(this.form.qty))
@@ -297,23 +299,26 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       // this.clearNullForm()
       const data = store.form
 
-      console.log('form penjualan', data)
+      // console.log('form penjualan', data)
       const index = findWithAttr(this.produks, 'id', this.form.product_id)
       this.simpanDetailTransaksi(data).then(() => {
-        this.getSingleProduct().then(data => {
-          this.produks[index] = data
+        return new Promise(resolve => {
+          this.getSingleProduct().then(resp => {
+            this.produks[index] = resp
+            resolve(resp)
+          })
         })
       })
       this.resetInput()
       const produk = this.produks[index]
       // produk.keluar.periode = this.form.qty
 
-      console.log('produk', produk)
+      // console.log('produk', produk)
       // produk.stokSekarang -= this.form.qty
       if (produk.limit_stok > produk.stokSekarang) {
         notifErrVue(`stok ${produk.nama} sejumlah ${produk.stokSekarang}, kurang dari limit_stok ${produk.limit_stok}`)
       }
-      console.log('produk', produk)
+      // console.log('produk', produk)
     },
 
     setTotal() {

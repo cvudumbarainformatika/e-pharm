@@ -171,7 +171,7 @@
               label=" "
               option-value="id"
               option-label="nama"
-              autocomplete="barcode"
+              autocomplete="barcode-nama"
               :source="table.produks"
               @on-select="produkDipilih"
               @clear="clearProduk"
@@ -453,6 +453,7 @@ function clearProduk() {
   refJumlah.value.$refs.refInput.blur()
 }
 const updateQty = val => {
+  autofocus.value = true
   // console.log('table qty', table.form.qty)
   // console.log('table id', table.form.product_id)
   // console.log('table harga', table.form.harga)
@@ -464,11 +465,13 @@ const updateQty = val => {
     store.form.pasien = table.dataPasien
   }
   table.onEnter()
-  refJumlah.value.$refs.refInput.blur()
-  refProduk.value.$refs.refAuto.focus()
   refProduk.value.$refs.refAuto.updateInputValue('')
   refJumlah.value.$refs.refInput.resetValidation()
   refProduk.value.$refs.refAuto.resetValidation()
+  refProduk.value.$refs.refAuto.focus()
+  // setTimeout(() => {
+  //   refProduk.value.$refs.refAuto.focus()
+  // }, 500)
 }
 // const onEnter = () => {
 //   onEnter()
