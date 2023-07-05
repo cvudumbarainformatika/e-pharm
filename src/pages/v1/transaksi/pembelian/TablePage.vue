@@ -4,6 +4,7 @@
       <template #content> -->
     <q-table
       ref="tableReff"
+      v-model:pagination="pagination"
       title="Input Pembelian"
       :columns="table.columns"
       :column-hide="table.columnHide"
@@ -369,6 +370,9 @@ import { useProdukTable } from 'src/stores/master/produk/table'
 //   console.log(refTanggal.value)
 // }
 
+const pagination = ref({
+  rowsPerPage: 0
+})
 const autofocus = ref(true)
 const supplier = useSupplierFormStore()
 const refTanggal = ref(null)

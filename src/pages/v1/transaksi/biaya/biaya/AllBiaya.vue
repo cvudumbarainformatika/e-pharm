@@ -54,6 +54,7 @@
                           option-label="name"
                           option-value="id"
                           autocomplete="name"
+                          valid
                           :source="store.kasirs"
                           autofocus
                           outlined

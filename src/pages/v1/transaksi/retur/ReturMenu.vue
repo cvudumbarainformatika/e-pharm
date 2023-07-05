@@ -2,6 +2,7 @@
   <div>
     <q-table
       ref="tableReff"
+      v-model:pagination="pagination"
       title="Transaksi Pembelian"
       :columns="table.columns"
       :rows="table.rows"
@@ -60,12 +61,15 @@
   </div>
 </template>
 <script setup>
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useReturMenu } from 'src/stores/transaksi/retur/menu'
 // import * as formatter from 'src/modules/formatter'
 
 const table = useReturMenu()
 
+const pagination = ref({
+  rowsPerPage: 0
+})
 table.setColumn()
 onMounted(() => {
   table.getDataTransaction()
