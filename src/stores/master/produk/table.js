@@ -27,6 +27,7 @@ export const useProdukTable = defineStore('produk_table', {
     // local table related function
     setSearch(val) {
       this.params.q = val
+      this.params.page = 1
       this.getDataTable()
     },
     setOder(payload) {

@@ -450,12 +450,12 @@ function setProduk(val) {
   }
 }
 const produkDipilih = val => {
-  autofocus.value = true
+  autofocus.value = false
   table.produkSelected(val)
   setTimeout(() => {
     refProduk.value.$refs.refAuto.blur()
     refJumlah.value.$refs.refInput.focus()
-  }, 100)
+  }, 250)
 }
 
 function clearProduk() {
