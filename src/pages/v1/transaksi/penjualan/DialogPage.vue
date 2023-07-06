@@ -143,7 +143,7 @@
               />
             </div>
           </div>
-          <div class="row q-col-gutter-md items-center">
+          <div class="row q-col-gutter-md items-center q-mb-xs">
             <div class="col-md-12">
               <div class="text-right">
                 Total Seluruhnya
@@ -156,6 +156,22 @@
                 disable
                 currency
                 valid
+              />
+            </div>
+          </div>
+          <div
+            v-if="store.form.dokter_id !== null"
+            class="row q-col-gutter-md items-center q-mb-xs"
+          >
+            <div class="col-md-12">
+              <app-input
+                v-model="store.form.embalase"
+                label=" Embalase"
+                outlined
+                prefix="Rp "
+                currency
+                valid
+                @update:model-value="store.totalSeluruhnya"
               />
             </div>
           </div>

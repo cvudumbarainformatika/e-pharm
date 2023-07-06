@@ -482,7 +482,6 @@ const print = val => {
     router.push({ path: '/print' })
   }, 500)
   // // model.value = false
-  console.log('print', val)
 }
 const getTotal = (val) => {
   if (val === undefined) { return }

@@ -159,18 +159,10 @@ function filterFn (val, update) {
     } else {
       const splits = arr.split('-')
       // console.log('spilt ', splits)
-      const multiFilter = (data = [], filterKeys = [], value = '') => data.filter((item) => filterKeys.some(key => {
-        const anu = item[key]
-        // console.log('anu', anu)
-        if (anu) return anu.toString().toLowerCase().includes(value.toLowerCase()) && anu
-        else return anu
-      }))
+      const multiFilter = (data = [], filterKeys = [], value = '') => data.filter((item) => filterKeys.some(key => item[key].toString().toLowerCase().includes(value.toLowerCase()) && item[key]))
       const filteredData = multiFilter(props.source, splits, needle)
       optionx.value = filteredData
       // refAuto.value.showPopup()
-      if (filteredData.length === 1) {
-        selected(filteredData[0].id)
-      }
       // console.log('update if bawah ', optionx.value)
     }
     // }

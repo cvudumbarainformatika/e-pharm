@@ -54,6 +54,12 @@
       TOTAL : {{ store.totalSemua ? formatRp(store.totalSemua) : formatRp(store.form.total) }}
     </div>
     <div
+      v-if="store.form.embalase"
+      class="text-right q-px-xs"
+    >
+      Embalase : {{ typeof store.form.embalase==='string'? 'Rp. '+ store.form.embalase : formatRp(store.form.embalase) }}
+    </div>
+    <div
       v-if="store.form.jenis == 'tunai'"
       class="text-right q-px-xs"
     >
@@ -70,25 +76,25 @@
       v-if="store.form.kasir"
       class="text-left q-px-xs"
     >
-      Kasir : {{ Object.keys(store.form.kasir).length ? store.form.kasir.name : store.form.kasir }}
+      Kasir : {{ typeof store.form.kasir !== 'string' ? store.form.kasir.name : store.form.kasir }}
     </div>
     <div
       v-if="store.form.supplier"
       class="text-left q-px-xs"
     >
-      Distributor : {{ Object.keys(store.form.supplier).length ? store.form.supplier.nama : store.form.supplier }}
+      Distributor : {{ typeof store.form.supplier !== 'string' ? store.form.supplier.nama : store.form.supplier }}
     </div>
     <div
       v-if="store.form.customer"
       class="text-left q-px-xs"
     >
-      Customer : {{ Object.keys(store.form.customer).length ? store.form.customer.nama : store.form.customer }}
+      Customer : {{ typeof store.form.customer !== 'string' ? store.form.customer.nama : store.form.customer }}
     </div>
     <div
       v-if="store.form.dokter"
       class="text-left q-px-xs"
     >
-      Dokter : {{ Object.keys(store.form.dokter).length ? store.form.dokter.nama : store.form.dokter }}
+      Dokter : {{ typeof store.form.dokter!=='string' ? store.form.dokter.nama : store.form.dokter }}
     </div>
     <div
       v-if="store.form.jenis === 'hutang' || store.form.jenis === 'piutang'"
@@ -120,29 +126,29 @@ const router = useRouter()
 const store = usePrintStore()
 const setting = useSettingStore()
 onMounted(() => {
-  // console.log(btn.value.$.appContext.directives)
+  console.log('print ', store.form)
   // btn.value.$.appContext.directives.print = printObj
   // btn.value.click()
   setTimeout(() => {
     myPrinting()
-  }, 200)
+  }, 500)
 })
 
 function afterPrint () {
-  const r = confirm('Press a button!')
-  if (r === true) {
-    window.close()
-    router.push({ path: store.prevUrl ? store.prevUrl : '/history' })
-  } else {
-    window.close()
-  }
+  // const r = confirm('Press a button!')
+  // if (r === true) {
+  router.push({ path: store.prevUrl ? store.prevUrl : '/history' })
+  // window.close()
+  // } else {
+  //   window.close()
+  // }
 }
 
 function myPrinting () {
   window.print()
   setTimeout(function () {
     afterPrint()
-  }, 200)
+  }, 100)
 }
 // const printObj = {
 //   id: 'printMe',

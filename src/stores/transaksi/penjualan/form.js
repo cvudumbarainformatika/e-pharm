@@ -21,13 +21,13 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       diskon: 0,
       ongkir: 0,
       potongan: 0,
+      embalase: 0,
       bayar: 0,
       kembali: 0,
       tempo: null,
       kasir_id: null,
       supplier_id: null,
       dokter_id: null,
-      customer_id: null,
       status: 1,
       pasien: {}
     },
@@ -44,7 +44,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     kasirs: [],
     suppliers: [],
     dokter: '',
-    ditributor: '',
+    distributor: '',
     params: {
       q: '',
       page: 1,
@@ -68,6 +68,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.diskon = 0
       this.form.ongkir = 0
       this.form.potongan = 0
+      this.form.embalase = 0
       this.form.bayar = 0
       this.form.kembali = 0
       this.form.status = 1
@@ -85,11 +86,14 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       const total = olahUang(this.form.total)
       const potongan = olahUang(this.form.potongan)
       const ongkir = olahUang(this.form.ongkir)
+      const embalase = this.form.embalase ? olahUang(this.form.embalase) : 0
       // console.log('total ', total, ' potongan ', potongan)
-      this.totalSemua = total - potongan + ongkir
+      console.log('embalase ', embalase)
+      this.totalSemua = total - potongan + ongkir + embalase
       this.print.totalSemua = this.totalSemua
       this.print.potongan = potongan
       this.print.ongkir = ongkir
+      if (embalase > 0) this.print.embalase = embalase
       // console.log('ongkir ', ongkir, ' total semua ', this.totalSemua)
     },
     kembalian() {
@@ -173,6 +177,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       const potongan = olahUang(this.form.potongan)
       const bayar = olahUang(this.form.bayar)
       const kembali = olahUang(this.form.kembali)
+      const embalase = this.form.embalase ? olahUang(this.form.embalase) : 0
 
       this.form.kasir_id = kasir.id
       this.form.total = total
@@ -180,8 +185,13 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.potongan = potongan
       this.form.bayar = bayar
       this.form.kembali = kembali
+      this.form.embalase = embalase
       this.form.status = 2
       this.print.form = this.form
+      this.print.form.embalase = embalase
+      this.print.form.customer = this.distributor
+      this.print.form.dokter = this.dokter
+      this.print.form.kasir = kasir.name
 
       const slug = 'PJL-' + uniqueId()
       this.print.prevUrl = '/transaksi/penjualan/' + slug
@@ -198,7 +208,6 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
           .post('v1/transaksi/store', this.form)
           .then((resp) => {
             this.loading = false
-            // console.log('transaksi ', resp)
             const table = usePenjualanTable()
             if (resp.status === 201) {
               // notifSuccess(resp)
@@ -221,7 +230,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
               this.form.reff = slug
               table.form.reff = slug
               table.produkParams.reff = slug
-              table.getDetailTransaksi(slug)
+              // table.getDetailTransaksi(slug)
               this.isOpen = false
               useDashboardStore().getDataRank()
               resolve(resp.data.data)

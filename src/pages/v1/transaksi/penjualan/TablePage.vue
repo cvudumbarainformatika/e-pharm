@@ -163,17 +163,18 @@
             colspan="2"
           >
             <app-autocomplete-customlabel
-              :key="table.form.product_id"
               ref="refProduk"
+              :key="table.form.product_id"
               :model="table.form.product_id"
-              :autofocus="autofocus"
+              autofocus
               dense
               label=" "
               option-value="id"
               option-label="nama"
-              autocomplete="barcode-nama"
+              autocomplete="nama"
               :source="table.produks"
               @on-select="produkDipilih"
+              @set-model="setProduk"
               @clear="clearProduk"
             />
           </q-td>
@@ -436,15 +437,27 @@ const alamat = val => {
   }
 }
 const autofocus = ref(true)
-const produkDipilih = val => {
-  autofocus.value = false
-  table.produkSelected(val)
-  refProduk.value.$refs.refAuto.hidePopup()
-  refProduk.value.$refs.refAuto.blur()
-  refJumlah.value.$refs.refInput.focus()
-  console.log('blur ', refProduk.value.$refs.refAuto.blur())
-  console.log('Luar ', refProduk.value.$refs.refAuto)
+function setProduk(val) {
+  console.log('di enter', val)
+  const prod = table.produks.filter(fill => fill.barcode === val)
+  if (prod.length) {
+    autofocus.value = false
+    table.produkSelected(prod[0].id)
+    setTimeout(() => {
+      refProduk.value.$refs.refAuto.blur()
+      refJumlah.value.$refs.refInput.focus()
+    }, 100)
+  }
 }
+const produkDipilih = val => {
+  autofocus.value = true
+  table.produkSelected(val)
+  setTimeout(() => {
+    refProduk.value.$refs.refAuto.blur()
+    refJumlah.value.$refs.refInput.focus()
+  }, 100)
+}
+
 function clearProduk() {
   table.form.product_id = null
   table.form.qty = 0
@@ -452,8 +465,10 @@ function clearProduk() {
   refProduk.value.$refs.refAuto.focus()
   refJumlah.value.$refs.refInput.blur()
 }
+
 const updateQty = val => {
   autofocus.value = true
+  console.log('update qty')
   // console.log('table qty', table.form.qty)
   // console.log('table id', table.form.product_id)
   // console.log('table harga', table.form.harga)
@@ -468,17 +483,11 @@ const updateQty = val => {
   refProduk.value.$refs.refAuto.updateInputValue('')
   refJumlah.value.$refs.refInput.resetValidation()
   refProduk.value.$refs.refAuto.resetValidation()
-  refProduk.value.$refs.refAuto.focus()
+  // refProduk.value.$refs.refAuto.focus()
   // setTimeout(() => {
   //   refProduk.value.$refs.refAuto.focus()
   // }, 500)
 }
-// const onEnter = () => {
-//   onEnter()
-//   console.log('onEnter', table.form)
-//   setTimeout(() => {
-//   }, 100)
-// }
 const cekRequired = () => {
   if (!table.rows.length) { return notifErrCenterVue('belum ada input Produk tercatat, tekan enter pada kolom jumlah jika ada telah memilih produk') }
   if (table.pasien === 'BPJS') {
