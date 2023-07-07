@@ -85,6 +85,45 @@
               </template>
             </q-input>
           </div>
+          <div class="row items-center q-mt-sm">
+            <q-input
+              v-model="table.form.tanggal"
+              class="text-left"
+              label="Tanggal Transaksi"
+              outlined
+              dense
+            >
+              <!-- mask="date"
+              :rules="['date']" -->
+              <template #append>
+                <q-icon
+                  name="icon-mat-event"
+                  class="cursor-pointer"
+                >
+                  <!-- ref="refTanggal" -->
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-date
+                      v-model="table.form.tanggal"
+                      mask="YYYY-MM-DD"
+                    >
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
         </div>
         <div class="col-6">
           <div class="text-h6">

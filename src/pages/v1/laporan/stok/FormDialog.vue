@@ -1,6 +1,5 @@
 <template>
   <q-dialog
-
     transition-show="slide-down"
     transition-hide="slide-up"
   >

@@ -3,7 +3,7 @@ import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
 import { notifErrVue, detailBesar, detailKecil } from 'src/modules/utils'
 import { formatRp, formatRpDouble, olahUang } from 'src/modules/formatter'
-import { Dialog } from 'quasar'
+import { Dialog, date } from 'quasar'
 import { usePembelianDialog } from './form'
 import { routerInstance } from 'src/boot/router'
 import { usePrintStore } from 'src/stores/print'
@@ -40,6 +40,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       nama: 'PEMBELIAN',
       expired: null,
       tanggal_faktur: null,
+      tanggal: date.formatDate(Date.now(), 'YYYY-MM-DD'),
       update_harga: false
     },
     satuan: {
@@ -164,6 +165,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.sub_total = 0
       this.form.expired = null
       this.form.tanggal_faktur = null
+      this.form.tanggal = date.formatDate(Date.now(), 'YYYY-MM-DD')
       this.rows = []
       this.satuan.besar = 0
       this.satuan.kecil = 0
@@ -251,8 +253,8 @@ export const usePembelianTable = defineStore('pembelian_table', {
     },
 
     setTotal() {
-      // console.log('rows ', this.rows)
-      if (this.rows !== undefined) {
+      console.log('rows ', this.rows)
+      if (this.rows.length) {
         const subTotal = []
         this.rows.forEach((val, index) => {
           if (val.diskon > 0) {
@@ -391,6 +393,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       data.harga = olahUang(this.form.harga)
       data.qty = this.form.qty
       data.diskon = this.form.diskon
+      data.tanggal = this.form.tanggal + date.formatDate(Date.now(), ' HH:mm:ss')
       data.sub_total = parseFloat(this.form.diskon) > 0 ? (parseFloat(this.form.qty) * olahUang(this.form.harga)) - (parseFloat(this.form.qty) * olahUang(this.form.harga) * (parseFloat(this.form.diskon) / 100)) : olahUang(this.form.qty) * olahUang(this.form.harga)
       if (olahUang(this.form.harga) !== olahUang(this.form.harga_beli)) { data.update_harga = true } else { data.update_harga = false }
 

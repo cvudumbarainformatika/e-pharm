@@ -389,10 +389,11 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
     // simpan form penyesuaian
     savePenyesuaian() {
       this.setToday()
-      this.setPenyesuaian('status', 1)
+      this.setPenyesuaian('status', 2)
       this.setPenyesuaian('harga', this.penyesuaian.harga_beli)
-      this.setPenyesuaian('sub_total', 0)
-      this.setPenyesuaian('expired', null)
+      this.setPenyesuaian('jenis', 'penyesuaian')
+      // this.setPenyesuaian('expired', null)
+      // this.setPenyesuaian('diskon', 0)
       // console.log(this.penyesuaian)
       this.loading = true
       return new Promise((resolve, reject) => {

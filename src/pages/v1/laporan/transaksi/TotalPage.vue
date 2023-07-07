@@ -23,7 +23,7 @@
         <strong>:</strong>
       </div>
       <div class="col-8 text-h6 text-right">
-        <strong>{{ parseFloat(table.totalReturTransaction.jml)>0?formatRpDouble(parseFloat(table.totalReturTransaction.jml),2):0 }}</strong>
+        <strong>{{ table.totalReturTransaction ? (parseFloat(table.totalReturTransaction.jml) > 0?formatRpDouble(parseFloat(table.totalReturTransaction.jml),2):0):0 }}</strong>
       </div>
     </div>
     <div
