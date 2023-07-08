@@ -602,7 +602,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
           .get('v1/transaksi/with-detail', params)
           .then((resp) => {
             this.detailLoading = false
-            // console.log('penjualan ', resp.data.data[0])
+            // console.log('penjualan ', resp.data)
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
                 this.setForm(resp.data.data[0])
