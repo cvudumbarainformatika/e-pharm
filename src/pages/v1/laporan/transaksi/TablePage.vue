@@ -73,40 +73,6 @@
           </q-td>
         </q-tr>
       </template>
-      <!-- top row -->
-      <!-- <template
-        #top-row
-      >
-        <q-tr
-          v-if="isHas(table.form.nama,'PEMBELIAN').length || isHas(table.form.nama,'PENJUALAN').length"
-        >
-          <q-td>
-            <div class="text-caption  text-weight-bold">
-              Total :
-            </div>
-          </q-td>
-          <q-td />
-          <q-td />
-          <q-td>
-            <div class="text-caption text-right text-weight-bold">
-              {{ table.totalTransaksi?formatRp(table.totalTransaksi):0 }}
-            </div>
-          </q-td>
-        </q-tr>
-        <q-tr v-else>
-          <q-td>
-            <div class="text-caption  text-weight-bold">
-              Total :
-            </div>
-          </q-td>
-          <q-td>
-            <div class="text-caption text-right text-weight-bold">
-              {{ table.totalTransaksi?formatRp(table.totalTransaksi):0 }}
-            </div>
-          </q-td>
-        </q-tr>
-      </template> -->
-      <!-- no data slot -->
       <template
         v-if="!table.loading"
         #no-data

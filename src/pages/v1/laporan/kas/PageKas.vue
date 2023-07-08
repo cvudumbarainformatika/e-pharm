@@ -73,23 +73,24 @@
       <div class="row">
         <div class="col-1" />
         <div class="col-7">
-          - Biaya Pengiriman
-        </div>
-        <div class="col-2 text-right">
-          {{ formatRp(store.ongkir) }}
-        </div>
-        <div class="col-2 text-right" />
-      </div>
-      <div class="row">
-        <div class="col-1" />
-        <div class="col-7">
-          - Potongan Pembelian
+          - Total Diskon dan PPN
         </div>
         <div class="col-2 text-right">
           {{ formatRp(store.diskon) }}
         </div>
         <div class="col-2 text-right" />
       </div>
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-7">
+          - Total Pembelian dengan Diskon dan PPN
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store.totalSmw) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+
       <div class="  row">
         <div class="col-1" />
         <div class="col-7">

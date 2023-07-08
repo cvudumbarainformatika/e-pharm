@@ -37,7 +37,7 @@
         <strong>:</strong>
       </div>
       <div class="col-8 text-h6 text-right">
-        <strong>{{ formatRpDouble(parseFloat(table.totalTransaction.jml)-parseFloat(table.totalReturTransaction.jml),2) }}</strong>
+        <strong>{{ formatRpDouble(parseFloat(table.totalTransaction.jml)-(table.totalReturTransaction?parseFloat(table.totalReturTransaction.jml):0),2) }}</strong>
       </div>
     </div>
     <div

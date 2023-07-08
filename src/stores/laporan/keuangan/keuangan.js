@@ -15,6 +15,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
     pembelian: 0,
     ongkir: 0,
     diskon: 0,
+    totalSmw: 0,
     returPembelian: 0,
     pembelianBersih: 0,
     persediaanAwal: 0,
@@ -198,14 +199,14 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       // console.log('pembelian', pembelian)
       // console.log('ongpot', ongpot)
       // console.log('stok', stok)
-      let ongkir = null
-      let diskon = null
+      let totalSmw = 0
+      let diskon = 0
       // array product
       // console.log('selection', this.periode)
       const product = stok.product
 
-      ongkir = ongpot.period[0].ongkos !== null ? ongpot.period[0].ongkos : 0
-      diskon = ongpot.period[0].diskon !== null ? ongpot.period[0].diskon : 0
+      totalSmw = ongpot.period[0].totalSemua !== null ? ongpot.period[0].totalSemua : 0
+      diskon = ongpot.period[0].totalSemua !== null ? ongpot.period[0].totalSemua - ongpot.period[0].jumlah : 0
       product.forEach(data => {
         const beli = findWithAttr(pembelian, 'product_id', data.id)
         data.pembelianDgKredit = pembelian[beli] ? pembelian[beli].jml : 0
@@ -251,12 +252,12 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       const returPembelian = product.map(data => { return data.returPembelian.periode * data.harga_beli }).reduce((a, b) => { return a + b })
       // pembelian bersih
       this.returPembelian = returPembelian
-      const pembelianBersih = pembelianDgKredit + ongkir - diskon - this.returPembelian
+      const pembelianBersih = pembelianDgKredit - this.returPembelian
       // HPP = Pembelian Bersih + Persediaan Awal – Persediaan Akhir
       this.HPP = pembelianBersih + persediaanAwal - persediaanAkhir
       this.pembelian = pembelianDgKredit
       this.diskon = diskon
-      this.ongkir = ongkir
+      this.totalSmw = totalSmw
       this.pembelianBersih = pembelianBersih
       this.persediaanAwal = persediaanAwal
       this.persediaanAkhir = persediaanAkhir

@@ -43,9 +43,9 @@ export const useLaporanTable = defineStore('laporan_table', {
     namaRetur: '',
     periode: '',
     person: null,
-    totalTransaksi: null,
-    totalReturTransaction: null,
-    totalTransaction: null
+    totalTransaksi: 0,
+    totalReturTransaction: { jml: 0, jmlSmw: 0 },
+    totalTransaction: { jml: 0, jmlSmw: 0 }
   }),
   actions: {
     // local related functions
