@@ -200,13 +200,15 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       // console.log('ongpot', ongpot)
       // console.log('stok', stok)
       let totalSmw = 0
+      let total = 0
       let diskon = 0
       // array product
       // console.log('selection', this.periode)
       const product = stok.product
 
       totalSmw = ongpot.period[0].totalSemua !== null ? ongpot.period[0].totalSemua : 0
-      diskon = ongpot.period[0].totalSemua !== null ? ongpot.period[0].totalSemua - ongpot.period[0].jumlah : 0
+      total = ongpot.period[0].jumlah !== null ? ongpot.period[0].jumlah : 0
+
       product.forEach(data => {
         const beli = findWithAttr(pembelian, 'product_id', data.id)
         data.pembelianDgKredit = pembelian[beli] ? pembelian[beli].jml : 0
@@ -247,15 +249,17 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       // pesediaan Akhir Periode ini
       const persediaanAkhir = product.map(data => { return data.stokSekarang * data.harga_beli }).reduce((a, b) => { return a + b })
       // semua pemebelian tunai dan kredit pada periode ini
-      const pembelianDgKredit = product.map(data => { return data.pembelianDgKredit * data.harga_beli }).reduce((a, b) => { return a + b })
+      // const pembelianDgKredit = product.map(data => { return data.pembelianDgKredit * data.harga_beli }).reduce((a, b) => { return a + b })
       // retur Pembelian
       const returPembelian = product.map(data => { return data.returPembelian.periode * data.harga_beli }).reduce((a, b) => { return a + b })
       // pembelian bersih
       this.returPembelian = returPembelian
-      const pembelianBersih = pembelianDgKredit - this.returPembelian
+      const pembelianBersih = totalSmw - this.returPembelian
+      diskon = ongpot.period[0].totalSemua !== null ? ongpot.period[0].totalSemua - total : 0
+      // const pembelianBersih = totalSmw - this.returPembelian
       // HPP = Pembelian Bersih + Persediaan Awal – Persediaan Akhir
       this.HPP = pembelianBersih + persediaanAwal - persediaanAkhir
-      this.pembelian = pembelianDgKredit
+      this.pembelian = total
       this.diskon = diskon
       this.totalSmw = totalSmw
       this.pembelianBersih = pembelianBersih

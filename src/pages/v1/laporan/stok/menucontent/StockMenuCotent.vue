@@ -80,13 +80,14 @@ const tgl = ref(null)
 // }
 
 const rangeSelected = () => {
+  console.log('menu', 'range')
+  emits('selected', 'range')
   table.form.from = rangeDate.value.from
   table.form.to = rangeDate.value.to
   more.setParams('from', rangeDate.value.from)
   more.setParams('to', rangeDate.value.to)
   more.setParams('selection', 'range')
   table.setForm('selection', 'range')
-  emits('selected', 'range')
   table.setRange()
   table.setPeriode()
   table.getDataStok()

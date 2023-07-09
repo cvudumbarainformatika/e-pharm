@@ -14,6 +14,7 @@
             :sort="more.params.sort"
             :loading="more.loading"
             :to-search="more.params.q"
+            row-no
             @seemore="more.seeMore"
             @goto="more.setPage"
             @set-row="more.setPerPage"
@@ -25,8 +26,14 @@
             @delete="more.deletesData"
             @adjust="more.editData"
           >
-            <template #col-qty>
-              <div>Jumlah</div>
+            <template #col-masuk>
+              <div>Masuk</div>
+            </template>
+            <template #col-keluar>
+              <div>Keluar</div>
+            </template>
+            <template #col-sisa>
+              <div>Sisa</div>
             </template>
             <template #col-product_id>
               <div>Nama</div>

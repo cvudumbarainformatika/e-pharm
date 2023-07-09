@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { dateFullFormat } from 'src/modules/formatter'
-import { findWithAttr, uniqueId } from 'src/modules/utils'
+import { changeArrayIndex, findWithAttr, uniqueId } from 'src/modules/utils'
 import { useLaporanMoreProduct } from './more'
 
 export const useLaporanStokTable = defineStore('laporan_stok', {
@@ -44,6 +44,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       'created_at',
       'updated_at',
       'stokSebelum',
+      'stokAwal',
       'pengali',
       'keluar',
       'masuk',
@@ -172,6 +173,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
     setColumns(payload) {
       const thumb = payload.map((x) => Object.keys(x))
       this.columns = thumb[0]
+      changeArrayIndex(this.columns, 'stokAwal', 'stok_awal')
     },
     prosesData(val) {
       // console.log('proses', val)
@@ -180,6 +182,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       const stok = val
       if (this.date === 'apem') {
         product.forEach((data) => {
+          data.stokAwal = data.stok_awal
           const keluar = findWithAttr(stok.keluar, 'product_id', data.id)
           const masuk = findWithAttr(stok.masuk, 'product_id', data.id)
           const penyesuaian = findWithAttr(
@@ -223,6 +226,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
         this.meta = temp
       } else {
         product.forEach((data) => {
+          data.stokAwal = data.stok_awal
           data.keluar = {}
           data.masuk = {}
           data.returPembelian = {}
@@ -334,12 +338,13 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       // more.setParams('selection', this.date)
       more.setParams('id', val.id)
       more.setParams('nama', val.nama)
-      // more.setParams('selection', this.date)
+      more.setParams('selection', this.date)
       more.setParams('from', this.form.from)
       more.setParams('to', this.form.to)
       more.getDetailsDataProduct()
       more.setOpen()
-      console.log('see', val, this.date)
+      more.produk = val
+      // console.log('see', val, this.date)
     },
     setSearch(val) {
       this.form.q = val

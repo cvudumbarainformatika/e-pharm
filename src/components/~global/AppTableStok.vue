@@ -166,6 +166,15 @@
       <thead>
         <tr>
           <th
+            v-if="rowNo"
+            width="3%"
+            class="text-left"
+          >
+            <div>
+              No
+            </div>
+          </th>
+          <th
             v-if="isChecked"
             width="5%"
             class="text-left"
@@ -255,6 +264,9 @@
           :key="i"
           class="text-left"
         >
+          <td v-if="rowNo">
+            {{ i+1 }}
+          </td>
           <td v-if="isChecked">
             <q-checkbox
               v-model="selected"
@@ -410,7 +422,8 @@ const props = defineProps({
   adaRefresh: { type: Boolean, default: false },
   adaSearch: { type: Boolean, default: false },
   adaSeeMore: { type: Boolean, default: false },
-  adaAdjust: { type: Boolean, default: false }
+  adaAdjust: { type: Boolean, default: false },
+  rowNo: { type: Boolean, default: false }
 })
 const emits = defineEmits([
   'newData',

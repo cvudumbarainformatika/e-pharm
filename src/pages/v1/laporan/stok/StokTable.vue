@@ -32,8 +32,11 @@
             <template #col-barcode>
               <div>Barcode</div>
             </template>
+            <template #col-stokAwal>
+              <div>Stok Awal Master</div>
+            </template>
             <template #col-stok_awal>
-              <div>Stok Awal</div>
+              <div>Stok Awal Periode</div>
             </template>
             <template #cell-stok_awal="{row}">
               <div>

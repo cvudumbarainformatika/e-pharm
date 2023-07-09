@@ -46,7 +46,7 @@
           @click="pilihRange"
         >
           <StockMenuCotent
-            @selectd="selected"
+            @selected="selected"
             @show="show"
             @hide="hide"
           />
@@ -73,7 +73,7 @@ const hide = () => {
     table.date = selection.value.prev
     more.date = selection.value.prev
   }
-  // console.log('I am hide', selection.value)
+  console.log('I am hide', selection.value)
 }
 const show = () => {
   selection.value.next = ''
@@ -81,7 +81,7 @@ const show = () => {
 }
 const selected = val => {
   selection.value.next = val
-  // console.log('selected', val)
+  console.log('selected', val)
 }
 
 const today = () => {
@@ -104,6 +104,7 @@ const pilihTgl = () => {
 }
 const pilihRange = () => {
   selection.value.prev = table.date
+  selection.value.next = 'range'
   table.setRange()
   table.date = 'range'
   more.date = 'range'
