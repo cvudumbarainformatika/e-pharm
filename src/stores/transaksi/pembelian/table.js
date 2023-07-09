@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { useProdukTable } from 'src/stores/master/produk/table'
+// import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
 import { notifErrVue, detailBesar, detailKecil } from 'src/modules/utils'
 import { formatRp, formatRpDouble, olahUang } from 'src/modules/formatter'
@@ -16,6 +16,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
     meta: {},
     item: {},
     loading: false,
+    loadingProduk: false,
     params: {
       q: '',
       page: 1,
@@ -23,6 +24,13 @@ export const usePembelianTable = defineStore('pembelian_table', {
       order_by: 'created_at',
       sort: 'desc',
       transaction_id: null
+    },
+    produkParams: {
+      q: '',
+      page: 1,
+      per_page: 10,
+      order_by: 'created_at',
+      sort: 'desc'
     },
     form: {
       faktur: '',
@@ -319,13 +327,33 @@ export const usePembelianTable = defineStore('pembelian_table', {
     // get from another pinia file
     // from produk table
     ambilDataProduk() {
-      const produk = useProdukTable()
-      produk.getDataTable().then((resp) => {
-        this.produks = resp
-        if (this.produks.length === 1) {
-          console.log('produk', this.produks[0])
-          this.produkSelected(this.produks[0].id)
-        }
+      // const produk = useProdukTable()
+      // produk.getDataTable().then((resp) => {
+      //   this.produks = resp
+      //   console.log('produk penjualan', resp)
+      //   if (this.produks.length === 1) {
+      //     console.log('produk', this.produks[0])
+      //     this.produkSelected(this.produks[0].id)
+      //   }
+      // })
+
+      this.loadingProduk = true
+      const store = usePembelianDialog()
+      this.produkParams.reff = store.form.reff
+      const params = { params: this.produkParams }
+      return new Promise(resolve => {
+        api.get('v1/produk/get-for-pembelian', params)
+          .then(resp => {
+            this.loadingProduk = false
+            console.log('pembelian ', resp.data)
+            this.produks = resp.data.data
+            if (this.produks.length === 1) {
+              console.log('produk', this.produks[0])
+              this.produkSelected(this.produks[0].id)
+            }
+            resolve(resp.data)
+          })
+          .catch(() => { this.loadingProduk = false })
       })
     },
     setForm(data) {

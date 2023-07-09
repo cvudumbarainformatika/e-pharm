@@ -22,7 +22,7 @@
       <div class="row">
         <div class="col-1" />
         <div class="col-7">
-          - Penjualan (tunai)
+          - Penjualan
         </div>
         <div class="col-2 text-right">
           {{ formatRp(store.penjualan) }}
@@ -62,22 +62,24 @@
       </div>
       <div class="row">
         <div class="col-1" />
-        <div class="col-7">
+        <div class="col-5">
           - Pembelian
         </div>
         <div class="col-2 text-right">
           {{ formatRp(store.pembelian) }}
         </div>
         <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
       </div>
       <div class="row">
         <div class="col-1" />
-        <div class="col-7">
+        <div class="col-5">
           - Total Diskon dan PPN
         </div>
         <div class="col-2 text-right">
           {{ formatRp(store.diskon) }}
         </div>
+        <div class="col-2 text-right" />
         <div class="col-2 text-right" />
       </div>
       <div class="row">
@@ -106,10 +108,10 @@
         <div class="col-7">
           Pembelian Bersih (total pembelian dg diskon dan ppn - retur pembelian)
         </div>
+        <div class="col-2 text-right" />
         <div class="col-2 text-right">
           {{ formatRp(store.pembelianBersih) }}
         </div>
-        <div class="col-2 text-right" />
       </div>
       <div class="  row text-weight-bold">
         <div class="col-1">
@@ -123,11 +125,25 @@
       </div>
       <div class="  row">
         <div class="col-1" />
-        <div class="col-7">
+        <div class="col-5">
           - Persediaan Awal
         </div>
         <div class="col-2 text-right">
           {{ formatRp(store.persediaanAwal) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          - Pembelian Bersih
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store.pembelianBersih) }}
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store.pembelianBersih + store.persediaanAwal) }}
         </div>
         <div class="col-2 text-right" />
       </div>
@@ -179,7 +195,7 @@
           <div class="col-2 text-right" />
         </div>
       </div>
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-1" />
         <div class="col-7">
           Pengeluaran (tunai)
@@ -188,7 +204,7 @@
         <div class="col-2 text-right">
           {{ formatRp(store.bebanNoHut) }}
         </div>
-      </div>
+      </div> -->
       <div class="row">
         <div class="col-1" />
         <div class="col-7">
@@ -209,8 +225,49 @@
         <div class="col-2 text-right" />
         <div class="col-2 text-right" />
       </div>
-
-      <div
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          Penjualan
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store.penjualanBersih) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          HPP (Pembelian bersih + Persediaan awal - Persediaan akhir)
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store.HPP) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-7">
+          Laba Kotor
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store.penjualanBersih - store.HPP) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-7">
+          Pengeluaran
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store.beban) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- <div
         v-for="(terima, i) in store.penerimaans"
         :key="i"
       >
@@ -227,8 +284,8 @@
           </div>
           <div class="col-2 text-right" />
         </div>
-      </div>
-      <div class="row">
+      </div> -->
+      <!-- <div class="row">
         <div class="col-1" />
         <div class="col-7">
           Pendapatan (tunai)
@@ -237,8 +294,8 @@
         <div class="col-2 text-right">
           {{ formatRp(store.penerimaanNoPiu) }}
         </div>
-      </div>
-      <div class="row">
+      </div> -->
+      <!-- <div class="row">
         <div class="col-1" />
         <div class="col-7">
           Pendapatan
@@ -247,8 +304,8 @@
         <div class="col-2 text-right">
           {{ formatRp(store.penerimaan) }}
         </div>
-      </div>
-      <div
+      </div> -->
+      <!-- <div
         v-if="store.labaKas !== 0"
         class="row"
       >
@@ -260,21 +317,21 @@
         <div class="col-2 text-right text-weight-bold">
           {{ formatRp(store.labaKas) }}
         </div>
-      </div>
+      </div> -->
       <div
         v-if="store.laba !== 0"
         class="row"
       >
         <div class="col-1" />
         <div class="col-7">
-          <span class="text-weight-bold">Laba (dengan utang / piutang) </span> [Penjualan bersih - HPP - Beban + Penerimaan ]
+          <span class="text-weight-bold">Laba Bersih</span> [Laba Kotor - Pengeluaran ]
         </div>
         <div class="col-2 text-right" />
         <div class="col-2 text-right text-weight-bold">
           {{ formatRp(store.laba) }}
         </div>
       </div>
-      <div
+      <!-- <div
         v-else-if="store.rugiKas !== 0"
         class="row"
       >
@@ -286,14 +343,14 @@
         <div class="col-2 text-negative text-right text-weight-bold">
           ({{ formatRp(store.rugiKas) }})
         </div>
-      </div>
+      </div> -->
       <div
         v-else-if="store.rugi !== 0"
         class="row"
       >
         <div class="col-1" />
         <div class="col-7">
-          <span class="text-weight-bold">Rugi (dengan utang / piutang)</span> [Penjualan bersih - HPP - Beban + Penerimaan ]
+          <span class="text-weight-bold">Rugi</span> [Laba Kotor - Beban ]
         </div>
         <div class="col-2 text-right" />
         <div class="col-2 text-negative text-right text-weight-bold">

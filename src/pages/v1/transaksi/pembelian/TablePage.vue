@@ -143,7 +143,7 @@
             colspan="2"
             @keydown.capture="produk"
           >
-            <app-autocomplete-new
+            <app-autocomplete-pembelian
               ref="refProduk"
               :key="table.form.product_id"
               v-model="table.form.product_id"
@@ -153,7 +153,7 @@
               option-label="nama"
               :source="table.produks"
               :autofocus="autofocus"
-              :loading="produkTable.loading"
+              :loading="table.loadingProduk"
               clearable
               @on-select="table.produkSelected"
               @buang="cariDataProduk"
@@ -432,6 +432,7 @@ onMounted(() => {
 })
 const cariDataProduk = val => {
   produkTable.params.q = val
+  table.produkParams.q = val
   table.refProduk = refProduk.value.$refs.refAuto
   table.refExpired = refExpired.value
   table.refTanggal = refTanggal.value
