@@ -403,7 +403,6 @@ import { notifErrVue } from 'src/modules/utils'
 import { useSupplierFormStore } from 'src/stores/master/supplier/form'
 import formDialog from 'src/pages/v1/master/supplier/FormDialog.vue'
 import { onMounted, ref } from 'vue'
-import { useProdukTable } from 'src/stores/master/produk/table'
 
 // const coba = () => {
 //   console.log(refTanggal.value)
@@ -424,14 +423,12 @@ const refFaktur = ref(null)
 const refDiskon = ref(null)
 
 const table = usePembelianTable()
-const produkTable = useProdukTable()
 onMounted(() => {
   table.refProduk = refProduk.value.$refs.refAuto
   table.refExpired = refExpired.value
   table.refTanggal = refTanggal.value
 })
 const cariDataProduk = val => {
-  produkTable.params.q = val
   table.produkParams.q = val
   table.refProduk = refProduk.value.$refs.refAuto
   table.refExpired = refExpired.value
