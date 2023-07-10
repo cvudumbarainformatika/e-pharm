@@ -72,7 +72,8 @@ const emits = defineEmits([
   'set-model',
   'ada-input',
   'clear',
-  'on-select'
+  'on-select',
+  'buang'
 ])
 const props = defineProps({
   source: { type: Array, default: () => [] },
@@ -122,9 +123,22 @@ const clear = val => {
 }
 fetchData()
 
-const inputValue = (value) => {
-  emits('ada-input', value)
+// debounce function
+function myDebounce (func, timeout = 800) {
+  let timer
+  return (...arg) => {
+    clearTimeout(timer)
+    timer = setTimeout(() => { func.apply(this, arg) }, timeout)
+  }
 }
+const inputValue = myDebounce((val) => {
+  // console.log('proses val', val)
+  if (val !== '') emits('buang', val)
+})
+
+// const inputValue = (value) => {
+//   emits('ada-input', value)
+// }
 
 function filterFn (val, update) {
   // console.log('filterFn ', val, typeof val)

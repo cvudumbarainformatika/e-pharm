@@ -328,8 +328,9 @@ export const useSettingStore = defineStore('setting', {
       this.stok.getDataRak()
       this.penjualan.ambilDataDistributor()
       this.penjualan.ambilDataDokter()
+      this.penjualan.ambilProdukPaginate()
       this.penjualan.ambilDataProduk().then((resp) => {
-        this.dashboar.produks = resp.product
+        this.dashboar.produks = resp
         this.dashboar.getDataRank()
       })
       this.pembelian.ambilDataProduk()
@@ -343,7 +344,7 @@ export const useSettingStore = defineStore('setting', {
       this.penjualan.ambilDataDistributor()
       this.penjualan.ambilDataDokter()
       this.penjualan.ambilDataProduk().then((resp) => {
-        this.dashboar.produks = resp.product
+        this.dashboar.produks = resp
         this.dashboar.getDataRank()
       })
     },

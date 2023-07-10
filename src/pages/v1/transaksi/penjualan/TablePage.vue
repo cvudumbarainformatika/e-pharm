@@ -34,7 +34,7 @@
               option-value="id"
               option-label="nama"
               :source="table.distributors"
-              :loading="table.loading"
+              :loading="table.cust.loading"
               valid
               :disable="table.form.dokter_id === null && table.rows.length == 0 ? false: true "
               @on-enter="table.addDistributor"
@@ -53,7 +53,7 @@
               option-value="id"
               option-label="nama"
               :source="table.dokters"
-              :loading="table.loading"
+              :loading="table.dkt.loading"
               valid
               @on-enter="table.addDokter"
               @on-select="table.dokterSelected"
@@ -172,10 +172,12 @@
               option-value="id"
               option-label="nama"
               autocomplete="nama"
-              :source="table.produks"
+              :source="table.produk2s"
+              :loading="table.produkLoading2"
               @on-select="produkDipilih"
               @set-model="setProduk"
               @clear="clearProduk"
+              @buang="table.cariProduk"
             />
           </q-td>
           <q-td
@@ -447,6 +449,18 @@ function setProduk(val) {
       refProduk.value.$refs.refAuto.blur()
       refJumlah.value.$refs.refInput.focus()
     }, 100)
+  } else {
+    autofocus.value = false
+    table.produkParams.q = val
+    table.ambilProdukPaginate().then(resp => {
+      const prod = table.produk2s.filter(fill => fill.barcode === val)
+      table.produkSelected(prod[0].id)
+
+      setTimeout(() => {
+        refProduk.value.$refs.refAuto.blur()
+        refJumlah.value.$refs.refInput.focus()
+      }, 100)
+    })
   }
 }
 const produkDipilih = val => {

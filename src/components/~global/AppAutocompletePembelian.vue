@@ -148,7 +148,7 @@ function filterFn (val, update) {
 // }
 
 // debounce function
-function myDebounce (func, timeout = 400) {
+function myDebounce (func, timeout = 600) {
   let timer
   return (...arg) => {
     clearTimeout(timer)

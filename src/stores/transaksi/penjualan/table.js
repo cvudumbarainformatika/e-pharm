@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { api } from 'boot/axios'
 import { dateExpire, formatRp } from 'src/modules/formatter'
-import { date, Dialog } from 'quasar'
+import { Dialog } from 'quasar'
 import { usePenjualanDialog } from './form'
 import { routerInstance } from 'src/boot/router'
 import { useCustomerTable } from 'src/stores/master/customer/table'
@@ -15,10 +15,13 @@ import { useSettingStore } from 'src/stores/setting/setting'
 export const usePenjualanTable = defineStore('penjualan_table', {
   state: () => ({
     produkLoading: false,
+    produkLoading2: false,
     produkUpdateLoading: false,
     detailLoading: false,
     simpanDetailLoading: false,
     hapusDetailLoading: false,
+    cust: useCustomerTable(),
+    dkt: useDokterTable(),
     items: [],
     meta: {},
     item: {},
@@ -57,8 +60,10 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     },
     produkParams: {
       q: '',
-      from: date.formatDate(Date.now(), 'YYYY-MM-DD')
-      // selection: 'selection'
+      page: 1,
+      per_page: 20,
+      order_by: 'created_at',
+      sort: 'desc'
     },
     jenises: [
       { nama: 'Umum', value: 'umum' },
@@ -66,6 +71,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     ],
     pasien: 'umum',
     produks: [],
+    produk2s: [],
     distributors: [],
     dokters: [],
     distributor: '',
@@ -234,11 +240,17 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.pasien = val
     },
     produkSelected(val) {
+      // satu
       const apem = this.produks
-
       const produk = apem.filter((data) => {
         return data.id === val
       })
+
+      const apem2 = this.produk2s
+      const produk1 = apem2.filter((data) => {
+        return data.id === val
+      })
+
       if (produk.length) {
         this.produk = produk[0]
         // console.log('selected', val, produk[0])
@@ -247,6 +259,22 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.form.harga_jual_cust = produk[0].harga_jual_cust
         this.form.harga_jual_umum = produk[0].harga_jual_umum
         this.form.harga_jual_resep = produk[0].harga_jual_resep
+        this.form.qty = 1
+        if (this.form.customer_id !== null) {
+          this.form.harga = this.form.harga_jual_cust
+        } else if (this.form.dokter_id !== null) {
+          this.form.harga = this.form.harga_jual_resep
+        } else {
+          this.form.harga = this.form.harga_jual_umum
+        }
+      } else if (produk1.length) {
+        this.produk1 = produk1[0]
+        // console.log('selected', val, produk1[0])
+        this.form.product_id = produk1[0].id
+        this.form.harga_beli = produk1[0].harga_beli
+        this.form.harga_jual_cust = produk1[0].harga_jual_cust
+        this.form.harga_jual_umum = produk1[0].harga_jual_umum
+        this.form.harga_jual_resep = produk1[0].harga_jual_resep
         this.form.qty = 1
         if (this.form.customer_id !== null) {
           this.form.harga = this.form.harga_jual_cust
@@ -300,17 +328,31 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       const data = store.form
 
       // console.log('form penjualan', data)
-      const index = findWithAttr(this.produks, 'id', this.form.product_id)
+      const index = findWithAttr(this.produk2s, 'id', this.form.product_id)
       this.simpanDetailTransaksi(data).then(() => {
         return new Promise(resolve => {
           this.getSingleProduct().then(resp => {
-            this.produks[index] = resp
+            this.produk2s[index] = resp
             resolve(resp)
           })
         })
       })
       this.resetInput()
-      const produk = this.produks[index]
+      const produk = this.produk2s[index]
+      // old ------
+      // const index = findWithAttr(this.produks, 'id', this.form.product_id)
+      // this.simpanDetailTransaksi(data).then(() => {
+      //   return new Promise(resolve => {
+      //     this.getSingleProduct().then(resp => {
+      //       this.produks[index] = resp
+      //       resolve(resp)
+      //     })
+      //   })
+      // })
+      // this.resetInput()
+      // const produk = this.produks[index]
+      // old ------
+
       // produk.keluar.periode = this.form.qty
 
       // console.log('produk', produk)
@@ -561,8 +603,30 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.expireds = temp
       // console.log('set expire ', temp)
     },
+    cariProduk(val) {
+      this.produkParams.q = val
+      this.ambilProdukPaginate()
+    },
     // api related function
     // ambil data produk seluruhnya
+    ambilProdukPaginate() {
+      this.produkLoading2 = true
+      const params = { params: this.produkParams }
+      return new Promise(resolve => {
+        api.get('v1/produk/get-for-pembelian', params)
+          .then(resp => {
+            this.produkLoading2 = false
+            // console.log('pembelian ', resp.data)
+            this.produk2s = resp.data.data
+            // if (this.produks.length === 1) {
+            //   console.log('produk', this.produks[0])
+            //   this.produkSelected(this.produks[0].id)
+            // }
+            resolve(resp.data)
+          })
+          .catch(() => { this.produkLoading2 = false })
+      })
+    },
     ambilDataProduk() {
       // const params = {
       //   params: this.produkParams
@@ -574,7 +638,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
             console.log('produk penjualan', resp.data)
             this.produkLoading = false
             // this.prosesData(resp.data)
-            this.produks = resp.data
+            // this.produks = resp.data
             resolve(resp.data)
           }).catch(err => {
             reject(err)
