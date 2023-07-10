@@ -639,18 +639,18 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       // const params = {
       //   params: this.produkParams
       // }
-      this.produkLoading = true
+      // this.produkLoading = true
       return new Promise((resolve, reject) => {
         api.get('v1/produk/all-product')
           .then(resp => {
             console.log('produk penjualan', resp.data)
-            this.produkLoading = false
+            // this.produkLoading = false
             // this.prosesData(resp.data)
             // this.produks = resp.data
             resolve(resp.data)
           }).catch(err => {
             reject(err)
-            this.produkLoading = false
+            // this.produkLoading = false
           })
         // api.get('v1/laporan/all-stok', params)
         //   .then(resp => {
