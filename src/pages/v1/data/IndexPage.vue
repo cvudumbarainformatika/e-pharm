@@ -44,7 +44,7 @@ import ProductRank from './ProductPageRank.vue'
 const store = useDashboardStore()
 usePenjualanTable().ambilDataProduk().then(resp => {
   // console.log('produk', resp)
-  store.produks = resp.product
+  store.produks = resp
   store.getDataRank()
 })
 store.getDataHutang()

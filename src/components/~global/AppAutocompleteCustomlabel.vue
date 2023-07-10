@@ -46,15 +46,11 @@
       <q-item v-bind="scope.itemProps">
         <q-item-section>
           <q-item-label>{{ scope.opt.nama }}</q-item-label>
-          <q-item-label>
+          <!-- <q-item-label>
             Stok : {{ scope.opt.stokSekarang }}
-            <!-- <q-chip
-              outline
-              size="sm"
-              color="negative"
-            >
-              {{ scope.opt.transaksi }}
-            </q-chip> -->
+          </q-item-label> -->
+          <q-item-label>
+            Stok : {{ scope.opt.stok }}
           </q-item-label>
         </q-item-section>
       </q-item>

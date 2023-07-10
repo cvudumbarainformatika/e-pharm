@@ -65,7 +65,7 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
         anu.tanggal = anu.transaction.tanggal
         anu.sisa = 0
         anu.masuk = anu.transaction.nama === 'PEMBELIAN' || anu.transaction.nama === 'RETUR PENJUALAN' || (anu.transaction.nama === 'FORM PENYESUAIAN' && anu.qty > 0) ? anu.qty : 0
-        anu.keluar = anu.transaction.nama === 'PENJUALAN' || anu.transaction.nama === 'RETUR PEMBELIAN' ? anu.qty : ((anu.transaction.nama === 'FORM PENYESUAIAN') ? (anu.qty < 0 ? -anu.qty : anu.qty) : 0)
+        anu.keluar = anu.transaction.nama === 'PENJUALAN' || anu.transaction.nama === 'RETUR PEMBELIAN' || (anu.transaction.nama === 'FORM PENYESUAIAN' && anu.qty < 0) ? (anu.qty < 0 ? -anu.qty : anu.qty) : 0
       })
       // console.log('see more ', payload.data)
       console.log('see Produk ', this.produk)

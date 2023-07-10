@@ -126,7 +126,6 @@ const router = useRouter()
 const store = usePrintStore()
 const setting = useSettingStore()
 onMounted(() => {
-  console.log('print ', store.form)
   // btn.value.$.appContext.directives.print = printObj
   // btn.value.click()
   setTimeout(() => {
@@ -145,6 +144,7 @@ function afterPrint () {
 }
 
 function myPrinting () {
+  console.log('print ', store.form)
   window.print()
   setTimeout(function () {
     afterPrint()

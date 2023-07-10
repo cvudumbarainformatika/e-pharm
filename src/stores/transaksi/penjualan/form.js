@@ -218,6 +218,10 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
               if (this.printChek) {
                 // const router = useRouter()
                 this.print.form.nota = resp.data.data.nota
+                // const newRoute = routerInstance.resolve({
+                //   path: '/print'
+                // })
+                // window.open(newRoute.href, '_blank')
                 routerInstance.push({ path: '/print' })
               }
               if (!this.printChek) {

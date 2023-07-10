@@ -467,6 +467,7 @@ const router = useRouter()
 
 import { ref } from 'vue'
 import PrintDialog from './PrintDialog.vue'
+// import { routerInstance } from 'src/boot/router'
 const printAs = ref(null)
 const model = ref(false)
 const printStore = usePrintStore()
@@ -477,8 +478,12 @@ const print = val => {
   printStore.prevUrl = '/history'
   printStore.produks = val.detail_transaction
   setTimeout(() => {
-    // window.print()
-    // printObj
+    // const newRoute = routerInstance.resolve({
+    //   path: '/print'
+    // })
+    // window.open(newRoute.href, '_blank')
+  //   // window.print()
+  //   // printObj
     router.push({ path: '/print' })
   }, 500)
   // // model.value = false

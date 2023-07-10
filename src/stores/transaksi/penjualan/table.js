@@ -450,6 +450,20 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       // console.log('produk', product)
     },
 
+    cariDistributor(val) {
+      console.log('cari customer', val)
+      const dist = useCustomerTable()
+      dist.params.q = val
+      dist.params.page = 1
+      this.ambilDataDistributor()
+    },
+    cariDokter(val) {
+      console.log('cari dokter', val)
+      const dokter = useDokterTable()
+      dokter.params.q = val
+      dokter.params.page = 1
+      this.ambilDataDokter()
+    },
     // api related functions
     // get from another pinia file
     // from produk table
@@ -550,22 +564,33 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     // api related function
     // ambil data produk seluruhnya
     ambilDataProduk() {
-      const params = {
-        params: this.produkParams
-      }
+      // const params = {
+      //   params: this.produkParams
+      // }
       this.produkLoading = true
       return new Promise((resolve, reject) => {
-        api.get('v1/laporan/all-stok', params)
+        api.get('v1/produk/all-product')
           .then(resp => {
             console.log('produk penjualan', resp.data)
             this.produkLoading = false
-            this.prosesData(resp.data)
-            // this.produks = resp.data.data
+            // this.prosesData(resp.data)
+            this.produks = resp.data
             resolve(resp.data)
           }).catch(err => {
             reject(err)
             this.produkLoading = false
           })
+        // api.get('v1/laporan/all-stok', params)
+        //   .then(resp => {
+        //     console.log('produk penjualan', resp.data)
+        //     this.produkLoading = false
+        //     this.prosesData(resp.data)
+        //     // this.produks = resp.data.data
+        //     resolve(resp.data)
+        //   }).catch(err => {
+        //     reject(err)
+        //     this.produkLoading = false
+        //   })
       })
     },
     // ambil data expired

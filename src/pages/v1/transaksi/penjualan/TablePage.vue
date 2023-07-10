@@ -39,9 +39,9 @@
               :disable="table.form.dokter_id === null && table.rows.length == 0 ? false: true "
               @on-enter="table.addDistributor"
               @on-select="table.distributorSelected"
+              @buang="table.cariDistributor"
             />
             <!-- outlined -->
-            <!-- @buang="table.cariDistributor" -->
             <!-- @set-model="store.searchSupplier" -->
           </div>
           <div class="row ">
@@ -57,9 +57,9 @@
               valid
               @on-enter="table.addDokter"
               @on-select="table.dokterSelected"
+              @buang="table.cariDokter"
             />
             <!-- outlined -->
-            <!-- @buang="table.cariDokter" -->
             <!-- @set-model="store.searchSupplier" -->
           </div>
           <!-- :disable="table.form.customer_id === null && table.rows.length == 0 ? false : true " -->
