@@ -34,6 +34,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       sort: 'desc'
     },
     produk: null,
+    produk1: null,
     form: {
       reff: '',
       product_id: '',
@@ -328,17 +329,17 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       const data = store.form
 
       // console.log('form penjualan', data)
-      const index = findWithAttr(this.produk2s, 'id', this.form.product_id)
       this.simpanDetailTransaksi(data).then(() => {
         return new Promise(resolve => {
           this.getSingleProduct().then(resp => {
-            this.produk2s[index] = resp
+            const index = findWithAttr(this.produk2s, 'id', this.form.product_id)
+            if (index >= 0) this.produk2s[index] = resp
             resolve(resp)
           })
         })
       })
       this.resetInput()
-      const produk = this.produk2s[index]
+
       // old ------
       // const index = findWithAttr(this.produks, 'id', this.form.product_id)
       // this.simpanDetailTransaksi(data).then(() => {
@@ -351,14 +352,21 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       // })
       // this.resetInput()
       // const produk = this.produks[index]
+      // if (produk.limit_stok > produk.stokSekarang) {
+      //     notifErrVue(`stok ${produk.nama} sejumlah ${produk.stokSekarang}, kurang dari limit_stok ${produk.limit_stok}`)
+      //   }
       // old ------
 
       // produk.keluar.periode = this.form.qty
 
       // console.log('produk', produk)
       // produk.stokSekarang -= this.form.qty
-      if (produk.limit_stok > produk.stokSekarang) {
-        notifErrVue(`stok ${produk.nama} sejumlah ${produk.stokSekarang}, kurang dari limit_stok ${produk.limit_stok}`)
+      const index = findWithAttr(this.produk2s, 'id', this.form.product_id)
+      if (index >= 0) {
+        const produk = this.produk2s[index]
+        if (produk.limit_stok > produk.stokSekarang) {
+          notifErrVue(`stok ${produk.nama} sejumlah ${produk.stokSekarang}, kurang dari limit_stok ${produk.limit_stok}`)
+        }
       }
       // console.log('produk', produk)
     },

@@ -482,11 +482,8 @@ function clearProduk() {
 
 const updateQty = val => {
   autofocus.value = true
-  console.log('update qty')
-  // console.log('table qty', table.form.qty)
-  // console.log('table id', table.form.product_id)
-  // console.log('table harga', table.form.harga)
-  store.setForm('product_id', table.produk.id)
+  console.log('update qty', table.produk1)
+  store.setForm('product_id', table.produk1.id)
   store.setForm('harga', parseFloat(table.form.harga))
   store.setForm('qty', parseFloat(table.form.qty))
   store.setForm('sub_total', parseFloat(table.form.qty) * parseFloat(table.form.harga))
