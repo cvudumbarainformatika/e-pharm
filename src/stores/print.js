@@ -16,7 +16,17 @@ export const usePrintStore = defineStore('print_store', {
     prevUrl: ''
 
   }),
+  persist: true,
   actions: {
+    setUrl(url) {
+      this.prevUrl = url
+    },
+    setProduks(val) {
+      this.produks = val
+    },
+    setWholeForm(val) {
+      this.form = val
+    },
     setForm(attr, val) {
       this.form[attr] = val
     },

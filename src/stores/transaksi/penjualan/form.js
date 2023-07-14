@@ -187,14 +187,20 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.kembali = kembali
       this.form.embalase = embalase
       this.form.status = 2
-      this.print.form = this.form
-      this.print.form.embalase = embalase
-      this.print.form.customer = this.distributor
-      this.print.form.dokter = this.dokter
-      this.print.form.kasir = kasir.name
+      // this.print.form = this.form
+      // this.print.form.embalase = embalase
+      // this.print.form.customer = this.distributor
+      // this.print.form.dokter = this.dokter
+      // this.print.form.kasir = kasir.name
+      this.print.setWholeForm(this.form)
+      this.print.setForm('embalase', embalase)
+      this.print.setForm('customer', this.distributor)
+      this.print.setForm('dokter', this.dokter)
+      this.print.setForm('kasir', kasir.name)
 
       const slug = 'PJL-' + uniqueId()
-      this.print.prevUrl = '/transaksi/penjualan/' + slug
+      // this.print.prevUrl = '/transaksi/penjualan/' + slug
+      this.print.setUrl('/transaksi/penjualan/' + slug)
       // console.log('kasir', kasir)
       // console.log(this.form)
       if (bayar < total && this.form.jenis === 'tunai') {
@@ -217,19 +223,25 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
 
               if (this.printChek) {
                 // const router = useRouter()
-                this.print.form.nota = resp.data.data.nota
-                // const newRoute = routerInstance.resolve({
-                //   path: '/print'
-                // })
-                // window.open(newRoute.href, '_blank')
-                routerInstance.push({ path: '/print' })
-              }
-              if (!this.printChek) {
-                routerInstance.replace({
-                  name: 'transaksi.penjualan',
-                  params: { slug }
+                // this.print.form.nota = resp.data.data.nota
+                this.print.setForm('nota', resp.data.data.nota)
+                const newRoute = routerInstance.resolve({
+                  path: '/print'
                 })
+                window.open(newRoute.href, '_blank')
+                // routerInstance.push({ path: '/print' })
               }
+              // if (!this.printChek) {
+              // const route = routerInstance.resolve({
+              //   name: 'transaksi.penjualan',
+              //   params: { slug }
+              // })
+              // window.open(route.href)
+              routerInstance.replace({
+                name: 'transaksi.penjualan',
+                params: { slug }
+              })
+              // }
               // routerInstance.currentRoute.value.params.slug = slug
               this.form.reff = slug
               table.form.reff = slug

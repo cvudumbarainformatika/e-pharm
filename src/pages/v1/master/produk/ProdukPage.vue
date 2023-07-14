@@ -4,6 +4,7 @@
       <app-card :is-header="false">
         <template #content>
           <app-table
+            :key="table.items"
             title="Data Produk"
             :columns="table.columns"
             :column-hide="table.columnHide"
@@ -94,5 +95,5 @@ import formDialog from './FormDialog.vue'
 const table = useProdukTable()
 const store = useProdukFormStore()
 
-// table.getDataTable()
+table.getDataTable()
 </script>

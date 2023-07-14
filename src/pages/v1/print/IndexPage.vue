@@ -116,13 +116,13 @@
 
 <script setup>
 import { onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 
 import { formatRp, olahUang, dateFormat } from 'src/modules/formatter'
 import { usePrintStore } from 'src/stores/print'
 import { useSettingStore } from 'src/stores/setting/setting'
 // import { computed } from 'vue'
-const router = useRouter()
+// const router = useRouter()
 const store = usePrintStore()
 const setting = useSettingStore()
 onMounted(() => {
@@ -136,8 +136,8 @@ onMounted(() => {
 function afterPrint () {
   // const r = confirm('Press a button!')
   // if (r === true) {
-  router.push({ path: store.prevUrl ? store.prevUrl : '/history' })
-  // window.close()
+  // router.push({ path: store.prevUrl ? store.prevUrl : '/history' })
+  window.close()
   // } else {
   //   window.close()
   // }

@@ -461,30 +461,34 @@ import { useHistoryTable } from 'src/stores/history/table'
 import { dateFormat, formatRp } from 'src/modules/formatter'
 import { usePrintStore } from 'src/stores/print'
 
-import { useRouter } from 'vue-router'
+// import { useRouter } from 'vue-router'
 
-const router = useRouter()
+// const router = useRouter()
 
 import { ref } from 'vue'
 import PrintDialog from './PrintDialog.vue'
-// import { routerInstance } from 'src/boot/router'
+import { routerInstance } from 'src/boot/router'
 const printAs = ref(null)
 const model = ref(false)
 const printStore = usePrintStore()
 const print = val => {
   // model.value = true
   printAs.value = val.nama
-  printStore.form = val
-  printStore.prevUrl = '/history'
-  printStore.produks = val.detail_transaction
+  // printStore.form = val
+  // printStore.prevUrl = '/history'
+  // printStore.produks = val.detail_transaction
+  printStore.setWholeForm(val)
+  printStore.setUrl('/history')
+  printStore.setProduks(val.detail_transaction)
+
   setTimeout(() => {
-    // const newRoute = routerInstance.resolve({
-    //   path: '/print'
-    // })
-    // window.open(newRoute.href, '_blank')
+    const newRoute = routerInstance.resolve({
+      path: '/print'
+    })
+    window.open(newRoute.href, '_blank')
   //   // window.print()
   //   // printObj
-    router.push({ path: '/print' })
+    // router.push({ path: '/print' })
   }, 500)
   // // model.value = false
 }

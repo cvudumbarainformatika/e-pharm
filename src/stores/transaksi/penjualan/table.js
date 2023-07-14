@@ -704,7 +704,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
               if (resp.data.data[0] !== undefined) {
                 this.setForm(resp.data.data[0])
                 this.rows = resp.data.data[0].detail_transaction
-                this.print.produks = this.rows
+                // this.print.produks = this.rows
+                this.print.setProduks(this.rows)
                 this.setTotal()
                 this.meta = resp.data.meta
               }

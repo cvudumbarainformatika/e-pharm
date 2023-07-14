@@ -423,7 +423,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
       data.diskon = this.form.diskon
       data.tanggal = this.form.tanggal + date.formatDate(Date.now(), ' HH:mm:ss')
       data.sub_total = parseFloat(this.form.diskon) > 0 ? (parseFloat(this.form.qty) * olahUang(this.form.harga)) - (parseFloat(this.form.qty) * olahUang(this.form.harga) * (parseFloat(this.form.diskon) / 100)) : olahUang(this.form.qty) * olahUang(this.form.harga)
-      if (olahUang(this.form.harga) !== olahUang(this.form.harga_beli)) { data.update_harga = true } else { data.update_harga = false }
+      if ((olahUang(this.form.harga) !== olahUang(this.form.harga_beli)) || parseInt(this.form.diskon) > 0) { data.update_harga = true } else { data.update_harga = false }
 
       this.loading = true
       return new Promise((resolve, reject) => {

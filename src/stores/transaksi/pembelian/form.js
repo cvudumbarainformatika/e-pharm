@@ -88,7 +88,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
 
       console.log('total ', total, ' potongan ', potongan, 'onkir', ongkir)
 
-      this.totalSemua = totalDgPotongan + parseFloat(ongkir)
+      this.totalSemua = parseFloat(totalDgPotongan + parseFloat(ongkir)).toFixed(0)
       this.print.totalSemua = this.totalSemua
       this.print.potongan = potongan
       this.print.ongkir = ongkir
@@ -96,7 +96,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     },
     kembalian() {
       const bayar = olahUang(this.form.bayar)
-      this.form.kembali = bayar - olahUang(this.totalSemua)
+      this.form.kembali = parseFloat(parseFloat(bayar) - parseFloat(this.totalSemua)).toFixed(0)
       // console.log('bayar ', bayar, ' total semua ', this.totalSemua)
       // console.log('kembali ', this.form.kembali)
     },
