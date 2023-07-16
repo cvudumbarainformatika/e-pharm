@@ -13,7 +13,11 @@ export const usePrintStore = defineStore('print_store', {
       dokter: null
     },
     produks: [],
-    prevUrl: ''
+    prevUrl: '',
+    info: {
+      nama: 'Apotik Setyawan',
+      alamat: 'Jl. Hos Cokroaminoto No.56, Kebonsari Kulon, Kec. Kanigaran, Kota Probolinggo, Jawa Timur 67214'
+    }
 
   }),
   persist: true,
@@ -37,6 +41,9 @@ export const usePrintStore = defineStore('print_store', {
     },
     resetProducts() {
       this.produks = []
+    },
+    setInfo(val) {
+      this.info = val
     }
   }
 })

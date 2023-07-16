@@ -57,9 +57,10 @@ export const useAuthStore = defineStore('auth', {
       routerInstance.push('/')
     },
     REMOVE_LOKAL () {
-      storage.deleteLocalToken()
-      storage.deleteHeaderToken()
-      storage.deleteUser()
+      storage.clear()
+      // storage.deleteLocalToken()
+      // storage.deleteHeaderToken()
+      // storage.deleteUser()
       this.user = null
       this.token = ''
     },

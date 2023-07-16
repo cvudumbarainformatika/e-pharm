@@ -454,8 +454,9 @@ function setProduk(val) {
     table.produkParams.q = val
     table.ambilProdukPaginate().then(resp => {
       const prod = table.produk2s.filter(fill => fill.barcode === val)
-      table.produkSelected(prod[0].id)
-
+      if (prod.length) {
+        table.produkSelected(prod[0].id)
+      }
       setTimeout(() => {
         refProduk.value.$refs.refAuto.blur()
         refJumlah.value.$refs.refInput.focus()

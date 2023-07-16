@@ -4,10 +4,10 @@
     class="column f-10"
   >
     <div class="toko text-left text-weight-bold">
-      {{ setting.info.nama }}
+      {{ store.info.nama }}
     </div>
     <div class="toko text-left">
-      {{ setting.info.alamat }}
+      {{ store.info.alamat }}
     </div>
     <!-- <div class="toko text-left">
       {{ setting.info.tlp }}
@@ -120,11 +120,11 @@ import { onMounted } from 'vue'
 
 import { formatRp, olahUang, dateFormat } from 'src/modules/formatter'
 import { usePrintStore } from 'src/stores/print'
-import { useSettingStore } from 'src/stores/setting/setting'
+// import { useSettingStore } from 'src/stores/setting/setting'
 // import { computed } from 'vue'
 // const router = useRouter()
 const store = usePrintStore()
-const setting = useSettingStore()
+// const setting = useSettingStore()
 onMounted(() => {
   // btn.value.$.appContext.directives.print = printObj
   // btn.value.click()

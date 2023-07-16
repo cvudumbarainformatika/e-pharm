@@ -6,6 +6,7 @@ import { useDashboardStore } from '../dashboard'
 import { useLaporanStokTable } from '../laporan/stok/table'
 import { usePembelianTable } from '../transaksi/pembelian/table'
 import { usePenjualanTable } from '../transaksi/penjualan/table'
+import { usePrintStore } from '../print'
 
 export const useSettingStore = defineStore('setting', {
   state: () => ({
@@ -299,8 +300,10 @@ export const useSettingStore = defineStore('setting', {
     stok: useLaporanStokTable(),
     penjualan: usePenjualanTable(),
     pembelian: usePembelianTable(),
-    dashboar: useDashboardStore()
+    dashboar: useDashboardStore(),
+    print: usePrintStore()
   }),
+  persist: true,
   actions: {
     setOpen() {
       this.sMenu = !this.sMenu
@@ -387,6 +390,7 @@ export const useSettingStore = defineStore('setting', {
             this.themes = resp.data[0].themes
             this.infos = resp.data[0].infos
             this.info = this.infos
+            this.print.setInfo(this.infos)
             resolve(resp)
           })
           .catch((err) => {
