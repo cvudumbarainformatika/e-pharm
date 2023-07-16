@@ -329,11 +329,11 @@ export const useSettingStore = defineStore('setting', {
       this.penjualan.ambilDataDistributor()
       this.penjualan.ambilDataDokter()
       this.penjualan.ambilProdukPaginate()
-      this.penjualan.ambilDataProduk().then((resp) => {
-        this.dashboar.produks = resp
-        this.dashboar.getDataRank()
-      })
-      this.pembelian.ambilDataProduk()
+      // this.penjualan.ambilDataProduk().then((resp) => {
+      //   this.dashboar.produks = resp
+      //   this.dashboar.getDataRank()
+      // })
+      // this.pembelian.ambilDataProduk()
       this.dashboar.getDataHutang()
       this.dashboar.getDataTagihan()
     },
@@ -343,10 +343,10 @@ export const useSettingStore = defineStore('setting', {
     dataPenjualan() {
       this.penjualan.ambilDataDistributor()
       this.penjualan.ambilDataDokter()
-      this.penjualan.ambilDataProduk().then((resp) => {
-        this.dashboar.produks = resp
-        this.dashboar.getDataRank()
-      })
+      // this.penjualan.ambilDataProduk().then((resp) => {
+      //   this.dashboar.produks = resp
+      //   this.dashboar.getDataRank()
+      // })
     },
     increment() {
       this.counter++

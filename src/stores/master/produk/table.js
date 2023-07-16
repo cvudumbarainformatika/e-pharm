@@ -16,7 +16,22 @@ export const useProdukTable = defineStore('produk_table', {
       sort: 'desc'
     },
     columns: [],
-    columnHide: ['id', 'uuid', 'created_at', 'satuan_besar_id', 'satuan_id', 'merk_id', 'rak_id', 'kategori_id', 'updated_at']
+    columnHide: ['id',
+      'uuid',
+      'created_at',
+      'satuan_besar_id',
+      'harga_jual_resep',
+      'harga_jual_cust',
+      'limit_stok',
+      'stok',
+      'pengali',
+      'satuanBesar',
+      'satuan_id',
+      'merk_id',
+      'rak_id',
+      'kategori_id',
+      'updated_at'
+    ]
   }),
   getters: {
     getterColumns(state) {

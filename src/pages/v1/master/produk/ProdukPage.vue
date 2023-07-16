@@ -25,7 +25,7 @@
             @delete="table.deletesData"
           >
             <template #col-stok_awal>
-              <div>stok awal</div>
+              <div>stok</div>
             </template>
             <template #col-limit_stok>
               <div>limit stok</div>
@@ -34,7 +34,7 @@
               <div>harga beli</div>
             </template>
             <template #col-harga_jual_umum>
-              <div>harga jual Reguler</div>
+              <div>harga jual</div>
             </template>
             <template #col-harga_jual_resep>
               <div>harga jual resep</div>
@@ -46,7 +46,18 @@
               <div>satuan besar</div>
             </template>
             <template #cell-satuan="{row}">
-              <div>{{ row.satuan !==null ? row.satuan.nama : '-' }}</div>
+              <div class="row no-wrap justify-between q-mb-xs">
+                <div>besar</div>
+                <div>{{ row.satuanBesar !==null ? row.satuanBesar.nama : '-' }}</div>
+              </div>
+              <div class="row no-wrap justify-between q-mb-xs">
+                <div>pengali</div>
+                <div>{{ row.pengali !==null ? row.pengali : '-' }}</div>
+              </div>
+              <div class="row no-wrap justify-between q-mb-xs">
+                <div>kecil</div>
+                <div>{{ row.satuan !==null ? row.satuan.nama : '-' }}</div>
+              </div>
             </template>
             <template #cell-satuanBesar="{row}">
               <div>{{ row.satuanBesar !==null ? row.satuanBesar.nama : '-' }}</div>
@@ -60,11 +71,36 @@
             <template #cell-kategori="{row}">
               <div>{{ row.kategori !==null? row.kategori.nama : '-' }}</div>
             </template>
+            <template #cell-stok_awal="{row}">
+              <div class="row no-wrap justify-between q-mb-xs">
+                <div>awal</div>
+                <div>{{ row.stok_awal }}</div>
+              </div>
+              <div class="row no-wrap justify-between q-mb-xs">
+                <div>limit</div>
+                <div>{{ row.limit_stok }}</div>
+              </div>
+              <div class="row no-wrap justify-between q-mb-xs">
+                <div>sekarang</div>
+                <div>{{ row.stok }}</div>
+              </div>
+            </template>
             <template #cell-harga_beli="{row}">
               <div>{{ formatter.formatRpDouble(row.harga_beli) }}</div>
             </template>
             <template #cell-harga_jual_umum="{row}">
-              <div>{{ formatter.formatRpDouble(row.harga_jual_umum) }}</div>
+              <div class="row no-wrap justify-between q-mb-xs">
+                <div>umum</div>
+                <div>{{ formatter.formatRpDouble(row.harga_jual_umum) }}</div>
+              </div>
+              <div class="row no-wrap justify-between q-mb-xs">
+                <div>resep</div>
+                <div>{{ formatter.formatRpDouble(row.harga_jual_resep) }}</div>
+              </div>
+              <div class="row no-wrap justify-between q-mb-xs">
+                <div>customer</div>
+                <div>{{ formatter.formatRpDouble(row.harga_jual_cust) }}</div>
+              </div>
             </template>
             <template #cell-harga_jual_resep="{row}">
               <div>{{ formatter.formatRpDouble(row.harga_jual_resep) }}</div>

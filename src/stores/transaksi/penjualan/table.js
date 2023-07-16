@@ -329,15 +329,16 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       const data = store.form
 
       // console.log('form penjualan', data)
-      this.simpanDetailTransaksi(data).then(() => {
-        return new Promise(resolve => {
-          this.getSingleProduct().then(resp => {
-            const index = findWithAttr(this.produk2s, 'id', this.form.product_id)
-            if (index >= 0) this.produk2s[index] = resp
-            resolve(resp)
+      this.simpanDetailTransaksi(data)
+        .then(() => {
+          return new Promise(resolve => {
+            this.getSingleProduct().then(resp => {
+              const index = findWithAttr(this.produk2s, 'id', this.form.product_id)
+              if (index >= 0) this.produk2s[index] = resp
+              resolve(resp)
+            })
           })
         })
-      })
       this.resetInput()
 
       // old ------

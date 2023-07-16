@@ -33,20 +33,27 @@
           :series="store.series7"
         />
       </div>
+      <div class="col-md-2 col-xs-12">
+        <app-btn
+          label="refresh data"
+          :loading="store.loading"
+          @click="store.getDataRank"
+        />
+      </div>
     </div>
   </div>
 </template>
 <script setup>
 import { useDashboardStore } from 'src/stores/dashboard'
-import { usePenjualanTable } from 'src/stores/transaksi/penjualan/table'
+// import { usePenjualanTable } from 'src/stores/transaksi/penjualan/table'
 import barWithLabel from './BarWithLabel.vue'
 import ProductRank from './ProductPageRank.vue'
 const store = useDashboardStore()
-usePenjualanTable().ambilDataProduk().then(resp => {
-  // console.log('produk', resp)
-  store.produks = resp
-  store.getDataRank()
-})
+// usePenjualanTable().ambilDataProduk().then(resp => {
+//   // console.log('produk', resp)
+//   store.produks = resp
+// })
+store.getDataRank()
 store.getDataHutang()
 store.getDataTagihan()
 </script>
