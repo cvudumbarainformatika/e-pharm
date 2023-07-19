@@ -63,7 +63,7 @@ const role = computed(() => {
 const menus = computed(() => {
   const apem = setting.menus.filter(data => { return data.name === 'transaksi' })
   // let submenu
-  console.log('transaksi', role.value, apem)
+  // console.log('transaksi', role.value, apem)
   if (apem.length && role.value !== null) {
     // switch (user.role) {
     //   case 'kasir':

@@ -74,9 +74,9 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     setSupplier(val) {
       const temp = this.suppliers.filter(data => { return data.id === val })
       this.print.form.supplier = temp[0].nama
-      console.log('supplier', temp)
-      console.log('supplier keys', Object.keys(this.print.form.supplier))
-      console.log('supplier keys leng', Object.keys(this.print.form.supplier).length)
+      // console.log('supplier', temp)
+      // console.log('supplier keys', Object.keys(this.print.form.supplier))
+      // console.log('supplier keys leng', Object.keys(this.print.form.supplier).length)
     },
     totalSeluruhnya() {
       const total = olahUang(this.form.total)
@@ -86,7 +86,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       // ongkir = ppn
       const ongkir = this.form.ongkir > 0 ? parseFloat(this.form.ongkir / 100 * totalDgPotongan).toFixed(2) : 0
 
-      console.log('total ', total, ' potongan ', potongan, 'onkir', ongkir)
+      // console.log('total ', total, ' potongan ', potongan, 'onkir', ongkir)
 
       this.totalSemua = parseFloat(totalDgPotongan + parseFloat(ongkir)).toFixed(0)
       this.print.totalSemua = this.totalSemua
@@ -95,6 +95,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       // console.log('ongkir ', ongkir, ' total semua ', this.totalSemua)
     },
     kembalian() {
+      this.totalSeluruhnya()
       const bayar = olahUang(this.form.bayar)
       this.form.kembali = parseFloat(parseFloat(bayar) - parseFloat(this.totalSemua)).toFixed(0)
       // console.log('bayar ', bayar, ' total semua ', this.totalSemua)
@@ -186,8 +187,8 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       this.form.status = 2
       this.form.totalSemua = olahUang(this.totalSemua)
       print.form = this.form
-      console.log('form', this.form)
-      console.log('print form', this.print.form)
+      // console.log('form', this.form)
+      // console.log('print form', this.print.form)
       if (this.printChek) { window.print() }
       this.loading = true
       return new Promise((resolve, reject) => {

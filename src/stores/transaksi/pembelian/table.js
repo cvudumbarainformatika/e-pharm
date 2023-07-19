@@ -261,7 +261,7 @@ export const usePembelianTable = defineStore('pembelian_table', {
     },
 
     setTotal() {
-      console.log('rows ', this.rows)
+      // console.log('rows ', this.rows)
       if (this.rows.length) {
         const subTotal = []
         this.rows.forEach((val, index) => {
@@ -345,10 +345,10 @@ export const usePembelianTable = defineStore('pembelian_table', {
         api.get('v1/produk/get-for-pembelian', params)
           .then(resp => {
             this.loadingProduk = false
-            console.log('pembelian ', resp.data)
+            // console.log('pembelian ', resp.data)
             this.produks = resp.data.data
             if (this.produks.length === 1) {
-              console.log('produk', this.produks[0])
+              // console.log('produk', this.produks[0])
               this.produkSelected(this.produks[0].id)
             }
             resolve(resp.data)

@@ -3,9 +3,7 @@ import { routerInstance } from 'boot/router'
 import * as storage from 'src/modules/storage'
 
 const removeToken = () => {
-  storage.deleteLocalToken()
-  storage.deleteHeaderToken()
-  storage.deleteUser()
+  storage.clear()
   routerInstance.replace('/login')
 }
 

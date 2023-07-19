@@ -481,7 +481,7 @@ const selectColumn = ref([])
 const heightCell = ref(0)
 // actions
 onMounted(() => {
-  console.log(props.columns)
+  // console.log(props.columns)
   heightCell.value = refCellTable.value.$el.clientHeight * props.perPage
   //   console.log(refCellTable.value.$el.clientHeight * props.perPage)
 })

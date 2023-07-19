@@ -225,7 +225,7 @@ export const useLaporanTable = defineStore('laporan_table', {
         api.get('v1/laporan/total-by-date', params).then((resp) => {
           if (resp.status === 200) {
             this.totalTransaction = resp.data[0]
-            console.log('total transactions', this.totalTransaction)
+            // console.log('total transactions', this.totalTransaction)
             resolve(resp.data)
           }
         })
@@ -238,7 +238,7 @@ export const useLaporanTable = defineStore('laporan_table', {
           if (resp.status === 200) {
             this.totalReturTransaction = resp.data.data[0]
             this.namaRetur = resp.data.nama
-            console.log('total rtur transactions', resp.data, this.totalReturTransaction)
+            // console.log('total rtur transactions', resp.data, this.totalReturTransaction)
             resolve(resp.data)
           }
         })
@@ -249,7 +249,7 @@ export const useLaporanTable = defineStore('laporan_table', {
       this.selected = true
       this.loading = true
       const params = { params: this.form }
-      console.log('param', this.form)
+      // console.log('param', this.form)
       this.setColumns()
       return new Promise((resolve, reject) => {
         api
@@ -259,7 +259,7 @@ export const useLaporanTable = defineStore('laporan_table', {
             if (resp.status === 200) {
               this.transactions = resp.data
               this.setRows()
-              console.log('tr by items', resp)
+              // console.log('tr by items', resp)
               resolve(resp.data)
             }
           })

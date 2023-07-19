@@ -68,7 +68,7 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
         anu.keluar = anu.transaction.nama === 'PENJUALAN' || anu.transaction.nama === 'RETUR PEMBELIAN' || (anu.transaction.nama === 'FORM PENYESUAIAN' && anu.qty < 0) ? (anu.qty < 0 ? -anu.qty : anu.qty) : 0
       })
       // console.log('see more ', payload.data)
-      console.log('see Produk ', this.produk)
+      // console.log('see Produk ', this.produk)
       if (!this.params.selection) {
         data.push({
           tanggal: this.produk.created_at ? date.formatDate(this.produk.created_at, 'YYYY-MM-DD HH:mm:ss') : date.formatDate(Date.now(), 'YYYY-MM-01 00:00:00'),
@@ -134,7 +134,7 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
     // api related function
     // get more details data
     getDetailsDataProduct() {
-      console.log('params', this.params)
+      // console.log('params', this.params)
       this.loading = true
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
@@ -143,7 +143,7 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
           .then((resp) => {
             this.loading = false
             if (resp.status === 200) {
-              console.log('more', resp.data)
+              // console.log('more', resp.data)
               this.dataProses(resp)
               resolve(resp)
             }

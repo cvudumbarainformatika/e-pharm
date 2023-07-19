@@ -177,7 +177,7 @@ const store = useBebanTransaksiHutang()
 const biaya = useBebanTransaksiFormStore()
 const jumlah = ref('')
 const assign = data => {
-  console.log('assign', data)
+  // console.log('assign', data)
   jumlah.value = data.totalSemua
   const temp = biaya.bebans.map((apem, index) => {
     let apem2 = 0

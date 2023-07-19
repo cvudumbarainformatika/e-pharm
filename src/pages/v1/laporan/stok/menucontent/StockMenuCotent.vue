@@ -80,7 +80,7 @@ const tgl = ref(null)
 // }
 
 const rangeSelected = () => {
-  console.log('menu', 'range')
+  // console.log('menu', 'range')
   emits('selected', 'range')
   table.form.from = rangeDate.value.from
   table.form.to = rangeDate.value.to

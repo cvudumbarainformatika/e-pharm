@@ -40,6 +40,8 @@ import { routerInstance } from 'src/boot/router'
 // import { useSettingStore } from 'src/stores/setting/setting'
 // const setting = useSettingStore()
 const route = useRoute()
+// console.log('path', computed(() => routerInstance.currentRoute))
+// console.log('path', route)
 let slug = routerInstance.currentRoute.value.params.slug
 let name = routerInstance.currentRoute.value.name
 if (name === 'transaksi') {

@@ -303,7 +303,6 @@ export const useSettingStore = defineStore('setting', {
     dashboar: useDashboardStore(),
     print: usePrintStore()
   }),
-  persist: true,
   actions: {
     setOpen() {
       this.sMenu = !this.sMenu

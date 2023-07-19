@@ -124,7 +124,7 @@ const selected = (val) => {
 }
 fetchData()
 function filterFn (val, update) {
-  console.log('filterFn ', val)
+  // console.log('filterFn ', val)
   if (val === '') {
     update(() => {
       optionx.value = props.source

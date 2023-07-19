@@ -34,8 +34,8 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
       this.form.reff = 'TGH-' + uniqueId()
     },
     gantiTanggal(val) {
-      console.log('ganti tanggal val', val)
-      console.log('ganti tanggal', this.tanggal)
+      // console.log('ganti tanggal val', val)
+      // console.log('ganti tanggal', this.tanggal)
       this.getTerbayar()
     },
     setTanggal() {
@@ -49,7 +49,7 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
       const stringTahun = tahun.toString()
       this.tanggal.from = stringTahun + '-' + stringBulan + '-01'
       this.tanggal.to = stringTahun + '-' + stringBulan + '-' + lastDay.toString()
-      console.log('tanggal', this.tanggal)
+      // console.log('tanggal', this.tanggal)
     },
     total() {
       const index = findWithAttr(this.notas, 'reff', this.form.reff)
@@ -130,7 +130,7 @@ export const useTagihanPiutang = defineStore('tagihan_piutang', {
         api.get('v1/tagihan/tagihan')
           .then(resp => {
             this.loading = false
-            console.log('nota tagihan', resp.data)
+            // console.log('nota tagihan', resp.data)
             if (resp.status === 200) {
               this.notas = resp.data
               if (this.notas.length) {

@@ -96,7 +96,7 @@ export const useReturMenu = defineStore('retur_menu', {
       this.columns = kolom
     },
     clicked(val) {
-      console.log('Table retur clicked', val)
+      // console.log('Table retur clicked', val)
     },
     // api related functions
     getDataTransaction() {

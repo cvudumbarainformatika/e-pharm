@@ -87,20 +87,16 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       const potongan = olahUang(this.form.potongan)
       const ongkir = olahUang(this.form.ongkir)
       const embalase = this.form.embalase ? olahUang(this.form.embalase) : 0
-      // console.log('total ', total, ' potongan ', potongan)
-      console.log('embalase ', embalase)
       this.totalSemua = total - potongan + ongkir + embalase
       this.print.totalSemua = this.totalSemua
       this.print.potongan = potongan
       this.print.ongkir = ongkir
       if (embalase > 0) this.print.embalase = embalase
-      // console.log('ongkir ', ongkir, ' total semua ', this.totalSemua)
     },
     kembalian() {
       const bayar = olahUang(this.form.bayar)
+      this.totalSeluruhnya()
       this.form.kembali = bayar - olahUang(this.totalSemua)
-      // console.log('bayar ', bayar, ' total semua ', this.totalSemua)
-      // console.log('kembali ', this.form.kembali)
     },
     openDialog() {
       const table = usePenjualanTable()
@@ -122,7 +118,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.totalSeluruhnya()
       this.form.bayar = ''
       this.setOpen()
-      this.print.form = this.form
+      // this.print.form = this.form
     },
     setOpen() {
       this.isOpen = !this.isOpen
@@ -132,10 +128,8 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
     },
     searchSupplier(val) {
       this.ambilDataSupplier(val)
-      // console.log(val)
     },
     jenisSelected(val) {
-      // console.log('jenis selected ', val)
       if (val === 'tunai' || val === 'non-tunai') {
         this.piutang = false
       } else {

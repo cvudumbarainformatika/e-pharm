@@ -21,7 +21,7 @@ export const useKasirStore = defineStore('kasir_store', {
           .then(resp => {
             this.loading = false
             this.setting.transaksiLoading = false
-            console.log('kasir', resp.data)
+            // console.log('kasir', resp.data)
             const data = resp.data
             const jual = data.penjualan[0].uang ? data.penjualan[0].uang : 0
             const jualNon = data.penjualanNon[0].uang ? data.penjualanNon[0].uang : 0

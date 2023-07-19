@@ -61,8 +61,8 @@ export const useBebanTransaksiHutang = defineStore('beban_hutang', {
       const menit = tmpSkr.getMinutes().toString().length === 1 ? '0' + tmpSkr.getMinutes().toString() : tmpSkr.getMinutes().toString()
       const det = tmpSkr.getSeconds().toString().length === 1 ? '0' + tmpSkr.getSeconds().toString() : tmpSkr.getSeconds().toString()
       this.form.tanggal_bayar = val + ' ' + jam + ':' + menit + ':' + det
-      console.log('skr', val, jam, menit, det)
-      console.log('skr tgl', this.form.tanggal_bayar, jam, menit, det)
+      // console.log('skr', val, jam, menit, det)
+      // console.log('skr tgl', this.form.tanggal_bayar, jam, menit, det)
     },
     setTanggal() {
       const tgl = Date.now()

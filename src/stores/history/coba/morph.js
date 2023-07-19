@@ -54,7 +54,7 @@ export const cobaMorphStore = defineStore('coba_morph', {
               this.items = data
               this.meta = resp.data.meta
               this.resetInput()
-              console.log('history transaksi', resp)
+              // console.log('history transaksi', resp)
               resolve(data)
             }
             waitLoad('done')
@@ -78,7 +78,7 @@ export const cobaMorphStore = defineStore('coba_morph', {
               this.items = data
               this.meta = resp.data.meta
               this.resetInput()
-              console.log('history transaksi', resp)
+              // console.log('history transaksi', resp)
               resolve(data)
             }
             waitLoad('done')

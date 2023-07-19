@@ -203,7 +203,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       this.produk = params
       this.setOpen()
       // console.log('params ', params)
-      console.log('clicked val ', val)
+      // console.log('clicked val ', val)
     },
 
     setFaktur(data) {
@@ -249,7 +249,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
                 this.rows = resp.data.data[0].detail_transaction
                 this.setTotal()
                 this.meta = resp.data.meta
-                console.log('retur table', this.prevjenis)
+                // console.log('retur table', this.prevjenis)
               }
               // this.setColumns(resp.data.data)
               resolve(resp.data.data[0])

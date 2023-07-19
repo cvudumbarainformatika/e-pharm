@@ -237,7 +237,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       }
     },
     jenisPasienSelect(val) {
-      console.log(val)
+      // console.log(val)
       this.pasien = val
     },
     produkSelected(val) {
@@ -295,7 +295,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.harga_jual_resep = 0
       this.form.qty = 0
       this.form.expired = ''
-      console.log('reset input')
+      // console.log('reset input')
     },
     clearNullForm() {
       const key = Object.keys(this.form)
@@ -385,6 +385,9 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         })
         // console.log('sum total', total)
         this.form.total = total
+        // const dialog = usePenjualanDialog()
+        // dialog.form.total = total
+        // dialog.totalSeluruhnya()
       }
     },
     clicked(val) {
@@ -502,14 +505,14 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     },
 
     cariDistributor(val) {
-      console.log('cari customer', val)
+      // console.log('cari customer', val)
       const dist = useCustomerTable()
       dist.params.q = val
       dist.params.page = 1
       this.ambilDataDistributor()
     },
     cariDokter(val) {
-      console.log('cari dokter', val)
+      // console.log('cari dokter', val)
       const dokter = useDokterTable()
       dokter.params.q = val
       dokter.params.page = 1
@@ -644,7 +647,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       return new Promise((resolve, reject) => {
         api.get('v1/produk/all-product')
           .then(resp => {
-            console.log('produk penjualan', resp.data)
+            // console.log('produk penjualan', resp.data)
             // this.produkLoading = false
             // this.prosesData(resp.data)
             // this.produks = resp.data

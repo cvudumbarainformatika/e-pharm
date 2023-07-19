@@ -107,11 +107,11 @@ export const useHistoryTable = defineStore('history_table', {
       //   .onCancel(() => {
       //     // console.log('cancel')
       //   })
-      console.log(val)
+      // console.log(val)
     },
     // dari icon buka
     openTransaction(val) {
-      console.log('open ', val)
+      // console.log('open ', val)
       const name = 'transaksi.' + val.row.nama.toLowerCase()
       const slug = val.row.reff
       routerInstance.replace({ name, params: { slug } })
@@ -166,7 +166,7 @@ export const useHistoryTable = defineStore('history_table', {
             if (resp.status === 200) {
               this.rows = resp.data.data
               this.meta = resp.data.meta
-              console.log('history ', resp.data)
+              // console.log('history ', resp.data)
               resolve(resp.data.data)
             }
           })

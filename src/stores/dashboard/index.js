@@ -144,7 +144,7 @@ export const useDashboardStore = defineStore('dashboard_store', {
         api
           .get('v1/dashboard/rank')
           .then((resp) => {
-            console.log('rank', resp.data)
+            // console.log('rank', resp.data)
             this.rank = resp.data
             this.loading = false
             this.monthlyMap()

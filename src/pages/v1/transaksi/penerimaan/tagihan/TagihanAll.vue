@@ -152,17 +152,17 @@ const store = useTagihanPiutang()
 const penerimaan = usePenerimaanTransaksiFormStore()
 const jumlah = ref('')
 const assign = data => {
-  console.log('assign', data)
+  // console.log('assign', data)
   const nota = store.notas.filter(not => {
     return not.dokter_id === data.dokter_id
   })
   if (nota.length) {
-    console.log('nota', nota[0])
+    // console.log('nota', nota[0])
     store.setForm('reff', nota[0].reff)
   } else {
     store.setNotaBaru()
   }
-  console.log('notas', store.notas)
+  // console.log('notas', store.notas)
   jumlah.value = data.total
   const temp = penerimaan.penerimaans.map((apem, index) => {
     let apem2 = 0

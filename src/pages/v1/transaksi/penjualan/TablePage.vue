@@ -440,7 +440,7 @@ const alamat = val => {
 }
 const autofocus = ref(true)
 function setProduk(val) {
-  console.log('di enter', val)
+  // console.log('di enter', val)
   const prod = table.produks.filter(fill => fill.barcode === val)
   if (prod.length) {
     autofocus.value = false
@@ -483,7 +483,7 @@ function clearProduk() {
 
 const updateQty = val => {
   autofocus.value = true
-  console.log('update qty', table.produk1)
+  // console.log('update qty', table.produk1)
   store.setForm('product_id', table.produk1.id)
   store.setForm('harga', parseFloat(table.form.harga))
   store.setForm('qty', parseFloat(table.form.qty))
@@ -508,11 +508,11 @@ const cekRequired = () => {
     store.piutang = true
   }
   store.openDialog()
-  const tableReff = ref(null)
+  // const tableReff = ref(null)
 
   refJumlah.value.$refs.refInput.resetValidation()
   refProduk.value.$refs.refAuto.resetValidation()
-  console.log('table reff', tableReff)
+  // console.log('table reff', tableReff)
 }
 
 const newTransaction = () => {

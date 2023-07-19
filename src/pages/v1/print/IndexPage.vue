@@ -51,7 +51,7 @@
 
     <div class="top-line-dash" />
     <div class="text-right q-px-xs text-weight-bold">
-      TOTAL : {{ store.totalSemua ? formatRp(store.totalSemua) : formatRp(store.form.total) }}
+      TOTAL : {{ store.totalSemua ? formatRp(store.totalSemua) : formatRp(olahUang(store.form.total)) }}
     </div>
     <div
       v-if="store.form.embalase"
