@@ -172,7 +172,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       const bayar = olahUang(this.form.bayar)
       const kembali = olahUang(this.form.kembali)
       const embalase = this.form.embalase ? olahUang(this.form.embalase) : 0
-
+      const oldSlug = this.form.reff
       this.form.kasir_id = kasir.id
       this.form.total = total
       this.form.ongkir = ongkir
@@ -212,20 +212,22 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
             const table = usePenjualanTable()
             if (resp.status === 201) {
               // notifSuccess(resp)
-              table.resetData()
-              this.resetData()
-              // const slug = 'PJL-' + uniqueId()
-
               if (this.printChek) {
                 // const router = useRouter()
                 // this.print.form.nota = resp.data.data.nota
                 this.print.setForm('nota', resp.data.data.nota)
                 const newRoute = routerInstance.resolve({
-                  path: '/print'
+                  path: '/print',
+                  name: 'print',
+                  params: { slug: oldSlug }
                 })
                 window.open(newRoute.href, '_blank')
                 // routerInstance.push({ path: '/print' })
               }
+              table.resetData()
+              this.resetData()
+              // const slug = 'PJL-' + uniqueId()
+
               // if (!this.printChek) {
               // const route = routerInstance.resolve({
               //   name: 'transaksi.penjualan',

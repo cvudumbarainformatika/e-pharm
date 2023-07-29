@@ -138,7 +138,7 @@ onMounted(() => {
   // btn.value.$.appContext.directives.print = printObj
   // btn.value.click()
   const slug = routerInstance.currentRoute.value.params.slug
-  console.log('slug', slug)
+  // console.log('slug', slug)
   store.getPrint(slug).then(() => {
     myPrinting()
   })
@@ -157,7 +157,7 @@ function afterPrint () {
 }
 
 function myPrinting () {
-  console.log('print ', store.form)
+  // console.log('print ', store.form)
   window.print()
   setTimeout(function () {
     afterPrint()

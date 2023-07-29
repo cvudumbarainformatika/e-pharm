@@ -58,7 +58,7 @@ export const usePrintStore = defineStore('print_store', {
           this.setProduks(resp.data.form.detail_transaction)
           this.setWholeForm(resp.data.form)
           resolve(resp.data)
-          console.log(resp.data)
+          // console.log(resp.data)
         })
       })
     }

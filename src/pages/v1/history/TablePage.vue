@@ -551,7 +551,7 @@ const printAs = ref(null)
 const model = ref(false)
 const printStore = usePrintStore()
 const print = val => {
-  console.log('val', val)
+  // console.log('val', val)
   // model.value = true
   printAs.value = val.nama
   // printStore.form = val

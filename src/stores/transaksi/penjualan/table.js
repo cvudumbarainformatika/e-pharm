@@ -706,12 +706,14 @@ export const usePenjualanTable = defineStore('penjualan_table', {
             // console.log('penjualan ', resp.data)
             if (resp.status === 200) {
               if (resp.data.data[0] !== undefined) {
-                this.setForm(resp.data.data[0])
-                this.rows = resp.data.data[0].detail_transaction
-                // this.print.produks = this.rows
-                this.print.setProduks(this.rows)
-                this.setTotal()
-                this.meta = resp.data.meta
+                if (resp.data.data[0].status === 1) {
+                  this.setForm(resp.data.data[0])
+                  this.rows = resp.data.data[0].detail_transaction
+                  // this.print.produks = this.rows
+                  this.print.setProduks(this.rows)
+                  this.setTotal()
+                  this.meta = resp.data.meta
+                }
               }
               // this.setColumns(resp.data.data)
               resolve(resp.data.data[0])
