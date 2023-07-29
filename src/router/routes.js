@@ -188,7 +188,8 @@ const routes = [
     meta: { requireAuth: true, visitor: false },
     children: [
       {
-        path: '',
+        path: '/print/:slug',
+        name: 'print',
         component: () => import('pages/v1/print/IndexPage.vue')
       }
     ]

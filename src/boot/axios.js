@@ -14,6 +14,7 @@ const base = 'http://api.eparm.test'
 // const base = 'http://192.168.137.20/api.eparm/public'
 const SERVER = base + '/api'
 const imageSever = base + '/storage/'
+const web = base
 
 const api = axios.create({ baseURL: SERVER })
 api.defaults.headers.get.Accepts = 'application/json'
@@ -81,4 +82,4 @@ const setToken = (token) => {
 }
 const deleteToken = () => delete api.defaults.headers.common.Authorization
 
-export { axios, api, setToken, deleteToken, imageSever }
+export { axios, api, web, setToken, deleteToken, imageSever }

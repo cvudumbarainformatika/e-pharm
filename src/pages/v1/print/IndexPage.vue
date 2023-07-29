@@ -3,6 +3,9 @@
     id="printMe"
     class="column f-10"
   >
+    <!-- {{ info }}
+    {{ form }}
+    {{ produks }} -->
     <div class="toko text-left text-weight-bold">
       {{ store.info.nama }}
     </div>
@@ -120,17 +123,27 @@ import { onMounted } from 'vue'
 
 import { formatRp, olahUang, dateFormat } from 'src/modules/formatter'
 import { usePrintStore } from 'src/stores/print'
+import { routerInstance } from 'src/boot/router'
 // import { useSettingStore } from 'src/stores/setting/setting'
 // import { computed } from 'vue'
 // const router = useRouter()
+defineProps({
+  info: { type: Object, default: () => {} },
+  form: { type: Object, default: () => {} },
+  produks: { type: Array, default: () => [] }
+})
 const store = usePrintStore()
 // const setting = useSettingStore()
 onMounted(() => {
   // btn.value.$.appContext.directives.print = printObj
   // btn.value.click()
-  setTimeout(() => {
+  const slug = routerInstance.currentRoute.value.params.slug
+  console.log('slug', slug)
+  store.getPrint(slug).then(() => {
     myPrinting()
-  }, 500)
+  })
+  // setTimeout(() => {
+  // }, 500)
 })
 
 function afterPrint () {
@@ -148,7 +161,7 @@ function myPrinting () {
   window.print()
   setTimeout(function () {
     afterPrint()
-  }, 100)
+  }, 500)
 }
 // const printObj = {
 //   id: 'printMe',

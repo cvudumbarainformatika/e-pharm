@@ -180,6 +180,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.bayar = bayar
       this.form.kembali = kembali
       this.form.embalase = embalase
+      this.form.totalSemua = this.totalSemua
       this.form.status = 2
       // this.print.form = this.form
       // this.print.form.embalase = embalase

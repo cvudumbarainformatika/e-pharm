@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { Dialog } from 'quasar'
-import { api } from 'src/boot/axios'
+import { api, web } from 'src/boot/axios'
 import { routerInstance } from 'src/boot/router'
 import { notifSuccess } from 'src/modules/utils'
 
@@ -134,6 +134,15 @@ export const useHistoryTable = defineStore('history_table', {
         this.params.q = ''
       })
     },
+    // refresh
+    refreshTable() {
+      this.setParams('page', 1)
+      this.getDataTransactions()
+    },
+    perPage(val) {
+      this.setParams('per_page', val)
+      this.getDataTransactions()
+    },
     // hapus draft
     deleteDraft(val) {
       // console.log(val)
@@ -207,6 +216,15 @@ export const useHistoryTable = defineStore('history_table', {
             reject(err)
           })
       })
+    },
+    sendToPrint(val) {
+      const anu = web + '/print?invoice=' + val
+      console.log('anu', anu)
+      console.log('anu', anu.href)
+      // await api.get('v1/print/print', param).then(resp => {
+      //   console.log('anu', resp)
+      window.open(anu, '_blank')
+      // })
     }
   }
 })

@@ -14,6 +14,7 @@
       separator="horizontal"
       hide-pagination
       hide-header
+      :pagination="paginasi"
       no-data-label="Tidak Ada Data"
       :loading="table.loading"
     >
@@ -41,7 +42,69 @@
             </template>
           </q-input>
         </div>
-        <div class="col-5" />
+        <div class="col-5">
+          <div class="row justyfy-end">
+            <div class="col-12 text-right">
+              <q-btn
+                unelevated
+                round
+                size="sm"
+                icon="icon-mat-refresh"
+                @click="table.refreshTable"
+              >
+                <q-tooltip
+                  class="primary"
+                  :offset="[10, 10]"
+                >
+                  Refresh Table
+                </q-tooltip>
+              </q-btn>
+              <!-- per page -->
+              <q-btn
+                class="q-ml-sm"
+                unelevated
+                color="orange"
+                round
+                size="sm"
+                icon="icon-mat-layers"
+              >
+                <q-tooltip
+                  class="primary"
+                  :offset="[10, 10]"
+                >
+                  Filter Table
+                </q-tooltip>
+                <q-menu
+                  transition-show="flip-left"
+                  transition-hide="flip-right"
+                  class="q-pt-sm"
+                  anchor="top left"
+                  self="top right"
+                >
+                  <q-list>
+                    <q-item
+                      v-for="(opt, i) in options"
+                      :key="i"
+                      v-ripple
+                      tag="label"
+                    >
+                      <q-item-section>
+                        <q-radio
+                          v-model="selectPerPage"
+                          size="xs"
+                          :val="opt"
+                          :label="opt + ' Baris'"
+                          color="primary"
+                        />
+                      </q-item-section>
+                      <q-item-label />
+                    </q-item>
+                  </q-list>
+                </q-menu>
+              </q-btn>
+            </div>
+          </div>
+        </div>
         <div
           v-if="table.title!==null"
           class="q-pl-sm col-3"
@@ -198,30 +261,33 @@
             key="actions"
             :props="props"
           >
-            <div
-              v-if="props.row.status === 1"
-              @click="table.openTransaction(props)"
-            >
-              <q-avatar
-                text-color="negative"
-                :color="table.dark === true ? 'dark':'white'"
-                icon="icon-mat-open_in_new"
-                clickable
-              />
-            </div>
-            <div v-if="props.row.status > 1">
-              <!-- v-if="props.row.nama === 'PEMBELIAN' || props.row.nama === 'PENJUALAN'" -->
-              <!-- v-print="printObj" -->
-              <q-btn
-                v-if="props.row.nama === 'PENJUALAN'"
-                class="q-mr-md"
-                color="primary"
-                round
-                flat
-                dense
-                icon="icon-mat-print"
-                @click="print(props.row)"
-              />
+            <div class="row no-wrap justify-end">
+              <div
+                v-if="props.row.status === 1"
+                @click="table.openTransaction(props)"
+              >
+                <q-avatar
+                  text-color="negative"
+                  :color="table.dark === true ? 'dark':'white'"
+                  icon="icon-mat-open_in_new"
+                  clickable
+                />
+              </div>
+              <!-- <div v-if="props.row.status > 1"> -->
+              <div v-if="props.row.status > 1">
+                <!-- v-if="props.row.nama === 'PEMBELIAN' || props.row.nama === 'PENJUALAN'" -->
+                <!-- v-print="printObj" -->
+                <q-btn
+                  v-if="props.row.nama === 'PENJUALAN'"
+                  class="q-mr-md"
+                  color="primary"
+                  round
+                  flat
+                  dense
+                  icon="icon-mat-print"
+                  @click="print(props.row)"
+                />
+              </div>
               <q-avatar
                 text-color="primary"
                 :color="table.dark === true ? 'dark':'white'"
@@ -465,13 +531,27 @@ import { usePrintStore } from 'src/stores/print'
 
 // const router = useRouter()
 
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import PrintDialog from './PrintDialog.vue'
 import { routerInstance } from 'src/boot/router'
+
+const table = useHistoryTable()
+
+const paginasi = ref({
+  rowsPerPage: 0
+})
+const options = ref([5, 10, 20, 50, 100])
+
+const selectPerPage = computed({
+  get () { return table.params.per_page },
+  set (val) { table.perPage(val) }
+})
+
 const printAs = ref(null)
 const model = ref(false)
 const printStore = usePrintStore()
 const print = val => {
+  console.log('val', val)
   // model.value = true
   printAs.value = val.nama
   // printStore.form = val
@@ -481,15 +561,18 @@ const print = val => {
   printStore.setUrl('/history')
   printStore.setProduks(val.detail_transaction)
 
-  setTimeout(() => {
-    const newRoute = routerInstance.resolve({
-      path: '/print'
-    })
-    window.open(newRoute.href, '_blank')
+  // setTimeout(() => {
+  const newRoute = routerInstance.resolve({
+    path: '/print',
+    name: 'print',
+    params: { slug: val.reff }
+  })
+  // console.log('ro', newRoute.href, newRoute)
+  window.open(newRoute.href, '_blank')
   //   // window.print()
   //   // printObj
-    // router.push({ path: '/print' })
-  }, 500)
+  // router.push({ path: '/print' })
+  // }, 500)
   // // model.value = false
 }
 const getTotal = (val) => {
@@ -507,7 +590,6 @@ const getTotal = (val) => {
     return val
   }
 }
-const table = useHistoryTable()
 // const printObj = {
 //   asyncUrl(reslove, vue) {
 //     setTimeout(() => {

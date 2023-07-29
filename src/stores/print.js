@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { api } from 'src/boot/axios'
 
 export const usePrintStore = defineStore('print_store', {
   state: () => ({
@@ -20,7 +21,6 @@ export const usePrintStore = defineStore('print_store', {
     }
 
   }),
-  persist: true,
   actions: {
     setUrl(url) {
       this.prevUrl = url
@@ -44,6 +44,23 @@ export const usePrintStore = defineStore('print_store', {
     },
     setInfo(val) {
       this.info = val
+    },
+    // get print
+    getPrint(val) {
+      const param = {
+        params: {
+          invoice: val
+        }
+      }
+      return new Promise(resolve => {
+        api.get('v1/print/print', param).then(resp => {
+          this.setInfo(resp.data.info.infos)
+          this.setProduks(resp.data.form.detail_transaction)
+          this.setWholeForm(resp.data.form)
+          resolve(resp.data)
+          console.log(resp.data)
+        })
+      })
     }
   }
 })
