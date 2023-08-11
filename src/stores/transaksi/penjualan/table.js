@@ -35,6 +35,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     },
     produk: null,
     produk1: null,
+    custPrem: false,
     form: {
       reff: '',
       product_id: '',
@@ -42,6 +43,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       harga_jual_umum: 0,
       harga_jual_resep: 0,
       harga_jual_cust: 0,
+      harga_jual_prem: 0,
       qty: 0,
       diskon: 0,
       harga: 0,
@@ -173,6 +175,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.harga_jual_umum = 0
       this.form.harga_jual_resep = 0
       this.form.harga_jual_cust = 0
+      this.form.harga_jual_prem = 0
       this.form.qty = 0
       this.form.diskon = 0
       this.form.expired = null
@@ -184,6 +187,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.pasien = null
       this.distributor = ''
       this.pasien = 'umum'
+      this.custPrem = false
       this.dataPasien = {
 
       }
@@ -260,13 +264,18 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.form.harga_jual_cust = produk[0].harga_jual_cust
         this.form.harga_jual_umum = produk[0].harga_jual_umum
         this.form.harga_jual_resep = produk[0].harga_jual_resep
+        this.form.harga_jual_prem = produk[0].harga_jual_prem
         this.form.qty = 1
-        if (this.form.customer_id !== null) {
-          this.form.harga = this.form.harga_jual_cust
-        } else if (this.form.dokter_id !== null) {
-          this.form.harga = this.form.harga_jual_resep
+        if (this.custPrem) {
+          this.form.harga = this.form.harga_jual_prem
         } else {
-          this.form.harga = this.form.harga_jual_umum
+          if (this.form.customer_id !== null) {
+            this.form.harga = this.form.harga_jual_cust
+          } else if (this.form.dokter_id !== null) {
+            this.form.harga = this.form.harga_jual_resep
+          } else {
+            this.form.harga = this.form.harga_jual_umum
+          }
         }
       } else if (produk1.length) {
         this.produk1 = produk1[0]
@@ -276,13 +285,18 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.form.harga_jual_cust = produk1[0].harga_jual_cust
         this.form.harga_jual_umum = produk1[0].harga_jual_umum
         this.form.harga_jual_resep = produk1[0].harga_jual_resep
+        this.form.harga_jual_prem = produk1[0].harga_jual_prem
         this.form.qty = 1
-        if (this.form.customer_id !== null) {
-          this.form.harga = this.form.harga_jual_cust
-        } else if (this.form.dokter_id !== null) {
-          this.form.harga = this.form.harga_jual_resep
+        if (this.custPrem) {
+          this.form.harga = this.form.harga_jual_prem
         } else {
-          this.form.harga = this.form.harga_jual_umum
+          if (this.form.customer_id !== null) {
+            this.form.harga = this.form.harga_jual_cust
+          } else if (this.form.dokter_id !== null) {
+            this.form.harga = this.form.harga_jual_resep
+          } else {
+            this.form.harga = this.form.harga_jual_umum
+          }
         }
       }
       // console.log('Product ', this.form)

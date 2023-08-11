@@ -27,6 +27,13 @@
       >
         <div class="q-gutter-sm col-4">
           <div class="row ">
+            <q-checkbox
+              v-model="table.custPrem"
+              label="Customer Premium"
+              :disable="table.form.dokter_id === null && table.rows.length == 0 ? false : true"
+            />
+          </div>
+          <div class="row ">
             <app-autocomplete-new
               v-model="table.form.customer_id"
               label="pilih Customer"
@@ -47,7 +54,7 @@
           <div class="row ">
             <app-autocomplete-new
               v-model="table.form.dokter_id"
-              :disable="table.form.customer_id === null && table.rows.length == 0 ? false : true "
+              :disable="!table.custPrem && table.form.customer_id === null && table.rows.length == 0 ? false : true "
               label="pilih Dokter"
               autocomplete="nama"
               option-value="id"
