@@ -41,7 +41,7 @@
       </div>
     </div>
     <div
-      v-if="table.form.nama==='PEMBELIAN'"
+      v-if="table.form.nama==='PEMBELIAN' && !table.form.q"
       class="row items-center"
     >
       <div class="col-3 text-weight-bold f-16">
