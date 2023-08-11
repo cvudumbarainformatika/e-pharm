@@ -15,6 +15,13 @@
             label="Bayar nota ini"
             @click="gantiNota(item)"
           />
+          <app-btn
+            label="Hapus Nota Ini"
+            class="q-mx-xs"
+            color="negative"
+            :loading="store.loading && store.trID===item.id"
+            @click="hapusNota(item)"
+          />
         </div>
         <q-list
           bordered
@@ -75,7 +82,25 @@
             >
               <q-item-section>{{ detail.beban?detail.beban.nama:'-' }}</q-item-section>
               <q-item-section>{{ formatRp(detail.sub_total) }}</q-item-section>
-              <q-item-section>{{ detail.keterangan }}</q-item-section>
+              <q-item-section>
+                <div class="row justify-between">
+                  <div>
+                    {{ detail.keterangan }}
+                  </div>
+                  <div>
+                    <q-btn
+                      color="negative"
+                      flat
+                      round
+                      dense
+                      size="xs"
+                      :loading="store.loading && detail.id===store.bbID"
+                      icon="icon-mat-delete_filled"
+                      @click="hapusdetail(item,detail)"
+                    />
+                  </div>
+                </div>
+              </q-item-section>
             </q-item>
           </div>
         </q-list>
@@ -86,9 +111,74 @@
 <script setup>
 import { useBebanTransaksiFormStore } from 'src/stores/transaksi/biaya/form'
 import { dateFullFormat, formatRp } from 'src/modules/formatter'
+import { Dialog } from 'quasar'
 
 const store = useBebanTransaksiFormStore()
 const gantiNota = val => {
   store.setForm('reff', val.reff)
 }
+function hapusNota(val) {
+  Dialog.create({
+    title: 'Konfirmasi',
+    message: 'Apakah Anda Akan Menghapus Nota ini?',
+    ok: {
+      push: true,
+      color: 'negative',
+      label: 'Hapus'
+    },
+    cancel: {
+      push: true,
+      label: 'Batal',
+      color: 'dark'
+    }
+  })
+    .onOk(() => {
+      store.trID = val.id
+      store.deleteTr()
+    })
+}
+function hapusdetail (item, val) {
+  if (item.beban_transaction.length === 1) {
+    Dialog.create({
+      title: 'Konfirmasi',
+      message: 'Hanya ada satu detail, Apakah Anda Akan Menghapus Nota ini?',
+      ok: {
+        push: true,
+        color: 'negative',
+        label: 'Hapus'
+      },
+      cancel: {
+        push: true,
+        label: 'Batal',
+        color: 'dark'
+      }
+    })
+      .onOk(() => {
+        store.trID = item.id
+        store.bbID = null
+        store.deleteTr()
+      })
+  } else {
+    Dialog.create({
+      title: 'Konfirmasi',
+      message: 'Apakah Anda Akan Menghapus Detail Nota ini?',
+      ok: {
+        push: true,
+        color: 'negative',
+        label: 'Hapus'
+      },
+      cancel: {
+        push: true,
+        label: 'Batal',
+        color: 'dark'
+      }
+    })
+      .onOk(() => {
+        store.trID = null
+        store.bbID = val.id
+        store.deleteDetTr()
+      })
+  }
+}
+
 </script>

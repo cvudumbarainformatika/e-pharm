@@ -25,7 +25,9 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
     kasirs: [],
     suppliers: [],
     loading: false,
-    hutang: null
+    hutang: null,
+    trID: null,
+    bbID: null
   }),
   actions: {
     // local related actions
@@ -249,6 +251,43 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
             this.isOpen = false
             waitLoad('done')
             reject(err)
+          })
+      })
+    },
+    // hapus transaksi
+    deleteTr() {
+      const par = { id: this.trID }
+      this.loading = true
+      return new Promise(resolve => {
+        api.post('v1/transaksi/destroy', par)
+          .then(resp => {
+            this.loading = false
+            this.trID = null
+            notifSuccess(resp)
+            this.getPengeluaran()
+            resolve(resp)
+          })
+          .catch(() => {
+            this.loading = false
+            this.trID = null
+          })
+      })
+    },
+    deleteDetTr() {
+      const par = { id: this.bbID }
+      this.loading = true
+      return new Promise(resolve => {
+        api.post('v1/transaksi/delete-beban-tr', par)
+          .then(resp => {
+            this.loading = false
+            this.bbID = null
+            notifSuccess(resp)
+            this.getPengeluaran()
+            resolve(resp)
+          })
+          .catch(() => {
+            this.loading = false
+            this.bbID = null
           })
       })
     }
