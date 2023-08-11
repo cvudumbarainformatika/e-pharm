@@ -133,6 +133,8 @@ export const useLaporanTransaksiStore = defineStore('laporan_transaksi_store', {
       this.rows = []
       this.selected = true
       this.loading = true
+      console.log('table form', this.table.form)
+      console.log('tr par', this.params)
       const param = Object.assign(this.table.form, this.params)
       const params = { params: param }
       // this.setColumns();

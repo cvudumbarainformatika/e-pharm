@@ -312,7 +312,7 @@ const pagination = ref({
   sortBy: transaksi.params.sort,
   descending: transaksi.params.sort === 'asc',
   page: transaksi.meta.current_page,
-  rowsPerPage: transaksi.meta.per_page
+  rowsPerPage: 0
   // rowsNumber: xx if getting data from a server
 })
 const paginate = computed(() => pagination.value)

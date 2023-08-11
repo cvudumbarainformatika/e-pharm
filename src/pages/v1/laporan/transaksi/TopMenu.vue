@@ -144,6 +144,14 @@
         </q-btn>
         <div style="position: absolute; right: 10px;">
           <div class="row justify-between items-center">
+            <app-input
+              v-if="table.form.nama.includes('PENJUALAN') || table.form.nama.includes('PEMBELIAN')"
+              v-model="table.form.q"
+              class="q-mr-xs"
+              label="Cari Nama Produk"
+              outlined
+              valid
+            />
             <app-input-date-human
               :model="table.display.from"
               label="Dari"
@@ -199,7 +207,11 @@ const setting = useSettingStore()
 const options = ref([5, 10, 20, 50, 100])
 const selectPerPage = computed({
   get () { return transaksi.params.per_page },
-  set (val) { transaksi.setParams('per_page ', val) }
+  set (val) {
+    console.log('per page', val)
+    delete table.form.per_page
+    transaksi.setParams('per_page', val)
+  }
 })
 const getTrData = () => {
   // transaksi.getDataTransactions()

@@ -129,7 +129,7 @@ const stok = useLaporanStokTable()
 transaksi.setColumns()
 table.setColumns()
 table.selected = true
-table.setForm('date', 'bulan')
+table.setForm('date', 'range')
 table.setForm('nama', 'PENJUALAN')
 button.setDays()
 button.setMonths()
