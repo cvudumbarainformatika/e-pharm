@@ -91,6 +91,24 @@
             </div>
           </div>
           <div class="row q-col-gutter-md q-mt-sm">
+            <div class="col-md-12 col-xs-12">
+              <div class="row">
+                <app-input
+                  v-model="store.form.harga_jual_prem"
+                  label="Harga Jual Premium*"
+                  style="width:85%"
+                  outlined
+                  number
+                  currency
+                  prefix="Rp"
+                />
+                <q-badge>
+                  {{ parseInt((olahUang(store.form.harga_jual_prem) - olahUang(store.form.harga_beli))/ olahUang(store.form.harga_beli) * 100) }} %
+                </q-badge>
+              </div>
+            </div>
+          </div>
+          <div class="row q-col-gutter-md q-mt-sm">
             <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.stok_awal"

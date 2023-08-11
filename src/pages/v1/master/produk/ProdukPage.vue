@@ -101,6 +101,10 @@
                 <div>customer</div>
                 <div>{{ formatter.formatRpDouble(row.harga_jual_cust) }}</div>
               </div>
+              <div class="row no-wrap justify-between q-mb-xs">
+                <div>premium</div>
+                <div>{{ formatter.formatRpDouble(row.harga_jual_prem) }}</div>
+              </div>
             </template>
             <template #cell-harga_jual_resep="{row}">
               <div>{{ formatter.formatRpDouble(row.harga_jual_resep) }}</div>
