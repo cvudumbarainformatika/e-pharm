@@ -151,6 +151,7 @@
               label="Cari Nama Produk"
               outlined
               valid
+              @keyup.enter="cariProduk()"
             />
             <app-input-date-human
               :model="table.display.from"
@@ -213,6 +214,9 @@ const selectPerPage = computed({
     transaksi.setParams('per_page', val)
   }
 })
+const cariProduk = () => {
+  table.cariDataTransactions('detail-transaksi')
+}
 const getTrData = () => {
   // transaksi.getDataTransactions()
   transaksi.goTo(1)

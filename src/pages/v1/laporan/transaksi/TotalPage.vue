@@ -13,7 +13,7 @@
       </div>
     </div>
     <div
-      v-if="table.form.nama==='PENJUALAN'"
+      v-if="table.form.nama==='PENJUALAN' && !table.form.q"
       class="row items-center"
     >
       <div class="col-3 text-weight-bold f-16">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div
-      v-if="table.form.nama==='PENJUALAN'"
+      v-if="table.form.nama==='PENJUALAN' && !table.form.q"
       class="row items-center"
     >
       <div class="col-3 text-weight-bold f-16">

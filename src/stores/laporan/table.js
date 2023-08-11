@@ -268,6 +268,45 @@ export const useLaporanTable = defineStore('laporan_table', {
             reject(err)
           })
       })
+    },
+    cariDataTransactions(url) {
+      this.rows = []
+      this.selected = true
+      this.loading = true
+      const params = { params: this.form }
+      // console.log('param', this.form)
+      this.setColumns()
+      return new Promise((resolve, reject) => {
+        api
+          .get(`v1/${url}/get-by-date`, params)
+          .then((resp) => {
+            this.loading = false
+            if (resp.status === 200) {
+              this.transactions = resp.data
+              this.rows = this.transactions
+              if (this.transactions.length) {
+                const subTotal = []
+                this.transactions.forEach((data, index) => {
+                  if (data.product_id) {
+                    subTotal[index] = data.jml * data.harga
+                  } else {
+                    subTotal[index] = data.sub_total
+                  }
+                })
+                const jumlah = subTotal.reduce((total, num) => {
+                  return total + num
+                })
+                this.totalTransaction.jml = jumlah
+              }
+              // console.log('tr by items', resp)
+              resolve(resp.data)
+            }
+          })
+          .catch((err) => {
+            this.loading = false
+            reject(err)
+          })
+      })
     }
   }
 })
