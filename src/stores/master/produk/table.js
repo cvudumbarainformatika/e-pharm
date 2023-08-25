@@ -10,6 +10,7 @@ export const useProdukTable = defineStore('produk_table', {
     loading: false,
     params: {
       q: '',
+      rak_id: null,
       page: 1,
       per_page: 10,
       order_by: 'created_at',
@@ -73,7 +74,21 @@ export const useProdukTable = defineStore('produk_table', {
       this.params.page = 1
       this.getDataTable()
     },
-
+    rakSelected(val) {
+      console.log('selected', val)
+      console.log('params selected', this.params)
+      this.params.rak_id = val
+      this.params.page = 1
+      if (!val) {
+        this.params.per_page = 10
+      } else {
+        this.params.per_page = 1000
+      }
+      this.getDataTable()
+    },
+    rakCleared() {
+      console.log('params cleared', this.params)
+    },
     // api related function
 
     // ambil

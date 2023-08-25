@@ -19,11 +19,48 @@
             @set-row="table.setPerPage"
             @refresh="table.refreshTable"
             @find="table.setSearch"
-            @set-order="table.setOder"
             @new-data="store.newData"
             @edit-data="store.editData"
             @delete="table.deletesData"
           >
+            <!-- @set-order="table.setOder" -->
+            <template #header-left-after-search>
+              <div
+                v-if="table.items.length"
+                class="q-mr-md"
+              >
+                <app-autocomplete-new
+                  v-model="table.params.rak_id"
+                  label="Filter Rak"
+                  autocomplete="nama"
+                  option-label="nama"
+                  option-value="id"
+                  outlined
+                  valid
+                  :source="stokStore.raks"
+                  @on-select="table.rakSelected"
+                  @clear="table.rakCleared"
+                />
+              </div>
+              <div>
+                <div v-if="table.items.length">
+                  <download-excel
+                    class="btn"
+                    type="xls"
+                    worksheet="stok"
+                    :fetch="fetchData"
+                    :fields="jsonFields"
+                    :name="namaFile"
+                  >
+                    <app-btn
+                      label="Download Excel"
+                      icon="icon-mat-download"
+                      push
+                    />
+                  </download-excel>
+                </div>
+              </div>
+            </template>
             <template #col-stok_awal>
               <div>stok</div>
             </template>
@@ -66,7 +103,7 @@
               <div>{{ row.merk===null ? '' : row.merk.nama }}</div>
             </template>
             <template #cell-rak="{row}">
-              <div>{{ row.rak.nama }}</div>
+              <div>{{ row.rak?row.rak.nama:'-' }}</div>
             </template>
             <template #cell-kategori="{row}">
               <div>{{ row.kategori !==null? row.kategori.nama : '-' }}</div>
@@ -129,11 +166,43 @@ import { useProdukTable } from 'src/stores/master/produk/table'
 import { useProdukFormStore } from 'src/stores/master/produk/form'
 import * as formatter from 'src/modules/formatter'
 import formDialog from './FormDialog.vue'
+import { computed } from 'vue'
+import { date } from 'quasar'
+import { useLaporanStokTable } from 'src/stores/laporan/stok/table'
 
 // import { ref } from 'vue'
 
 const table = useProdukTable()
 const store = useProdukFormStore()
+const stokStore = useLaporanStokTable()
+console.log('stok', stokStore.raks)
+const namaFile = computed(() => {
+  return 'Data Stok Per Tanggal ' + date.formatDate(Date.now(), 'DD MMMM YYYY') + '.xls'
+})
+const jsonFields = {
+  'NO.': 'no',
+  Barcode: 'barcode',
+  'Nama Barang': 'nama',
+  Satuan: 'satuan',
+  Rak: 'rak',
+  Stok: 'stok',
+  Fisik: 'fisik'
+}
 
+function fetchData () {
+  const data = []
+  table.items.forEach((a, i) => {
+    const temp = {}
+    temp.no = i + 1
+    temp.barcode = a.barcode ? String(a.barcode) : '-'
+    temp.nama = a.nama
+    temp.satuan = a.satuan ? a.satuan.nama : '-'
+    temp.rak = a.rak ? a.rak.nama : '-'
+    temp.stok = a.stok
+    temp.fisik = ''
+    data.push(temp)
+  })
+  return data
+}
 table.getDataTable()
 </script>

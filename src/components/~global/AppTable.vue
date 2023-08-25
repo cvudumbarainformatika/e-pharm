@@ -25,6 +25,10 @@
             </template>
           </q-input>
         </div>
+        <slot
+          name="header-left-after-search"
+          class="q-mr-md"
+        />
       </div>
       <div class="col-one">
         <!-- delete Ids -->
@@ -391,7 +395,7 @@ const emits = defineEmits(['newData', 'editData', 'goto', 'deleteIds', 'setRow',
 
 // const per_page = ref(5)
 const refCellTable = ref(null)
-const options = ref([5, 10, 20, 50, 100])
+const options = ref([5, 10, 20, 50, 100, 500, 1000])
 const checkAll = ref(false)
 const selected = ref([])
 

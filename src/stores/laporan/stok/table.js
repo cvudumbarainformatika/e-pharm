@@ -35,6 +35,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       'harga_jual_umum',
       'harga_jual_cust',
       'harga_jual_resep',
+      'harga_jual_prem',
       'merk_id',
       'satuan_id',
       'satuan_besar_id',
@@ -139,6 +140,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
         'harga_beli',
         'harga_jual_umum',
         'harga_jual_resep',
+        'harga_jual_prem',
         'harga_jual_cust'
       ]
       keys.forEach((key, index) => {
