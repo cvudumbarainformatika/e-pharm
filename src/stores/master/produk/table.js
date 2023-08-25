@@ -75,8 +75,8 @@ export const useProdukTable = defineStore('produk_table', {
       this.getDataTable()
     },
     rakSelected(val) {
-      console.log('selected', val)
-      console.log('params selected', this.params)
+      // console.log('selected', val)
+      // console.log('params selected', this.params)
       this.params.rak_id = val
       this.params.page = 1
       if (!val) {
@@ -87,7 +87,7 @@ export const useProdukTable = defineStore('produk_table', {
       this.getDataTable()
     },
     rakCleared() {
-      console.log('params cleared', this.params)
+      // console.log('params cleared', this.params)
     },
     // api related function
 

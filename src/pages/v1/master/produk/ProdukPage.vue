@@ -169,6 +169,7 @@ import formDialog from './FormDialog.vue'
 import { computed } from 'vue'
 import { date } from 'quasar'
 import { useLaporanStokTable } from 'src/stores/laporan/stok/table'
+import { findWithAttr } from 'src/modules/utils'
 
 // import { ref } from 'vue'
 
@@ -177,7 +178,14 @@ const store = useProdukFormStore()
 const stokStore = useLaporanStokTable()
 console.log('stok', stokStore.raks)
 const namaFile = computed(() => {
-  return 'Data Stok Per Tanggal ' + date.formatDate(Date.now(), 'DD MMMM YYYY') + '.xls'
+  let rak = 'Semua Rak'
+  if (table.params.rak_id) {
+    const ind = findWithAttr(stokStore.raks, 'id', table.params.rak_id)
+    if (ind >= 0) {
+      rak = stokStore.raks[ind].nama
+    }
+  }
+  return 'Data Stok Rak _' + rak + '_ Per Tanggal ' + date.formatDate(Date.now(), 'DD MMMM YYYY') + '.xls'
 })
 const jsonFields = {
   'NO.': 'no',
