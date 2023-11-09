@@ -315,7 +315,7 @@
               v-for="item in props.row.detail_transaction"
               :key="item.id"
             >
-              {{ item.product.nama }}
+              {{ item?.product?.nama }}
             </q-tr>
           </q-td>
           <q-td>
