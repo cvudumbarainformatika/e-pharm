@@ -40,7 +40,7 @@
       class="details q-px-xs"
     >
       <div class="namabarang">
-        {{ produk.product.nama }}
+        {{ produk?.product?.nama }}
       </div>
       <div class="flex items-center justify-between">
         <div>

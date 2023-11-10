@@ -204,44 +204,45 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       let diskon = 0
       // array product
       // console.log('selection', this.periode)
-      const product = stok.product
+      const product = stok?.product
 
       totalSmw = ongpot.period[0].totalSemua !== null ? ongpot.period[0].totalSemua : 0
       total = ongpot.period[0].jumlah !== null ? ongpot.period[0].jumlah : 0
+      if (product.length) {
+        product.forEach(data => {
+          const beli = findWithAttr(pembelian, 'product_id', data.id)
+          data.pembelianDgKredit = pembelian[beli] ? pembelian[beli].jml : 0
+          data.keluar = {}
+          data.masuk = {}
+          data.returPembelian = {}
+          data.returPenjualan = {}
+        })
+        product.forEach(data => {
+          const keluarB = findWithAttr(stok.keluar.before, 'product_id', data.id)
+          const keluarP = findWithAttr(stok.keluar.period, 'product_id', data.id)
+          const masukB = findWithAttr(stok.masuk.before, 'product_id', data.id)
+          const masukP = findWithAttr(stok.masuk.period, 'product_id', data.id)
+          const returPembelianB = findWithAttr(stok.returPembelian.before, 'product_id', data.id)
+          const returPembelianP = findWithAttr(stok.returPembelian.period, 'product_id', data.id)
+          const returPenjualanB = findWithAttr(stok.returPenjualan.before, 'product_id', data.id)
+          const returPenjualanP = findWithAttr(stok.returPenjualan.period, 'product_id', data.id)
 
-      product.forEach(data => {
-        const beli = findWithAttr(pembelian, 'product_id', data.id)
-        data.pembelianDgKredit = pembelian[beli] ? pembelian[beli].jml : 0
-        data.keluar = {}
-        data.masuk = {}
-        data.returPembelian = {}
-        data.returPenjualan = {}
-      })
-      product.forEach(data => {
-        const keluarB = findWithAttr(stok.keluar.before, 'product_id', data.id)
-        const keluarP = findWithAttr(stok.keluar.period, 'product_id', data.id)
-        const masukB = findWithAttr(stok.masuk.before, 'product_id', data.id)
-        const masukP = findWithAttr(stok.masuk.period, 'product_id', data.id)
-        const returPembelianB = findWithAttr(stok.returPembelian.before, 'product_id', data.id)
-        const returPembelianP = findWithAttr(stok.returPembelian.period, 'product_id', data.id)
-        const returPenjualanB = findWithAttr(stok.returPenjualan.before, 'product_id', data.id)
-        const returPenjualanP = findWithAttr(stok.returPenjualan.period, 'product_id', data.id)
-
-        data.keluar.before = stok.keluar.before[keluarB] ? stok.keluar.before[keluarB].jml : 0
-        data.keluar.periode = stok.keluar.period[keluarP] ? stok.keluar.period[keluarP].jml : 0
-        data.masuk.before = stok.masuk.before[masukB] ? stok.masuk.before[masukB].jml : 0
-        data.masuk.periode = stok.masuk.period[masukP] ? stok.masuk.period[masukP].jml : 0
-        data.returPembelian.before = stok.returPembelian.before[returPembelianB] ? stok.returPembelian.before[returPembelianB].jml : 0
-        data.returPembelian.periode = stok.returPembelian.period[returPembelianP] ? stok.returPembelian.period[returPembelianP].jml : 0
-        data.returPenjualan.before = stok.returPenjualan.before[returPenjualanB] ? stok.returPenjualan.before[returPenjualanB].jml : 0
-        data.returPenjualan.periode = stok.returPenjualan.period[returPenjualanP] ? stok.returPenjualan.period[returPenjualanP].jml : 0
-        // sebelum
-        data.stokSebelum = data.masuk.before - data.keluar.before + data.returPenjualan.before - data.returPembelian.before
-        // berjalan
-        data.stokBerjalan = data.masuk.periode - data.keluar.periode + data.returPenjualan.periode - data.returPembelian.periode
-        data.stok_awal += data.stokSebelum
-        data.stokSekarang = data.stok_awal + data.stokBerjalan
-      })
+          data.keluar.before = stok.keluar.before[keluarB] ? stok.keluar.before[keluarB].jml : 0
+          data.keluar.periode = stok.keluar.period[keluarP] ? stok.keluar.period[keluarP].jml : 0
+          data.masuk.before = stok.masuk.before[masukB] ? stok.masuk.before[masukB].jml : 0
+          data.masuk.periode = stok.masuk.period[masukP] ? stok.masuk.period[masukP].jml : 0
+          data.returPembelian.before = stok.returPembelian.before[returPembelianB] ? stok.returPembelian.before[returPembelianB].jml : 0
+          data.returPembelian.periode = stok.returPembelian.period[returPembelianP] ? stok.returPembelian.period[returPembelianP].jml : 0
+          data.returPenjualan.before = stok.returPenjualan.before[returPenjualanB] ? stok.returPenjualan.before[returPenjualanB].jml : 0
+          data.returPenjualan.periode = stok.returPenjualan.period[returPenjualanP] ? stok.returPenjualan.period[returPenjualanP].jml : 0
+          // sebelum
+          data.stokSebelum = data.masuk.before - data.keluar.before + data.returPenjualan.before - data.returPembelian.before
+          // berjalan
+          data.stokBerjalan = data.masuk.periode - data.keluar.periode + data.returPenjualan.periode - data.returPembelian.periode
+          data.stok_awal += data.stokSebelum
+          data.stokSekarang = data.stok_awal + data.stokBerjalan
+        })
+      }
 
       // console.log('product', product)
       // persediaan awal periode ini

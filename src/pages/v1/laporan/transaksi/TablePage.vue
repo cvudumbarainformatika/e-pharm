@@ -16,7 +16,7 @@
       <template #top>
         <div class="col-12">
           <div class="row justify-center">
-            <span class="text-h6">  {{ setting.info.nama!==undefined ? titleCase(setting.info.nama) : '-' }}</span>
+            <span class="text-h6">  {{ setting?.info?.nama!==undefined ? titleCase(setting?.info?.nama) : '-' }}</span>
           </div>
           <div class="row justify-center">
             <span class="text-h6"> Laporan {{ table.form.nama!==undefined ? titleCase(table.form.nama) : '-' }}</span>
@@ -39,7 +39,7 @@
             :props="props"
           >
             <div else>
-              {{ props.row.beban ? props.row.beban.nama : props.row.penerimaan ? props.row.penerimaan.nama : props.row.product.nama }}
+              {{ props?.row?.beban ? props?.row?.beban?.nama : props?.row?.penerimaan ? props?.row?.penerimaan?.nama : props?.row?.product?.nama }}
             </div>
           </q-td>
           <!-- kolom keterangan -->

@@ -280,9 +280,9 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       // this.setReturTotal()
       // this.form.total = this.setReturTotal()
       const data = this.form
-      data.product_id = this.produk.product_id
-      data.harga = olahUang(this.produk.harga)
-      data.sub_total = olahUang(this.form.qty) * olahUang(this.produk.harga)
+      data.product_id = this.produk?.product_id
+      data.harga = olahUang(this.produk?.harga)
+      data.sub_total = olahUang(this.form.qty) * olahUang(this.produk?.harga)
       this.loading = true
       this.setReturTotal()
       data.total = retur.form.total

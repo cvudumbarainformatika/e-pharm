@@ -284,7 +284,12 @@ export const useSettingStore = defineStore('setting', {
       // { name: 'danger', value: '#990000' }
       // { name: 'white', value: '#ffffff' }
     ],
-    infos: [],
+    infos: {
+      tlp: '097987658990',
+      nama: 'Apotik Andi Dermawan',
+      alamat: 'Jl. Yang sulit untuk dilupakan',
+      pemilik: 'Saya adalah pemilik toko'
+    },
     menu: 'user',
     form: {
       nama: 'eAchy'

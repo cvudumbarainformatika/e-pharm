@@ -80,9 +80,9 @@ export const usePembelianTable = defineStore('pembelian_table', {
         label: 'Expired',
         field: 'expired'
       },
-      { name: 'satuanBesar', align: 'left', label: 'sat. besar', field: (row) => row.product.satuan_besar ? detailBesar(row.qty, row.product.pengali) + ' ' + row.product.satuan_besar.nama : '-' },
-      { name: 'satuan', align: 'left', label: 'sat', field: (row) => row.product.satuan ? detailKecil(row.qty, row.product.pengali) + ' ' + row.product.satuan.nama : '-' },
-      { name: 'pengali', align: 'left', label: 'pengali', field: (row) => row.product ? row.product.pengali : 0 },
+      { name: 'satuanBesar', align: 'left', label: 'sat. besar', field: (row) => row?.product?.satuan_besar ? detailBesar(row.qty, row?.product?.pengali) + ' ' + row?.product?.satuan_besar.nama : '-' },
+      { name: 'satuan', align: 'left', label: 'sat', field: (row) => row?.product?.satuan ? detailKecil(row.qty, row?.product?.pengali) + ' ' + row?.product?.satuan?.nama : '-' },
+      { name: 'pengali', align: 'left', label: 'pengali', field: (row) => row?.product ? row?.product?.pengali : 0 },
       { name: 'qty', align: 'left', label: 'Jumlah', field: 'qty' },
       {
         name: 'harga',

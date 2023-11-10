@@ -56,7 +56,7 @@ export const useReturTable = defineStore('retur_table', {
         name: 'produk',
         align: 'left',
         label: 'Produk',
-        field: (row) => row.product.nama
+        field: (row) => row?.product?.nama
       },
       { name: 'qty', align: 'left', label: 'Qty', field: 'qty' },
       { name: 'harga', align: 'left', label: 'Harga', field: 'harga', format: val => formatRp(val) },
@@ -176,7 +176,7 @@ export const useReturTable = defineStore('retur_table', {
       // console.log('val ', val.row.id)
       Dialog.create({
         title: 'Konfirmasi',
-        message: `Apakah Produk:<strong> ${params.product.nama}</strong> dengan Qty :<strong> ${params.qty}</strong> akan di hapus?`,
+        message: `Apakah Produk:<strong> ${params?.product?.nama}</strong> dengan Qty :<strong> ${params.qty}</strong> akan di hapus?`,
         cancel: true,
         html: true
       })
@@ -268,10 +268,10 @@ export const useReturTable = defineStore('retur_table', {
       })
     },
     simpanDetailTransaksi() {
-      this.form.product_id = this.produk.product_id
-      this.form.harga = olahUang(this.produk.harga)
+      this.form.product_id = this?.produk?.product_id
+      this.form.harga = olahUang(this?.produk?.harga)
       this.form.sub_total =
-        olahUang(this.form.qty) * olahUang(this.produk.harga)
+        olahUang(this.form.qty) * olahUang(this?.produk?.harga)
       const reff = 'R' + routerInstance.currentRoute.value.params.slug
       this.form.reff = reff
       this.loading = true

@@ -96,7 +96,7 @@
               v-ripple
               class="menu"
             >
-              <q-item-section>{{ detail.product?detail.product.nama:'-' }}</q-item-section>
+              <q-item-section>{{ detail?.product?.nama??'-' }}</q-item-section>
               <q-item-section>{{ detail.qty }}</q-item-section>
               <q-item-section>{{ formatRp(detail.harga) }}</q-item-section>
               <q-item-section>{{ detail.diskon }} %</q-item-section>

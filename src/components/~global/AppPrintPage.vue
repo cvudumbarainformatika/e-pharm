@@ -2,13 +2,13 @@
   <q-card style="margin-left:2cm; width:128mm;">
     <q-card-section>
       <div class="text-center">
-        {{ setting.info.nama }}
+        {{ setting?.info?.nama }}
       </div>
       <div class="text-center">
-        {{ setting.info.alamat }}
+        {{ setting?.info?.alamat }}
       </div>
       <div class="text-center">
-        {{ setting.info.tlp }}
+        {{ setting?.info?.tlp }}
       </div>
       <div class="text-center">
         Nota : {{ store.form.reff }}
@@ -46,7 +46,7 @@
       >
         <div class="row items-center">
           <div class="col-4 text-left">
-            {{ produk.product.nama }}
+            {{ produk?.product?.nama }}
           </div>
           <div class="col-2">
             {{ produk.qty }}

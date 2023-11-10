@@ -5,7 +5,7 @@
   >
     <q-card-section>
       <div class="text-center">
-        {{ setting.info.nama }}
+        {{ setting?.info?.nama }}
       </div>
       <div class="text-center">
         {{ setting.info.alamat }}
@@ -43,7 +43,7 @@
       >
         <div class="row items-center">
           <div class="col-4">
-            {{ produk.product.nama }}
+            {{ produk?.product?.nama }}
           </div>
           <div class="col-2">
             {{ produk.qty }}

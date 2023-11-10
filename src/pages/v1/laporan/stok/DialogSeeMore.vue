@@ -22,7 +22,7 @@
       </q-bar>
       <q-card-section>
         <div class="text-h6 text-center">
-          {{ titleCase(setting.info.nama) }}
+          {{ titleCase(setting?.info?.nama) }}
         </div>
         <div class="text-h6 text-center">
           Laporan Details Stok

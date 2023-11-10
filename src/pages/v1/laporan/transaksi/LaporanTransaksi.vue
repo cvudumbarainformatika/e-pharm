@@ -16,7 +16,7 @@
       <template #top>
         <div class="col-12">
           <div class="row justify-center">
-            <span class="text-h6"> {{ setting.info.nama!==undefined ? titleCase(setting.info.nama) : '-' }}</span>
+            <span class="text-h6"> {{ setting?.info?.nama!==undefined ? titleCase(setting?.info?.nama) : '-' }}</span>
           </div>
           <div class="row justify-center">
             <span class="text-h6"> Laporan {{ table.form.nama!==undefined ? titleCase(table.form.nama) : '-' }}</span>
@@ -130,7 +130,7 @@
               v-for="item in props.row.detail_transaction"
               :key="item.id"
             >
-              {{ item.product.nama }}
+              {{ item?.product?.nama }}
             </q-tr>
           </q-td>
           <q-td>

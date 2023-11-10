@@ -2,7 +2,7 @@
   <q-card>
     <q-card-section>
       <div class="text-h6 text-weight-bold">
-        Laporan keuangan {{ setting.info.nama }}
+        Laporan keuangan {{ setting?.info?.nama }}
       </div>
       <div class="title-desc">
         Periode : {{ store.periode }}

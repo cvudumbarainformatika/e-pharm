@@ -81,7 +81,7 @@ import { useReturDetailTable } from 'src/stores/transaksi/retur/detail/transacti
 
 const returDetail = useReturDetailTable()
 function onSubmit() {
-  const detail = returDetail.rows.filter(data => { return data.product_id === returDetail.produk.product_id })
+  const detail = returDetail.rows.filter(data => { return data.product_id === returDetail?.produk?.product_id })
   if (detail[0].qty >= returDetail.form.qty) {
     returDetail.simpanDetailTransaksi().then(() => {
       returDetail.setOpen()
