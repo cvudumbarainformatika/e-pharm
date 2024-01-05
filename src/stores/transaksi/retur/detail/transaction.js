@@ -148,17 +148,20 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
     },
     setTotal() {
       // console.log('rows ', this.rows)
+      this.form.total = 0
       if (this.rows !== undefined) {
-        const subTotal = []
-        this.rows.forEach((val, index) => {
-          subTotal[index] = val.harga * val.qty
-        })
-        // console.log('sub total', subTotal)
-        const total = subTotal.reduce((total, num) => {
-          return total + num
-        })
-        // console.log('sum total', total)
-        this.form.total = total
+        if (this.rows.length) {
+          const subTotal = []
+          this.rows.forEach((val, index) => {
+            subTotal[index] = val.harga * val.qty
+          })
+          // console.log('sub total', subTotal)
+          const total = subTotal.reduce((total, num) => {
+            return total + num
+          })
+          // console.log('sum total', total)
+          this.form.total = total
+        }
       }
     },
     setReturTotal() {
@@ -243,12 +246,12 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
             this.loading = false
             // console.log('retur ', resp.data.data[0])
             if (resp.status === 200) {
-              if (resp.data.data[0] !== undefined) {
-                this.setFaktur(resp.data.data[0])
-                this.prevjenis = resp.data.data[0].jenis
-                this.rows = resp.data.data[0].detail_transaction
+              if (resp?.data?.data[0] !== undefined) {
+                this.setFaktur(resp?.data?.data[0])
+                this.prevjenis = resp?.data?.data[0]?.jenis
+                this.rows = resp?.data?.data[0]?.detail_transaction
                 this.setTotal()
-                this.meta = resp.data.meta
+                this.meta = resp?.data.meta
                 // console.log('retur table', this.prevjenis)
               }
               // this.setColumns(resp.data.data)
