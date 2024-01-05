@@ -7,7 +7,7 @@ import { setCssVar } from 'quasar'
 // const base = 'http://192.168.1.11:3502'
 // const base = 'https://servpharm.xenter.my.id'
 // const base = 'http://api.eparm.apotik'
-// const base = 'http://192.168.0.101/api.eparm/public'
+// const base = 'http://192.168.0.101/api.eparm/public' // server setiawan 1
 const base = 'http://api.eparm.test'
 // const base = 'http://api.eparm.test:8080'
 // const base = 'https://api.udumbarainformatika.my.id'
