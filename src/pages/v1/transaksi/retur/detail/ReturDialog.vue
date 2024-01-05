@@ -17,7 +17,7 @@
               Akan melakukan retur <strong>{{ returDetail.produk.product.nama }}</strong> sejumlah :
             </div>
             <div
-              v-if="returDetail.prevjenis==='tunai'"
+              v-if="returDetail.prevjenis!=='non-tunai'"
               class="col-md-6"
             >
               <app-input
