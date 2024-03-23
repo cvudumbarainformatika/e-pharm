@@ -46,12 +46,9 @@
             @clicked="pilihPiutang"
           />
         </div>
-        <!-- <div class="col-2"> -->
-
-        <!-- </div> -->
-        <!-- <div class="col-2"> -->
         <div v-if="table.form.nama==='PEMBELIAN' && transaksi.pembelian==='supplier'">
           <SelectMenu
+            style="max-width: 200px;"
             url="v1/supplier/index"
             title="Distributor"
             @on-select="pilihSupplier"
@@ -60,6 +57,7 @@
 
         <div v-if="table.form.nama==='PENGELUARAN' && transaksi.hutang==='supplier'">
           <SelectMenu
+            style="max-width: 200px;"
             url="v1/supplier/index"
             title="Distributor"
             @on-select="pilihSupplier"
@@ -69,6 +67,7 @@
         <!-- </div> -->
         <div v-if="table.form.nama==='PENJUALAN' && transaksi.penjualan==='dokter'">
           <SelectMenu
+            style="max-width: 200px;"
             url="v1/dokter/index"
             title="Dokter"
             @on-select="pilihDokter"
@@ -76,6 +75,7 @@
         </div>
         <div v-if="table.form.nama==='PENJUALAN' && transaksi.penjualan==='customer'">
           <SelectMenu
+            style="max-width: 200px;"
             url="v1/customer/index"
             title="Customer"
             @on-select="pilihDistributor"
@@ -83,6 +83,7 @@
         </div>
         <div v-if="table.form.nama==='PENDAPATAN' && transaksi.piutang==='customer'">
           <SelectMenu
+            style="max-width: 200px;"
             url="v1/customer/index"
             title="Customer"
             @on-select="pilihDistributor"
@@ -174,7 +175,6 @@
               :color="setting.dark? 'white':'primary'"
               size="16px"
               class="cursor-pointer"
-
               @click="Print"
             />
           </div>
