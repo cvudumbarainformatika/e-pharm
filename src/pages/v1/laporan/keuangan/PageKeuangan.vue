@@ -103,7 +103,7 @@
       <div class="row">
         <div class="col-1" />
         <div class="col-7">
-          Pembelian Bersih
+          Pembelian
         </div>
         <div class="col-2 text-right">
           {{ formatRp(store.pembelianBersih) }}
