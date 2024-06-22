@@ -3,6 +3,7 @@
     v-if="menus"
   >
     <q-card
+      flat
       style="width: 200px"
     >
       <q-list

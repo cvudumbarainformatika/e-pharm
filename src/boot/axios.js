@@ -12,6 +12,7 @@ const base = 'http://api.eparm.test'
 // const base = 'http://api.eparm.test:8080'
 // const base = 'https://api.udumbarainformatika.my.id'
 // const base = 'http://192.168.137.20/api.eparm/public'
+// const base = 'http://192.168.1.13/api.eparm/public'
 const SERVER = base + '/api'
 const imageSever = base + '/storage/'
 const web = base

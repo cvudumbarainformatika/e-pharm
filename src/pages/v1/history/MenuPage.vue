@@ -4,7 +4,7 @@
       v-for="(item, i) in items.submenus"
       :key="i"
     >
-      <q-card>
+      <q-card flat>
         <q-list
           bordered
           padding

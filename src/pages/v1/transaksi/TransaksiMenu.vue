@@ -1,6 +1,7 @@
 <template>
   <div>
     <q-card
+      flat
       style="width: 200px"
     >
       <div

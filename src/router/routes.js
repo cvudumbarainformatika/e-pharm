@@ -84,6 +84,11 @@ const routes = [
             path: '/master/rak',
             name: 'master.rak',
             component: () => import('src/pages/v1/master/rak/IndexPage.vue')
+          },
+          {
+            path: '/master/cabang',
+            name: 'master.cabang',
+            component: () => import('src/pages/v1/master/cabang/IndexPage.vue')
           }
         ]
       },
@@ -157,6 +162,20 @@ const routes = [
                 name: 'transaksi.detail.retur',
                 component: () =>
                   import('src/pages/v1/transaksi/retur/detail/IndexPage.vue')
+              }
+            ]
+          },
+          {
+            path: '/transaksi/distribusi',
+            name: 'transaksi.distribusi',
+            component: () =>
+              import('src/pages/v1/transaksi/distribusi/IndexPage.vue'),
+            children: [
+              {
+                path: '/transaksi/distribusi',
+                name: 'transaksi.detail.distribusi',
+                component: () =>
+                  import('src/pages/v1/transaksi/distribusi/IndexPage.vue')
               }
             ]
           }

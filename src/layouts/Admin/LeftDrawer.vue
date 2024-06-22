@@ -82,7 +82,7 @@
               class="anu"
             >
               <!-- style="width:250px; height:calc(100%-60px) ;" -->
-              <q-card>
+              <q-card flat>
                 <q-card-section>
                   <div class="text-weight-bold f-12">
                     <q-item :to="`/${menu.link}`">

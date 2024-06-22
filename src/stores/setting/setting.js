@@ -115,6 +115,13 @@ export const useSettingStore = defineStore('setting', {
             link: 'master/perusahaan',
             value: 'master.perusahaan',
             roles: ' root owner '
+          },
+          {
+            icon: 'icon-fa-store-solid',
+            name: 'Cabang',
+            link: 'master/cabang',
+            value: 'master.cabang',
+            roles: ' root owner '
           }
         ]
       },
@@ -163,6 +170,13 @@ export const useSettingStore = defineStore('setting', {
             name: 'Pengeluaran',
             link: '/transaksi/biaya',
             value: 'transaksi.biaya',
+            roles: ' root owner '
+          },
+          {
+            icon: 'icon-mat-sync_alt',
+            name: 'Distribusi',
+            link: '/transaksi/distribusi',
+            value: 'transaksi.distribusi',
             roles: ' root owner '
           }
         ]
