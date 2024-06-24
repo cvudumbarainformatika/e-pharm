@@ -16,6 +16,9 @@ body {
 // .mobile {
 //   font-family: 'Montserrat';
 // }
+.q-page{
+  min-height: calc(100vh - 92px) !important;
+}
 .page-light {
   background-color: $grey-2;
 }

@@ -316,6 +316,7 @@ export const useSettingStore = defineStore('setting', {
       harga_jual_resep: false,
       harga_jual_cust: false
     },
+    kodecabang: null,
     stok: useLaporanStokTable(),
     penjualan: usePenjualanTable(),
     pembelian: usePembelianTable(),
@@ -402,9 +403,10 @@ export const useSettingStore = defineStore('setting', {
         api
           .get('v1/setting/info')
           .then((resp) => {
-            // console.log('setting', resp.data[0])
+            console.log('setting', resp.data[0])
             // this.menus = resp.data[0].menus
             // this.levels = resp.data[0].levels
+            this.kodecabang = resp.data[0].kodecabang
             this.themes = resp.data[0].themes
             this.infos = resp.data[0].infos
             this.info = this.infos

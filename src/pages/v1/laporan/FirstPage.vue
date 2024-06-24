@@ -2,9 +2,12 @@
   <q-page class="q-mb-lg q-pb-lg ">
     <q-tabs
       v-model="tab"
-      align="justify"
+      align="left"
       narrow-indicator
-      :class=" setting.dark ? 'page-dark text-white' : 'bg-grey-3 text-primary' + ' print-hide'"
+      :class=" setting.dark ? 'page-dark text-white q-ml-md' : 'bg-grey-3 text-primary q-ml-md' + ' print-hide'"
+      active-color="white"
+      active-bg-color="primary"
+      indicator-color="primary"
       dense
     >
       <q-tab
@@ -22,11 +25,6 @@
         label="Kas"
         no-caps
       />
-      <!-- <q-tab
-        name="keuangan"
-        label="Keuangan"
-        no-caps
-      /> -->
     </q-tabs>
 
     <div class="q-gutter-y-sm">

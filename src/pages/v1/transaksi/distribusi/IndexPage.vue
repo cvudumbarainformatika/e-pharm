@@ -1,7 +1,6 @@
 <template>
-  <Suspense
-    @fallback="loading"
-  >
+  <!-- @fallback="loading" -->
+  <Suspense>
     <!-- main content -->
     <AsyncComp />
 
@@ -12,13 +11,13 @@
   </Suspense>
 </template>
 <script setup>
-import { useSettingStore } from 'src/stores/setting/setting'
+// import { useSettingStore } from 'src/stores/setting/setting'
 import { defineAsyncComponent } from 'vue'
 
 const AsyncComp = defineAsyncComponent(() =>
   import('./FrontPage.vue')
 )
-const loading = () => {
-  useSettingStore().transaksiLoading = true
-}
+// const loading = () => {
+//   useSettingStore().transaksiLoading = true
+// }
 </script>

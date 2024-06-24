@@ -54,7 +54,7 @@
             </template>
             <template #cell-rak="{row}">
               <div>
-                {{ row.rak.nama }}
+                {{ row?.rak?.nama }}
               </div>
             </template>
             <template #col-stokSekarang>
