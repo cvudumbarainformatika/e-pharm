@@ -14,44 +14,11 @@
         </q-avatar>
       </div>
     </div>
-    <!-- <q-scroll-area
-        class="fit"
-        style="height:calc(100%-50px) ;padding-top:50px"
-      > -->
     <div
       v-if="Object.keys(props.menus).length"
       class="flex column flex-center full-height"
-      style="height:calc(100%-60px) "
+      style="height:calc(100% - 60px);"
     >
-      <!-- <div
-        v-for="(menu, i) in menus"
-        :key="i"
-        @mouseenter="menuHover(menu,i)"
-      >
-        <router-link
-          :to="`/${menu.link}`"
-          replace
-          class="sidebar flex flex-center"
-          :active-class="props.dark ? 'bg-grey-9 text-white aktif-dark' : 'bg-grey-4 text-primary aktif'"
-          exact
-          @click="menuClick(menu)"
-        >
-          <q-tooltip
-            class="bg-primary"
-            anchor="center right"
-            self="center left"
-            :offset="[5, 5]"
-          >
-            <strong class="">{{ menu.name }}</strong>
-
-            (<q-icon name="icon-mat-keyboard_arrow_right" />)
-          </q-tooltip>
-          <q-icon
-            :name="menu.icon"
-            size="25px"
-          />
-        </router-link>
-      </div> -->
       <div
         v-for="(menu, i) in props.menus"
         :key="i"
@@ -362,7 +329,7 @@ const menuClick = val => {
 <style lang="scss" scoped>
 .anu{
   width: 250px;
-  height: calc(100%-60px);
+  height: calc(100% - 60px);
 }
 .sidebar {
   width: calc(100% - 10px);
