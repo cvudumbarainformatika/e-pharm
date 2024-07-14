@@ -35,6 +35,9 @@
             <template #col-stokAwal>
               <div>Stok Awal Master</div>
             </template>
+            <template #col-kode_produk>
+              <div>Kode Produk</div>
+            </template>
             <template #col-stok_awal>
               <div>Stok Awal Periode</div>
             </template>

@@ -74,12 +74,13 @@ export const useDistribusiFormStore = defineStore('form_distribusi', {
         this.produk1 = produk1
         console.log('selected', val, produk1)
         this.form.product_id = produk1.id
+        this.form.kode_produk = produk1.kode_produk
         this.form.harga_beli = produk1.harga_beli
         this.form.qty = 1
         this.form.harga = this.form.harga_beli
         this.form.satuan = produk1?.satuan?.nama
       }
-      // console.log('Product ', this.form)
+      console.log('Product ', val)
     },
 
     cariProduk(val) {
