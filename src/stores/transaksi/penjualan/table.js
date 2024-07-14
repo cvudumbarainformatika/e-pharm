@@ -260,6 +260,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.produk = produk[0]
         // console.log('selected', val, produk[0])
         this.form.product_id = produk[0].id
+        this.form.kode_produk = produk[0].kode_produk
         this.form.harga_beli = produk[0].harga_beli
         this.form.harga_jual_cust = produk[0].harga_jual_cust
         this.form.harga_jual_umum = produk[0].harga_jual_umum
@@ -281,6 +282,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.produk1 = produk1[0]
         // console.log('selected', val, produk1[0])
         this.form.product_id = produk1[0].id
+        this.form.kode_produk = produk1[0]?.kode_produk
         this.form.harga_beli = produk1[0].harga_beli
         this.form.harga_jual_cust = produk1[0].harga_jual_cust
         this.form.harga_jual_umum = produk1[0].harga_jual_umum
@@ -324,6 +326,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       // store.form.reff = this.form.reff
       store.setToday()
       this.produkParams.product_id = this.form.product_id
+      this.produkParams.kode_produk = this.form.kode_produk
       // const store = usePenjualanDialog();
 
       // data.product_id = this.form.product_id
