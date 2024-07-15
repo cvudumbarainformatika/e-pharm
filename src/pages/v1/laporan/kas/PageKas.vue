@@ -84,6 +84,17 @@
       </div>
       <div class="row">
         <div class="col-1" />
+        <div class="col-5">
+          - Distribusi Masuk
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.distribusiMasuk) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <div class="row">
+        <div class="col-1" />
         <div class="col-7">
           - Total Pembelian dengan Diskon dan PPN
         </div>
@@ -100,6 +111,16 @@
         </div>
         <div class="col-2 text-right">
           {{ formatRp(store.returPembelian) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <div class="  row">
+        <div class="col-1" />
+        <div class="col-7">
+          - Distribusi Keluar
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.distribusiKeluar) }}
         </div>
         <div class="col-2 text-right" />
       </div>

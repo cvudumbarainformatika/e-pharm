@@ -53,20 +53,48 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
       this.getDetailsDataProduct()
     },
     dataProses(payload) {
-      if (!payload.data.length) {
+      if (!payload?.data?.trans.length) {
         notifCenterVue(`tidak ada data di halaman ${this.params.page}`)
         this.items = []
         return
       }
-      const data = payload.data
+      const data = payload?.data?.trans
+      const distm = payload?.data?.distm
+      const distk = payload?.data?.distk
       data.forEach(anu => {
-        anu.transaksi = anu.transaction.nama
+        anu.transaksi = anu?.nama
         anu.nama = this.produk.nama
-        anu.tanggal = anu.transaction.tanggal
+        // anu.tanggal = anu.tanggal
         anu.sisa = 0
-        anu.masuk = anu.transaction.nama === 'PEMBELIAN' || anu.transaction.nama === 'RETUR PENJUALAN' || (anu.transaction.nama === 'FORM PENYESUAIAN' && anu.qty > 0) ? anu.qty : 0
-        anu.keluar = anu.transaction.nama === 'PENJUALAN' || anu.transaction.nama === 'RETUR PEMBELIAN' || (anu.transaction.nama === 'FORM PENYESUAIAN' && anu.qty < 0) ? (anu.qty < 0 ? -anu.qty : anu.qty) : 0
+        anu.masuk = anu.transaksi === 'PEMBELIAN' || anu.transaksi === 'RETUR PENJUALAN' || (anu.transaksi === 'FORM PENYESUAIAN' && anu.qty > 0) ? anu.qty : 0
+        anu.keluar = anu.transaksi === 'PENJUALAN' || anu.transaksi === 'RETUR PEMBELIAN' || (anu.transaksi === 'FORM PENYESUAIAN' && anu.qty < 0) ? (anu.qty < 0 ? -anu.qty : anu.qty) : 0
       })
+      if (distm?.length) {
+        distm.forEach(di => {
+          const anu = {
+            transaksi: 'Distribusi Masuk',
+            nama: this.produk.nama,
+            sisa: 0,
+            masuk: di?.qty,
+            tanggal: di?.tanggal,
+            keluar: 0
+          }
+          data.push(anu)
+        })
+      }
+      if (distk?.length) {
+        distk.forEach(di => {
+          const anu = {
+            transaksi: 'Distribusi Keluar',
+            nama: this.produk.nama,
+            sisa: 0,
+            masuk: 0,
+            tanggal: di?.tanggal,
+            keluar: di?.qty
+          }
+          data.push(anu)
+        })
+      }
       // console.log('see more ', payload.data)
       // console.log('see Produk ', this.produk)
       if (!this.params.selection) {
@@ -125,7 +153,7 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
       // this.setColumns(temp)
       // this.items = temp
       // this.meta = meta
-      // console.log('items', this.items)
+      console.log('items', this.items)
       // console.log('temp', temp)
       // console.log('transaksi', transaksi)
       // console.log('meta', this.meta)

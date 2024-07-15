@@ -32,6 +32,8 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
     rugi: 0,
     labaKas: 0,
     rugiKas: 0,
+    distribusiMasuk: 0,
+    distribusiKeluar: 0,
 
     params: {
       q: '',
@@ -65,6 +67,8 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       this.penerimaan = 0
       this.laba = 0
       this.rugi = 0
+      this.distribusiMasuk = 0
+      this.distribusiKeluar = 0
       // this.periode = 'Sampai Hari Ini'
     },
     setParams(key, val) {
@@ -216,6 +220,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
           data.masuk = {}
           data.returPembelian = {}
           data.returPenjualan = {}
+          data.distribusi = {}
         })
         product.forEach(data => {
           const keluarB = findWithAttr(stok.keluar.before, 'product_id', data.id)
@@ -226,6 +231,10 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
           const returPembelianP = findWithAttr(stok.returPembelian.period, 'product_id', data.id)
           const returPenjualanB = findWithAttr(stok.returPenjualan.before, 'product_id', data.id)
           const returPenjualanP = findWithAttr(stok.returPenjualan.period, 'product_id', data.id)
+          const distKelBe = stok?.distribusi?.keluarbefore?.find(x => x.product_id === data.id)
+          const distKelPe = stok?.distribusi?.keluarperiod?.find(x => x.product_id === data.id)
+          const distMasBe = stok?.distribusi?.masukbefore?.find(x => x.product_id === data.id)
+          const distMasPe = stok?.distribusi?.masukperiod?.find(x => x.product_id === data.id)
 
           data.keluar.before = stok.keluar.before[keluarB] ? stok.keluar.before[keluarB].jml : 0
           data.keluar.periode = stok.keluar.period[keluarP] ? stok.keluar.period[keluarP].jml : 0
@@ -235,10 +244,14 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
           data.returPembelian.periode = stok.returPembelian.period[returPembelianP] ? stok.returPembelian.period[returPembelianP].jml : 0
           data.returPenjualan.before = stok.returPenjualan.before[returPenjualanB] ? stok.returPenjualan.before[returPenjualanB].jml : 0
           data.returPenjualan.periode = stok.returPenjualan.period[returPenjualanP] ? stok.returPenjualan.period[returPenjualanP].jml : 0
+          data.distribusi.keluarB = distKelBe?.jml ?? 0
+          data.distribusi.keluarP = distKelPe?.jml ?? 0
+          data.distribusi.masukB = distMasBe?.jml ?? 0
+          data.distribusi.masukP = distMasPe?.jml ?? 0
           // sebelum
-          data.stokSebelum = data.masuk.before - data.keluar.before + data.returPenjualan.before - data.returPembelian.before
+          data.stokSebelum = data.masuk.before - data.keluar.before + data.returPenjualan.before - data.returPembelian.before + data.distribusi.masukB - data.distribusi.keluarB
           // berjalan
-          data.stokBerjalan = data.masuk.periode - data.keluar.periode + data.returPenjualan.periode - data.returPembelian.periode
+          data.stokBerjalan = data.masuk.periode - data.keluar.periode + data.returPenjualan.periode - data.returPembelian.periode + data.distribusi.masukP - data.distribusi.keluarP
           data.stok_awal += data.stokSebelum
           data.stokSekarang = data.stok_awal + data.stokBerjalan
         })
@@ -255,7 +268,9 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       const returPembelian = product.map(data => { return data.returPembelian.periode * data.harga_beli }).reduce((a, b) => { return a + b })
       // pembelian bersih
       this.returPembelian = returPembelian
-      const pembelianBersih = totalSmw - this.returPembelian
+      this.distribusiMasuk = product?.map(da => da?.distribusi?.masukP * da?.harga_beli).reduce((a, b) => a + b, 0)
+      this.distribusiKeluar = product?.map(da => da?.distribusi?.keluarP * da?.harga_beli).reduce((a, b) => a + b, 0)
+      const pembelianBersih = totalSmw - this.returPembelian + this.distribusiMasuk - this.distribusiKeluar
       diskon = ongpot.period[0].totalSemua !== null ? ongpot.period[0].totalSemua - total : 0
       // const pembelianBersih = totalSmw - this.returPembelian
       // HPP = Pembelian Bersih + Persediaan Awal – Persediaan Akhir

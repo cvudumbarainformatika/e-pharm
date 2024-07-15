@@ -51,7 +51,9 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       'masuk',
       'returPembelian',
       'returPenjualan',
-      'penyesuaian'
+      'penyesuaian',
+      'distribusi',
+      'stokBerjalan'
     ],
     nomer: [],
     dates: [
@@ -235,6 +237,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
             data.returPembelian = {}
             data.returPenjualan = {}
             data.penyesuaian = {}
+            data.distribusi = {}
           })
           product.forEach((data) => {
             const keluarB = stok.keluar.before ? findWithAttr(stok.keluar.before, 'product_id', data.id) : -1
@@ -271,62 +274,48 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
               'product_id',
               data.id
             ) : -1
-
-            data.keluar.before = stok.keluar.before[keluarB]
-              ? stok.keluar.before[keluarB].jml
-              : 0
-            data.keluar.periode = stok.keluar.period[keluarP]
-              ? stok.keluar.period[keluarP].jml
-              : 0
-            data.masuk.before = stok.masuk.before[masukB]
-              ? stok.masuk.before[masukB].jml
-              : 0
-            data.masuk.periode = stok.masuk.period[masukP]
-              ? stok.masuk.period[masukP].jml
-              : 0
-            data.returPembelian.before = stok.returPembelian.before[
-              returPembelianB
-            ]
-              ? stok.returPembelian.before[returPembelianB].jml
-              : 0
-            data.returPembelian.periode = stok.returPembelian.period[
-              returPembelianP
-            ]
-              ? stok.returPembelian.period[returPembelianP].jml
-              : 0
-            data.returPenjualan.before = stok.returPenjualan.before[
-              returPenjualanB
-            ]
-              ? stok.returPenjualan.before[returPenjualanB].jml
-              : 0
-            data.returPenjualan.periode = stok.returPenjualan.period[
-              returPenjualanP
-            ]
-              ? stok.returPenjualan.period[returPenjualanP].jml
-              : 0
-            data.penyesuaian.before = stok.penyesuaian.before[penyesuaianB]
-              ? stok.penyesuaian.before[penyesuaianB].jml
-              : 0
-            data.penyesuaian.periode = stok.penyesuaian.period[penyesuaianP]
-              ? stok.penyesuaian.period[penyesuaianP].jml
-              : 0
+            const distKelBe = stok?.distribusi?.keluarbefore?.find(x => x.product_id === data.id)
+            const distKelPe = stok?.distribusi?.keluarperiod?.find(x => x.product_id === data.id)
+            const distMasBe = stok?.distribusi?.masukbefore?.find(x => x.product_id === data.id)
+            const distMasPe = stok?.distribusi?.masukperiod?.find(x => x.product_id === data.id)
+            data.keluar.before = stok.keluar.before[keluarB] ? stok.keluar.before[keluarB].jml : 0
+            data.keluar.periode = stok.keluar.period[keluarP] ? stok.keluar.period[keluarP].jml : 0
+            data.masuk.before = stok.masuk.before[masukB] ? stok.masuk.before[masukB].jml : 0
+            data.masuk.periode = stok.masuk.period[masukP] ? stok.masuk.period[masukP].jml : 0
+            data.returPembelian.before = stok.returPembelian.before[returPembelianB] ? stok.returPembelian.before[returPembelianB].jml : 0
+            data.returPembelian.periode = stok.returPembelian.period[returPembelianP] ? stok.returPembelian.period[returPembelianP].jml : 0
+            data.returPenjualan.before = stok.returPenjualan.before[returPenjualanB] ? stok.returPenjualan.before[returPenjualanB].jml : 0
+            data.returPenjualan.periode = stok.returPenjualan.period[returPenjualanP] ? stok.returPenjualan.period[returPenjualanP].jml : 0
+            data.penyesuaian.before = stok.penyesuaian.before[penyesuaianB] ? stok.penyesuaian.before[penyesuaianB].jml : 0
+            data.penyesuaian.periode = stok.penyesuaian.period[penyesuaianP] ? stok.penyesuaian.period[penyesuaianP].jml : 0
+            data.distribusi.keluarB = distKelBe?.jml ?? 0
+            data.distribusi.keluarP = distKelPe?.jml ?? 0
+            data.distribusi.masukB = distMasBe?.jml ?? 0
+            data.distribusi.masukP = distMasPe?.jml ?? 0
             // sebelum
             data.stokSebelum =
             data.masuk.before -
             data.keluar.before +
             data.returPenjualan.before -
             data.returPembelian.before +
-            data.penyesuaian.before
+            data.penyesuaian.before +
+            data.distribusi.masukB -
+            data.distribusi.keluarB
             // berjalan
             data.stokBerjalan =
             data.masuk.periode -
             data.keluar.periode +
             data.returPenjualan.periode -
             data.returPembelian.periode +
-            data.penyesuaian.periode
+            data.penyesuaian.periode +
+            data.distribusi.masukP -
+            data.distribusi.keluarP
+            data.Masuk = data.masuk.periode + data.returPenjualan.periode + data.distribusi.masukP
+            data.Keluar = data.keluar.periode + data.returPembelian.periode + data.distribusi.keluarP
             data.stok_awal += data.stokSebelum
             data.stokSekarang = data.stok_awal + data.stokBerjalan
           })
+          console.log('prod', product)
           this.items = product
           this.setColumns(product)
           const temp = val.product
