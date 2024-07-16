@@ -46,17 +46,53 @@
       </div>
       <!-- RIGHT -->
       <div :class="!mobile?'q-pr-md':'q-pr-sm'">
-        <!-- <q-btn
-          flat
-          round
-          icon="icon-eva-bell-outline"
-        /> -->
         <q-badge
           color="primary"
           class="q-mr-sm"
         >
           Anda Login Sebagai : {{ role }}
         </q-badge>
+        <q-btn
+          flat
+          round
+          icon="icon-eva-bell-outline"
+        >
+          <q-badge
+            v-if="notif?.length>0"
+            color="red"
+            floating
+          >
+            {{ notif?.length }}
+          </q-badge>
+          <q-menu>
+            <q-list style="min-width: 150px">
+              <template v-if="notif?.length>0">
+                <q-item
+                  v-for="item in notif"
+                  :key="item"
+                  v-ripple
+                  v-close-popup
+                  class="row no-wrap"
+                  clickable
+                  @click="emit('handleNotif',item)"
+                >
+                  <q-item-section>{{ item }}</q-item-section>
+                </q-item>
+              </template>
+              <q-item
+                v-else
+                v-ripple
+                class="row no-wrap"
+                clickable
+              >
+                <q-item-section class="text-italic">
+                  Tidak ada notifikasi
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-btn>
+
         <q-avatar
           size="40px"
           class="q-ml-sm cursor-pointer bg-grey"
@@ -83,7 +119,7 @@ import { imageSever } from 'src/boot/axios'
 const store = useAuthStore()
 // const history = useHistoryTable()
 // const setting = useSettingStore()
-const emit = defineEmits(['toggleLeft'])
+const emit = defineEmits(['toggleLeft', 'handleNotif'])
 defineProps({
   dark: {
     type: Boolean,
@@ -92,6 +128,10 @@ defineProps({
   mobile: {
     type: Boolean,
     default: false
+  },
+  notif: {
+    type: Array,
+    default: () => []
   }
 })
 

@@ -7,8 +7,10 @@
     <AdmHeader
       :dark="dark"
       :mobile="mobile"
+      :notif="notif"
       class="print-hide"
       @toggle-left="toggleLeftDrawer"
+      @handle-notif="handleNotif"
     />
     <LeftDrawer
       v-if="!mobile"
@@ -101,7 +103,13 @@ const role = computed(() => {
 const dark = computed(() => {
   return $q.dark.isActive
 })
-
+const notif = ref([
+  { data: 'anu' },
+  { data: 'anu2' }
+])
+function handleNotif(val) {
+  console.log('handleNotif', val)
+}
 // const transitionName = ref('slide-left')
 // const route = routerInstance
 // console.log('Layout route ', routerInstance)
