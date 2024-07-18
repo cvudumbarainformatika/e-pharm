@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="row q-mb-md">
+      Kirim Permintaan
+    </div>
+    <!-- <div class="row q-mb-md">
       <q-option-group
         v-model="jenis"
         :options="jenisOptions"
@@ -8,10 +11,9 @@
         inline
         @update:model-value="gantiJenis"
       />
-    </div>
-    <div class="row q-col-gutter-md">
+    </div> -->
+    <!-- <div class="row q-col-gutter-md">
       <div class="col-6">
-        <!-- nomor distribusi -->
         <div class="row items-center">
           <div class="col-4">
             Nomor Distribusi
@@ -33,7 +35,6 @@
             />
           </div>
         </div>
-        <!-- Dari -->
         <div class="row items-center">
           <div class="col-4">
             Toko Asal
@@ -58,7 +59,6 @@
             />
           </div>
         </div>
-        <!-- Pengirim -->
         <div class="row items-center">
           <div class="col-4">
             Pengirim
@@ -80,7 +80,6 @@
             />
           </div>
         </div>
-        <!-- tgl kirim -->
         <div class="row items-center">
           <div class="col-4">
             Tanggal Kirim
@@ -98,6 +97,204 @@
             <q-input
               ref="refExpired"
               v-model="store.form.tgl_distribusi"
+              class="text-left"
+              label=" "
+              dense
+            >
+              <template #append>
+                <q-icon
+                  name="icon-mat-event"
+                  class="cursor-pointer"
+                >
+                  <q-popup-proxy
+                    ref="refTanggal"
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-date
+                      v-model="store.form.tgl_distribusi"
+                      mask="YYYY-MM-DD"
+                    >
+                      <div class="row items-center justify-end">
+                        <q-btn
+                          v-close-popup
+                          label="Close"
+                          color="primary"
+                          flat
+                        />
+                      </div>
+                    </q-date>
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="row items-center">
+          <div class="col-4">
+            Toko Tujuan
+          </div>
+          <div
+            v-if="jenis==='terima'"
+            class="col-8"
+          >
+            {{ cariCabang(store.form.tujuan) }}
+          </div>
+          <div
+            v-if="jenis==='kirim'"
+            class="col-8"
+          >
+            <app-autocomplete-new
+              v-model="store.form.tujuan"
+              label="Tujuan"
+              option-value="kodecabang"
+              option-label="namacabang"
+              autocomplete="namacabang"
+              :source="store.cabangs"
+            />
+          </div>
+        </div>
+        <div class="row items-center">
+          <div class="col-4">
+            Penerima
+          </div>
+          <div
+            v-if="jenis==='terima'"
+            class="col-8"
+          >
+            {{ store?.form?.penerima }}
+          </div>
+          <div
+            v-if="jenis==='kirim'"
+            class="col-8"
+          >
+            <q-input
+              v-model="store.form.penerima"
+              dense
+              label="Penerima"
+            />
+          </div>
+        </div>
+        <div class="row items-center">
+          <div class="col-4">
+            Tanggal Terima
+          </div>
+          <div class="col-8">
+            <div
+              v-if="jenis==='terima'"
+              class="col-8"
+            >
+              {{ store?.form?.tgl_terima }}
+            </div>
+            <div
+              v-if="jenis==='kirim'"
+              class="col-8"
+            >
+              <q-input
+                ref="refExpired"
+                v-model="store.form.tgl_terima"
+                class="text-left"
+                label=" "
+                dense
+              >
+                <template #append>
+                  <q-icon
+                    name="icon-mat-event"
+                    class="cursor-pointer"
+                  >
+                    <q-popup-proxy
+                      ref="refTanggal"
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                      <q-date
+                        v-model="store.form.tgl_terima"
+                        mask="YYYY-MM-DD"
+                      >
+                        <div class="row items-center justify-end">
+                          <q-btn
+                            v-close-popup
+                            label="Close"
+                            color="primary"
+                            flat
+                          />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+    <div class="row q-col-gutter-md">
+      <div class="col-6">
+        <!-- nomor distribusi -->
+        <div class="row items-center">
+          <div class="col-4">
+            Nomor Distribusi
+          </div>
+          <div
+            class="col-8"
+          >
+            <q-input
+              v-model="store.form.nodistribusi"
+              dense
+              label="Nomor Distribusi"
+              readonly
+            />
+          </div>
+        </div>
+        <!-- Dari -->
+        <div class="row items-center">
+          <div class="col-4">
+            Toko Asal
+          </div>
+          <div
+            class="col-8"
+          >
+            <app-autocomplete-new
+              v-model="store.form.tujuan"
+              label="Dari"
+              option-value="kodecabang"
+              option-label="namacabang"
+              autocomplete="namacabang"
+              :source="myCabang"
+            />
+          </div>
+        </div>
+        <!-- Pengirim -->
+        <div class="row items-center">
+          <div class="col-4">
+            Pengirim
+          </div>
+          <div
+            class="col-8"
+          >
+            <q-input
+              v-model="store.form.penerima"
+              dense
+              label="Pengirim"
+            />
+          </div>
+        </div>
+        <!-- tgl kirim -->
+        <div class="row items-center">
+          <div class="col-4">
+            Tanggal Kirim
+          </div>
+          <div
+            class="col-8"
+          >
+            <q-input
+              ref="refExpired"
+              v-model="store.form.tgl_permintaan"
               class="text-left"
               label=" "
               dense
@@ -142,22 +339,15 @@
             Toko Tujuan
           </div>
           <div
-            v-if="jenis==='terima'"
-            class="col-8"
-          >
-            {{ cariCabang(store.form.tujuan) }}
-          </div>
-          <div
-            v-if="jenis==='kirim'"
             class="col-8"
           >
             <app-autocomplete-new
-              v-model="store.form.tujuan"
+              v-model="store.form.dari"
               label="Tujuan"
               option-value="kodecabang"
               option-label="namacabang"
               autocomplete="namacabang"
-              :source="store.cabangs"
+              :source="store.availableCabangs"
             />
           </div>
         </div>
@@ -167,17 +357,10 @@
             Penerima
           </div>
           <div
-            v-if="jenis==='terima'"
-            class="col-8"
-          >
-            {{ store?.form?.penerima }}
-          </div>
-          <div
-            v-if="jenis==='kirim'"
             class="col-8"
           >
             <q-input
-              v-model="store.form.penerima"
+              v-model="store.form.pengirim"
               dense
               label="Penerima"
             />
@@ -190,13 +373,6 @@
           </div>
           <div class="col-8">
             <div
-              v-if="jenis==='terima'"
-              class="col-8"
-            >
-              {{ store?.form?.tgl_terima }}
-            </div>
-            <div
-              v-if="jenis==='kirim'"
               class="col-8"
             >
               <q-input
@@ -331,7 +507,7 @@
         <div class="col-2">
           <app-input
             ref="refJumlah"
-            v-model="store.form.qty"
+            v-model="store.form.jumlah"
             class="text-right"
             label=" "
             type="number"
@@ -401,7 +577,7 @@
             <div
               class="col-2"
             >
-              {{ item?.qty }}
+              {{ item?.jumlah }}
             </div>
             <div
               class="col-1 text-right"
@@ -474,11 +650,14 @@ import { onMounted, ref } from 'vue'
 const store = useDistribusiFormStore()
 const labelSelesai = ref('Selesai Dan Kirim')
 // option kirim atau Terima
-const jenis = ref('kirim')
+// eslint-disable-next-line no-unused-vars
+const jenis = ref('terima')
+// eslint-disable-next-line no-unused-vars
 const jenisOptions = ref([
   { label: 'Kirim', value: 'kirim' },
   { label: 'Terima', value: 'terima' }
 ])
+// eslint-disable-next-line no-unused-vars
 function gantiJenis(val) {
   if (val === 'kirim') {
     store.setForm('dari', setting?.kodecabang)
@@ -540,9 +719,9 @@ const updateQty = val => {
   autofocus.value = true
   // console.log('update qty', table.produk1)
   store.setForm('product_id', store.produk1.id)
-  store.setForm('harga', parseFloat(store.form.harga))
-  store.setForm('qty', parseFloat(store.form.qty))
-  store.setForm('subtotal', parseFloat(store.form.qty) * parseFloat(store.form.harga))
+  // store.setForm('harga', parseFloat(store.form.harga))
+  store.setForm('jumlah', parseFloat(store.form.jumlah))
+  // store.setForm('subtotal', parseFloat(store.form.jumlah) * parseFloat(store.form.harga))
   // if (store.dataPasien.nokartu || store.dataPasien.noresep || store.dataPasien.nama || store.dataPasien.alamat) {
   //   store.form.pasien = store.dataPasien
   // }
@@ -571,6 +750,8 @@ function selesai() {
   // if (!store.form.tujuan) return notifErrVue('Toko Tujuan tidak boleh kosong')
   // if(jenis.value==='kirim' && (!store.form.dari))
 }
+
+// eslint-disable-next-line no-unused-vars
 function cariCabang(val) {
   const cabang = store.cabangs.find(a => a.kodecabang === val)
   return cabang?.namacabang ?? 'cabang tidak ditemukan'
@@ -579,13 +760,18 @@ function cariCabang(val) {
 const setting = useSettingStore()
 // auth
 const auth = useAuthStore()
+const myCabang = ref([])
 onMounted(() => {
   store.initialActions()
-  store.setForm('tgl_distribusi', date.formatDate(Date.now(), 'YYYY-MM-DD'))
-  setTimeout(() => {
-    if (!store.form.dari) store.setForm('dari', setting?.kodecabang)
-    if (!store.form.pengirim) store.setForm('pengirim', auth?.user?.name)
-  }, 2000)
+  store.setForm('tgl_permintaan', date.formatDate(Date.now(), 'YYYY-MM-DD'))
+  store.getCabangs().then(() => {
+    setTimeout(() => {
+      store.availableCabangs = store.cabangs.filter(f => f.kodecabang !== setting?.kodecabang)
+      myCabang.value = store.cabangs.filter(f => f.kodecabang === setting?.kodecabang)
+      if (!store.form.tujuan) store.setForm('tujuan', setting?.kodecabang)
+      if (!store.form.penerima) store.setForm('penerima', auth?.user?.name)
+    }, 2000)
+  })
   console.log('setting', setting)
 })
 </script>

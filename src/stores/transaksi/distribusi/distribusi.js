@@ -35,7 +35,7 @@ export const useDistribusiFormStore = defineStore('form_distribusi', {
 
     initialActions() {
       this.getNomorDist()
-      this.getCabangs()
+      // this.getCabangs()
       // this.setToday()
     },
     async getNomorDist() {
@@ -51,12 +51,15 @@ export const useDistribusiFormStore = defineStore('form_distribusi', {
           console.log(resp)
         })
     },
-    async getCabangs() {
-      await api.get('v1/cabang/all')
-        .then(resp => {
-          console.log('cabang', resp)
-          this.cabangs = resp?.data
-        })
+    getCabangs() {
+      return new Promise(resolve => {
+        api.get('v1/cabang/all')
+          .then(resp => {
+            console.log('cabang', resp)
+            this.cabangs = resp?.data
+            resolve(resp)
+          })
+      })
     },
     resetInput() {
       this.form.product_id = ''

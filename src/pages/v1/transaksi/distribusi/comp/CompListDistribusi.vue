@@ -116,6 +116,19 @@
         </div>
       </div>
     </template>
+    <template #cell-Aksi="{row}">
+      <div v-if="(row?.dari === setting?.kodecabang) && row.status===2">
+        <q-btn
+          dense
+          icon="icon-mat-send"
+          color="primary"
+          flat
+          @click="distribusikan(row)"
+        >
+          <q-tooltip>Distribusikan</q-tooltip>
+        </q-btn>
+      </div>
+    </template>
     <template #expand="{ row }">
       <div v-if="row?.details?.length">
         <div class="row no-wrap text-weight-bold bg-dark text-white ">
@@ -131,6 +144,18 @@
           >
             Produk
           </div>
+          <!-- <div
+            class="col-auto q-pa-xs"
+            style="width:10%; border-top: 1px solid white; border-left: 1px solid white;"
+          >
+            Permintaan
+          </div>
+          <div
+            class="col-auto q-pa-xs"
+            style="width:10%; border-top: 1px solid white; border-left: 1px solid white;"
+          >
+            Distribusi
+          </div> -->
           <div
             class="col-auto q-pa-xs"
             style="width:20%; border-top: 1px solid white; border-left: 1px solid white;"
@@ -167,17 +192,57 @@
             >
               {{ det?.produk?.nama }}
             </div>
+            <!-- <div
+              class="col-auto text-right q-pa-xs"
+              style="width:10%; border-bottom: 1px solid black; border-left: 1px solid black;"
+            >
+              {{ det?.jumlah }}
+            </div>
+            <div
+              class="col-auto text-right q-pa-xs"
+              style="width:10%; border-bottom: 1px solid black; border-left: 1px solid black;"
+            >
+              <app-input
+                v-model="det.qty"
+                label="Jumlah Distribusi"
+                class="text-right"
+                outlined
+                @update:model-value="updateQty"
+              />
+            </div> -->
             <div
               class="col-auto text-right q-pa-xs"
               style="width:20%; border-bottom: 1px solid black; border-left: 1px solid black;"
             >
+              <!-- <div v-if="(row?.tujuan === setting?.kodecabang) && row.flag==='2'">
+                <app-input
+                  v-model="det.qty"
+                  label="Jumlah Distribusi"
+                  class="text-right"
+                  outlined
+                  @update:model-value="updateQty"
+                />
+              </div>
+              <div v-else>
+              </div> -->
               {{ setMasuk(row,det) }}
             </div>
             <div
               class="col-auto text-right q-pa-xs"
               style="width:20%; border-bottom: 1px solid black; border-left: 1px solid black;"
             >
-              {{ setKeluar(row,det) }}
+              <div v-if="(row?.dari === setting?.kodecabang) && row.status===2">
+                <app-input
+                  v-model="det.qty"
+                  label=" "
+                  class="text-right"
+                  outlined
+                  @update:model-value="updateQty"
+                />
+              </div>
+              <div v-else>
+                {{ setKeluar(row,det) }}
+              </div>
             </div>
             <div
               class="col-auto text-right q-pa-xs"
@@ -193,12 +258,87 @@
       </div>
     </template>
   </app-table-extend>
+  <q-dialog
+    v-model="isOpen"
+    persistent
+  >
+    <q-card style="min-width: 70%">
+      <q-card-section>
+        <div class="row text-weight-bold f-18 q-ma-md justify-center">
+          KONFIRMASI
+        </div>
+        <div class="row f-14 q-ma-md">
+          {{ message }}
+        </div>
+        <div v-if="gasama?.length">
+          <div class="row bg-dark text-white">
+            <div class="col-1">
+              No
+            </div>
+            <div class="col-5">
+              Produk
+            </div>
+            <div class="col-3">
+              Permintaan
+            </div>
+            <div class="col-3">
+              Distribusi
+            </div>
+          </div>
+          <div
+            v-for="(item,i) in gasama"
+            :key="item"
+          >
+            <div class="row">
+              <div class="col-1">
+                {{ i+1 }}
+              </div>
+              <div class="col-5">
+                {{ item?.produk?.nama }}
+              </div>
+              <div class="col-3">
+                {{ item?.jumlah }}
+              </div>
+              <div class="col-3">
+                {{ item?.qty }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </q-card-section>
+      <q-card-actions align="right">
+        <div class="q-mr-sm">
+          <q-btn
+            label="Batal"
+            color="dark"
+            push
+            no-caps
+            :loading="data?.loading"
+            :disable="data?.loading"
+            @click="isOpen=false"
+          />
+        </div>
+        <div class="q-mr-md">
+          <q-btn
+            label="Distribusikan"
+            color="primary"
+            push
+            no-caps
+            :loading="data?.loading"
+            :disable="data?.loading"
+            @click="kirim()"
+          />
+        </div>
+      </q-card-actions>
+    </q-card>
+  </q-dialog>
 </template>
 <script setup>
+import { date } from 'quasar'
 import { dateFullFormat, formatDouble } from 'src/modules/formatter'
 import { useSettingStore } from 'src/stores/setting/setting'
 import { useListDistribusiStore } from 'src/stores/transaksi/distribusi/list'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 const store = useListDistribusiStore()
 // setting
@@ -216,7 +356,34 @@ function onClick (val) {
   val.item.expand = !val.item.expand
   val.item.highlight = !val.item.highlight
 }
-
+// eslint-disable-next-line no-unused-vars
+function updateQty(val) {
+  console.log(val)
+}
+const isOpen = ref(false)
+const message = ref('')
+const data = ref(null)
+const gasama = ref(null)
+function distribusikan(val) {
+  console.log(val)
+  val.expand = !val.expand
+  val.highlight = !val.highlight
+  isOpen.value = true
+  gasama.value = val?.details?.filter(a => a.qty !== a.jumlah)
+  if (gasama.value?.length) {
+    message.value = 'Jumlah Distribusi Tidak Sama, Apakah Akan dilanjutkan?'
+  } else {
+    message.value = 'Distribusikan Sesuai Permintaan?'
+  }
+  data.value = val
+}
+function kirim() {
+  data.value.tgl_distribusi = date.formatDate(Date.now(), 'YYYY-MM-DD')
+  store.distribusikan(data.value).then(() => {
+    isOpen.value = false
+  })
+  console.log('kirim')
+}
 onMounted(() => {
   store.getDataTable()
 })
