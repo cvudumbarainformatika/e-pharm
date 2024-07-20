@@ -64,7 +64,7 @@
           pembuatnya.
         </div>
         <div class="q-mt-lg text-right f-14">
-          E-ACHY Versi BETA
+          E-ACHY Versi 1.10
         </div>
       </div>
     </q-card>
