@@ -24,7 +24,7 @@
             @delete="table.deletesData"
           >
             <template #cell-perusahaan="{row}">
-              <div>{{ row.perusahaan.nama }}</div>
+              <div>{{ row?.perusahaan?.nama }}</div>
             </template>
             <template #col-saldo_awal_hutang>
               <div>saldo awal hutang</div>
