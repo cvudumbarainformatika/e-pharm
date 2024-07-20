@@ -56,27 +56,41 @@
           flat
           round
           icon="icon-eva-bell-outline"
+          :loading="loadingNotif"
+          :disable="loadingNotif"
         >
           <q-badge
-            v-if="notif?.length>0"
+            v-if="checkUnread(notif)>0"
             color="red"
             floating
           >
-            {{ notif?.length }}
+            {{ checkUnread(notif) }}
           </q-badge>
-          <q-menu>
-            <q-list style="min-width: 150px">
+          <q-menu v-if="!loadingNotif">
+            <q-list
+              bordered
+              separator
+              style="min-width: 200px"
+            >
               <template v-if="notif?.length>0">
                 <q-item
                   v-for="item in notif"
                   :key="item"
                   v-ripple
                   v-close-popup
-                  class="row no-wrap"
+                  class="row no-wrap fit"
+                  :class="item?.is_read === 0 ? 'bg-blue-2' : ''"
                   clickable
                   @click="emit('handleNotif',item)"
                 >
-                  <q-item-section>{{ item }}</q-item-section>
+                  <q-item-section>
+                    <q-item-label>{{ item?.type }}</q-item-label>
+                    <q-item-label caption>
+                      <div>
+                        Dari {{ namaCabang(item) }}
+                      </div>
+                    </q-item-label>
+                  </q-item-section>
                 </q-item>
               </template>
               <q-item
@@ -114,9 +128,11 @@ import AdmHeaderMenuProfile from './AdmHeaderMenuProfile.vue'
 import { computed } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
 import { imageSever } from 'src/boot/axios'
+import { useDistribusiFormStore } from 'src/stores/transaksi/distribusi/distribusi'
 // import { useHistoryTable } from 'src/stores/history/table'
 // import { useSettingStore } from 'src/stores/setting/setting'
 const store = useAuthStore()
+const dist = useDistribusiFormStore()
 // const history = useHistoryTable()
 // const setting = useSettingStore()
 const emit = defineEmits(['toggleLeft', 'handleNotif'])
@@ -129,12 +145,19 @@ defineProps({
     type: Boolean,
     default: false
   },
+  loadingNotif: {
+    type: Boolean,
+    default: false
+  },
   notif: {
     type: Array,
     default: () => []
   }
 })
-
+function checkUnread(val) {
+  const ada = val.filter(f => f.is_read === 0)
+  return ada.length
+}
 const image = computed(() => {
   let imgUrl = new URL('../../assets/images/actor.svg', import.meta.url).href
   if (store.user) {
@@ -149,6 +172,10 @@ const image = computed(() => {
 const role = computed(() => {
   return store.user ? store.user.role : 'kasir'
 })
+function namaCabang(item) {
+  const cabang = dist?.cabangs.find(f => f?.kodecabang === item?.sender)
+  return cabang?.namacabang ?? ''
+}
 // watch(() => store.user, (apem) => {
 //   console.log('watch apem', apem)
 //   image.value = apem.image !== null ? (imageSever + apem.image) : new URL('../../assets/images/actor.svg', import.meta.url).href

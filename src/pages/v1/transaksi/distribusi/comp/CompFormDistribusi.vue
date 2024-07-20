@@ -1,5 +1,8 @@
 <template>
-  <div>
+  <div v-if="store.loading">
+    <app-loading />
+  </div>
+  <div v-else>
     <div class="row q-mb-md">
       Kirim Permintaan
     </div>
@@ -435,13 +438,13 @@
         <div class="col-6">
           Produk
         </div>
-        <div class="col-2">
+        <!-- <div class="col-2">
           Expired
-        </div>
-        <div class="col-2">
+        </div> -->
+        <div class="col-3">
           Jumlah
         </div>
-        <div class="col-2">
+        <div class="col-3">
           Satuan
         </div>
       </div>
@@ -465,7 +468,7 @@
             @buang="store.cariProduk"
           />
         </div>
-        <div class="col-2">
+        <!-- <div class="col-2">
           <q-input
             ref="refExpired"
             v-model="store.form.expired"
@@ -473,38 +476,36 @@
             label=" "
             dense
           >
-            <!-- mask="date"
-              :rules="['date']" -->
-            <template #append>
-              <q-icon
-                name="icon-mat-event"
-                class="cursor-pointer"
+        <template #append>
+          <q-icon
+            name="icon-mat-event"
+            class="cursor-pointer"
+          >
+            <q-popup-proxy
+              ref="refTanggal"
+              cover
+              transition-show="scale"
+              transition-hide="scale"
+            >
+              <q-date
+                v-model="store.form.expired"
+                mask="YYYY-MM-DD"
               >
-                <q-popup-proxy
-                  ref="refTanggal"
-                  cover
-                  transition-show="scale"
-                  transition-hide="scale"
-                >
-                  <q-date
-                    v-model="store.form.expired"
-                    mask="YYYY-MM-DD"
-                  >
-                    <div class="row items-center justify-end">
-                      <q-btn
-                        v-close-popup
-                        label="Close"
-                        color="primary"
-                        flat
-                      />
-                    </div>
-                  </q-date>
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
-        </div>
-        <div class="col-2">
+                <div class="row items-center justify-end">
+                  <q-btn
+                    v-close-popup
+                    label="Close"
+                    color="primary"
+                    flat
+                  />
+                </div>
+              </q-date>
+            </q-popup-proxy>
+          </q-icon>
+        </template>
+        </q-input>
+      </div> -->
+        <div class="col-3">
           <app-input
             ref="refJumlah"
             v-model="store.form.jumlah"
@@ -514,7 +515,7 @@
             @keyup.enter="updateQty"
           />
         </div>
-        <div class="col-2">
+        <div class="col-3">
           {{ store?.form?.satuan }}
         </div>
       </div>
@@ -726,8 +727,8 @@ const updateQty = val => {
   //   store.form.pasien = store.dataPasien
   // }
 
-  if (!store.form.dari) return notifErrVue('Asal Toko tidak boleh kosong')
-  if (!store.form.tujuan) return notifErrVue('Toko Tujuan tidak boleh kosong')
+  if (!store.form.dari) return notifErrVue('Toko Tujuan tidak boleh kosong')
+  if (!store.form.tujuan) return notifErrVue('Toko Asal tidak boleh kosong')
   if (store.form.dari === store.form.tujuan) return notifErrVue('Tidak Perlu Distribusi ke tempat yang sama')
   store.onEnter()
   // refProduk.value.$refs.refAuto.updateInputValue('')

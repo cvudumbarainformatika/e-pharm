@@ -7,7 +7,8 @@
     <AdmHeader
       :dark="dark"
       :mobile="mobile"
-      :notif="notif"
+      :notif="notifStore?.unreadNotif"
+      :loading-notif="notifStore.loading"
       class="print-hide"
       @toggle-left="toggleLeftDrawer"
       @handle-notif="handleNotif"
@@ -83,6 +84,8 @@ import AdmFooterMenu from './AdmFooterMenu.vue'
 import { useAuthStore } from 'src/stores/auth'
 import { useHistoryTable } from 'src/stores/history/table'
 import { useSettingStore } from 'src/stores/setting/setting'
+import { notifchanel } from 'src/modules/sockets'
+import { useNotificationStore } from 'src/stores/setting/notifikasi'
 // import { routerInstance } from 'src/boot/router'
 // import { usePenjualanTable } from 'src/stores/transaksi/penjualan/table'
 
@@ -96,6 +99,7 @@ const $q = useQuasar()
 const mobile = $q.screen.lt.md
 const history = useHistoryTable()
 const setting = useSettingStore()
+const notifStore = useNotificationStore()
 const role = computed(() => {
   return store.user ? store.user.role : null
 })
@@ -103,12 +107,31 @@ const role = computed(() => {
 const dark = computed(() => {
   return $q.dark.isActive
 })
-const notif = ref([
-  { data: 'anu' },
-  { data: 'anu2' }
-])
+// const notif = ref([
+//   // { data: 'anu' },
+//   // { data: 'anu2' }
+// ])
+notifchanel.subscribed(() => {
+  console.log('subscribed notif channel!!!')
+}).listen('.notif', (e) => {
+  console.log('listen to chanel notif', e)
+  console.log('kode cabang', setting?.kodecabang)
+  const ada = notifStore?.unreadNotif.find(a => a.id === e?.message?.id)
+  if (!ada && e?.message?.sender !== setting?.kodecabang) {
+    notifStore?.unreadNotif.push(e?.message)
+  }
+  // console.log('listen to chanel antrean data', e.message)
+})
+// notifchannel.subscribed(() => {
+//   console.log('subscribed notif 2 channel!!!')
+// }).listen('.notif', (e) => {
+//   console.log('listen to chanel notif 2', e)
+//   // console.log('listen to chanel antrean data', e.message)
+// })
+
 function handleNotif(val) {
   console.log('handleNotif', val)
+  notifStore.readNotif(val)
 }
 // const transitionName = ref('slide-left')
 // const route = routerInstance
@@ -185,6 +208,10 @@ onMounted(() => {
 // -----------------get data autocomplete----------------- //
 //
 setting.getInitialData()
+notifStore.getUnreadNotif()
+// setting.getDataSetting(resp => {
+//   console.log('resp nya', resp?.uread)
+// })
 // function toggleRightDrawer() {
 //   rightDrawerOpen.value = !rightDrawerOpen.value
 // }

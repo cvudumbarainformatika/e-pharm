@@ -321,7 +321,8 @@ export const useSettingStore = defineStore('setting', {
     penjualan: usePenjualanTable(),
     pembelian: usePembelianTable(),
     dashboar: useDashboardStore(),
-    print: usePrintStore()
+    print: usePrintStore(),
+    unreadNotif: []
   }),
   actions: {
     setOpen() {
@@ -403,15 +404,16 @@ export const useSettingStore = defineStore('setting', {
         api
           .get('v1/setting/info')
           .then((resp) => {
-            console.log('setting', resp.data[0])
-            // this.menus = resp.data[0].menus
-            // this.levels = resp.data[0].levels
-            this.kodecabang = resp.data[0].kodecabang
-            this.themes = resp.data[0].themes
-            this.infos = resp.data[0].infos
+            console.log('setting', resp.data)
+            const datanya = resp?.data?.data
+            // this.menus = resp.data.menus
+            // this.levels = resp.data.levels
+            this.kodecabang = datanya.kodecabang
+            this.themes = datanya.themes
+            this.infos = datanya.infos
             this.info = this.infos
             this.print.setInfo(this.infos)
-            resolve(resp)
+            resolve(resp?.data)
           })
           .catch((err) => {
             reject(err)

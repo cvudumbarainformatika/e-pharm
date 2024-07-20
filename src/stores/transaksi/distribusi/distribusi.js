@@ -39,8 +39,10 @@ export const useDistribusiFormStore = defineStore('form_distribusi', {
       // this.setToday()
     },
     async getNomorDist() {
+      this.loading = true
       await api.get('v1/distribusi/get-nodist-draft')
         .then(resp => {
+          this.loading = false
           if (resp?.data?.nodistribusi) this.setForm('nodistribusi', resp?.data?.nodistribusi)
           this.drafts = resp?.data
           if (this.drafts) {
@@ -50,6 +52,7 @@ export const useDistribusiFormStore = defineStore('form_distribusi', {
           }
           console.log(resp)
         })
+        .catch(() => { this.loading = false })
     },
     getCabangs() {
       return new Promise(resolve => {
@@ -63,8 +66,9 @@ export const useDistribusiFormStore = defineStore('form_distribusi', {
     },
     resetInput() {
       this.form.product_id = ''
+      this.form.kode_produk = ''
       this.form.harga = 0
-      this.form.qty = 0
+      this.form.jumlah = 0
       this.form.expired = ''
       // console.log('reset input')
     },
@@ -124,7 +128,6 @@ export const useDistribusiFormStore = defineStore('form_distribusi', {
             })
           })
         })
-      this.resetInput()
 
       const index = this.produk2s.findIndex(it => it.id === this.form.product_id)
       if (index >= 0) {
@@ -169,6 +172,7 @@ export const useDistribusiFormStore = defineStore('form_distribusi', {
               this.drafts = resp?.data?.data
               this.drafts.details = [resp?.data?.detail]
             }
+            this.resetInput()
             resolve(resp.data.data)
             // this.getDetailTransaksi()
           })
