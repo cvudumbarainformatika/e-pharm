@@ -7,6 +7,7 @@
     <AdmHeader
       :dark="dark"
       :mobile="mobile"
+      :cabangs="dist?.cabangs"
       :notif="notifStore?.unreadNotif"
       :loading-notif="notifStore.loading"
       class="print-hide"
@@ -86,6 +87,7 @@ import { useHistoryTable } from 'src/stores/history/table'
 import { useSettingStore } from 'src/stores/setting/setting'
 import { notifchanel } from 'src/modules/sockets'
 import { useNotificationStore } from 'src/stores/setting/notifikasi'
+import { useDistribusiFormStore } from 'src/stores/transaksi/distribusi/distribusi'
 // import { routerInstance } from 'src/boot/router'
 // import { usePenjualanTable } from 'src/stores/transaksi/penjualan/table'
 
@@ -100,6 +102,8 @@ const mobile = $q.screen.lt.md
 const history = useHistoryTable()
 const setting = useSettingStore()
 const notifStore = useNotificationStore()
+const dist = useDistribusiFormStore()
+
 const role = computed(() => {
   return store.user ? store.user.role : null
 })
@@ -117,8 +121,9 @@ notifchanel.subscribed(() => {
   console.log('listen to chanel notif', e)
   console.log('kode cabang', setting?.kodecabang)
   const ada = notifStore?.unreadNotif.find(a => a.id === e?.message?.id)
-  if (!ada && e?.message?.sender !== setting?.kodecabang) {
+  if (!ada && e?.message?.receiver === setting?.kodecabang) {
     notifStore?.unreadNotif.push(e?.message)
+    notifStore.readNotif(e?.message)
   }
   // console.log('listen to chanel antrean data', e.message)
 })
@@ -209,6 +214,7 @@ onMounted(() => {
 //
 setting.getInitialData()
 notifStore.getUnreadNotif()
+dist.getCabangs()
 // setting.getDataSetting(resp => {
 //   console.log('resp nya', resp?.uread)
 // })

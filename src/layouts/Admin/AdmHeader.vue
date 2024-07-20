@@ -84,7 +84,19 @@
                   @click="emit('handleNotif',item)"
                 >
                   <q-item-section>
-                    <q-item-label>{{ item?.type }}</q-item-label>
+                    <q-item-label>
+                      <div class="row no-wrap">
+                        <div class="col-auto q-mr-sm">
+                          {{ item?.type }}
+                        </div>
+                        <div
+                          v-if="item?.type==='update master'"
+                          class="col-auto q-mr-sm"
+                        >
+                          {{ item?.model }}
+                        </div>
+                      </div>
+                    </q-item-label>
                     <q-item-label caption>
                       <div>
                         Dari {{ namaCabang(item) }}
@@ -128,15 +140,13 @@ import AdmHeaderMenuProfile from './AdmHeaderMenuProfile.vue'
 import { computed } from 'vue'
 import { useAuthStore } from 'src/stores/auth'
 import { imageSever } from 'src/boot/axios'
-import { useDistribusiFormStore } from 'src/stores/transaksi/distribusi/distribusi'
 // import { useHistoryTable } from 'src/stores/history/table'
 // import { useSettingStore } from 'src/stores/setting/setting'
 const store = useAuthStore()
-const dist = useDistribusiFormStore()
 // const history = useHistoryTable()
 // const setting = useSettingStore()
 const emit = defineEmits(['toggleLeft', 'handleNotif'])
-defineProps({
+const prp = defineProps({
   dark: {
     type: Boolean,
     default: false
@@ -150,6 +160,10 @@ defineProps({
     default: false
   },
   notif: {
+    type: Array,
+    default: () => []
+  },
+  cabangs: {
     type: Array,
     default: () => []
   }
@@ -173,7 +187,7 @@ const role = computed(() => {
   return store.user ? store.user.role : 'kasir'
 })
 function namaCabang(item) {
-  const cabang = dist?.cabangs.find(f => f?.kodecabang === item?.sender)
+  const cabang = prp?.cabangs?.find(f => f?.kodecabang === item?.sender)
   return cabang?.namacabang ?? ''
 }
 // watch(() => store.user, (apem) => {

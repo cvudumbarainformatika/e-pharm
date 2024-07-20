@@ -55,6 +55,7 @@ export const useDistribusiFormStore = defineStore('form_distribusi', {
         .catch(() => { this.loading = false })
     },
     getCabangs() {
+      // if (this.cabangs.length && !val) return
       return new Promise(resolve => {
         api.get('v1/cabang/all')
           .then(resp => {
