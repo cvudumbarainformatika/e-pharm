@@ -117,7 +117,7 @@
       </div>
     </template>
     <template #cell-Aksi="{row}">
-      <div v-if="(row?.dari === setting?.kodecabang) && row.status===2">
+      <div v-if="row?.dari === setting?.kodecabang && row.status===2">
         <q-btn
           dense
           icon="icon-mat-send"
