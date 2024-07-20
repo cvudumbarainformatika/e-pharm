@@ -9,6 +9,7 @@
             ada-search
             ada-see-more
             ada-adjust
+            ada-refresh
             :columns="table.columns"
             :column-hide="table.columnHide"
             :items="table.items"

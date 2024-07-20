@@ -132,6 +132,10 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       this.form.page = val
       this.getDataStok()
     },
+    refreshTable() {
+      this.form.page = 1
+      this.getDataStok()
+    },
     editData(val) {
       // const keys = Object.keys(val)
       const keys = [

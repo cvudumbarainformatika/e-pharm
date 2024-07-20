@@ -60,8 +60,8 @@ export const useSatuanBesarStore = defineStore('satuan_besar', {
     // api related function
 
     // ambil
-    getSatuan() {
-      this.loading = true
+    getSatuan(val) {
+      this.loading = !val
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
         api

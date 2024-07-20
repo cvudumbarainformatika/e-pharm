@@ -117,6 +117,7 @@
       </div>
     </template>
     <template #cell-Aksi="{row}">
+      <!-- {{ row?.dari }}{{ setting?.kodecabang }} -->
       <div v-if="row?.dari === setting?.kodecabang && row.status===2">
         <q-btn
           dense

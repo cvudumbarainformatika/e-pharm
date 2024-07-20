@@ -15,7 +15,7 @@ export const useNotificationStore = defineStore('notifikasi', {
           .then(resp => {
             this.loading = false
             this.unreadNotif = resp?.data?.unread
-            console.log('cabang', this.dist?.cabangs)
+            // console.log('cabang', this.dist?.cabangs)
             console.log('unread', this.unreadNotif)
 
             resolve(resp)

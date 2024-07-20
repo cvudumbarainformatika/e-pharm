@@ -45,8 +45,8 @@ export const useListDistribusiStore = defineStore('list_distribusi', {
       this.setParams('page', 1)
       this.getDataTable()
     },
-    async getDataTable() {
-      this.loading = true
+    async getDataTable(val) {
+      this.loading = !val
       await api.get('v1/distribusi/list')
         .then(resp => {
           this.loading = false

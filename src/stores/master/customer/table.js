@@ -61,8 +61,8 @@ export const useCustomerTable = defineStore('customer_table', {
     // api related function
 
     // ambil
-    getDataTable() {
-      this.loading = true
+    getDataTable(val) {
+      this.loading = !val
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
         api
