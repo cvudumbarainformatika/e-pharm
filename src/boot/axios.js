@@ -10,11 +10,12 @@ import { setCssVar } from 'quasar'
 // const base = 'http://192.168.0.101/api.eparm/public' // server setiawan 1
 // const base = 'http://api.epharm.test'
 // const base = 'http://localhost/api.e-pharm/public'
-const base = 'http://localhost/api.epharm/public'
+const base = 'http://localhost/api.epharm/public' // local wawan
 // const base = 'http://api.eparm.test:8080'
 // const base = 'https://api.udumbarainformatika.my.id'
 // const base = 'http://192.168.137.20/api.eparm/public'
-// const base = 'http://192.168.1.13/api.eparm/public'
+// const base = 'http://192.168.1.13/api.eparm/public' // server setiawan 2
+
 const SERVER = base + '/api'
 const imageSever = base + '/storage/'
 const web = base
