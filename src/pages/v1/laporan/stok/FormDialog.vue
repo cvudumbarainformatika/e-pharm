@@ -97,6 +97,7 @@
                       hint="stok penyesuaian yang di sarankan"
                       outlined
                       number
+                      valid
                     />
                   </div>
                   <div class="col-4">
@@ -106,6 +107,7 @@
                       hint="masukkan stok yang tersedia di gudang"
                       outlined
                       number
+                      valid
                       @update:model-value="rekom"
                     />
                   </div>
