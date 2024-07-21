@@ -47,15 +47,27 @@ const notifErr = (resp) => {
   } else {
     const msg = resp ? resp.data.message : 'Ada Kesalahan'
     if (resp.data.message) {
-      Notify.create({
-        message: msg,
-        icon: 'icon-eva-message-circle-outline',
-        position: 'bottom-right',
-        color: 'negative',
-        actions: [
-          { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
-        ]
-      })
+      if (resp.data.message.includes('103.23.199.134')) {
+        Notify.create({
+          message: 'Gagal Terhubung dengan Cloud, ulangi lagi nanti jika sudah online',
+          icon: 'icon-eva-message-circle-outline',
+          position: 'bottom-right',
+          color: 'negative',
+          actions: [
+            { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
+          ]
+        })
+      } else {
+        Notify.create({
+          message: msg,
+          icon: 'icon-eva-message-circle-outline',
+          position: 'bottom-right',
+          color: 'negative',
+          actions: [
+            { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
+          ]
+        })
+      }
     } else {
       Notify.create({
         message: 'Ada Kesalahan Harap ulangi',

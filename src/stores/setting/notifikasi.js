@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
-import { notifSuccess } from 'src/modules/utils'
+import { notifErrVue, notifSuccess } from 'src/modules/utils'
 
 export const useNotificationStore = defineStore('notifikasi', {
   state: () => ({
@@ -20,7 +20,10 @@ export const useNotificationStore = defineStore('notifikasi', {
 
             resolve(resp)
           })
-          .catch(() => { this.loading = false })
+          .catch(() => {
+            this.loading = false
+            notifErrVue('Gagal Ambil Data dari Cloud')
+          })
       })
     },
     readNotif(val) {
@@ -33,7 +36,10 @@ export const useNotificationStore = defineStore('notifikasi', {
             notifSuccess(resp)
             resolve(resp)
           })
-          .catch(() => { this.loading = false })
+          .catch(() => {
+            this.loading = false
+            notifErrVue('Gagal Kirim Data ke Cloud')
+          })
       })
     }
   }
