@@ -118,16 +118,30 @@
     </template>
     <template #cell-Aksi="{row}">
       <!-- {{ row?.dari }}{{ setting?.kodecabang }} -->
-      <div v-if="row?.dari === setting?.kodecabang && row.status===2">
-        <q-btn
-          dense
-          icon="icon-mat-send"
-          color="primary"
-          flat
-          @click="distribusikan(row)"
-        >
-          <q-tooltip>Distribusikan</q-tooltip>
-        </q-btn>
+      <div class="row">
+        <div v-if="row?.dari === setting?.kodecabang && row.status===2">
+          <q-btn
+            dense
+            icon="icon-mat-send"
+            color="primary"
+            flat
+            @click="distribusikan(row)"
+          >
+            <q-tooltip>Distribusikan</q-tooltip>
+          </q-btn>
+        </div>
+        <div>
+          <q-btn
+            dense
+            icon="icon-mat-print"
+            color="dark"
+            round
+            size="sm"
+            @click="print(row)"
+          >
+            <q-tooltip>Print</q-tooltip>
+          </q-btn>
+        </div>
       </div>
     </template>
     <template #expand="{ row }">
@@ -145,35 +159,30 @@
           >
             Produk
           </div>
-          <!-- <div
+          <div
             class="col-auto q-pa-xs"
-            style="width:10%; border-top: 1px solid white; border-left: 1px solid white;"
+            style="width:15%; border-top: 1px solid white; border-left: 1px solid white;"
+          >
+            Kode Produk
+          </div>
+
+          <div
+            class="col-auto q-pa-xs"
+            style="width:15%; border-top: 1px solid white; border-left: 1px solid white;"
           >
             Permintaan
           </div>
           <div
             class="col-auto q-pa-xs"
-            style="width:10%; border-top: 1px solid white; border-left: 1px solid white;"
-          >
-            Distribusi
-          </div> -->
-          <div
-            class="col-auto q-pa-xs"
-            style="width:20%; border-top: 1px solid white; border-left: 1px solid white;"
+            style="width:15%; border-top: 1px solid white; border-left: 1px solid white;"
           >
             Masuk
           </div>
           <div
             class="col-auto q-pa-xs"
-            style="width:20%; border-top: 1px solid white; border-left: 1px solid white;"
+            style="width:15%; border-top: 1px solid white; border-left: 1px solid white; border-right: 1px solid white"
           >
             Keluar
-          </div>
-          <div
-            class="col-auto q-pa-xs"
-            style="width:20%; border-top: 1px solid white; border-left: 1px solid white; border-right: 1px solid white"
-          >
-            Subtotal
           </div>
         </div>
         <div
@@ -193,27 +202,22 @@
             >
               {{ det?.produk?.nama }}
             </div>
-            <!-- <div
+            <div
               class="col-auto text-right q-pa-xs"
-              style="width:10%; border-bottom: 1px solid black; border-left: 1px solid black;"
+              style="width:15%; border-bottom: 1px solid black; border-left: 1px solid black;"
+            >
+              {{ det?.kode_produk }}
+            </div>
+
+            <div
+              class="col-auto text-right q-pa-xs"
+              style="width:15%; border-bottom: 1px solid black; border-left: 1px solid black; "
             >
               {{ det?.jumlah }}
             </div>
             <div
               class="col-auto text-right q-pa-xs"
-              style="width:10%; border-bottom: 1px solid black; border-left: 1px solid black;"
-            >
-              <app-input
-                v-model="det.qty"
-                label="Jumlah Distribusi"
-                class="text-right"
-                outlined
-                @update:model-value="updateQty"
-              />
-            </div> -->
-            <div
-              class="col-auto text-right q-pa-xs"
-              style="width:20%; border-bottom: 1px solid black; border-left: 1px solid black;"
+              style="width:15%; border-bottom: 1px solid black; border-left: 1px solid black;"
             >
               <!-- <div v-if="(row?.tujuan === setting?.kodecabang) && row.flag==='2'">
                 <app-input
@@ -230,7 +234,7 @@
             </div>
             <div
               class="col-auto text-right q-pa-xs"
-              style="width:20%; border-bottom: 1px solid black; border-left: 1px solid black;"
+              style="width:15%; border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black"
             >
               <div v-if="(row?.dari === setting?.kodecabang) && row.status===2">
                 <app-input
@@ -244,12 +248,6 @@
               <div v-else>
                 {{ setKeluar(row,det) }}
               </div>
-            </div>
-            <div
-              class="col-auto text-right q-pa-xs"
-              style="width:20%; border-bottom: 1px solid black; border-left: 1px solid black; border-right: 1px solid black"
-            >
-              {{ formatDouble(det?.subtotal) }}
             </div>
           </div>
         </div>
@@ -336,7 +334,8 @@
 </template>
 <script setup>
 import { date } from 'quasar'
-import { dateFullFormat, formatDouble } from 'src/modules/formatter'
+import { routerInstance } from 'src/boot/router'
+import { dateFullFormat } from 'src/modules/formatter'
 import { useSettingStore } from 'src/stores/setting/setting'
 import { useListDistribusiStore } from 'src/stores/transaksi/distribusi/list'
 import { onMounted, ref } from 'vue'
@@ -384,6 +383,18 @@ function kirim() {
     isOpen.value = false
   })
   console.log('kirim')
+}
+function print(val) {
+  console.log(val)
+  val.expand = !val.expand
+  val.highlight = !val.highlight
+  const newRoute = routerInstance.resolve({
+    path: '/printdist',
+    name: 'printdist',
+    params: { slug: val?.id }
+  })
+  // console.log('ro', newRoute.href, newRoute)
+  window.open(newRoute.href, '_blank')
 }
 onMounted(() => {
   store.getDataTable()

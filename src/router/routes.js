@@ -210,6 +210,11 @@ const routes = [
         path: '/print/:slug',
         name: 'print',
         component: () => import('pages/v1/print/IndexPage.vue')
+      },
+      {
+        path: '/printdist/:slug',
+        name: 'printdist',
+        component: () => import('pages/v1/printdist/PrintDistPage.vue')
       }
     ]
   },
