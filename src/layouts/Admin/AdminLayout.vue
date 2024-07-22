@@ -137,9 +137,12 @@ notifchanel.subscribed(() => {
   if (!ada && e?.message?.receiver === setting?.kodecabang) {
     const mes = e?.message
     notifStore?.unreadNotif.push(mes)
-    notifStore.readNotif(mes).then(() => {
-      panggilData(mes)
-    })
+    // notifStore.readNotif(mes).then(() => {
+    //   panggilData(mes)
+    // })
+  }
+  if (ada && e?.message?.action === 'is_read') {
+    ada.is_read = 1
   }
   // console.log('listen to chanel antrean data', e.message)
 })

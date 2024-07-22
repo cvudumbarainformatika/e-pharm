@@ -53,7 +53,7 @@ export const useLaporanMoreProduct = defineStore('laporan_details_product', {
       this.getDetailsDataProduct()
     },
     dataProses(payload) {
-      if (!payload?.data?.trans.length) {
+      if (!payload?.data?.trans.length && !payload?.data?.distm.length && !payload?.data?.distk.length) {
         notifCenterVue(`tidak ada data di halaman ${this.params.page}`)
         this.items = []
         return

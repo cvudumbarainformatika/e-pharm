@@ -11,6 +11,7 @@ import { setCssVar } from 'quasar'
 // const base = 'http://api.epharm.test'
 // const base = 'http://localhost/api.e-pharm/public'
 const base = 'http://localhost/api.epharm/public' // local wawan
+// const base = 'http://192.168.0.104/api.epharm/public' // test local wawan
 // const base = 'http://api.eparm.test:8080'
 // const base = 'https://api.udumbarainformatika.my.id'
 // const base = 'http://192.168.137.20/api.eparm/public'
