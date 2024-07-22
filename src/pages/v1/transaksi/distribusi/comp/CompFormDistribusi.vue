@@ -435,21 +435,21 @@
     <!-- produk -->
     <div class="q-my-lg">
       <div class="row q-mb-sm text-weight-bold q-col-gutter-md">
-        <div class="col-6">
+        <div class="col-5">
           Produk
         </div>
-        <!-- <div class="col-2">
-          Expired
-        </div> -->
         <div class="col-3">
           Jumlah
         </div>
-        <div class="col-3">
+        <div class="col-2">
+          Kode Produk
+        </div>
+        <div class="col-2">
           Satuan
         </div>
       </div>
       <div class="row items-center  q-col-gutter-md">
-        <div class="col-6">
+        <div class="col-5">
           <app-autocomplete-customlabel
             ref="refProduk"
             :key="store.form.product_id"
@@ -515,7 +515,10 @@
             @keyup.enter="updateQty"
           />
         </div>
-        <div class="col-3">
+        <div class="col-2">
+          {{ store?.form?.kode_produk }}
+        </div>
+        <div class="col-2">
           {{ store?.form?.satuan }}
         </div>
       </div>
@@ -541,7 +544,7 @@
           <div
             class="col-2"
           >
-            Expired
+            Kode Produk
           </div>
           <div
             class="col-2"
@@ -573,7 +576,7 @@
             <div
               class="col-2"
             >
-              {{ item?.expired }}
+              {{ item?.kode_produk }}
             </div>
             <div
               class="col-2"
