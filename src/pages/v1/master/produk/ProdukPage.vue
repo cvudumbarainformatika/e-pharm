@@ -64,6 +64,9 @@
             <template #col-stok_awal>
               <div>stok</div>
             </template>
+            <template #col-kode_produk>
+              <div>kode produk</div>
+            </template>
             <template #col-limit_stok>
               <div>limit stok</div>
             </template>
@@ -149,6 +152,18 @@
             <template #cell-harga_jual_cust="{row}">
               <div>{{ formatter.formatRpDouble(row.harga_jual_cust) }}</div>
             </template>
+            <template #cell-kode_produk="{row}">
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <div><span v-html="highlightText(row?.kode_produk)" /> </div>
+            </template>
+            <template #cell-barcode="{row}">
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <div><span v-html="highlightText(row?.barcode)" /> </div>
+            </template>
+            <template #cell-nama="{row}">
+              <!-- eslint-disable-next-line vue/no-v-html -->
+              <div><span v-html="highlightText(row?.nama)" /> </div>
+            </template>
           </app-table>
           <!--
             row-image="image"
@@ -211,6 +226,14 @@ function fetchData () {
     data.push(temp)
   })
   return data
+}
+
+// eslint-disable-next-line no-unused-vars
+function highlightText (text) {
+  // Implement your text highlighting logic here
+  // For example, you can wrap the matching text in <span> with a specific style
+  console.log('text', text)
+  return text?.replace(new RegExp(table.params.q, 'ig'), matchedText => `<span class="bg-yellow text-dark">${matchedText}</span>`)
 }
 table.getDataTable()
 </script>
