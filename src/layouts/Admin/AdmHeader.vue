@@ -90,7 +90,7 @@
                           {{ item?.type }}
                         </div>
                         <div
-                          v-if="item?.type==='update master'"
+                          v-if="item?.type?.includes('master')"
                           class="col-auto q-mr-sm"
                         >
                           {{ item?.model }}

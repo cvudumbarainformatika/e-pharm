@@ -232,7 +232,7 @@ function fetchData () {
 function highlightText (text) {
   // Implement your text highlighting logic here
   // For example, you can wrap the matching text in <span> with a specific style
-  console.log('text', text)
+  // console.log('text', text)
   return text?.replace(new RegExp(table.params.q, 'ig'), matchedText => `<span class="bg-yellow text-dark">${matchedText}</span>`)
 }
 table.getDataTable()
