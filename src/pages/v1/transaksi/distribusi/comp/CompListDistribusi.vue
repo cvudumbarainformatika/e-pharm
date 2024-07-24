@@ -242,7 +242,7 @@
                   label=" "
                   class="text-right"
                   outlined
-                  @update:model-value="updateQty"
+                  @update:model-value="updateQty($event, det)"
                 />
               </div>
               <div v-else>
@@ -357,8 +357,9 @@ function onClick (val) {
   val.item.highlight = !val.item.highlight
 }
 // eslint-disable-next-line no-unused-vars
-function updateQty(val) {
-  console.log(val)
+function updateQty(val, item) {
+  item.subtotal = parseFloat(item.qty) * parseFloat(item?.harga)
+  console.log(val, item.subtotal, item)
 }
 const isOpen = ref(false)
 const message = ref('')

@@ -723,9 +723,9 @@ const updateQty = val => {
   autofocus.value = true
   // console.log('update qty', table.produk1)
   store.setForm('product_id', store.produk1.id)
-  // store.setForm('harga', parseFloat(store.form.harga))
+  store.setForm('harga', parseFloat(store.form.harga))
   store.setForm('jumlah', parseFloat(store.form.jumlah))
-  // store.setForm('subtotal', parseFloat(store.form.jumlah) * parseFloat(store.form.harga))
+  store.setForm('subtotal', parseFloat(store.form.jumlah) * parseFloat(store.form.harga))
   // if (store.dataPasien.nokartu || store.dataPasien.noresep || store.dataPasien.nama || store.dataPasien.alamat) {
   //   store.form.pasien = store.dataPasien
   // }
