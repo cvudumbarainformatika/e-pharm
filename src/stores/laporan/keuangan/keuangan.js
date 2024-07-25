@@ -215,7 +215,7 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       if (product.length) {
         product.forEach(data => {
           const beli = findWithAttr(pembelian, 'product_id', data.id)
-          data.pembelianDgKredit = pembelian[beli] ? pembelian[beli].jml : 0
+          data.pembelianDgKredit = pembelian[beli] ? pembelian[beli].jml : 0 // tidak dipakai
           data.keluar = {}
           data.masuk = {}
           data.returPembelian = {}
@@ -261,7 +261,8 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       // persediaan awal periode ini
       const persediaanAwal = product.map(data => { return data.stok_awal * data.harga_beli }).reduce((a, b) => { return a + b })
       // pesediaan Akhir Periode ini
-      const persediaanAkhir = product.map(data => { return data.stokSekarang * data.harga_beli }).reduce((a, b) => { return a + b })
+      const akh = product.map(data => { return data.stokSekarang * data.harga_beli }).reduce((a, b) => { return a + b })
+      const persediaanAkhir = akh > 0 ? akh : -akh
       // semua pemebelian tunai dan kredit pada periode ini
       // const pembelianDgKredit = product.map(data => { return data.pembelianDgKredit * data.harga_beli }).reduce((a, b) => { return a + b })
       // retur Pembelian
@@ -385,6 +386,35 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
         })
       })
     },
+    // getPenjualan() {
+    //   this.resetData()
+    //   // console.log('params', this.params)
+    //   const params = { params: this.params }
+    //   this.loading = true
+    //   return new Promise((resolve, reject) => {
+    //     api
+    //       .get('v1/laporan/get-laporan-keuangan', params)
+    //       .then((resp) => {
+    //         this.loading = false
+    //         if (resp.status === 200) {
+    //           // console.log('laporan pj', resp.data)
+    //           this.dataProses(resp.data)
+
+    //           this.prosesHPP(
+    //             resp.data.pembelianDgKredit,
+    //             resp.data.ongkir,
+    //             resp.data.stok
+    //           )
+    //           resolve(resp.data)
+    //         }
+    //       })
+    //       .catch((err) => {
+    //         this.loading = false
+    //         reject(err)
+    //       })
+    //   })
+    // },
+    // baru
     getPenjualan() {
       this.resetData()
       // console.log('params', this.params)
@@ -392,18 +422,25 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       this.loading = true
       return new Promise((resolve, reject) => {
         api
-          .get('v1/laporan/get-laporan-keuangan', params)
+          .get('v1/laporan/new-get-laporan-keuangan', params)
           .then((resp) => {
             this.loading = false
             if (resp.status === 200) {
-              // console.log('laporan pj', resp.data)
-              this.dataProses(resp.data)
+              console.log('laporan pj', resp.data)
+              const data = resp?.data?.data
+              this.penjualan = data?.penjualanP
+              this.returPenjualan = data?.returPenjualanP
+              this.penjualanBersih = data?.penjualanBersih
+              this.pembelian = data?.total
+              this.diskon = data?.diskon
+              // this.dataProses(resp.data)
 
-              this.prosesHPP(
-                resp.data.pembelianDgKredit,
-                resp.data.ongkir,
-                resp.data.stok
-              )
+              // this.prosesHPP(
+              //   resp.data.pembelianDgKredit,
+              //   resp.data.ongkir,
+              //   resp.data.stok
+              // )
+
               resolve(resp.data)
             }
           })

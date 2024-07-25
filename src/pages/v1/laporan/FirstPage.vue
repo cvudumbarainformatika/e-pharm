@@ -138,8 +138,8 @@ keuangan.setParams('from', awalBulan)
 // keuangan.setParams('to', '2022-09-21')
 // keuangan.setParams('selection', 'range')
 // table.periode = 'Tanggal ' + keuangan.params.from + ' - ' + keuangan.params.to
-keuangan.getBebans()
-keuangan.getPenerimaan()
+// keuangan.getBebans()
+// keuangan.getPenerimaan()
 keuangan.getPenjualan()
 // keuangan.prosesHPP()
 

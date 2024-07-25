@@ -23,7 +23,7 @@
           :loading="store.loading && store.date==='tillToday'"
           @click="today"
         />
-        <q-btn
+        <!-- <q-btn
           no-caps
           label="Pilih Tanggal"
           :flat="store.date!=='spesifik'"
@@ -37,7 +37,7 @@
             @show="show"
             @hide="hide"
           />
-        </q-btn>
+        </q-btn> -->
         <q-btn
           no-caps
           label="Pilih Range Tanggal"
@@ -95,11 +95,11 @@ const today = () => {
 //   console.log('today', awalBulan)
 //   console.log('today quasar', date.formatDate(Date.now(), 'YYYY-MM-' + '01'))
 }
-const pilihTgl = () => {
-  selection.value.prev = store.date
-  store.setSpesifik()
-  store.date = 'spesifik'
-}
+// const pilihTgl = () => {
+//   selection.value.prev = store.date
+//   store.setSpesifik()
+//   store.date = 'spesifik'
+// }
 const pilihRange = () => {
   selection.value.prev = store.date
   store.setRange()
