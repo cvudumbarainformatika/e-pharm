@@ -433,6 +433,18 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
               this.penjualanBersih = data?.penjualanBersih
               this.pembelian = data?.total
               this.diskon = data?.diskon
+              this.totalSmw = data?.totalSmw
+              this.pembelianBersih = data?.pembelianBersih
+              this.persediaanAwal = data?.persediaanAwal
+              this.persediaanAkhir = data?.persediaanAkhir
+              this.distribusiMasuk = data?.distribusiMasukPeriod
+              this.distribusiKeluar = data?.distribusiKeluarPeriod
+              this.returPembelian = data?.returPembelianPeriod
+              this.HPP = data?.hpp
+              this.bebans = data?.masterBeban
+              this.beban = data?.totBeban
+              this.laba = data?.labaRugi > 0 ? data?.labaRugi : 0
+              this.rugi = data?.labaRugi < 0 ? -data?.labaRugi : 0
               // this.dataProses(resp.data)
 
               // this.prosesHPP(

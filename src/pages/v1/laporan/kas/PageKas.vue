@@ -211,7 +211,7 @@
             {{ beban.nama }}
           </div>
           <div class="col-2 text-right">
-            {{ formatRp(beban.nominal) }}
+            {{ formatRp(beban.total) }}
           </div>
           <div class="col-2 text-right" />
         </div>
@@ -375,7 +375,7 @@
         </div>
         <div class="col-2 text-right" />
         <div class="col-2 text-negative text-right text-weight-bold">
-          ({{ formatRp(store.rugiKas) }})
+          ({{ formatRp(store.rugi) }})
         </div>
       </div>
       <div
