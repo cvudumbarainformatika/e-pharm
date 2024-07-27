@@ -1,5 +1,19 @@
 <template>
-  <q-card>
+  <div class="row justify-end q-mr-md">
+    <q-btn
+      v-print="printObj"
+      color="dark"
+      icon="icon-mat-print"
+      round
+      dense
+    >
+      <q-tooltip>Print</q-tooltip>
+    </q-btn>
+  </div>
+  <q-card
+    id="printMe"
+    flat
+  >
     <q-card-section>
       <div class="text-h6 text-weight-bold">
         Laporan Kas {{ setting?.info?.nama }}
@@ -631,6 +645,11 @@ import { formatRp, isHas } from 'src/modules/formatter'
 
 const setting = useSettingStore()
 const store = useLaporanKeuanganStore()
+
+const printObj = {
+  id: 'printMe'
+  // popTitle: title,
+}
 </script>
 <style lang="scss" scoped>
 
