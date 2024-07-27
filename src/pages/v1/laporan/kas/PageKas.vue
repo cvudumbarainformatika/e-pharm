@@ -13,6 +13,7 @@
   <q-card
     id="printMe"
     flat
+    class="f-12"
   >
     <q-card-section>
       <div class="text-h6 text-weight-bold">
