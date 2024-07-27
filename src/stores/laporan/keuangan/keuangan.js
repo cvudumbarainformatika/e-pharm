@@ -35,6 +35,28 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
     distribusiMasuk: 0,
     distribusiKeluar: 0,
 
+    // new
+    masukBefore: 0,
+    masukPeriod: 0,
+    keluarBefore: 0,
+    keluarPeriod: 0,
+    returPembelianBefore: 0,
+    returPembelianPeriod: 0,
+    returPenjualanBefore: 0,
+    returPenjualanPeriod: 0,
+    distribusiMasukBefore: 0,
+    distribusiMasukPeriod: 0,
+    distribusiKeluarBefore: 0,
+    distribusiKeluarPeriod: 0,
+    stokSebelum: 0,
+    stokBerjalan: 0,
+    stokSekarang: 0,
+    masukSB: 0,
+    keluarSB: 0,
+    masukP: 0,
+    keluarP: 0,
+    stokAwal: 0,
+
     params: {
       q: '',
       page: 1,
@@ -69,6 +91,28 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
       this.rugi = 0
       this.distribusiMasuk = 0
       this.distribusiKeluar = 0
+      // new
+
+      this.masukBefore = 0
+      this.masukPeriod = 0
+      this.keluarBefore = 0
+      this.keluarPeriod = 0
+      this.returPembelianBefore = 0
+      this.returPembelianPeriod = 0
+      this.returPenjualanBefore = 0
+      this.returPenjualanPeriod = 0
+      this.distribusiMasukBefore = 0
+      this.distribusiMasukPeriod = 0
+      this.distribusiKeluarBefore = 0
+      this.distribusiKeluarPeriod = 0
+      this.stokSebelum = 0
+      this.stokBerjalan = 0
+      this.stokSekarang = 0
+      this.keluarSB = 0
+      this.keluarSB = 0
+      this.keluarP = 0
+      this.keluarP = 0
+      this.stokAwal = 0
       // this.periode = 'Sampai Hari Ini'
     },
     setParams(key, val) {
@@ -445,6 +489,27 @@ export const useLaporanKeuanganStore = defineStore('store_laporan_keuangan', {
               this.beban = data?.totBeban
               this.laba = data?.labaRugi > 0 ? data?.labaRugi : 0
               this.rugi = data?.labaRugi < 0 ? -data?.labaRugi : 0
+
+              this.masukBefore = data?.masukBefore
+              this.masukPeriod = data?.masukPeriod
+              this.keluarBefore = data?.keluarBefore
+              this.keluarPeriod = data?.keluarPeriod
+              this.returPembelianBefore = data?.returPembelianBefore
+              this.returPembelianPeriod = data?.returPembelianPeriod
+              this.returPenjualanBefore = data?.returPenjualanBefore
+              this.returPenjualanPeriod = data?.returPenjualanPeriod
+              this.distribusiMasukBefore = data?.distribusiMasukBefore
+              this.distribusiMasukPeriod = data?.distribusiMasukPeriod
+              this.distribusiKeluarBefore = data?.distribusiKeluarBefore
+              this.distribusiKeluarPeriod = data?.distribusiKeluarPeriod
+              this.stokSebelum = data?.stokSebelum
+              this.stokBerjalan = data?.stokBerjalan
+              this.stokSekarang = data?.stokSekarang
+              this.keluarSB = data?.keluarSB
+              this.masukSB = data?.masukSB
+              this.keluarP = data?.keluarP
+              this.masukP = data?.masukP
+              this.stokAwal = data?.stokAwal
               // this.dataProses(resp.data)
 
               // this.prosesHPP(

@@ -82,17 +82,7 @@
         <div class="col-2 text-right" />
         <div class="col-2 text-right" />
       </div>
-      <div class="row">
-        <div class="col-1" />
-        <div class="col-5">
-          - Distribusi Masuk
-        </div>
-        <div class="col-2 text-right">
-          {{ formatRp(store?.distribusiMasuk) }}
-        </div>
-        <div class="col-2 text-right" />
-        <div class="col-2 text-right" />
-      </div>
+
       <div class="row">
         <div class="col-1" />
         <div class="col-7">
@@ -114,16 +104,7 @@
         </div>
         <div class="col-2 text-right" />
       </div>
-      <div class="  row">
-        <div class="col-1" />
-        <div class="col-7">
-          - Distribusi Keluar
-        </div>
-        <div class="col-2 text-right">
-          {{ formatRp(store?.distribusiKeluar) }}
-        </div>
-        <div class="col-2 text-right" />
-      </div>
+
       <div class="row">
         <div class="col-1" />
         <div class="col-7">
@@ -137,6 +118,255 @@
       <div class="  row text-weight-bold">
         <div class="col-1">
           C.
+        </div>
+        <div class="col-7">
+          PERSEDIAAN AKHIR
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <!-- persediaanAwal -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-4">
+          - Persedian Awal
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.persediaanAwal) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <!-- masuk sebelum periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-3">
+          - Pembelian Sebelum Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.masukBefore) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <!-- retur sebelum periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-3">
+          - Retur Penjualan Sebelum Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.returPenjualanBefore) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <!-- Distribusi sebelum periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-3">
+          - Distribusi Sebelum Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.distribusiMasukBefore) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <!-- masuk -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-4">
+          Stok Masuk Sebelum periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.masukSB) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <!-- keluar sebelum periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          - Penjualan Sebelum Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.keluarBefore) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- retur sebelum periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          - Retur Pembelian Sebelum Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.returPembelianBefore) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- Distribusi sebelum periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          - Distribusi Sebelum Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.distribusiKeluarBefore) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- Keluar -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-6">
+          Stok Keluar Sebelum periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.keluarSB) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- Stok Awal -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          Stok Awal (Persediaan Awal + Stok Masuk - Stok Keluar)
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right">
+          {{ formatRp(store?.stokAwal) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- masuk periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-3">
+          - Pembelian Selama Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.masukPeriod) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <!-- retur periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-3">
+          - Retur Penjualan Selama Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.returPenjualanPeriod) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <!-- Distribusi periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-3">
+          - Distribusi Selama Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.distribusiMasukPeriod) }}
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+      </div>
+      <!-- masuk -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-4">
+          Stok Masuk Selama periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.masukP) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- keluar periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          - Penjualan Selama Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.keluarPeriod) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- retur periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          - Retur Pembelian Selama Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.returPembelianPeriod) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- Distribusi periode -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          - Distribusi Selama Periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.distribusiMasukPeriod) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- Keluar -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-6">
+          Stok Keluar Selama periode
+        </div>
+        <div class="col-2 text-right">
+          {{ formatRp(store?.keluarP) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- Stok Awal -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          Stok Berjalan (Stok Masuk - Stok Keluar)
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right">
+          {{ formatRp(store?.stokBerjalan) }}
+        </div>
+        <div class="col-2 text-right" />
+      </div>
+      <!-- persediaan Akhir -->
+      <div class="row">
+        <div class="col-1" />
+        <div class="col-5">
+          Persediaan Akhir (Stok Awal + Stok Berjalan)
+        </div>
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right" />
+        <div class="col-2 text-right">
+          {{ formatRp(store?.persediaanAkhir) }}
+        </div>
+      </div>
+
+      <div class="  row text-weight-bold">
+        <div class="col-1">
+          D.
         </div>
         <div class="col-7">
           HARGA POKOK PENJUALAN (HPP)
@@ -158,7 +388,7 @@
       <div class="row">
         <div class="col-1" />
         <div class="col-5">
-          - Pembelian Bersih
+          - Pembelian Periode Ini
         </div>
         <div class="col-2 text-right">
           {{ formatRp(store.pembelianBersih) }}
@@ -181,7 +411,7 @@
       <div class="row">
         <div class="col-1" />
         <div class="col-7">
-          HPP (Pembelian bersih + Persediaan awal - Persediaan akhir)
+          HPP (Persediaan awal + Pembelian Periode Ini - Persediaan akhir)
         </div>
         <div class="col-2 text-right" />
         <div class="col-2 text-right">
@@ -190,7 +420,7 @@
       </div>
       <div class="  row text-weight-bold">
         <div class="col-1">
-          D.
+          E.
         </div>
         <div class="col-7">
           PENGELUARAN
@@ -238,7 +468,7 @@
       </div>
       <div class="row text-weight-bold">
         <div class="col-1">
-          E.
+          F.
         </div>
         <div class="col-7">
           PENDAPATAN
