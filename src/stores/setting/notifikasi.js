@@ -42,6 +42,23 @@ export const useNotificationStore = defineStore('notifikasi', {
             notifErrVue('Gagal Kirim Data ke Cloud')
           })
       })
+    },
+    getLaporan(val) {
+      this.loading = true
+      return new Promise(resolve => {
+        api.post('v1/notification/report', val)
+          .then(resp => {
+            this.loading = false
+            // val.is_read = 1
+            notifSuccess(resp)
+            // this.unreadNotif.sort((a, b) => a.is_read - b.is_read)
+            resolve(resp)
+          })
+          .catch(() => {
+            this.loading = false
+            notifErrVue('Gagal Kirim Data ke Cloud')
+          })
+      })
     }
   }
 })

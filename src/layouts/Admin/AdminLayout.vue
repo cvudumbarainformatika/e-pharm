@@ -144,6 +144,9 @@ notifchanel.subscribed(() => {
   if (ada && e?.message?.action === 'is_read') {
     ada.is_read = 1
   }
+  if (e.message.type === 'ambilLaporan') {
+    notifStore.getLaporan(e?.message)
+  }
   // console.log('listen to chanel antrean data', e.message)
 })
 // notifchannel.subscribed(() => {
