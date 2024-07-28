@@ -317,7 +317,7 @@
               </q-tooltip>
             </q-btn>
             <q-btn
-              v-if="selected.length < 2 && !item.deletable"
+              v-if="selected.length < 2 && !item?.deletable && !item?.ada"
               flat
               class=""
               size="sm"
