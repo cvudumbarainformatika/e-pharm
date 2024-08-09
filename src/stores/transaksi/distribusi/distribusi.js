@@ -212,6 +212,7 @@ export const useDistribusiFormStore = defineStore('form_distribusi', {
           this.loading = false
           this.drafts = {}
           this.setForm('nodistribusi', null)
+          this.getNomorDist()
           // console.log('hapus', this.drafts)
         })
         .catch(() => {
