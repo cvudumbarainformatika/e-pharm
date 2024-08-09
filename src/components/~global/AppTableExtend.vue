@@ -337,7 +337,7 @@
               v-if="rowNo"
               class="text-left"
             >
-              {{ i+1 }}
+              {{ nomo(meta?.current_page,perPage,i) }}
             </td>
             <td
               v-if="rowImage !== null"
@@ -835,6 +835,12 @@ const pojokKananAtas = ref('Probolinggo, ' + date.formatDate(Date.now(), 'DD MMM
 
 // text tanda tangan end
 // const per_page = ref(5)
+function nomo(cur, per, i) {
+  console.log('cur', cur, per, i)
+
+  if (cur) return ((cur - 1) * per) + i + 1
+  else return i + 1
+}
 const refCellTable = ref(null)
 const options = ref([5, 10, 20, 50, 100, 1000])
 const checkAll = ref(false)

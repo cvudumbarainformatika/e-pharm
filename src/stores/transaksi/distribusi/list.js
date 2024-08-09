@@ -47,7 +47,10 @@ export const useListDistribusiStore = defineStore('list_distribusi', {
     },
     async getDataTable(val) {
       this.loading = !val
-      await api.get('v1/distribusi/list')
+      const param = {
+        params: this.params
+      }
+      await api.get('v1/distribusi/list', param)
         .then(resp => {
           this.loading = false
           this.items = resp?.data?.data ?? resp?.data
