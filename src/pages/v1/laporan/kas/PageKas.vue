@@ -382,7 +382,7 @@
     -->
       <div class="  row text-weight-bold">
         <div class="col-1">
-          C.
+          B.
         </div>
         <div class="col-7">
           HARGA POKOK PENJUALAN (HPP)
@@ -435,7 +435,7 @@
       </div>
       <div class="  row text-weight-bold">
         <div class="col-1">
-          D.
+          C.
         </div>
         <div class="col-7">
           PENGELUARAN
