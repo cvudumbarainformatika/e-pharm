@@ -64,7 +64,6 @@
           />
         </div>
 
-        <!-- </div> -->
         <div v-if="table.form.nama==='PENJUALAN' && transaksi.penjualan==='dokter'">
           <SelectMenu
             style="max-width: 200px;"
@@ -100,9 +99,10 @@
         <!-- per page -->
         <q-btn
           v-if="table.transactionType==='transaksi'"
-          class="q-ml-sm"
+          class="q-ml-xs"
           :color="setting.dark ? 'white' : 'primary'"
           flat
+          dense
           no-caps
           label="per page"
         >
@@ -148,13 +148,14 @@
             <app-input
               v-if="table.form.nama.includes('PENJUALAN') || table.form.nama.includes('PEMBELIAN')"
               v-model="table.form.q"
-              class="q-mr-xs"
+              class="q-mr-xs tgl-max"
               label="Cari Nama Produk"
               outlined
               valid
               @keyup.enter="cariProduk()"
             />
             <app-input-date-human
+              class="tgl-max"
               :model="table.display.from"
               label="Dari"
               outlined
@@ -162,7 +163,7 @@
               @db-model="setDari"
             />
             <app-input-date-human
-              class="q-mx-xs"
+              class="q-mx-xs tgl-max"
               :model="table.display.to"
               label="Sampai"
               outlined
@@ -317,4 +318,8 @@ const pilihDokter = val => {
   table.beforeGetData()
 }
 </script>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tgl-max{
+  max-width: 150px;
+}
+</style>

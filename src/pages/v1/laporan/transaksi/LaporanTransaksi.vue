@@ -109,8 +109,29 @@
             key="actions"
             :props="props"
           >
-            <div>
-              Total : {{ formatRp(props.row.total) }}
+            <div class="row justify-between">
+              <div class="col-auto">
+                Total :
+              </div>
+              <div class="col-auto">
+                {{ formatRp(props.row.total) }}
+              </div>
+            </div>
+            <div class="row justify-between">
+              <div class="col-auto">
+                Bayar :
+              </div>
+              <div class="col-auto">
+                {{ formatRp(props.row.bayar) }}
+              </div>
+            </div>
+            <div class="row justify-between">
+              <div class="col-auto">
+                Kembali :
+              </div>
+              <div class="col-auto">
+                {{ formatRp(props.row.kembali) }}
+              </div>
             </div>
           </q-td>
         </q-tr>
