@@ -44,7 +44,7 @@
             key="id"
             :props="props"
           >
-            {{ props.row.reff }}
+            {{ props.row.nota }}
           </q-td>
           <!-- kolom transaksi -->
           <q-td
@@ -139,11 +139,11 @@
           v-if="props.row.nama === 'PEMBELIAN' || props.row.nama === 'PENJUALAN' || props.row.nama === 'RETUR PEMBELIAN' || props.row.nama === 'RETUR PENJUALAN'"
           :props="props"
         >
-          <q-td>
+          <!-- <q-td>
             <div class="text-left">
-              <!-- {{ props.row.nama }} -->
+               {{ props.row.nama }}
             </div>
-          </q-td>
+          </q-td> -->
 
           <q-td>
             <q-tr><strong>Nama Produk</strong></q-tr>
@@ -184,7 +184,13 @@
                 {{ formatRp(item.sub_total) }}
               </div>
             </q-tr>
-            <!-- <q-tr><strong>Total : </strong> {{ formatRp(getTotal(props.row.detail_transaction)) }}</q-tr> -->
+            <!-- <q-tr :class="parseFloat(props.row.total) !== parseFloat(props.row?.detail_transaction?.reduce((a,b)=>parseFloat(a)+parseFloat(b.sub_total),0))?'text-negative':''">
+              <strong>Total :  {{ formatRp(props.row?.detail_transaction?.reduce((a,b)=>parseFloat(a)+parseFloat(b.sub_total),0)) }} </strong>
+            </q-tr> -->
+          </q-td>
+          <q-td :class="parseFloat(props.row.total) !== parseFloat(props.row?.detail_transaction?.reduce((a,b)=>parseFloat(a)+parseFloat(b.sub_total),0))?'text-negative bg-red-2 text-weight-bold text-right':'text-weight-bold text-right'">
+            <q-tr>Total</q-tr>
+            <q-tr>{{ formatRp(props.row?.detail_transaction?.reduce((a,b)=>parseFloat(a)+parseFloat(b.sub_total),0)) }}</q-tr>
           </q-td>
         </q-tr>
         <!-- v-show="props.expand" -->
