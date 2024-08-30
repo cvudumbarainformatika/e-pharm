@@ -178,6 +178,13 @@ const routes = [
                   import('src/pages/v1/transaksi/distribusi/IndexPage.vue')
               }
             ]
+          },
+          {
+            path: '/transaksi/pemesanan',
+            name: 'transaksi.pemesanan',
+            component: () =>
+              import('src/pages/v1/transaksi/pemesanan/IndexPage.vue')
+
           }
         ]
       },
