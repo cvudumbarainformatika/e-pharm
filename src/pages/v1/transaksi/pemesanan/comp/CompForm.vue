@@ -56,7 +56,9 @@
     <div class="row justify-end q-mr-sm q-mt-lg">
       <app-btn
         label="Selesai dan kunci pemesanan"
-        @click="selesai()"
+        :loading="store.loading"
+        :disable="store.loading"
+        @click="store.selesaiPemesanan"
       />
     </div>
     <!-- form obat -->
@@ -200,9 +202,7 @@ function setModel(key, val) {
   store.setForm(key, val)
   console.log('tgl', val)
 }
-function selesai() {
-  console.log(store.form)
-}
+
 const refSupp = ref(null)
 function distSelect() {
   if (!store.form.kode_produk || store.form.kode_produk === '') refProduk.value?.$refs?.refAuto?.focus()

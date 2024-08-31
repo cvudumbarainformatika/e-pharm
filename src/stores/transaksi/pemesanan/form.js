@@ -120,6 +120,19 @@ export const useFromPemesananStore = defineStore('pemesanan_store', {
         .catch(() => {
           val.loading = false
         })
+    },
+    async selesaiPemesanan() {
+      this.loading = true
+      await api.post('v1/pemesanan/selesai-pemesanan', this.form)
+        .then(resp => {
+          this.loading = false
+          this.resetForm()
+          this.belums = []
+          notifSuccess(resp)
+        })
+        .catch(() => {
+          this.loading = false
+        })
     }
   }
 })
