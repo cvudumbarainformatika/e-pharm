@@ -121,7 +121,7 @@
       <app-loading />
     </div>
     <div v-else>
-      <div v-if="!store.belums.length">
+      <div v-if="!store?.belums?.length">
         <app-no-data />
       </div>
       <div v-else>
@@ -149,7 +149,7 @@
           v-for="(item, i) in store.belums"
           :key="item"
           class="row q-mr-md items-center f-12"
-          :class="i%2===0?'bg-grey-4':''"
+          :class="i%2===1?'bg-grey-4':''"
         >
           <div class="col-1">
             {{ i+1 }}
@@ -252,10 +252,10 @@ function validasi() {
 function simpanProduk() {
   if (validasi()) {
     // autofocus.value = true
-    store.simpan()
-
-  // refProduk.value?.$refs?.refAuto?.blur()
-  // refJumlah.value?.$refs?.refInput?.focus()
+    store.simpan().then(() => {
+      refJumlah.value?.$refs?.refInput?.blur()
+      refProduk.value?.$refs?.refAuto?.focus()
+    })
   } else {
     console.log('simpan')
   }

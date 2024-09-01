@@ -63,11 +63,11 @@ export const useFromPemesananStore = defineStore('pemesanan_store', {
           this.loading = false
           console.log('draft', resp?.data)
           const data = resp?.data
-          if (data) {
+          if (data?.detail?.length) {
             this.setForm('nopemesanan', data?.nopemesanan)
             this.setForm('kode_supplier', data?.kode_supplier)
             this.setForm('tgl_pemesanan', data?.tgl_pemesanan)
-            this.belums = data?.detail
+            this.belums = data?.detail ?? []
           }
         })
         .catch(() => {
@@ -85,27 +85,30 @@ export const useFromPemesananStore = defineStore('pemesanan_store', {
           this.loadingPerusahaan = false
         })
     },
-    async simpan() {
+    simpan() {
       this.loading = true
-      await api.post('v1/pemesanan/simpan-produk', this.form)
-        .then(resp => {
-          this.loading = false
-          console.log('simpan', resp?.data)
+      return new Promise(resolve => {
+        api.post('v1/pemesanan/simpan-produk', this.form)
+          .then(resp => {
+            this.loading = false
+            console.log('simpan', resp?.data)
 
-          if (!this.form.nopemesanan) this.setForm('nopemesanan', resp?.data?.nopemesanan)
-          if (resp?.data?.detail) {
-            const ada = this.belums.findIndex(f => f.kode_produk === resp?.data?.detail?.kode_produk)
-            if (ada >= 0) this.belums[ada] = resp?.data?.detail
-            else this.belums.push(resp?.data?.detail)
-          }
-          this.resetProduk()
-          console.log('belums', this.belums)
+            if (!this.form.nopemesanan) this.setForm('nopemesanan', resp?.data?.nopemesanan)
+            if (resp?.data?.detail) {
+              const ada = this.belums.findIndex(f => f.kode_produk === resp?.data?.detail?.kode_produk)
+              if (ada >= 0) this.belums[ada] = resp?.data?.detail
+              else this.belums.push(resp?.data?.detail)
+            }
+            this.resetProduk()
+            console.log('belums', this.belums)
 
-          notifSuccess(resp)
-        })
-        .catch(() => {
-          this.loading = false
-        })
+            notifSuccess(resp)
+            resolve(resp)
+          })
+          .catch(() => {
+            this.loading = false
+          })
+      })
     },
     async hapusProduct(val) {
       val.loading = true
