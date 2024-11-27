@@ -8,6 +8,7 @@ import { setCssVar } from 'quasar'
 // const base = 'https://servpharm.xenter.my.id'
 // const base = 'http://api.eparm.apotik'
 // const base = 'http://192.168.0.101/api.eparm/public' // server setiawan 1
+// const base = 'http://192.168.1.100/api.eparm/public' // new server setiawan 1
 // const base = 'http://api.epharm.test'
 // const base = 'http://localhost/api.e-pharm/public'
 const base = 'http://localhost/api.epharm/public' // local wawan
