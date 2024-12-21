@@ -8,12 +8,12 @@
       :dark="dark"
       :mobile="mobile"
       :cabangs="dist?.cabangs"
-      :notif="notifStore?.unreadNotif"
-      :loading-notif="notifStore.loading"
       class="print-hide"
       @toggle-left="toggleLeftDrawer"
-      @handle-notif="handleNotif"
     />
+    <!-- @handle-notif="handleNotif"
+      :notif="notifStore?.unreadNotif"
+      :loading-notif="notifStore.loading" -->
     <LeftDrawer
       v-if="!mobile"
       v-model="leftDrawerOpen"
@@ -85,22 +85,22 @@ import AdmFooterMenu from './AdmFooterMenu.vue'
 import { useAuthStore } from 'src/stores/auth'
 import { useHistoryTable } from 'src/stores/history/table'
 import { useSettingStore } from 'src/stores/setting/setting'
-// import { notifchanel } from 'src/modules/sockets'
-import { useNotificationStore } from 'src/stores/setting/notifikasi'
 import { useDistribusiFormStore } from 'src/stores/transaksi/distribusi/distribusi'
-import { useRoute } from 'vue-router'
-import { useListDistribusiStore } from 'src/stores/transaksi/distribusi/list'
-import { useSatuanBesarStore } from 'src/stores/master/satuan/besar/crud'
-import { useSatuanStore } from 'src/stores/master/satuan/crud'
-import { useSupplierTable } from 'src/stores/master/supplier/table'
-import { useCabangTable } from 'src/stores/master/cabang/table'
-import { useCustomerTable } from 'src/stores/master/customer/table'
-import { useDokterTable } from 'src/stores/master/dokter/table'
-import { useKategoriTable } from 'src/stores/master/kategori/table'
-import { useMerkTable } from 'src/stores/master/merk/table'
-import { usePerusahaanTable } from 'src/stores/master/perusahaan/table'
-import { useProdukTable } from 'src/stores/master/produk/table'
-import { useRakTable } from 'src/stores/master/rak/table'
+// import { notifchanel } from 'src/modules/sockets'
+// import { useNotificationStore } from 'src/stores/setting/notifikasi'
+// import { useRoute } from 'vue-router'
+// import { useListDistribusiStore } from 'src/stores/transaksi/distribusi/list'
+// import { useSatuanBesarStore } from 'src/stores/master/satuan/besar/crud'
+// import { useSatuanStore } from 'src/stores/master/satuan/crud'
+// import { useSupplierTable } from 'src/stores/master/supplier/table'
+// import { useCabangTable } from 'src/stores/master/cabang/table'
+// import { useCustomerTable } from 'src/stores/master/customer/table'
+// import { useDokterTable } from 'src/stores/master/dokter/table'
+// import { useKategoriTable } from 'src/stores/master/kategori/table'
+// import { useMerkTable } from 'src/stores/master/merk/table'
+// import { usePerusahaanTable } from 'src/stores/master/perusahaan/table'
+// import { useProdukTable } from 'src/stores/master/produk/table'
+// import { useRakTable } from 'src/stores/master/rak/table'
 // import { routerInstance } from 'src/boot/router'
 // import { usePenjualanTable } from 'src/stores/transaksi/penjualan/table'
 
@@ -114,7 +114,7 @@ const $q = useQuasar()
 const mobile = $q.screen.lt.md
 const history = useHistoryTable()
 const setting = useSettingStore()
-const notifStore = useNotificationStore()
+// const notifStore = useNotificationStore()
 const dist = useDistribusiFormStore()
 
 const role = computed(() => {
@@ -156,47 +156,47 @@ const dark = computed(() => {
 //   // console.log('listen to chanel antrean data', e.message)
 // })
 
-function handleNotif(val) {
-  console.log('handleNotif', val)
-  notifStore.readNotif(val).then(() => {
-    panggilData(val)
-  })
-}
-const router = useRoute()
-const list = useListDistribusiStore()
-const satBes = useSatuanBesarStore()
-const satkec = useSatuanStore()
-const sup = useSupplierTable()
-const cab = useCabangTable()
-const cus = useCustomerTable()
-const dok = useDokterTable()
-const kate = useKategoriTable()
-const merk = useMerkTable()
-const perus = usePerusahaanTable()
-const prod = useProdukTable()
-const rak = useRakTable()
-function panggilData(val) {
-  const path = router.path
-  console.log('pabggil', val)
-  console.log('roue', router.path)
-  const model = val?.model === 'Product' ? 'Produk' : val?.model
-  const modelK = model?.toLowerCase()
-  console.log('mode', model, modelK)
-  if (path?.includes('/transaksi/distribusi') && val?.model.includes('Distribusi')) list.getDataTable(true)
-  if (path?.includes(modelK) && model.includes('Satuan')) {
-    satBes.getSatuan(true)
-    satkec.getSatuan(true)
-  }
-  if (path?.includes(modelK) && model.includes('Suppl')) sup.getDataTable(true)
-  if (path?.includes(modelK) && model.includes('Caban')) cab.getDataTable(true)
-  if (path?.includes(modelK) && model.includes('Custom')) cus.getDataTable(true)
-  if (path?.includes(modelK) && model.includes('Dokte')) dok.getDataTable(true)
-  if (path?.includes(modelK) && model.includes('Katego')) kate.getDataTable(true)
-  if (path?.includes(modelK) && model.includes('Merk')) merk.getDataTable(true)
-  if (path?.includes(modelK) && model.includes('Perusa')) perus.getDataTable(true)
-  if (path?.includes(modelK) && model.includes('Produ')) prod.getDataTable(true)
-  if (path?.includes(modelK) && model.includes('Rak')) rak.getDataTable(true)
-}
+// function handleNotif(val) {
+//   console.log('handleNotif', val)
+//   notifStore.readNotif(val).then(() => {
+//     panggilData(val)
+//   })
+// }
+// const router = useRoute()
+// const list = useListDistribusiStore()
+// const satBes = useSatuanBesarStore()
+// const satkec = useSatuanStore()
+// const sup = useSupplierTable()
+// const cab = useCabangTable()
+// const cus = useCustomerTable()
+// const dok = useDokterTable()
+// const kate = useKategoriTable()
+// const merk = useMerkTable()
+// const perus = usePerusahaanTable()
+// const prod = useProdukTable()
+// const rak = useRakTable()
+// function panggilData(val) {
+//   const path = router.path
+//   console.log('pabggil', val)
+//   console.log('roue', router.path)
+//   const model = val?.model === 'Product' ? 'Produk' : val?.model
+//   const modelK = model?.toLowerCase()
+//   console.log('mode', model, modelK)
+//   if (path?.includes('/transaksi/distribusi') && val?.model.includes('Distribusi')) list.getDataTable(true)
+//   if (path?.includes(modelK) && model.includes('Satuan')) {
+//     satBes.getSatuan(true)
+//     satkec.getSatuan(true)
+//   }
+//   if (path?.includes(modelK) && model.includes('Suppl')) sup.getDataTable(true)
+//   if (path?.includes(modelK) && model.includes('Caban')) cab.getDataTable(true)
+//   if (path?.includes(modelK) && model.includes('Custom')) cus.getDataTable(true)
+//   if (path?.includes(modelK) && model.includes('Dokte')) dok.getDataTable(true)
+//   if (path?.includes(modelK) && model.includes('Katego')) kate.getDataTable(true)
+//   if (path?.includes(modelK) && model.includes('Merk')) merk.getDataTable(true)
+//   if (path?.includes(modelK) && model.includes('Perusa')) perus.getDataTable(true)
+//   if (path?.includes(modelK) && model.includes('Produ')) prod.getDataTable(true)
+//   if (path?.includes(modelK) && model.includes('Rak')) rak.getDataTable(true)
+// }
 // const transitionName = ref('slide-left')
 // const route = routerInstance
 // console.log('Layout route ', routerInstance)
@@ -272,7 +272,7 @@ onMounted(() => {
 // -----------------get data autocomplete----------------- //
 //
 setting.getInitialData()
-notifStore.getUnreadNotif()
+// notifStore.getUnreadNotif()
 dist.getCabangs()
 // setting.getDataSetting(resp => {
 //   console.log('resp nya', resp?.uread)

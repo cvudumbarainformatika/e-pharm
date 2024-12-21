@@ -165,20 +165,20 @@ const routes = [
               }
             ]
           },
-          {
-            path: '/transaksi/distribusi',
-            name: 'transaksi.distribusi',
-            component: () =>
-              import('src/pages/v1/transaksi/distribusi/IndexPage.vue'),
-            children: [
-              {
-                path: '/transaksi/distribusi',
-                name: 'transaksi.detail.distribusi',
-                component: () =>
-                  import('src/pages/v1/transaksi/distribusi/IndexPage.vue')
-              }
-            ]
-          },
+          // {
+          //   path: '/transaksi/distribusi',
+          //   name: 'transaksi.distribusi',
+          //   component: () =>
+          //     import('src/pages/v1/transaksi/distribusi/IndexPage.vue'),
+          //   children: [
+          //     {
+          //       path: '/transaksi/distribusi',
+          //       name: 'transaksi.detail.distribusi',
+          //       component: () =>
+          //         import('src/pages/v1/transaksi/distribusi/IndexPage.vue')
+          //     }
+          //   ]
+          // },
           {
             path: '/transaksi/pemesanan',
             name: 'transaksi.pemesanan',
