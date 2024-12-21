@@ -85,7 +85,7 @@ import AdmFooterMenu from './AdmFooterMenu.vue'
 import { useAuthStore } from 'src/stores/auth'
 import { useHistoryTable } from 'src/stores/history/table'
 import { useSettingStore } from 'src/stores/setting/setting'
-import { notifchanel } from 'src/modules/sockets'
+// import { notifchanel } from 'src/modules/sockets'
 import { useNotificationStore } from 'src/stores/setting/notifikasi'
 import { useDistribusiFormStore } from 'src/stores/transaksi/distribusi/distribusi'
 import { useRoute } from 'vue-router'
@@ -128,27 +128,27 @@ const dark = computed(() => {
 //   // { data: 'anu' },
 //   // { data: 'anu2' }
 // ])
-notifchanel.subscribed(() => {
-  console.log('subscribed notif channel!!!')
-}).listen('.notif', (e) => {
-  console.log('listen to chanel notif', e)
-  console.log('kode cabang', setting?.kodecabang)
-  const ada = notifStore?.unreadNotif.find(a => a.id === e?.message?.id)
-  if (!ada && e?.message?.receiver === setting?.kodecabang) {
-    const mes = e?.message
-    notifStore?.unreadNotif.push(mes)
-    // notifStore.readNotif(mes).then(() => {
-    //   panggilData(mes)
-    // })
-  }
-  if (ada && e?.message?.action === 'is_read') {
-    ada.is_read = 1
-  }
-  if (e.message.type === 'ambilLaporan') {
-    notifStore.getLaporan(e?.message)
-  }
-  // console.log('listen to chanel antrean data', e.message)
-})
+// notifchanel.subscribed(() => {
+//   console.log('subscribed notif channel!!!')
+// }).listen('.notif', (e) => {
+//   console.log('listen to chanel notif', e)
+//   console.log('kode cabang', setting?.kodecabang)
+//   const ada = notifStore?.unreadNotif.find(a => a.id === e?.message?.id)
+//   if (!ada && e?.message?.receiver === setting?.kodecabang) {
+//     const mes = e?.message
+//     notifStore?.unreadNotif.push(mes)
+//     // notifStore.readNotif(mes).then(() => {
+//     //   panggilData(mes)
+//     // })
+//   }
+//   if (ada && e?.message?.action === 'is_read') {
+//     ada.is_read = 1
+//   }
+//   if (e.message.type === 'ambilLaporan') {
+//     notifStore.getLaporan(e?.message)
+//   }
+//   // console.log('listen to chanel antrean data', e.message)
+// })
 // notifchannel.subscribed(() => {
 //   console.log('subscribed notif 2 channel!!!')
 // }).listen('.notif', (e) => {
