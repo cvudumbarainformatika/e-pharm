@@ -84,12 +84,12 @@ const routes = [
             path: '/master/rak',
             name: 'master.rak',
             component: () => import('src/pages/v1/master/rak/IndexPage.vue')
-          },
-          {
-            path: '/master/cabang',
-            name: 'master.cabang',
-            component: () => import('src/pages/v1/master/cabang/IndexPage.vue')
           }
+          // {
+          //   path: '/master/cabang',
+          //   name: 'master.cabang',
+          //   component: () => import('src/pages/v1/master/cabang/IndexPage.vue')
+          // }
         ]
       },
       {
