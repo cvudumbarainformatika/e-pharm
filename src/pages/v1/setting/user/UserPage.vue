@@ -50,7 +50,18 @@
                               {{ item.name }}
                             </q-chip>
                           </div>
-                          <div class="col-5">
+                          <div class="col-2">
+                            <q-chip
+                              style="width:220px"
+                              square
+                              dense
+                              color="orange"
+                              text-color="white"
+                            >
+                              {{ item.username }}
+                            </q-chip>
+                          </div>
+                          <div class="col-3">
                             <q-chip
                               style="width:220px"
                               square
@@ -133,6 +144,13 @@
                   v-model="user.form.name"
                   dense
                   label="nama"
+                  icon="icon-mat-person"
+                  class="q-mb-md"
+                />
+                <app-input
+                  v-model="user.form.username"
+                  dense
+                  label="username"
                   icon="icon-mat-person"
                   class="q-mb-md"
                 />

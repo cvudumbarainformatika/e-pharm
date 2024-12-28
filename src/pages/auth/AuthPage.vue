@@ -29,11 +29,10 @@
           @submit="onSubmit"
         >
           <app-input
-            v-model="form.email"
+            v-model="form.username"
             dense
-            label="email"
-            validator="email"
-            icon="icon-mat-email"
+            label="username"
+            icon="icon-mat-person"
           />
           <app-input
             v-model="form.password"
@@ -87,7 +86,7 @@ const form = ref({
 
 function onSubmit() {
   storeAuth.login(form.value).then(() => {
-    window.location.reload()
+    // window.location.reload()
   })
 }
 </script>
