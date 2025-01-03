@@ -24,6 +24,63 @@
             <app-no-data v-if="!user.users.length && !user.loading" />
             <!-- {{ currentUser }} -->
             <div v-if="user.users.length && !user.loading">
+              <q-card>
+                <q-list
+                  class="rounded-borders q-mb-sm bg-dark"
+                  bordered
+                >
+                  <q-item>
+                    <q-item-section>
+                      <div class="row q-col-gutter-sm">
+                        <div class="col-3">
+                          <q-chip
+                            style="width:130px"
+                            dense
+                            outline
+                            square
+                            color="primary"
+                          >
+                            Nama
+                          </q-chip>
+                        </div>
+                        <div class="col-2">
+                          <q-chip
+                            style="width:220px"
+                            square
+                            dense
+                            color="orange"
+                            text-color="white"
+                          >
+                            Username
+                          </q-chip>
+                        </div>
+                        <div class="col-2">
+                          <q-chip
+                            style="width:90px"
+                            square
+                            dense
+                            text-color="white"
+                            color="info"
+                          >
+                            Hak Akses
+                          </q-chip>
+                        </div>
+                        <div class="col-2 text-right">
+                          <q-chip
+                            style="width:30px"
+                            square
+                            dense
+                            text-color="white"
+                            color="grey"
+                          >
+                            #
+                          </q-chip>
+                        </div>
+                      </div>
+                    </q-item-section>
+                  </q-item>
+                </q-list>
+              </q-card>
               <div
                 v-for="(item,i) in user.users"
                 :key="i"
@@ -61,7 +118,7 @@
                               {{ item.username }}
                             </q-chip>
                           </div>
-                          <div class="col-3">
+                          <!-- <div class="col-3">
                             <q-chip
                               style="width:220px"
                               square
@@ -71,7 +128,7 @@
                             >
                               {{ item.email }}
                             </q-chip>
-                          </div>
+                          </div> -->
                           <div class="col-2">
                             <q-chip
                               style="width:90px"
@@ -153,14 +210,6 @@
                   label="username"
                   icon="icon-mat-person"
                   class="q-mb-md"
-                />
-                <app-input
-                  v-model="user.form.email"
-                  dense
-                  label="email"
-                  class="q-mb-md"
-                  validator="email"
-                  icon="icon-mat-email"
                 />
                 <app-autocomplete
                   :model="user.form.role"
@@ -289,6 +338,7 @@ const simpan = (val) => {
   //   user.setForm(data, val[data])
   // })
   // user.setForm('role', user.role)
+  user.setForm('email', user.form.username + '@app.com')
   user.updateUser().then(() => {
     user.getAllUser()
     user.resetForm()
@@ -298,6 +348,7 @@ const simpan = (val) => {
   // console.log('form', user.form)
 }
 const tambah = (val) => {
+  user.setForm('email', user.form.username + '@app.com')
   user.registerUser().then(() => {
     user.getAllUser()
     user.resetForm()

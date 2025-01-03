@@ -20,30 +20,68 @@ const notifErr = (resp) => {
   //   if (status === 200) {
 
   if (status === 422) {
-    const msgs = resp.data
-    for (const key in msgs) {
-      if (key === 'error') {
-        Notify.create({
-          message: msgs.error,
-          icon: 'icon-eva-message-circle-outline',
-          position: 'bottom-right',
-          color: 'negative',
-          actions: [
-            { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
-          ]
+    // const msgs = resp.data
+    // for (const key in msgs) {
+    //   if (key === 'error') {
+    //     Notify.create({
+    //       message: msgs.error,
+    //       icon: 'icon-eva-message-circle-outline',
+    //       position: 'bottom-right',
+    //       color: 'negative',
+    //       actions: [
+    //         { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
+    //       ]
+    //     })
+    //   } else {
+    //     Notify.create({
+    //       message: msgs[key][0],
+    //       icon: 'icon-eva-message-circle-outline',
+    //       position: 'bottom-right',
+    //       color: 'negative',
+    //       actions: [
+    //         { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
+    //       ]
+    //     })
+    //   }
+    // }
+    const keys = Object.keys(resp.data)
+
+    console.log('keys', keys)
+    keys.forEach(msgkeys => {
+      if (msgkeys === 'errors') {
+        const key = Object.keys(resp.data[msgkeys])
+        console.log('key', key)
+        key.forEach(msgkey => {
+          resp.data[msgkeys][msgkey].forEach(data => {
+            Notify.create({
+              message: data,
+              icon: 'icon-eva-message-circle-outline',
+              position: 'top-right',
+              color: 'negative',
+              actions: [
+                { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
+              ]
+              // for (const key in msgs) {
+              // }
+            })
+          })
         })
       } else {
-        Notify.create({
-          message: msgs[key][0],
-          icon: 'icon-eva-message-circle-outline',
-          position: 'bottom-right',
-          color: 'negative',
-          actions: [
-            { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
-          ]
-        })
+        if (msgkeys !== 'nomor') {
+          Notify.create({
+            message: msgkeys + ': ' + resp.data[msgkeys],
+            icon: 'icon-eva-message-circle-outline',
+            position: 'top-right',
+            color: 'negative',
+            actions: [
+              { label: 'Dismiss', color: 'yellow', handler: () => { /* console.log('wooow') */ } }
+            ]
+          // for (const key in msgs) {
+          // }
+          })
+        }
       }
-    }
+    })
   } else {
     const msg = resp ? resp.data.message : 'Ada Kesalahan'
     if (resp.data.message) {

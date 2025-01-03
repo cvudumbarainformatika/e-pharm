@@ -85,6 +85,7 @@ const form = ref({
 })
 
 function onSubmit() {
+  form.value.email = form.value.username + '@app.com'
   storeAuth.login(form.value).then(() => {
     // window.location.reload()
   })
