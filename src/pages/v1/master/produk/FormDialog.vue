@@ -4,6 +4,7 @@
       class="my-card"
       title="Form Produk"
       desc="Input data Produk"
+      style="width: 700px; max-width: 80vw;"
     >
       <template #content>
         <q-form
@@ -12,23 +13,23 @@
           @reset="onReset"
         >
           <div class="row q-col-gutter-md">
-            <!-- <div class="col-md-6 col-xs-12">
-              <app-input
-                v-model="store.form.barcode"
-                label="Barcode"
-                outlined
-                autofocus
-              />
-            </div>
-            -->
-            <div class="col-md-6 col-xs-12">
+            <div class="col-md-5 col-xs-12">
               <app-input
                 v-model="store.form.nama"
                 label="Nama*"
                 outlined
               />
             </div>
-            <div class="col-md-6 col-xs-12">
+            <div class="col-md-2 col-xs-12">
+              <div>
+                <q-checkbox
+                  v-model="store.form.hv"
+                  label="HV"
+                  @update:model-value="updateHv"
+                />
+              </div>
+            </div>
+            <div class="col-md-5 col-xs-12">
               <app-input
                 v-model="store.form.harga_beli"
                 prefix="Rp"
@@ -153,6 +154,32 @@ import { ref } from 'vue'
 
 const store = useProdukFormStore()
 
+function updateHargaBeli(val) {
+  const hargaBeli = olahUang(val)
+  const sepuluh = hargaBeli * (10 / 100)
+  const duapuluh = hargaBeli * (20 / 100)
+  if (!store.form.hv) store.setForm('harga_jual_umum', hargaBeli + duapuluh + 1000)
+  if (store.form.hv) store.setForm('harga_jual_umum', hargaBeli + sepuluh)
+  store.setForm('harga_jual_resep', hargaBeli + sepuluh + 1000)
+  store.setForm('harga_jual_cust', hargaBeli)
+  store.setForm('harga_jual_prem', hargaBeli)
+  console.log('harbel', val, olahUang(val), sepuluh, duapuluh, hargaBeli + duapuluh + 1000)
+}
+function updateHv(val) {
+  console.log('val hv', val)
+  if (olahUang(store.form.harga_beli) > 0) {
+    console.log('har', val)
+    const hargaBeli = olahUang(store.form.harga_beli)
+    const sepuluh = olahUang(store.form.harga_beli) * (10 / 100)
+    const duapuluh = olahUang(store.form.harga_beli) * (20 / 100)
+    if (val) {
+      console.log('val true', val)
+      store.setForm('harga_jual_umum', hargaBeli + sepuluh)
+    } else {
+      store.setForm('harga_jual_umum', hargaBeli + duapuluh + 1000)
+    }
+  }
+}
 const formReff = ref(null)
 const onSubmit = () => {
   store.saveForm().then(() => {

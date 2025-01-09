@@ -20,6 +20,7 @@ export const useProdukTable = defineStore('produk_table', {
     columnHide: ['id',
       'uuid',
       'ada',
+      'hv',
       'created_at',
       'satuan_besar_id',
       'harga_jual_resep',

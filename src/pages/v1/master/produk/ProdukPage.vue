@@ -29,7 +29,7 @@
                 v-if="table.items.length"
                 class="q-mr-md"
               >
-                <app-autocomplete-new
+                <!-- <app-autocomplete-new
                   v-model="table.params.rak_id"
                   label="Filter Rak"
                   autocomplete="nama"
@@ -40,7 +40,7 @@
                   :source="stokStore.raks"
                   @on-select="table.rakSelected"
                   @clear="table.rakCleared"
-                />
+                /> -->
               </div>
               <div>
                 <div v-if="table.items.length">
@@ -130,14 +130,14 @@
             </template>
             <template #cell-harga_jual_umum="{row}">
               <div
-                v-if="!row.hv"
+                v-if="row.hv==='0'"
                 class="row no-wrap justify-between q-mb-xs"
               >
                 <div>umum</div>
                 <div>{{ formatter.formatRpDouble(row.harga_jual_umum) }}</div>
               </div>
               <div
-                v-if="!!row.hv"
+                v-if="row.hv==='1'"
                 class="row no-wrap justify-between q-mb-xs"
               >
                 <div>hv</div>
@@ -188,23 +188,13 @@ import formDialog from './FormDialog.vue'
 import { computed } from 'vue'
 import { date } from 'quasar'
 import { useLaporanStokTable } from 'src/stores/laporan/stok/table'
-import { findWithAttr } from 'src/modules/utils'
-
-// import { ref } from 'vue'
 
 const table = useProdukTable()
 const store = useProdukFormStore()
 const stokStore = useLaporanStokTable()
 console.log('stok', stokStore.raks)
 const namaFile = computed(() => {
-  let rak = 'Semua Rak'
-  if (table.params.rak_id) {
-    const ind = findWithAttr(stokStore.raks, 'id', table.params.rak_id)
-    if (ind >= 0) {
-      rak = stokStore.raks[ind].nama
-    }
-  }
-  return 'Data Stok Rak _' + rak + '_ Per Tanggal ' + date.formatDate(Date.now(), 'DD MMMM YYYY') + '.xls'
+  return 'Data Stok ' + '_ Per Tanggal ' + date.formatDate(Date.now(), 'DD MMMM YYYY') + '.xls'
 })
 const jsonFields = {
   'NO.': 'no',

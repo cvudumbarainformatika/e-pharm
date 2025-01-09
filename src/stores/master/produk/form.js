@@ -14,19 +14,14 @@ export const useProdukFormStore = defineStore('produk_form', {
   state: () => ({
     isOpen: false,
     form: {
-      barcode: '',
-      nama: '',
-      merk: '',
-      satuan_id: null,
+      hv: false,
       harga_beli: 0,
       harga_jual_umum: 0,
       harga_jual_resep: 0,
       harga_jual_cust: 0,
       harga_jual_prem: 0,
-      stok_awal: 0,
-      rak_id: null,
-      kategori_id: null,
-      expired: null
+      stok_awal: 0
+
     },
     raks: [],
     satuans: [],
@@ -77,26 +72,18 @@ export const useProdukFormStore = defineStore('produk_form', {
     resetFORM() {
       this.form = {}
       const columns = [
-        'barcode',
         'nama',
-        'merk',
-        'pengali',
-        'satuan_id',
-        'satuan_besar_id',
         'harga_beli',
         'harga_jual_umum',
         'harga_jual_resep',
         'harga_jual_cust',
         'harga_jual_prem',
-        'stok_awal',
-        'rak_id',
-        'kategori_id',
-        'expired'
+        'stok_awal'
       ]
       for (let i = 0; i < columns.length; i++) {
         this.setForm(columns[i], '')
       }
-      // this.setForm("saldo_awal_hutang", 0);
+      this.setForm('hv', false)
     },
     setToday() {
       const date = new Date()
@@ -121,7 +108,8 @@ export const useProdukFormStore = defineStore('produk_form', {
       this.edited = true
       const keys = Object.keys(val)
       keys.forEach((key, index) => {
-        this.setForm(key, val[key])
+        if (key === 'hv') val[key] === '0' ? this.setForm(key, false) : this.setForm(key, true)
+        else this.setForm(key, val[key])
       })
       // console.log(keys)
       // kecuali yang ada di object user
