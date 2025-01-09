@@ -155,99 +155,23 @@
               :autofocus="autofocus"
               :loading="table.loadingProduk"
               clearable
-              @on-select="table.produkSelected"
+              @on-select="produkSelected"
               @buang="cariDataProduk"
               @clear="clearProduk"
             />
           </q-td>
-          <q-td
-            @keydown.capture="expired"
-          >
-            <q-input
-              ref="refExpired"
-              v-model="table.form.expired"
-              class="text-left"
-              label=" "
-              dense
-            >
-              <!-- mask="date"
-              :rules="['date']" -->
-              <template #append>
-                <q-icon
-                  name="icon-mat-event"
-                  class="cursor-pointer"
-                >
-                  <q-popup-proxy
-                    ref="refTanggal"
-                    cover
-                    transition-show="scale"
-                    transition-hide="scale"
-                  >
-                    <q-date
-                      v-model="table.form.expired"
-                      mask="YYYY-MM-DD"
-                    >
-                      <div class="row items-center justify-end">
-                        <q-btn
-                          v-close-popup
-                          label="Close"
-                          color="primary"
-                          flat
-                        />
-                      </div>
-                    </q-date>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
-          </q-td>
-          <q-td
-            @keydown.capture="besar"
-          >
+
+          <q-td @keydown.capture="qty">
             <app-input
-              ref="refBesar"
-              v-model="table.satuan.besar"
-              class="text-right"
-              label=" "
-              type="number"
-              @update:model-value="table.inputSatuanBesar"
-              @keyup.enter="table.onEnter"
-            />
-            {{ table.namaSatuan.besar }}
-          </q-td>
-          <q-td
-            @keydown.capture="kecil"
-          >
-            <app-input
-              ref="refKecil"
-              v-model="table.satuan.kecil"
-              class="text-right"
-              label=" "
-              type="number"
-              @update:model-value="table.inputSatuanKecil"
-              @keyup.enter="table.onEnter"
-            />
-            {{ table.namaSatuan.kecil }}
-          </q-td>
-          <q-td>
-            {{ table.satuan.pengali }}
-            <!-- <app-input
-              v-model="table.form.qty"
-              class="text-right"
-              label=" iga"
-              type="number"
-              @keyup.enter="table.onEnter"
-            /> -->
-          </q-td>
-          <q-td>
-            <!-- <app-input
+              ref="refQty"
               v-model="table.form.qty"
               class="text-right"
               label=" "
               type="number"
               @keyup.enter="table.onEnter"
-            /> -->
-            {{ table.form.qty }}
+              @update:model-value="updateQty"
+            />
+            <!-- {{ table.form.qty }} -->
           </q-td>
 
           <q-td
@@ -263,48 +187,7 @@
               @keyup.enter="table.onEnter"
             />
           </q-td>
-          <q-td @keydown.capture="diskon">
-            <app-input
-              ref="refDiskon"
-              v-model="table.form.diskon"
-              class="text-right"
-              label=" "
-              number
-              suffix="%"
-              @update:model-value="table.inputDiskon"
-              @keyup.enter="table.onEnter"
-            />
-          </q-td>
-          <!-- <q-td>
-            <app-input
-              v-model="table.form.harga_jual_umum"
-              class="text-right"
-              label=" "
-              number
-              currency
-              readonly
-            />
-          </q-td>
-          <q-td>
-            <app-input
-              v-model="table.form.harga_jual_resep"
-              class="text-right"
-              label=" "
-              number
-              currency
-              readonly
-            />
-          </q-td>
-          <q-td>
-            <app-input
-              v-model="table.form.harga_jual_cust"
-              class="text-right"
-              label=" "
-              number
-              currency
-              readonly
-            />
-          </q-td> -->
+
           <q-td>
             <strong>
               <!-- {{ formatter.formatRp(parseFloat(formatter.olahUang(table.form.harga_beli)) * parseFloat(table.form.qty)) }} -->
@@ -413,91 +296,53 @@ const pagination = ref({
 })
 const autofocus = ref(true)
 const supplier = useSupplierFormStore()
+const refQty = ref(null)
 const refTanggal = ref(null)
 const refProduk = ref(null)
-const refExpired = ref(null)
-const refBesar = ref(null)
-const refKecil = ref(null)
+// const refExpired = ref(null)
+// const refBesar = ref(null)
+// const refKecil = ref(null)
 const refHarga = ref(null)
 const refFaktur = ref(null)
-const refDiskon = ref(null)
+// const refDiskon = ref(null)
 
 const table = usePembelianTable()
 onMounted(() => {
   table.refProduk = refProduk.value.$refs.refAuto
-  table.refExpired = refExpired.value
   table.refTanggal = refTanggal.value
 })
 const cariDataProduk = val => {
   table.produkParams.q = val
   table.refProduk = refProduk.value.$refs.refAuto
-  table.refExpired = refExpired.value
   table.refTanggal = refTanggal.value
   table.ambilDataProduk()
-  // .then(resp => {
-  //   console.log('cari data produk', resp)
-  // })
 }
 
 function clearProduk() {
   console.log('clear')
 }
-
+function produkSelected(val) {
+  table.produkSelected(val)
+  console.log('produk selected', val)
+  if (val !== null) {
+    setTimeout(() => {
+      refProduk.value.$refs.refAuto.blur()
+      refQty.value.$refs.refInput.focus()
+    }, 100)
+  }
+}
 const produk = val => {
   // console.log('key', val.key)
   if (val.key === 'ArrowRight') {
     // console.log('Expired')
-    refExpired.value.focus()
+    refQty.value.$refs.refInput.focus()
     refProduk.value.$refs.refAuto.blur()
-    refTanggal.value.show()
+    // refTanggal.value.show()
   }
   if (val.key === 'ArrowLeft') {
     refProduk.value.$refs.refAuto.blur()
     refHarga.value.$refs.refInput.focus()
     // console.log(refHarga.value.$refs)
-  }
-}
-const expired = val => {
-  // console.log('key', val.key)
-  if (val.key === 'ArrowRight') {
-    // console.log(refBesar.value.$refs)
-    refBesar.value.$refs.refInput.focus()
-    refExpired.value.blur()
-    refTanggal.value.hide()
-  }
-  if (val.key === 'ArrowLeft') {
-    refTanggal.value.hide()
-    refExpired.value.blur()
-    refProduk.value.$refs.refAuto.focus()
-    // console.log(refProduk.value.$refs)
-  }
-}
-const besar = val => {
-  // console.log('key', val.key)
-  if (val.key === 'ArrowRight') {
-    refKecil.value.$refs.refInput.focus()
-    refBesar.value.$refs.refInput.blur()
-    // console.log(refKecil.value.$refs)
-  }
-  if (val.key === 'ArrowLeft') {
-    refBesar.value.$refs.refInput.blur()
-    refExpired.value.focus()
-    refTanggal.value.show()
-    // console.log(refExpired.value)
-  }
-}
-
-const kecil = val => {
-  // console.log('key', val.key)
-  if (val.key === 'ArrowRight') {
-    refHarga.value.$refs.refInput.focus()
-    refKecil.value.$refs.refInput.blur()
-    // console.log(refHarga.value.$refs)
-  }
-  if (val.key === 'ArrowLeft') {
-    refKecil.value.$refs.refInput.blur()
-    refBesar.value.$refs.refInput.focus()
-    // console.log(refBesar.value.$refs)
   }
 }
 
@@ -505,26 +350,31 @@ const harga = val => {
   // console.log('key', val.key)
   if (val.key === 'ArrowRight') {
     // console.log(refProduk.value.$refs)
-    refDiskon.value.$refs.refInput.focus()
+    refProduk.value.$refs.refAuto.focus()
     refHarga.value.$refs.refInput.blur()
   }
   if (val.key === 'ArrowLeft') {
     // console.log(refKecil.value.$refs)
-    refKecil.value.$refs.refInput.focus()
+    refQty.value.$refs.refInput.focus()
     refHarga.value.$refs.refInput.blur()
   }
 }
-const diskon = val => {
+const qty = val => {
   // console.log('key', val.key)
   if (val.key === 'ArrowRight') {
     // console.log(refProduk.value.$refs)
-    refProduk.value.$refs.refAuto.focus()
-    refDiskon.value.$refs.refInput.blur()
+    refHarga.value.$refs.refInput.focus()
+    refQty.value.$refs.refInput.blur()
   }
   if (val.key === 'ArrowLeft') {
     // console.log(refKecil.value.$refs)
-    refHarga.value.$refs.refInput.focus()
-    refDiskon.value.$refs.refInput.blur()
+    refProduk.value.$refs.refAuto.focus()
+    refQty.value.$refs.refInput.blur()
+  }
+}
+function updateQty(val) {
+  if (!isNaN(parseFloat(val))) {
+    table.form.qty = parseFloat(val)
   }
 }
 const keyCheck = val => {
@@ -536,12 +386,13 @@ const keyCheck = val => {
 }
 
 const resetValidation = () => {
-  refKecil.value.$refs.refInput.resetValidation()
-  refBesar.value.$refs.refInput.resetValidation()
-  refExpired.value.resetValidation()
+  // refKecil.value.$refs.refInput.resetValidation()
+  // refBesar.value.$refs.refInput.resetValidation()
+  // refExpired.value.resetValidation()
   refHarga.value.$refs.refInput.resetValidation()
-  refDiskon.value.$refs.refInput.resetValidation()
+  // refDiskon.value.$refs.refInput.resetValidation()
   refFaktur.value.$refs.refInput.resetValidation()
+  refQty.value.$refs.refInput.resetValidation()
   refProduk.value.$refs.refAuto.resetValidation()
 }
 const store = usePembelianDialog()

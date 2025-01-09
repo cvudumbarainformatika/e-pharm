@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 // import { useProdukTable } from 'src/stores/master/produk/table'
 import { api } from 'boot/axios'
-import { notifErrVue, detailBesar, detailKecil } from 'src/modules/utils'
+import { notifErrVue } from 'src/modules/utils'
 import { formatRp, formatRpDouble, olahUang } from 'src/modules/formatter'
 import { Dialog, date } from 'quasar'
 import { usePembelianDialog } from './form'
@@ -74,15 +74,15 @@ export const usePembelianTable = defineStore('pembelian_table', {
         label: 'Produk',
         field: (row) => row.product ? row.product.nama : row.product_id
       },
-      {
-        name: 'expired',
-        align: 'left',
-        label: 'Expired',
-        field: 'expired'
-      },
-      { name: 'satuanBesar', align: 'left', label: 'sat. besar', field: (row) => row?.product?.satuan_besar ? detailBesar(row.qty, row?.product?.pengali) + ' ' + row?.product?.satuan_besar.nama : '-' },
-      { name: 'satuan', align: 'left', label: 'sat', field: (row) => row?.product?.satuan ? detailKecil(row.qty, row?.product?.pengali) + ' ' + row?.product?.satuan?.nama : '-' },
-      { name: 'pengali', align: 'left', label: 'pengali', field: (row) => row?.product ? row?.product?.pengali : 0 },
+      // {
+      //   name: 'expired',
+      //   align: 'left',
+      //   label: 'Expired',
+      //   field: 'expired'
+      // },
+      // { name: 'satuanBesar', align: 'left', label: 'sat. besar', field: (row) => row?.product?.satuan_besar ? detailBesar(row.qty, row?.product?.pengali) + ' ' + row?.product?.satuan_besar.nama : '-' },
+      // { name: 'satuan', align: 'left', label: 'sat', field: (row) => row?.product?.satuan ? detailKecil(row.qty, row?.product?.pengali) + ' ' + row?.product?.satuan?.nama : '-' },
+      // { name: 'pengali', align: 'left', label: 'pengali', field: (row) => row?.product ? row?.product?.pengali : 0 },
       { name: 'qty', align: 'left', label: 'Jumlah', field: 'qty' },
       {
         name: 'harga',
@@ -91,13 +91,13 @@ export const usePembelianTable = defineStore('pembelian_table', {
         field: 'harga',
         format: (val) => formatRp(val)
       },
-      {
-        name: 'diskon',
-        align: 'right',
-        label: 'Diskon ',
-        field: 'diskon',
-        format: (val) => val + ' %'
-      },
+      // {
+      //   name: 'diskon',
+      //   align: 'right',
+      //   label: 'Diskon ',
+      //   field: 'diskon',
+      //   format: (val) => val + ' %'
+      // },
       // {
       //   name: 'harga_jual_umum',
       //   align: 'right',
@@ -175,11 +175,11 @@ export const usePembelianTable = defineStore('pembelian_table', {
       this.form.tanggal_faktur = null
       this.form.tanggal = date.formatDate(Date.now(), 'YYYY-MM-DD')
       this.rows = []
-      this.satuan.besar = 0
-      this.satuan.kecil = 0
-      this.satuan.pengali = 0
-      this.namaSatuan.besar = ''
-      this.namaSatuan.kecil = ''
+      // this.satuan.besar = 0
+      // this.satuan.kecil = 0
+      // this.satuan.pengali = 0
+      // this.namaSatuan.besar = ''
+      // this.namaSatuan.kecil = ''
     },
     produkSelected(val) {
       const apem = this.produks
@@ -198,12 +198,12 @@ export const usePembelianTable = defineStore('pembelian_table', {
         this.form.harga_jual_cust = produk[0].harga_jual_cust
         this.form.harga_jual_umum = produk[0].harga_jual_umum
         this.form.harga_jual_resep = produk[0].harga_jual_resep
-        this.form.diskon = 0
-        this.satuan.besar = 1
-        this.satuan.pengali = produk[0].pengali
-        this.form.qty = this.satuan.besar * this.satuan.pengali
-        this.namaSatuan.besar = produk[0].satuanBesar.nama
-        this.namaSatuan.kecil = produk[0].satuan.nama
+        // this.form.diskon = 0
+        // this.satuan.besar = 1
+        // this.satuan.pengali = produk[0].pengali
+        // this.form.qty = this.satuan.besar * this.satuan.pengali
+        // this.namaSatuan.besar = produk[0].satuanBesar.nama
+        // this.namaSatuan.kecil = produk[0].satuan.nama
         this.form.sub_total = parseFloat(this.form.qty) * olahUang(this.form.harga)
       }
     },

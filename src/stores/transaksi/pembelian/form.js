@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { routerInstance } from 'src/boot/router'
-import { olahUang } from 'src/modules/formatter'
+import { hurufBesar, olahUang } from 'src/modules/formatter'
 import { notifSuccess, uniqueId } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
 // import { useAuthStore } from 'src/stores/auth'
@@ -12,6 +12,7 @@ import { usePembelianTable } from './table'
 export const usePembelianDialog = defineStore('pembelian_store', {
   state: () => ({
     isOpen: false,
+    loadingPerusahaan: false,
     form: {
       faktur: null,
       reff: null,
@@ -26,7 +27,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       kembali: 0,
       tempo: null,
       kasir_id: null,
-      supplier_id: null,
+      perusahaan_id: null,
       status: 1
     },
     totalSemua: 0,
@@ -36,6 +37,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
     ],
     kasirs: [],
     suppliers: [],
+    perusahaans: [],
     params: {
       q: '',
       page: 1,
@@ -71,13 +73,21 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       const temp = this.kasirs.filter(data => { return data.id === val })
       this.print.form.kasir = temp[0].name
     },
-    setSupplier(val) {
-      const temp = this.suppliers.filter(data => { return data.id === val })
+    // setSupplier(val) {
+    //   const temp = this.suppliers.filter(data => { return data.id === val })
+    //   this.print.form.supplier = temp[0].nama
+    //   // console.log('supplier', temp)
+    //   // console.log('supplier keys', Object.keys(this.print.form.supplier))
+    //   // console.log('supplier keys leng', Object.keys(this.print.form.supplier).length)
+    // },
+    setPerusahaan(val) {
+      const temp = this.perusahaans.filter(data => { return data.id === val })
       this.print.form.supplier = temp[0].nama
       // console.log('supplier', temp)
       // console.log('supplier keys', Object.keys(this.print.form.supplier))
       // console.log('supplier keys leng', Object.keys(this.print.form.supplier).length)
     },
+
     totalSeluruhnya() {
       const total = olahUang(this.form.total)
       // potongan = diskon
@@ -116,15 +126,19 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       this.isOpen = !this.isOpen
       this.form.jenis = ''
     },
-    searchSupplier(val) {
-      this.ambilDataSupplier(val)
+    // searchSupplier(val) {
+    //   this.ambilDataSupplier(val)
+    //   // console.log(val)
+    // },
+    searchPerusahaan(val) {
+      this.ambilDataPerusahaan(val)
       // console.log(val)
     },
     jenisSelected(val) {
       // console.log('jenis selected ', val)
       this.ambilDataKasir()
-      this.ambilDataSupplier()
-      this.form.supplier_id = null
+      this.searchPerusahaan()
+      this.form.perusahaan_id = null
       this.form.kasir_id = null
     },
     ambilDataKasir() {
@@ -146,18 +160,39 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       // console.log('user ', user.user)
       // console.log('user getter', user.user)
     },
-    ambilDataSupplier(val) {
+    // ambilDataSupplier(val) {
+    //   if (val !== '') { this.params.q = val }
+    //   this.loading = true
+    //   const params = { params: this.params }
+    //   return new Promise((resolve, reject) => {
+    //     api
+    //       .get('v1/supplier/index', params)
+    //       .then((resp) => {
+    //         this.loading = false
+    //         // console.log('suppliers ', resp)
+    //         if (resp.status === 200) {
+    //           this.suppliers = resp.data.data
+    //           resolve(resp.data)
+    //         }
+    //       })
+    //       .catch((err) => {
+    //         this.loading = false
+    //         reject(err)
+    //       })
+    //   })
+    // },
+    ambilDataPerusahaan(val) {
       if (val !== '') { this.params.q = val }
       this.loading = true
       const params = { params: this.params }
       return new Promise((resolve, reject) => {
         api
-          .get('v1/supplier/index', params)
+          .get('v1/perusahaan/index', params)
           .then((resp) => {
             this.loading = false
             // console.log('suppliers ', resp)
             if (resp.status === 200) {
-              this.suppliers = resp.data.data
+              this.perusahaans = resp.data.data
               resolve(resp.data)
             }
           })
@@ -166,6 +201,33 @@ export const usePembelianDialog = defineStore('pembelian_store', {
             reject(err)
           })
       })
+    },
+    addPerusahaan(val) {
+      // const temp = this.perusahaans.filter(data => { return data.id === val })
+      // this.print.form.supplier = temp[0].nama
+      console.log('perusahaan', val)
+      this.loadingPerusahaan = true
+      const data = { nama: hurufBesar(val) }
+
+      return new Promise((resolve, reject) => {
+        api
+          .post('v1/perusahaan/store', data)
+          .then((resp) => {
+            console.log('save data', resp?.data)
+            notifSuccess(resp)
+            this.ambilDataPerusahaan().then(() => {
+              this.form.perusahaan_id = resp.data.data.id
+            })
+            this.loadingPerusahaan = false
+            resolve(resp)
+          })
+          .catch((err) => {
+            this.loadingPerusahaan = false
+            reject(err)
+          })
+      })
+      // console.log('supplier keys', Object.keys(this.print.form.supplier))
+      // console.log('supplier keys leng', Object.keys(this.print.form.supplier).length)
     },
     simpanTransaksi() {
       const penjualan = usePenjualanTable()

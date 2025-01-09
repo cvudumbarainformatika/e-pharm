@@ -27,7 +27,7 @@
               />
             </div>
           </div>
-          <div
+          <!-- <div
             v-if="store.form.jenis == 'tunai' "
             class="row q-col-gutter-md q-mt-sm"
           >
@@ -45,33 +45,53 @@
                 @on-select="store.setKasir"
               />
             </div>
-          </div>
+          </div> -->
           <div
             class="row q-col-gutter-md q-mt-sm items-center"
           >
             <div class="col-md-11 col-xs-11">
               <app-autocomplete
-                v-model="store.form.supplier_id"
-                label="pilih Distributor"
+                v-model="store.form.perusahaan_id"
+                label="pilih Perusahaan"
                 autocomplete="nama"
                 option-value="id"
                 option-label="nama"
-                :source="store.suppliers"
+                :source="store.perusahaans"
                 outlined
-                :loading="store.loading"
-                @set-model="store.searchSupplier"
-                @on-select="store.setSupplier"
-                @buang="store.searchSupplier"
+                :loading="store.loading || store.loadingPerusahaan"
+                @set-model="store.searchPerusahaan"
+                @on-select="store.setPerusahaan"
+                @buang="store.searchPerusahaan"
+                @on-enter="store.addPerusahaan"
               />
             </div>
             <div class="col-md-1 col-xs-1 text-center">
-              <q-btn
+              <!-- <q-btn
                 round
                 color="primary"
                 icon="icon-mat-add"
                 size="xs"
                 @click="supplier.setOpen"
-              />
+              /> -->
+
+              <q-icon
+                size="16px"
+                name="icon-mat-help_outline"
+                color="info"
+                class="cursor-pointer"
+              >
+                <q-tooltip
+                  anchor="top middle"
+                  self="bottom middle"
+                  :offset="[10, 10]"
+                >
+                  <strong>Untuk Masukkan data ?</strong> <br>
+                  <em>ketik data yang akan di input</em><br>
+                  <em>contoh</em><br>
+                  <strong>Bina San</strong><br>
+                  <em>Lalu tekan Enter </em>
+                </q-tooltip>
+              </q-icon>
             </div>
           </div>
           <div class="row q-col-gutter-md q-mt-sm items-center">
@@ -90,7 +110,7 @@
               /> -->
             </div>
           </div>
-          <div class="row q-col-gutter-md q-mt-sm items-center">
+          <!-- <div class="row q-col-gutter-md q-mt-sm items-center">
             <div class="col-md-4 col-xs-4">
               PPN
             </div>
@@ -119,7 +139,8 @@
                 @update:model-value="store.totalSeluruhnya"
               />
             </div>
-          </div>
+          </div> -->
+
           <div class="row q-col-gutter-md q-mt-sm items-center">
             <div class="col-md-12 col-xs-12">
               <div class="text-right">
@@ -238,10 +259,10 @@
 import { formatRpDouble } from 'src/modules/formatter'
 import { usePembelianDialog } from 'src/stores/transaksi/pembelian/form'
 import { ref } from 'vue'
-import { useSupplierFormStore } from 'src/stores/master/supplier/form'
+// import { useSupplierFormStore } from 'src/stores/master/supplier/form'
 // import { notifErrVue } from 'src/modules/utils'
 // import { usePrintStore } from 'src/stores/print'
-const supplier = useSupplierFormStore()
+// const supplier = useSupplierFormStore()
 // const print = usePrintStore()
 const emits = defineEmits(['selesai'])
 const formReff = ref(null)
