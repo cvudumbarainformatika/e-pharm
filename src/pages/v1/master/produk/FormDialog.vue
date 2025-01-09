@@ -13,7 +13,7 @@
           @reset="onReset"
         >
           <div class="row q-col-gutter-md">
-            <div class="col-md-5 col-xs-12">
+            <div class="col-md-10 col-xs-12">
               <app-input
                 v-model="store.form.nama"
                 label="Nama*"
@@ -29,7 +29,9 @@
                 />
               </div>
             </div>
-            <div class="col-md-5 col-xs-12">
+          </div>
+          <div class="row q-col-gutter-md q-mt-sm">
+            <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.harga_beli"
                 prefix="Rp"
@@ -40,14 +42,12 @@
                 @update:model-value="updateHargaBeli"
               />
             </div>
-          </div>
-          <div class="row q-col-gutter-md q-mt-sm">
             <div class="col-md-6 col-xs-12">
               <div class="row">
                 <app-input
                   v-model="store.form.harga_jual_umum"
                   style="width:80%"
-                  label="Harga Jual Reguler*"
+                  label="Harga Jual umum*"
                   outlined
                   number
                   currency
@@ -55,6 +55,24 @@
                 />
                 <q-badge>
                   {{ parseInt((olahUang(store.form.harga_jual_umum) - olahUang(store.form.harga_beli))/olahUang(store.form.harga_beli) * 100) }} %
+                </q-badge>
+              </div>
+            </div>
+          </div>
+          <div class="row q-col-gutter-md q-mt-sm">
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <app-input
+                  v-model="store.form.harga_jual_rac"
+                  style="width:80%"
+                  label="Harga Jual Racikan*"
+                  outlined
+                  number
+                  currency
+                  prefix="Rp"
+                />
+                <q-badge>
+                  {{ parseInt((olahUang(store.form.harga_jual_rac) - olahUang(store.form.harga_beli))/olahUang(store.form.harga_beli) * 100) }} %
                 </q-badge>
               </div>
             </div>
@@ -125,6 +143,7 @@
                 label="Limit Stok*"
                 outlined
                 number
+                valid
               />
             </div>
           </div>
@@ -163,6 +182,7 @@ function updateHargaBeli(val) {
   store.setForm('harga_jual_resep', hargaBeli + sepuluh + 1000)
   store.setForm('harga_jual_cust', hargaBeli)
   store.setForm('harga_jual_prem', hargaBeli)
+  store.setForm('harga_jual_rac', hargaBeli + duapuluh)
   console.log('harbel', val, olahUang(val), sepuluh, duapuluh, hargaBeli + duapuluh + 1000)
 }
 function updateHv(val) {

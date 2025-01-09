@@ -20,6 +20,7 @@ export const useProdukFormStore = defineStore('produk_form', {
       harga_jual_resep: 0,
       harga_jual_cust: 0,
       harga_jual_prem: 0,
+      harga_jual_rac: 0,
       stok_awal: 0
 
     },
@@ -78,6 +79,7 @@ export const useProdukFormStore = defineStore('produk_form', {
         'harga_jual_resep',
         'harga_jual_cust',
         'harga_jual_prem',
+        'harga_jual_rac',
         'stok_awal'
       ]
       for (let i = 0; i < columns.length; i++) {

@@ -26,6 +26,7 @@ export const useProdukTable = defineStore('produk_table', {
       'harga_jual_resep',
       'harga_jual_cust',
       'harga_jual_prem',
+      'harga_jual_rac',
       'limit_stok',
       'stok',
       'pengali',

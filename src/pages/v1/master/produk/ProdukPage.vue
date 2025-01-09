@@ -131,27 +131,27 @@
             <template #cell-harga_jual_umum="{row}">
               <div
                 v-if="row.hv==='0'"
-                class="row no-wrap justify-between q-mb-xs"
+                class="row no-wrap q-col-gutter-md justify-between q-mb-xs"
               >
                 <div>umum</div>
                 <div>{{ formatter.formatRpDouble(row.harga_jual_umum) }}</div>
               </div>
               <div
                 v-if="row.hv==='1'"
-                class="row no-wrap justify-between q-mb-xs"
+                class="row no-wrap q-col-gutter-md justify-between q-mb-xs"
               >
                 <div>hv</div>
                 <div>{{ formatter.formatRpDouble(row.harga_jual_umum) }}</div>
               </div>
-              <div class="row no-wrap justify-between q-mb-xs">
+              <div class="row no-wrap q-col-gutter-md justify-between q-mb-xs">
                 <div>dokter</div>
                 <div>{{ formatter.formatRpDouble(row.harga_jual_resep) }}</div>
               </div>
-              <div class="row no-wrap justify-between q-mb-xs">
+              <div class="row no-wrap q-col-gutter-md justify-between q-mb-xs">
                 <div>pri cash</div>
                 <div>{{ formatter.formatRpDouble(row.harga_jual_cust) }}</div>
               </div>
-              <div class="row no-wrap justify-between q-mb-xs">
+              <div class="row no-wrap q-col-gutter-md justify-between q-mb-xs">
                 <div>pri kredit</div>
                 <div>{{ formatter.formatRpDouble(row.harga_jual_prem) }}</div>
               </div>
