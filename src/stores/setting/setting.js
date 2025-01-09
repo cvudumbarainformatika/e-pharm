@@ -39,34 +39,34 @@ export const useSettingStore = defineStore('setting', {
         name: 'master',
         route: 'master',
         submenus: [
-          {
-            icon: 'icon-mat-gas_meter',
-            name: 'Satuan',
-            link: 'master/satuan',
-            value: 'master.satuan',
-            roles: ' root owner '
-          },
-          {
-            icon: 'icon-mat-table_rows',
-            name: 'Rak',
-            link: 'master/rak',
-            value: 'master.rak',
-            roles: ' root owner '
-          },
-          {
-            icon: 'icon-mat-category',
-            name: 'Kategori',
-            link: 'master/kategori',
-            value: 'master.kategori',
-            roles: ' root owner '
-          },
-          {
-            icon: 'icon-fa-truck_arrow_right_solid',
-            name: 'Distributor',
-            link: 'master/supplier',
-            value: 'master.supplier',
-            roles: ' root owner '
-          },
+          // {
+          //   icon: 'icon-mat-gas_meter',
+          //   name: 'Satuan',
+          //   link: 'master/satuan',
+          //   value: 'master.satuan',
+          //   roles: ' root owner '
+          // },
+          // {
+          //   icon: 'icon-mat-table_rows',
+          //   name: 'Rak',
+          //   link: 'master/rak',
+          //   value: 'master.rak',
+          //   roles: ' root owner '
+          // },
+          // {
+          //   icon: 'icon-mat-category',
+          //   name: 'Kategori',
+          //   link: 'master/kategori',
+          //   value: 'master.kategori',
+          //   roles: ' root owner '
+          // },
+          // {
+          //   icon: 'icon-fa-truck_arrow_right_solid',
+          //   name: 'Distributor',
+          //   link: 'master/supplier',
+          //   value: 'master.supplier',
+          //   roles: ' root owner '
+          // },
           {
             icon: 'icon-mat-medication',
             name: 'Dokter',
@@ -88,41 +88,41 @@ export const useSettingStore = defineStore('setting', {
             value: 'master.beban',
             roles: ' root owner '
           },
-          {
-            icon: 'icon-mat-attach_money',
-            name: 'Pendapatan',
-            link: 'master/penerimaan',
-            value: 'master.penerimaan',
-            roles: ' root owner '
-          },
-          {
-            icon: 'icon-mat-local_shipping',
-            name: 'Customer',
-            link: 'master/customer',
-            value: 'master.customer',
-            roles: ' root owner kasir '
-          },
-          {
-            icon: 'icon-mat-auto_awesome_mosaic',
-            name: 'Merk',
-            link: 'master/merk',
-            value: 'master.merk',
-            roles: ' root owner '
-          },
+          // {
+          //   icon: 'icon-mat-attach_money',
+          //   name: 'Pendapatan',
+          //   link: 'master/penerimaan',
+          //   value: 'master.penerimaan',
+          //   roles: ' root owner '
+          // },
+          // {
+          //   icon: 'icon-mat-local_shipping',
+          //   name: 'Customer',
+          //   link: 'master/customer',
+          //   value: 'master.customer',
+          //   roles: ' root owner kasir '
+          // },
+          // {
+          //   icon: 'icon-mat-auto_awesome_mosaic',
+          //   name: 'Merk',
+          //   link: 'master/merk',
+          //   value: 'master.merk',
+          //   roles: ' root owner '
+          // },
           {
             icon: 'icon-mat-business',
             name: 'Perusahaan',
             link: 'master/perusahaan',
             value: 'master.perusahaan',
             roles: ' root owner '
-          },
-          {
-            icon: 'icon-fa-store-solid',
-            name: 'Cabang',
-            link: 'master/cabang',
-            value: 'master.cabang',
-            roles: ' root owner '
           }
+          // {
+          //   icon: 'icon-fa-store-solid',
+          //   name: 'Cabang',
+          //   link: 'master/cabang',
+          //   value: 'master.cabang',
+          //   roles: ' root owner '
+          // }
         ]
       },
       {

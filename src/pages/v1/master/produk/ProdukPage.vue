@@ -129,28 +129,32 @@
               <div>{{ formatter.formatRpDouble(row.harga_beli) }}</div>
             </template>
             <template #cell-harga_jual_umum="{row}">
-              <div class="row no-wrap justify-between q-mb-xs">
+              <div
+                v-if="!row.hv"
+                class="row no-wrap justify-between q-mb-xs"
+              >
                 <div>umum</div>
                 <div>{{ formatter.formatRpDouble(row.harga_jual_umum) }}</div>
               </div>
+              <div
+                v-if="!!row.hv"
+                class="row no-wrap justify-between q-mb-xs"
+              >
+                <div>hv</div>
+                <div>{{ formatter.formatRpDouble(row.harga_jual_umum) }}</div>
+              </div>
               <div class="row no-wrap justify-between q-mb-xs">
-                <div>resep</div>
+                <div>dokter</div>
                 <div>{{ formatter.formatRpDouble(row.harga_jual_resep) }}</div>
               </div>
               <div class="row no-wrap justify-between q-mb-xs">
-                <div>customer</div>
+                <div>pri cash</div>
                 <div>{{ formatter.formatRpDouble(row.harga_jual_cust) }}</div>
               </div>
               <div class="row no-wrap justify-between q-mb-xs">
-                <div>premium</div>
+                <div>pri kredit</div>
                 <div>{{ formatter.formatRpDouble(row.harga_jual_prem) }}</div>
               </div>
-            </template>
-            <template #cell-harga_jual_resep="{row}">
-              <div>{{ formatter.formatRpDouble(row.harga_jual_resep) }}</div>
-            </template>
-            <template #cell-harga_jual_cust="{row}">
-              <div>{{ formatter.formatRpDouble(row.harga_jual_cust) }}</div>
             </template>
             <template #cell-kode_produk="{row}">
               <!-- eslint-disable-next-line vue/no-v-html -->
