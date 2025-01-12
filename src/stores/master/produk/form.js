@@ -135,6 +135,7 @@ export const useProdukFormStore = defineStore('produk_form', {
       const resep = olahUang(this.form.harga_jual_resep)
       const cust = olahUang(this.form.harga_jual_cust)
       const prem = olahUang(this.form.harga_jual_prem)
+      const rac = olahUang(this.form.harga_jual_rac)
       // if (!this.form.stok_awal || this.form.stok_awal < 0) { this.form.stok_awal = 0 }
       // console.log('beli ', beli, ' umum ', umum, ' resep ', resep, ' cust ', cust)
       this.form.harga_beli = beli
@@ -142,6 +143,7 @@ export const useProdukFormStore = defineStore('produk_form', {
       this.form.harga_jual_resep = resep
       this.form.harga_jual_umum = umum
       this.form.harga_jual_prem = prem
+      this.form.harga_jual_rac = rac
       this.loading = true
       this.sanitazeForm()
       return new Promise((resolve, reject) => {

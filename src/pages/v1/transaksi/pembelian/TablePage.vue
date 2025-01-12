@@ -138,10 +138,11 @@
       </template>
       <template #top-row>
         <q-tr>
-          <!-- <q-td /> -->
+          <!-- <q-td />
+          @keydown.capture="produk"
+          -->
           <q-td
             colspan="2"
-            @keydown.capture="produk"
           >
             <app-autocomplete-pembelian
               ref="refProduk"
@@ -174,9 +175,8 @@
             <!-- {{ table.form.qty }} -->
           </q-td>
 
-          <q-td
-            @keydown.capture="harga"
-          >
+          <!-- @keydown.capture="harga" -->
+          <q-td>
             <app-input
               ref="refHarga"
               v-model="table.form.harga"
@@ -331,47 +331,47 @@ function produkSelected(val) {
     }, 100)
   }
 }
-const produk = val => {
-  // console.log('key', val.key)
-  if (val.key === 'ArrowRight') {
-    // console.log('Expired')
-    refQty.value.$refs.refInput.focus()
-    refProduk.value.$refs.refAuto.blur()
-    // refTanggal.value.show()
-  }
-  if (val.key === 'ArrowLeft') {
-    refProduk.value.$refs.refAuto.blur()
-    refHarga.value.$refs.refInput.focus()
-    // console.log(refHarga.value.$refs)
-  }
-}
+// const produk = val => {
+//   // console.log('key', val.key)
+//   if (val.key === 'ArrowRight') {
+//     // console.log('Expired')
+//     refQty.value.$refs.refInput.focus()
+//     refProduk.value.$refs.refAuto.blur()
+//     // refTanggal.value.show()
+//   }
+//   if (val.key === 'ArrowLeft') {
+//     refProduk.value.$refs.refAuto.blur()
+//     refHarga.value.$refs.refInput.focus()
+//     // console.log(refHarga.value.$refs)
+//   }
+// }
 
-const harga = val => {
-  // console.log('key', val.key)
-  if (val.key === 'ArrowRight') {
-    // console.log(refProduk.value.$refs)
-    refProduk.value.$refs.refAuto.focus()
-    refHarga.value.$refs.refInput.blur()
-  }
-  if (val.key === 'ArrowLeft') {
-    // console.log(refKecil.value.$refs)
-    refQty.value.$refs.refInput.focus()
-    refHarga.value.$refs.refInput.blur()
-  }
-}
-const qty = val => {
-  // console.log('key', val.key)
-  if (val.key === 'ArrowRight') {
-    // console.log(refProduk.value.$refs)
-    refHarga.value.$refs.refInput.focus()
-    refQty.value.$refs.refInput.blur()
-  }
-  if (val.key === 'ArrowLeft') {
-    // console.log(refKecil.value.$refs)
-    refProduk.value.$refs.refAuto.focus()
-    refQty.value.$refs.refInput.blur()
-  }
-}
+// const harga = val => {
+//   // console.log('key', val.key)
+//   if (val.key === 'ArrowRight') {
+//     // console.log(refProduk.value.$refs)
+//     refProduk.value.$refs.refAuto.focus()
+//     refHarga.value.$refs.refInput.blur()
+//   }
+//   if (val.key === 'ArrowLeft') {
+//     // console.log(refKecil.value.$refs)
+//     refQty.value.$refs.refInput.focus()
+//     refHarga.value.$refs.refInput.blur()
+//   }
+// }
+// const qty = val => {
+//   // console.log('key', val.key)
+//   if (val.key === 'ArrowRight') {
+//     // console.log(refProduk.value.$refs)
+//     refHarga.value.$refs.refInput.focus()
+//     refQty.value.$refs.refInput.blur()
+//   }
+//   if (val.key === 'ArrowLeft') {
+//     // console.log(refKecil.value.$refs)
+//     refProduk.value.$refs.refAuto.focus()
+//     refQty.value.$refs.refInput.blur()
+//   }
+// }
 function updateQty(val) {
   if (!isNaN(parseFloat(val))) {
     table.form.qty = parseFloat(val)
