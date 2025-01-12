@@ -46,7 +46,7 @@
                     </div>
                     <!-- </q-card-section>
                   <q-card-section> -->
-                    <div class="row q-mb-sm">
+                    <!-- <div class="row q-mb-sm">
                       <div class="col-12">
                         <app-autocomplete-new
                           v-model="store.form.kasir_id"
@@ -60,7 +60,7 @@
                           outlined
                         />
                       </div>
-                    </div>
+                    </div> -->
                     <div class="row q-mb-sm">
                       <div class="col-12">
                         <app-input

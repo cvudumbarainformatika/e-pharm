@@ -171,21 +171,21 @@ export const useSettingStore = defineStore('setting', {
             link: '/transaksi/biaya',
             value: 'transaksi.biaya',
             roles: ' root owner '
-          },
-          {
-            icon: 'icon-mat-sync_alt',
-            name: 'Distribusi',
-            link: '/transaksi/distribusi',
-            value: 'transaksi.distribusi',
-            roles: ' root owner '
-          },
-          {
-            icon: 'icon-fa-truck_arrow_right_solid',
-            name: 'Pemesanan',
-            link: '/transaksi/pemesanan',
-            value: 'transaksi.pemesanan',
-            roles: ' root owner '
           }
+          // {
+          //   icon: 'icon-mat-sync_alt',
+          //   name: 'Distribusi',
+          //   link: '/transaksi/distribusi',
+          //   value: 'transaksi.distribusi',
+          //   roles: ' root owner '
+          // },
+          // {
+          //   icon: 'icon-fa-truck_arrow_right_solid',
+          //   name: 'Pemesanan',
+          //   link: '/transaksi/pemesanan',
+          //   value: 'transaksi.pemesanan',
+          //   roles: ' root owner '
+          // }
         ]
       },
       {

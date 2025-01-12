@@ -11,7 +11,7 @@
         label="Pengeluaran"
         no-caps
       />
-      <q-tab
+      <!-- <q-tab
         class="text-primary"
         name="hutang"
         label="Hutang"
@@ -22,7 +22,7 @@
         name="pembelian terbayar"
         label="Pembelian Terbayar"
         no-caps
-      />
+      /> -->
     </q-tabs>
 
     <div class="q-gutter-y-sm">

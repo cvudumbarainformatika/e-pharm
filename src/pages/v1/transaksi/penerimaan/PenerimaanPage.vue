@@ -5,12 +5,12 @@
       align="justify"
       narrow-indicator
     >
-      <q-tab
+      <!-- <q-tab
         class="text-primary"
         name="pendapatan"
         label="Pendapatan"
         no-caps
-      />
+      /> -->
       <q-tab
         class="text-primary"
         name="tagihan"
