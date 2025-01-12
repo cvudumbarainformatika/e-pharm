@@ -35,7 +35,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     },
     produk: null,
     produk1: null,
-    custPrem: false,
+    priCash: false,
+    priKredit: false,
     form: {
       reff: '',
       product_id: '',
@@ -44,14 +45,14 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       harga_jual_resep: 0,
       harga_jual_cust: 0,
       harga_jual_prem: 0,
+      harga_jual_rac: 0,
       qty: 0,
-      diskon: 0,
+      nilai_r: 0,
       harga: 0,
       total: 0,
       sub_total: 0,
       nama: 'PENJUALAN',
-      customer_id: null,
-      expired: null,
+      racikan: false,
       dokter_id: null,
       pasien: null
     },
@@ -110,30 +111,19 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         field: 'harga',
         format: (val) => formatRp(val)
       },
-      // {
-      //   name: 'harga_jual_umum',
-      //   align: 'left',
-      //   label: 'Harga Jual Umum',
-      //   field: (row) => row.product.harga_jual_umum
-      // },
-      // {
-      //   name: 'harga_jual_resep',
-      //   align: 'left',
-      //   label: 'Harga Jual Resep',
-      //   field: (row) => row.product.harga_jual_resep
-      // },
-      // {
-      //   name: 'harga_jual_cust',
-      //   align: 'left',
-      //   label: 'Harga Jual Distributor',
-      //   field: (row) => row.product.harga_jual_cust
-      // },
       {
         name: 'sub_total',
         align: 'left',
         label: 'Sub total',
-        field: (row) => row.harga * row.qty,
+        field: (row) => (row.harga * row.qty) + row?.nilai_r,
         format: (val) => formatRp(val)
+      },
+      {
+        name: 'racikan',
+        align: 'left',
+        label: 'Racikan',
+        field: 'racikan',
+        format: (val) => val ? 'racikan' : ''
       }
     ],
     visbleColumns: [
@@ -176,9 +166,10 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.harga_jual_resep = 0
       this.form.harga_jual_cust = 0
       this.form.harga_jual_prem = 0
+      this.form.harga_jual_rac = 0
       this.form.qty = 0
-      this.form.diskon = 0
-      this.form.expired = null
+      this.form.nilai_r = 0
+      this.form.racikan = false
       this.form.harga = 0
       this.form.total = 0
       this.form.sub_total = 0
@@ -187,7 +178,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.pasien = null
       this.distributor = ''
       this.pasien = 'umum'
-      this.custPrem = false
+      this.priCash = false
+      this.priKredit = false
       this.dataPasien = {
 
       }
@@ -266,14 +258,17 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.form.harga_jual_umum = produk[0].harga_jual_umum
         this.form.harga_jual_resep = produk[0].harga_jual_resep
         this.form.harga_jual_prem = produk[0].harga_jual_prem
+        this.form.harga_jual_rac = produk[0].harga_jual_rac
         this.form.qty = 1
-        if (this.custPrem) {
+        if (this.priCash) {
+          this.form.harga = this.form.harga_jual_cust
+        } else if (this.priKredit) {
           this.form.harga = this.form.harga_jual_prem
         } else {
-          if (this.form.customer_id !== null) {
-            this.form.harga = this.form.harga_jual_cust
-          } else if (this.form.dokter_id !== null) {
+          if (this.form.dokter_id !== null) {
             this.form.harga = this.form.harga_jual_resep
+          } if (this.form.racikan) {
+            this.form.harga = this.form.harga_jual_rac
           } else {
             this.form.harga = this.form.harga_jual_umum
           }
@@ -288,14 +283,17 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.form.harga_jual_umum = produk1[0].harga_jual_umum
         this.form.harga_jual_resep = produk1[0].harga_jual_resep
         this.form.harga_jual_prem = produk1[0].harga_jual_prem
+        this.form.harga_jual_rac = produk1[0].harga_jual_rac
         this.form.qty = 1
-        if (this.custPrem) {
+        if (this.priCash) {
+          this.form.harga = this.form.harga_jual_cust
+        } else if (this.priKredit) {
           this.form.harga = this.form.harga_jual_prem
         } else {
-          if (this.form.customer_id !== null) {
-            this.form.harga = this.form.harga_jual_cust
-          } else if (this.form.dokter_id !== null) {
+          if (this.form.dokter_id !== null) {
             this.form.harga = this.form.harga_jual_resep
+          } else if (this.form.racikan) {
+            this.form.harga = this.form.harga_jual_rac
           } else {
             this.form.harga = this.form.harga_jual_umum
           }
@@ -306,11 +304,14 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     resetInput() {
       this.form.product_id = ''
       this.form.harga = 0
+      this.form.harga_jual_prem = 0
       this.form.harga_jual_cust = 0
       this.form.harga_jual_umum = 0
       this.form.harga_jual_resep = 0
+      this.form.harga_jual_rac = 0
       this.form.qty = 0
-      this.form.expired = ''
+      this.form.racikan = false
+      this.form.nilai_r = 0
       // console.log('reset input')
     },
     clearNullForm() {
@@ -327,22 +328,6 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       store.setToday()
       this.produkParams.product_id = this.form.product_id
       this.produkParams.kode_produk = this.form.kode_produk
-      // const store = usePenjualanDialog();
-
-      // data.product_id = this.form.product_id
-      // data.harga = olahUang(this.form.harga)
-      // data.qty = this.form.qty
-      // data.sub_total = olahUang(this.form.qty) * olahUang(this.form.harga)
-      // console.log('form ', this.form)
-      // store.setForm('product_id', this.form.product_id)
-      // store.setForm('harga', olahUang(this.form.harga))
-      // store.setForm('qty', olahUang(this.form.qty))
-      // store.setForm('sub_total', olahUang(this.form.qty) * olahUang(this.form.harga))
-      if (this.form.expired !== null) {
-        store.setForm('expired', this.form.expired)
-        // data.expired = this.form.expired
-      }
-      // this.clearNullForm()
       const data = store.form
 
       // console.log('form penjualan', data)
@@ -394,7 +379,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       if (this.rows.length) {
         const subTotal = []
         this.rows.forEach((val, index) => {
-          subTotal[index] = val.harga * val.qty
+          subTotal[index] = (val.harga * val.qty) + val?.nilai_r
         })
         // console.log('sub total', subTotal)
         const total = subTotal.reduce((total, num) => {

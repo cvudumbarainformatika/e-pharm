@@ -28,6 +28,8 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       kasir_id: null,
       supplier_id: null,
       dokter_id: null,
+      racikan: false,
+      nilai_r: 0,
       status: 1,
       pasien: {}
     },
@@ -73,6 +75,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.kembali = 0
       this.form.status = 1
       this.form.pasien = null
+      this.form.racikan = false
     },
     setToday() {
       const date = new Date()

@@ -12,7 +12,6 @@
       row-key="id"
       :rows-per-page="0"
       :meta="table.meta"
-      :visible-columns="table.visibleColumns"
       :per-page="table.params.per_page"
       :order-by="table.params.order_by"
       :sort="table.params.sort"
@@ -28,12 +27,22 @@
         <div class="q-gutter-sm col-4">
           <div class="row ">
             <q-checkbox
-              v-model="table.custPrem"
-              label="Customer Premium"
-              :disable="table.form.dokter_id === null && table.rows.length == 0 ? false : true"
+              v-model="table.priKredit"
+              label="Pri Kredit"
+              :disable="table.form.dokter_id === null && table.rows.length == 0 && !table.priCash? false : true"
+              dense
             />
           </div>
           <div class="row ">
+            <q-checkbox
+              v-model="table.priCash"
+              label="Pri Cash"
+              :disable="table.form.dokter_id === null && table.rows.length == 0 && !table.priKredit? false : true"
+              dense
+            />
+          </div>
+
+          <!-- <div class="row ">
             <app-autocomplete-new
               v-model="table.form.customer_id"
               label="pilih Customer"
@@ -47,14 +56,11 @@
               @on-enter="table.addDistributor"
               @on-select="table.distributorSelected"
               @buang="table.cariDistributor"
-            />
-            <!-- outlined -->
-            <!-- @set-model="store.searchSupplier" -->
-          </div>
+            /> </div> -->
           <div class="row ">
             <app-autocomplete-new
               v-model="table.form.dokter_id"
-              :disable="!table.custPrem && table.form.customer_id === null && table.rows.length == 0 ? false : true "
+              :disable="!table.custPrem && !table.priKredit && !table.priCash && table.rows.length == 0 ? false : true "
               label="pilih Dokter"
               autocomplete="nama"
               option-value="id"
@@ -198,15 +204,41 @@
               type="number"
               @keyup.enter="updateQty"
             />
-            <!-- @blur="updateQty" -->
           </q-td>
           <q-td>
             {{ formatter.formatRp(table.form.harga) }}
           </q-td>
           <q-td>
             <strong>
-              {{ formatter.formatRp(parseFloat(formatter.olahUang(table.form.harga)) * table.form.qty) }}
+              {{ formatter.formatRp(parseFloat(formatter.olahUang(table.form.harga)) * table.form.qty + parseFloat(table?.form?.nilai_r ??0)) }}
             </strong>
+          </q-td>
+          <q-td>
+            <div class="row justify-between q-col-gutter-md items-center">
+              <div class="col-3">
+                <q-checkbox
+                  v-model="table.form.racikan"
+                  label=""
+                  dense
+                  @update:model-value="updateRacikan"
+                />
+              </div>
+              <div
+                v-if="table.form.racikan"
+                class="col-9"
+              >
+                <app-input
+                  ref="refNilaiR"
+                  v-model="table.form.nilai_r"
+                  class="text-right"
+                  label=" "
+                  type="number"
+                  valid
+                  @update:model-value="updateNilaiR"
+                  @keyup.enter="table.onEnter()"
+                />
+              </div>
+            </div>
           </q-td>
         </q-tr>
       </template>
@@ -357,6 +389,7 @@ const keyCheck = val => {
 
 const refProduk = ref(null)
 const refJumlah = ref(null)
+const refNilaiR = ref(null)
 const pagination = ref({
   rowsPerPage: 0
 })
@@ -388,6 +421,26 @@ const jumlah = val => {
   }
 }
 
+function updateNilaiR(val) {
+  console.log('nilai R', val)
+  store.setForm('nilai_r', parseFloat(val))
+  store.setForm('sub_total', (parseFloat(table.form.qty) * parseFloat(table.form.harga) + parseFloat(val)))
+  store.setForm('harga', parseFloat(table.form.harga))
+}
+function updateRacikan(val) {
+  if (val) table.form.harga = table.form.harga_jual_rac
+  else {
+    table.form.nilai_r = 0
+    if (table.priCash) table.form.harga = table.form.harga_jual_cust
+    else if (table.priKredit) table.form.harga = table.form.harga_jual_prem
+    else if (table.form.dokter_id !== null) table.form.harga = table.form.harga_jual_resep
+    else table.form.harga = table.form.harga_jual_umum
+  }
+
+  store.setForm('harga', parseFloat(table.form.harga))
+  console.log('racikan', val)
+  console.log('racikan ta', table.form)
+}
 const refNoka = ref(null)
 const refNore = ref(null)
 const refNapa = ref(null)
@@ -484,6 +537,8 @@ function clearProduk() {
   table.form.product_id = null
   table.form.qty = 0
   table.form.harga = 0
+  table.form.nilai_r = 0
+  table.form.racikan = false
   refProduk.value.$refs.refAuto.focus()
   refJumlah.value.$refs.refInput.blur()
 }
@@ -494,7 +549,7 @@ const updateQty = val => {
   store.setForm('product_id', table.produk1.id)
   store.setForm('harga', parseFloat(table.form.harga))
   store.setForm('qty', parseFloat(table.form.qty))
-  store.setForm('sub_total', parseFloat(table.form.qty) * parseFloat(table.form.harga))
+  store.setForm('sub_total', (parseFloat(table.form.qty) * parseFloat(table.form.harga) + parseFloat(table.form.nilai_r)))
   if (table.dataPasien.nokartu || table.dataPasien.noresep || table.dataPasien.nama || table.dataPasien.alamat) {
     store.form.pasien = table.dataPasien
   }
@@ -517,6 +572,7 @@ const cekRequired = () => {
   store.openDialog()
   // const tableReff = ref(null)
 
+  // refNilaiR.value?.$refs.refInput.resetValidation()
   refJumlah.value.$refs.refInput.resetValidation()
   refProduk.value.$refs.refAuto.resetValidation()
   // console.log('table reff', tableReff)

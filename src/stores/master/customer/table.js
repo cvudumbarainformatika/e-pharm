@@ -20,7 +20,7 @@ export const useCustomerTable = defineStore('customer_table', {
   }),
   getters: {
     getterColumns(state) {
-      return state.columns.filter((el) => !state.columnHide.includes(el))
+      return state.columns?.filter((el) => !state?.columnHide.includes(el))
     }
   },
   actions: {

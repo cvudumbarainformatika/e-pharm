@@ -149,11 +149,11 @@
               </div>
               <div class="row no-wrap q-col-gutter-md justify-between q-mb-xs">
                 <div>racikan</div>
-                <div>{{ formatter.formatRpDouble(row.harga_jual_resep) }}</div>
+                <div>{{ formatter.formatRpDouble(row.harga_jual_rac) }}</div>
               </div>
               <div class="row no-wrap q-col-gutter-md justify-between q-mb-xs">
                 <div>pri cash</div>
-                <div>{{ formatter.formatRpDouble(row?.harga_jual_rac) }}</div>
+                <div>{{ formatter.formatRpDouble(row?.harga_jual_cust) }}</div>
               </div>
               <div class="row no-wrap q-col-gutter-md justify-between q-mb-xs">
                 <div>pri kredit</div>

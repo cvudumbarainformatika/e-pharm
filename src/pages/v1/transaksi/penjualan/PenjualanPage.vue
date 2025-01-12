@@ -35,6 +35,7 @@ table.getDetailTransaksi().then(data => {
   useSettingStore().transaksiLoading = false
   if (data !== undefined) {
     if (data.status === 1) {
+      table.resetInput()
       routerInstance.replace({ name: 'transaksi.penjualan', params: { slug: oldSlug } })
       table.form.reff = oldSlug
       table.produkParams.reff = oldSlug
