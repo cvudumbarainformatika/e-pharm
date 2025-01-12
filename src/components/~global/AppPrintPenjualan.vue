@@ -122,14 +122,14 @@
         </div>
       </div>
       <div
-        v-if="store.form.supplier"
+        v-if="store.form.perusahaan"
         class="row"
       >
         <div class="col-6">
-          <strong>Supplier</strong>
+          <strong>Distributor</strong>
         </div>
         <div class="col-6 text-right">
-          {{ Object.keys(store.form.supplier).length ? store.form.supplier.nama : store.form.supplier }}
+          {{ Object.keys(store.form.perusahaan).length ? store.form.perusahaan.nama : store.form.perusahaan }}
         </div>
       </div>
       <div

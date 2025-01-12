@@ -55,7 +55,7 @@
               Distributor :
             </div>
             <div class="row">
-              {{ item.supplier.nama }}
+              {{ item?.perusahaan?.nama }}
             </div>
             <div class="row">
               Tgl Faktur :
@@ -190,7 +190,7 @@ const assign = data => {
   store.setForm('beban_id', beban.id)
   store.setForm('pbreff', data.reff)
   store.setForm('sub_total', data.totalSemua)
-  store.setForm('supplier_id', data.supplier_id)
+  store.setForm('perusahaan_id', data.perusahaan_id)
   store.setForm('faktur', data.faktur)
   store.setForm('keterangan', `bayar hutang untuk faktur ${data.faktur}`)
 

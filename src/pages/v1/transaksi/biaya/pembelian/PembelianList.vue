@@ -60,7 +60,7 @@
             <q-item-section>{{ item.tanggal_bayar?dateFullFormat(item.tanggal_bayar):'-' }}</q-item-section>
             <q-item-section>{{ item.reff }}</q-item-section>
             <!-- <q-item-section>{{ item.kasir!==null?item.kasir.name : 'owner' }}</q-item-section> -->
-            <q-item-section>{{ item.supplier!==null?item.supplier.nama : '-' }}</q-item-section>
+            <q-item-section>{{ item.perusahaan!==null?item.perusahaan.nama : '-' }}</q-item-section>
             <q-item-section>{{ formatRp(item.total) }}</q-item-section>
             <q-item-section>{{ item.potongan }} %</q-item-section>
             <q-item-section>{{ item.ongkir }} %</q-item-section>

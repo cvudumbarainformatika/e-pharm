@@ -50,17 +50,6 @@
         <div class="flex">
           <div class="right__side column">
             <div>Nama : <strong>{{ model.nama }}</strong>  </div>
-            <!-- <div>Faktur : <strong>{{ model.faktur }}</strong>  </div>
-            <div v-if="model.kasir !== null">
-              Kasir : <strong>{{ model.kasir.name }}</strong>
-            </div>
-            <div v-if="model.supplier !== null">
-              Supplier : <strong>{{ model.supplier.nama }}</strong>
-            </div>
-            <div v-if="model.supplier !== null">
-              Tempo : <strong>{{ model.tempo }}</strong>
-            </div>
-            <div>Total : <strong>{{ formatRp(model.total) }}</strong>  </div> -->
           </div>
         </div>
         <q-separator class="q-my-md" />

@@ -82,10 +82,10 @@
       Kasir : {{ typeof store.form.kasir !== 'string' ? store.form.kasir.name : store.form.kasir }}
     </div>
     <div
-      v-if="store.form.supplier"
+      v-if="store.form.perusahaan"
       class="text-left q-px-xs"
     >
-      Distributor : {{ typeof store.form.supplier !== 'string' ? store.form.supplier.nama : store.form.supplier }}
+      Distributor : {{ typeof store.form.perusahaan !== 'string' ? store.form.perusahaan.nama : store.form.perusahaan }}
     </div>
     <div
       v-if="store.form.customer"

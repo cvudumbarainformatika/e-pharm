@@ -85,7 +85,6 @@ async function filterOptions (val, update) {
   }
 
   const resp = await api.get(props.url, params)
-  // console.log('supplier ', resp.data.data)
   update(
     () => (options.value = resp.data.data),
     ref => {

@@ -209,7 +209,7 @@ onMounted(() => {
   hutang.setTanggal()
   store.getDataKasirs()
   store.getDataBeban()
-  store.getDataSupplier()
+  // store.getDataSupplier()
   store.getMasterBeban()
   store.getPengeluaran()
   hutang.getHutang()

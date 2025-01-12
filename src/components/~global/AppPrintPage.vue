@@ -125,14 +125,14 @@
         </div>
       </div>
       <div
-        v-if="store.form.supplier"
+        v-if="store.form.perusahaan"
         class="row"
       >
         <div class="col-6">
-          <strong>Supplier</strong>
+          <strong>Distributor</strong>
         </div>
         <div class="col-6 text-right">
-          {{ typeof(store.form.supplier)==='string'? store.form.supplier:store.form.supplier.nama }}
+          {{ typeof(store.form.perusahaan)==='string'? store.form.perusahaan:store.form.perusahaan.nama }}
         </div>
       </div>
       <div
