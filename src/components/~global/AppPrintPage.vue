@@ -55,7 +55,7 @@
             {{ formatRp(produk.harga) }}
           </div>
           <div class="col-3 text-right">
-            {{ formatRp(produk.harga * produk.qty) }}
+            {{ formatRp(produk.harga * produk.qty + produk.nilai_r) }}
           </div>
         </div>
       </div>

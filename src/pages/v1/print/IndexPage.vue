@@ -47,7 +47,7 @@
           <div>{{ produk.qty }} x {{ formatRp(produk.harga) }}</div>
         </div>
         <div>
-          <div>{{ formatRp(produk.harga * produk.qty) }}</div>
+          <div>{{ formatRp(produk.harga * produk.qty + produk.nilai_r) }}</div>
         </div>
       </div>
     </div>

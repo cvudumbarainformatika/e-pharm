@@ -221,6 +221,7 @@
           <q-td
             key="total"
             :props="props"
+            colspan="2"
           >
             <div>
               Total : {{ formatRp(props.row.total) }}
@@ -334,6 +335,26 @@
             >
               <div class="text-right">
                 {{ formatRp(item.harga) }}
+              </div>
+            </q-tr>
+          </q-td>
+          <q-td>
+            <q-tr><strong>R</strong></q-tr>
+            <q-tr
+              v-for="item in props.row.detail_transaction"
+              :key="item.id"
+            >
+              <div
+                v-if="item.nilai_r >0"
+                class="text-right"
+              >
+                {{ formatRp(item.nilai_r) }}
+              </div>
+              <div
+                v-else
+                class="text-right"
+              >
+                -
               </div>
             </q-tr>
           </q-td>
@@ -550,7 +571,7 @@ const printAs = ref(null)
 const model = ref(false)
 const printStore = usePrintStore()
 const print = val => {
-  // console.log('val', val)
+  console.log('print', val?.detail_transaction)
   // model.value = true
   printAs.value = val.nama
   // printStore.form = val

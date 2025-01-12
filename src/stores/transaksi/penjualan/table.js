@@ -593,13 +593,6 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.dokter = dokter[0].nama
         // console.log('dokter ', dokter[0].nama)
       }
-      if (this.form.customer_id !== null) {
-        const dist = this.distributors.filter((data) => {
-          return data.id === this.form.customer_id
-        })
-        this.distributor = dist[0].nama
-        // console.log('dist ', dist[0].nama)
-      }
     },
     setForm(value) {
       // console.log('set form', value)
