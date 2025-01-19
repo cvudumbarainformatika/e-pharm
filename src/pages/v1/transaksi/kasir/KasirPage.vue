@@ -4,51 +4,50 @@
     desc="Halaman Laporan kas kasir harian"
   >
     <template #content>
-      <!-- {{ store.hariIni }} -->
-      <div class="row">
-        <div class="col-2">
-          Penjualan
-        </div>
-        <div class="col-2">
-          {{ store.hariIni ? formatRp(store.hariIni.penjualan) :0 }}
-        </div>
-        <div class="col-2">
-          Penjualan Non Tunai
-        </div>
-        <div class="col-2">
-          {{ store.hariIni ? formatRp(store.hariIni.penjualanNon) :0 }}
+      <div v-if="store.items?.length">
+        <div
+          v-for="item in store.items"
+          :key="item"
+          class="q-ma-md"
+        >
+          <div class="row">
+            <div class="col-2 text-weight-bold">
+              Nama Kasir
+            </div>
+            <div class="col-6 text-weight-bold">
+              {{ item?.name }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              Penjualan
+            </div>
+            <div class="col-2">
+              {{ !isNaN(item?.penjualan) ? formatRp(item?.penjualan) :0 }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-2">
+              Retur Penjualan
+            </div>
+            <div class="col-2">
+              {{ !isNaN(item?.retur) ? formatRp(item?.retur) :0 }}
+            </div>
+          </div>
+
+          <q-separator />
+          <div class="row">
+            <div class="col-2">
+              Sisa
+            </div>
+            <div class="col-2">
+              {{ formatRp(item.sisaHariIni) }}
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col-2">
-          Retur Penjualan
-        </div>
-        <div class="col-2">
-          {{ store.hariIni ? formatRp(store.hariIni.retur_penjualan) :0 }}
-        </div>
-        <div class="col-2">
-          Retur Penjualan Non Tunai
-        </div>
-        <div class="col-2">
-          {{ store.hariIni ? formatRp(store.hariIni.retur_penjualanNon) :0 }}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2">
-          kas keluar
-        </div>
-        <div class="col-2">
-          {{ store.hariIni ? formatRp(store.hariIni.keluar) :0 }}
-        </div>
-      </div>
-      <q-separator />
-      <div class="row">
-        <div class="col-2">
-          Sisa
-        </div>
-        <div class="col-2">
-          {{ formatRp(store.sisaHariIni) }}
-        </div>
+      <div v-if="!store.items?.length">
+        <app-no-data />
       </div>
     </template>
   </app-card>

@@ -49,7 +49,7 @@
         <div v-if="table.form.nama==='PEMBELIAN' && transaksi.pembelian==='supplier'">
           <SelectMenu
             style="max-width: 200px;"
-            url="v1/supplier/index"
+            url="v1/perusahaan/index"
             title="Distributor"
             @on-select="pilihSupplier"
           />
@@ -58,7 +58,7 @@
         <div v-if="table.form.nama==='PENGELUARAN' && transaksi.hutang==='supplier'">
           <SelectMenu
             style="max-width: 200px;"
-            url="v1/supplier/index"
+            url="v1/perusahaan/index"
             title="Distributor"
             @on-select="pilihSupplier"
           />
