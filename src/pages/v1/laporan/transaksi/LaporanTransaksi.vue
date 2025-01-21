@@ -74,8 +74,8 @@
                 props.row.customer!==null?props.row.customer.nama:'' }}</span>
               <span v-if="props.row.dokter!==null">, Dokter : {{ props.row.dokter!==null?props.row.dokter.nama:''
               }}</span>
-              <span v-if="props.row.perusahaan!==null">, Distributor : {{
-                props.row.perusahaan!==null?props.row.perusahaan.nama:'' }}</span>
+              <span v-if="props.row?.perusahaan!==null">, Distributor : {{
+                props.row?.perusahaan!==null?props.row?.perusahaan?.nama:'' }}</span>
             </div>
             <div
               v-if="props.row.jenis==='hutang'"

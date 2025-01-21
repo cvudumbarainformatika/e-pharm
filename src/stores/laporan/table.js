@@ -182,11 +182,11 @@ export const useLaporanTable = defineStore('laporan_table', {
       const transaksi = useLaporanTransaksiStore()
       // console.log('form sebelum if', this.form)
       if (
-        this.form.supplier_id !== undefined &&
+        this.form.perusahaan_id !== undefined &&
         transaksi.pembelian !== 'supplier' &&
         transaksi.hutang !== 'supplier'
       ) {
-        delete this.form.supplier_id
+        delete this.form.perusahaan_id
         this.person = null
       }
       if (

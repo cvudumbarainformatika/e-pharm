@@ -21,7 +21,7 @@ export const useReturDialog = defineStore('retur_store', {
       kembali: 0,
       tempo: null,
       kasir_id: null,
-      supplier_id: null,
+      perusahaan_id: null,
       status: 1
     },
     totalSemua: 0,
@@ -55,7 +55,7 @@ export const useReturDialog = defineStore('retur_store', {
       this.form.kembali = 0
       this.form.tempo = null
       this.form.kasir_id = null
-      this.form.supplier_id = null
+      this.form.perusahaan_id = null
       this.form.status = 1
     },
     setToday() {

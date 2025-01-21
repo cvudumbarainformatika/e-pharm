@@ -40,7 +40,7 @@
         <strong>{{ formatRpDouble(parseFloat(table.totalTransaction.jml)-(table.totalReturTransaction?parseFloat(table.totalReturTransaction.jml):0),2) }}</strong>
       </div>
     </div>
-    <div
+    <!-- <div
       v-if="table.form.nama==='PEMBELIAN' && !table.form.q"
       class="row items-center"
     >
@@ -53,7 +53,7 @@
       <div class="col-8 text-h6 text-right">
         <strong>{{ parseFloat(table.totalTransaction.jmlSmw)>0?formatRpDouble(parseFloat(table.totalTransaction.jmlSmw),2):0 }}</strong>
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <script setup>

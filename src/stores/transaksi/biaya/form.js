@@ -15,7 +15,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       total: 0,
       tanggal: null,
       kasir_id: null,
-      supplier_id: null,
+      perusahaan_id: null,
       status: 1,
       sub_total: 0,
       beban_id: null,
@@ -175,7 +175,7 @@ export const useBebanTransaksiFormStore = defineStore('beban_transaction_form', 
       this.loading = true
       const params = {
         params: {
-          supplier_id: val
+          perusahaan_id: val
         }
       }
       return new Promise((resolve, reject) => {

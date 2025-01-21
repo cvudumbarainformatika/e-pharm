@@ -40,7 +40,7 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       kembali: 0,
       tempo: null,
       kasir_id: null,
-      supplier_id: null,
+      perusahaan_id: null,
       status: 1
     },
     jenises: [

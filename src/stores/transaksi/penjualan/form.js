@@ -26,7 +26,7 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       kembali: 0,
       tempo: null,
       kasir_id: null,
-      supplier_id: null,
+      perusahaan_id: null,
       dokter_id: null,
       racikan: false,
       nilai_r: 0,

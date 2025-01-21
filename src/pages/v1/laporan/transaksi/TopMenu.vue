@@ -31,12 +31,27 @@
           />
         </div>
         <div v-if="table.form.nama==='PENJUALAN'">
-          <ButtonDropdownMenu
-            :label="transaksi.penjualan==='all'?'Penjualan Berdasarkan':transaksi.penjualanL"
-            :items="transaksi.penjualans"
-            :aktif="transaksi.penjualan"
-            @clicked="pilihPenjualan"
-          />
+          <div class="row">
+            <ButtonDropdownMenu
+              :label="transaksi.penjualan==='all'?'Penjualan Berdasarkan':transaksi.penjualanL"
+              :items="transaksi.penjualans"
+              :aktif="transaksi.penjualan"
+              @clicked="pilihPenjualan"
+            />
+          </div>
+          <div
+            v-if="transaksi.penjualan==='dokter'"
+            class="row"
+          >
+            <div>
+              <SelectMenu
+                style="max-width: 200px;"
+                url="v1/dokter/index"
+                title="Dokter"
+                @on-select="pilihDokter"
+              />
+            </div>
+          </div>
         </div>
         <div v-if="table.form.nama==='PENDAPATAN'">
           <ButtonDropdownMenu
@@ -64,14 +79,14 @@
           />
         </div>
 
-        <div v-if="table.form.nama==='PENJUALAN' && transaksi.penjualan==='dokter'">
+        <!-- <div v-if="table.form.nama==='PENJUALAN' && transaksi.penjualan==='dokter'">
           <SelectMenu
             style="max-width: 200px;"
             url="v1/dokter/index"
             title="Dokter"
             @on-select="pilihDokter"
           />
-        </div>
+        </div>-->
         <div v-if="table.form.nama==='PENJUALAN' && transaksi.penjualan==='customer'">
           <SelectMenu
             style="max-width: 200px;"
@@ -97,6 +112,7 @@
           />
         </div>
         <!-- per page -->
+        <!--
         <q-btn
           v-if="table.transactionType==='transaksi'"
           class="q-ml-xs"
@@ -143,10 +159,11 @@
             </q-list>
           </q-menu>
         </q-btn>
+      -->
         <div style="position: absolute; right: 10px;">
           <div class="row justify-between items-center">
             <app-input
-              v-if="table.form.nama.includes('PENJUALAN') || table.form.nama.includes('PEMBELIAN')"
+              v-if="(table.form.nama.includes('PENJUALAN') || table.form.nama.includes('PEMBELIAN')) && table.transactionType === 'produk'"
               v-model="table.form.q"
               class="q-mr-xs tgl-max"
               label="Cari Nama Produk"
@@ -170,13 +187,15 @@
               @set-display="setDispSampai"
               @db-model="setSampai"
             />
+            <!-- icon="icon-mat-print" -->
             <q-btn
-              icon="icon-mat-print"
-              flat
+              label="Ambil Data"
+              no-caps
+              dense
               :color="setting.dark? 'white':'primary'"
               size="16px"
               class="cursor-pointer"
-              @click="Print"
+              @click="getAll"
             />
           </div>
         </div>
@@ -206,7 +225,9 @@ const transaksi = useLaporanTransaksiStore()
 const button = useLaporanMorphStore()
 const setting = useSettingStore()
 
+// eslint-disable-next-line no-unused-vars
 const options = ref([5, 10, 20, 50, 100])
+// eslint-disable-next-line no-unused-vars
 const selectPerPage = computed({
   get () { return transaksi.params.per_page },
   set (val) {
@@ -218,6 +239,7 @@ const selectPerPage = computed({
 const cariProduk = () => {
   table.cariDataTransactions('detail-transaksi')
 }
+// eslint-disable-next-line no-unused-vars
 const getTrData = () => {
   // transaksi.getDataTransactions()
   transaksi.goTo(1)
@@ -234,9 +256,14 @@ function setDispSampai(val) {
 function setSampai(val) {
   table.setForm('to', val)
 }
+// eslint-disable-next-line no-unused-vars
 const Print = () => {
   // window.print()
   window.open('http://api.eparm.test/print?invoice=PJL-l87hlp2qhiwkg&total=21000&bayar=25000&kembali=4000', '_blank', 'withd=50%')
+}
+// eslint-disable-next-line no-unused-vars
+function getAll() {
+  table.beforeGetData()
 }
 
 const openDialog = () => {
@@ -300,7 +327,7 @@ const pilihPenjualan = val => {
 }
 
 const pilihSupplier = val => {
-  table.form.supplier_id = val.id
+  table.form.perusahaan_id = val.id
   table.person = 'Distributor : ' + val.nama
   table.beforeGetData()
   // console.log('pilih supplier ', val)
@@ -312,6 +339,7 @@ const pilihDistributor = val => {
   table.beforeGetData()
 }
 
+// eslint-disable-next-line no-unused-vars
 const pilihDokter = val => {
   table.form.dokter_id = val.id
   table.person = 'Dokter : ' + val.nama

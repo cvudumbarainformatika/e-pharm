@@ -70,7 +70,7 @@
                 class="col-md-9 col-xs-12"
               >
                 <app-autocomplete
-                  v-model="store.form.supplier_id"
+                  v-model="store.form.perusahaan_id"
                   :label=" store.hutang===null?'pilih Supplier' : 'sisa hutang : ' + formatRp(store.hutang)"
                   autocomplete="nama"
                   option-value="id"

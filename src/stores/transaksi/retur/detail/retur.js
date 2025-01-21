@@ -35,7 +35,7 @@ export const useReturTable = defineStore('retur_table', {
       kembali: 0,
       tempo: null,
       kasir_id: null,
-      supplier_id: null,
+      perusahaan_id: null,
       status: 1
     },
     jenises: [
@@ -132,7 +132,7 @@ export const useReturTable = defineStore('retur_table', {
       this.form.kembali = 0
       this.form.tempo = null
       this.form.kasir_id = null
-      this.form.supplier_id = null
+      this.form.perusahaan_id = null
       this.form.status = 1
       this.rows = []
     },
