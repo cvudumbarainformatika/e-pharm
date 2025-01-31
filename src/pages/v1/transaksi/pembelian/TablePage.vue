@@ -24,7 +24,7 @@
         #top
       >
         <div class="col-3">
-          <div class="row items-center">
+          <div class="row items-center no-wrap">
             <app-input
               ref="refFaktur"
               v-model="table.form.faktur"
@@ -125,7 +125,7 @@
             </q-input>
           </div>
         </div>
-        <div class="col-6">
+        <div class="col-6 text-center">
           <div class="text-h6">
             Nomor Nota - {{ table.form.reff }}
           </div>
@@ -162,7 +162,7 @@
             />
           </q-td>
 
-          <q-td @keydown.capture="qty">
+          <q-td>
             <app-input
               ref="refQty"
               v-model="table.form.qty"
