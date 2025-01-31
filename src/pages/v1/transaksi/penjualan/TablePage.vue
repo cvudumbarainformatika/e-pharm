@@ -25,11 +25,19 @@
         #top
       >
         <div class="q-gutter-sm col-4">
-          <div class="row ">
+          <q-option-group
+            v-model="table.harga"
+            :options="table.hargas"
+            color="primary"
+            dense
+            :disable="table.rows.length > 0"
+            @update:model-value="table.setHarga()"
+          />
+          <!-- <div class="row ">
             <q-checkbox
               v-model="table.priKredit"
               label="Pri Kredit"
-              :disable="table.form.dokter_id === null && table.rows.length == 0 && !table.priCash? false : true"
+              :disable="!table.hargaDokter && table.rows.length == 0 && !table.priCash ? false : true"
               dense
             />
           </div>
@@ -37,10 +45,18 @@
             <q-checkbox
               v-model="table.priCash"
               label="Pri Cash"
-              :disable="table.form.dokter_id === null && table.rows.length == 0 && !table.priKredit? false : true"
+              :disable="!table.hargaDokter && table.rows.length == 0 && !table.priKredit ? false : true"
               dense
             />
           </div>
+          <div class="row ">
+            <q-checkbox
+              v-model="table.hargaDokter"
+              label="Dokter"
+              :disable="!table.priCash && table.rows.length == 0 && !table.priKredit ? false : true"
+              dense
+            />
+          </div> -->
 
           <!-- <div class="row ">
             <app-autocomplete-new
@@ -57,7 +73,7 @@
               @on-select="table.distributorSelected"
               @buang="table.cariDistributor"
             /> </div> -->
-          <div class="row ">
+          <!-- <div class="row ">
             <app-autocomplete-new
               v-model="table.form.dokter_id"
               :disable="!table.custPrem && !table.priKredit && !table.priCash && table.rows.length == 0 ? false : true "
@@ -72,9 +88,9 @@
               @on-select="table.dokterSelected"
               @buang="table.cariDokter"
             />
-            <!-- outlined -->
-            <!-- @set-model="store.searchSupplier" -->
-          </div>
+          </div> -->
+          <!-- @set-model="store.searchSupplier" -->
+          <!-- outlined -->
           <!-- :disable="table.form.customer_id === null && table.rows.length == 0 ? false : true " -->
           <!-- v-if="table.form.dokter_id !== null" -->
           <div
@@ -431,10 +447,11 @@ function updateRacikan(val) {
   if (val) table.form.harga = table.form.harga_jual_rac
   else {
     table.form.nilai_r = 0
-    if (table.priCash) table.form.harga = table.form.harga_jual_cust
-    else if (table.priKredit) table.form.harga = table.form.harga_jual_prem
-    else if (table.form.dokter_id !== null) table.form.harga = table.form.harga_jual_resep
-    else table.form.harga = table.form.harga_jual_umum
+    // if (table.harga) table.form.harga = table.form.harga_jual_cust
+    // else if (table.priKredit) table.form.harga = table.form.harga_jual_prem
+    // else if (table.form.dokter_id !== null) table.form.harga = table.form.harga_jual_resep
+    // else table.form.harga = table.form.harga_jual_umum
+    table.setHarga()
   }
 
   store.setForm('harga', parseFloat(table.form.harga))

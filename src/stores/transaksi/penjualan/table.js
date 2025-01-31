@@ -37,6 +37,14 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     produk1: null,
     priCash: false,
     priKredit: false,
+    harga: 'umum',
+    hargaDokter: false,
+    hargas: [
+      { label: 'Umum', value: 'umum' },
+      { label: 'Pri Cash', value: 'priCash' },
+      { label: 'Pri Kredit', value: 'priKredit' },
+      { label: 'Dokter', value: 'dokter' }
+    ],
     form: {
       reff: '',
       product_id: '',
@@ -236,6 +244,29 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       // console.log(val)
       this.pasien = val
     },
+    setHarga() {
+      console.log('set harga')
+
+      if (this.form.product_id) {
+        switch (this.harga) {
+          case 'dokter':
+            this.form.harga = this.form.harga_jual_resep
+            break
+
+          case 'priCash':
+            this.form.harga = this.form.harga_jual_cust
+            break
+
+          case 'priKredit':
+            this.form.harga = this.form.harga_jual_prem
+            break
+
+          default:
+            this.form.harga = this.form.harga_jual_umum
+            break
+        }
+      }
+    },
     produkSelected(val) {
       // satu
       const apem = this.produks
@@ -260,19 +291,21 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.form.harga_jual_prem = produk[0].harga_jual_prem
         this.form.harga_jual_rac = produk[0].harga_jual_rac
         this.form.qty = 1
-        if (this.priCash) {
-          this.form.harga = this.form.harga_jual_cust
-        } else if (this.priKredit) {
-          this.form.harga = this.form.harga_jual_prem
-        } else {
-          if (this.form.dokter_id !== null) {
-            this.form.harga = this.form.harga_jual_resep
-          } if (this.form.racikan) {
-            this.form.harga = this.form.harga_jual_rac
-          } else {
-            this.form.harga = this.form.harga_jual_umum
-          }
-        }
+        this.setHarga()
+        // if (this.priCash) {
+        //   this.form.harga = this.form.harga_jual_cust
+        // } else if (this.priKredit) {
+        //   this.form.harga = this.form.harga_jual_prem
+        // } else {
+        //   // if (this.form.dokter_id !== null) {
+        //   if (this.hargaDokter) {
+        //     this.form.harga = this.form.harga_jual_resep
+        //   } if (this.form.racikan) {
+        //     this.form.harga = this.form.harga_jual_rac
+        //   } else {
+        //     this.form.harga = this.form.harga_jual_umum
+        //   }
+        // }
       } else if (produk1.length) {
         this.produk1 = produk1[0]
         // console.log('selected', val, produk1[0])
@@ -285,19 +318,21 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.form.harga_jual_prem = produk1[0].harga_jual_prem
         this.form.harga_jual_rac = produk1[0].harga_jual_rac
         this.form.qty = 1
-        if (this.priCash) {
-          this.form.harga = this.form.harga_jual_cust
-        } else if (this.priKredit) {
-          this.form.harga = this.form.harga_jual_prem
-        } else {
-          if (this.form.dokter_id !== null) {
-            this.form.harga = this.form.harga_jual_resep
-          } else if (this.form.racikan) {
-            this.form.harga = this.form.harga_jual_rac
-          } else {
-            this.form.harga = this.form.harga_jual_umum
-          }
-        }
+        this.setHarga()
+        // if (this.priCash) {
+        //   this.form.harga = this.form.harga_jual_cust
+        // } else if (this.priKredit) {
+        //   this.form.harga = this.form.harga_jual_prem
+        // } else {
+        //   // if (this.form.dokter_id !== null) {
+        //   if (this.hargaDokter) {
+        //     this.form.harga = this.form.harga_jual_resep
+        //   } else if (this.form.racikan) {
+        //     this.form.harga = this.form.harga_jual_rac
+        //   } else {
+        //     this.form.harga = this.form.harga_jual_umum
+        //   }
+        // }
       }
       // console.log('Product ', this.form)
     },
@@ -586,7 +621,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         // console.log('dokter ', val)
     },
     setDokterOrDistributor() {
-      if (this.form.dokter_id !== null) {
+      // if (this.form.dokter_id !== null) {
+      if (this.hargaDokter) {
         const dokter = this.dokters.filter((data) => {
           return data.id === this.form.dokter_id
         })

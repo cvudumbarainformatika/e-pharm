@@ -31,7 +31,8 @@
           />
         </div>
         <div v-if="table.form.nama==='PENJUALAN'">
-          <div class="row">
+          <!--
+        <div class="row">
             <ButtonDropdownMenu
               :label="transaksi.penjualan==='all'?'Penjualan Berdasarkan':transaksi.penjualanL"
               :items="transaksi.penjualans"
@@ -39,6 +40,7 @@
               @clicked="pilihPenjualan"
             />
           </div>
+          -->
           <div
             v-if="transaksi.penjualan==='dokter'"
             class="row"
@@ -314,17 +316,17 @@ const pilihPiutang = (val) => {
   // console.log('penerimaan', val)
 }
 
-const pilihPenjualan = val => {
-  transaksi.penjualan = val.nama
-  transaksi.penjualanL = val.label
-  if (val.nama === 'all') {
-    table.beforeGetData()
-  } else if (val.nama === 'umum') {
-    table.form.umum = 1
-    table.person = 'Penjualan Umum'
-    table.beforeGetData()
-  }
-}
+// const pilihPenjualan = val => {
+//   transaksi.penjualan = val.nama
+//   transaksi.penjualanL = val.label
+//   if (val.nama === 'all') {
+//     table.beforeGetData()
+//   } else if (val.nama === 'umum') {
+//     table.form.umum = 1
+//     table.person = 'Penjualan Umum'
+//     table.beforeGetData()
+//   }
+// }
 
 const pilihSupplier = val => {
   table.form.perusahaan_id = val.id
