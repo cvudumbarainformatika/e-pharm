@@ -158,13 +158,13 @@ export const useSettingStore = defineStore('setting', {
             value: 'transaksi.retur',
             roles: ' root owner kasir gudang '
           },
-          {
-            icon: 'icon-mat-account_balance_wallet',
-            name: 'Pendapatan',
-            link: '/transaksi/penerimaan',
-            value: 'transaksi.penerimaan',
-            roles: ' root owner '
-          },
+          // {
+          //   icon: 'icon-mat-account_balance_wallet',
+          //   name: 'Pendapatan',
+          //   link: '/transaksi/penerimaan',
+          //   value: 'transaksi.penerimaan',
+          //   roles: ' root owner '
+          // },
           {
             icon: 'icon-mat-payment',
             name: 'Pengeluaran',
