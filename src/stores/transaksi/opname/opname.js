@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia'
+import { date, Dialog } from 'quasar'
 import { api } from 'src/boot/axios'
+// eslint-disable-next-line no-unused-vars
 import { notifSuccess } from 'src/modules/utils'
 
 export const useStokOpnameStore = defineStore('stok_opname', {
@@ -40,6 +42,22 @@ export const useStokOpnameStore = defineStore('stok_opname', {
     refreshTable() {
       // this.setParams('page', 1)
       this.getListOpname()
+    },
+    sebleumSipan() {
+      const date1 = new Date(date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss'))
+      const date2 = new Date(date.formatDate(Date.now(), 'YYYY-MM-DD 21:00:00'))
+
+      const difference = date.getDateDiff(date1, date2, 'hours')
+      console.log('diff', difference)
+      if (difference < 0) {
+        Dialog.create({
+          title: 'Peringatan',
+          message: 'Stok Opname di jalankan di atas jam 21.00 sebagai asumsi bahwa toko sudah tutup, karena data penjualan hari ini tidak akan di hitung sebagai data keluar di stok produk',
+          ok: true
+        })
+      } else {
+        this.simpan()
+      }
     },
     async simpan() {
       this.loadingSimpan = true

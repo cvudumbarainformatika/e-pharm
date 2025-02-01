@@ -179,24 +179,6 @@
             Data Baru
           </q-tooltip>
         </q-btn>
-        <!-- style -->
-        <!--<q-btn
-          v-if="useFull"
-          flat
-          :icon="!style.componentfull ? 'icon-mat-open_in_full' : 'icon-mat-close_fullscreen'"
-          round
-          :color="style.componentfull ? 'green' : 'white'"
-          size="12px"
-          class="q-ml-md"
-          @click="style.setComponentFull"
-        >
-          <q-tooltip
-            class="primary"
-            :offset="[10, 10]"
-          >
-            Full Screen
-          </q-tooltip>
-        </q-btn>-->
       </div>
     </div>
     <q-separator />
@@ -572,7 +554,7 @@ const emits = defineEmits(['onClick', 'newData', 'editData', 'goto', 'deleteIds'
 
 // const per_page = ref(5)
 function nomo(cur, per, i) {
-  console.log('cur', cur, per, i)
+  // console.log('cur', cur, per, i)
 
   if (cur) return ((cur - 1) * per) + i + 1
   else return i + 1
