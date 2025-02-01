@@ -32,7 +32,7 @@
     }
   },
   "vueCompilerOptions": {
-    "experimentalDisableTemplateSupport": true
+    // "experimentalDisableTemplateSupport": true
   },
   "exclude": [
     "dist",

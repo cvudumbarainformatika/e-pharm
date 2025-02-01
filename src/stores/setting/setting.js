@@ -185,6 +185,13 @@ export const useSettingStore = defineStore('setting', {
             link: '/transaksi/pemesanan',
             value: 'transaksi.pemesanan',
             roles: ' root owner '
+          },
+          {
+            icon: 'icon-fa-store-solid',
+            name: 'Stok Opname',
+            link: '/transaksi/opname',
+            value: 'transaksi.opname',
+            roles: ' root owner '
           }
         ]
       },

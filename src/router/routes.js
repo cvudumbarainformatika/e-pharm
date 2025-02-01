@@ -169,21 +169,28 @@ const routes = [
             path: '/transaksi/distribusi',
             name: 'transaksi.distribusi',
             component: () =>
-              import('src/pages/v1/transaksi/distribusi/IndexPage.vue'),
-            children: [
-              {
-                path: '/transaksi/distribusi',
-                name: 'transaksi.detail.distribusi',
-                component: () =>
-                  import('src/pages/v1/transaksi/distribusi/IndexPage.vue')
-              }
-            ]
+              import('src/pages/v1/transaksi/distribusi/IndexPage.vue')
+            // children: [
+            //   {
+            //     path: '/transaksi/distribusi',
+            //     name: 'transaksi.detail.distribusi',
+            //     component: () =>
+            //       import('src/pages/v1/transaksi/distribusi/IndexPage.vue')
+            //   }
+            // ]
           },
           {
             path: '/transaksi/pemesanan',
             name: 'transaksi.pemesanan',
             component: () =>
               import('src/pages/v1/transaksi/pemesanan/IndexPage.vue')
+
+          },
+          {
+            path: '/transaksi/opname',
+            name: 'transaksi.opname',
+            component: () =>
+              import('src/pages/v1/transaksi/opname/IndexPage.vue')
 
           }
         ]
