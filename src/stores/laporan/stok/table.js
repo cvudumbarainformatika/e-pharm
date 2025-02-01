@@ -44,6 +44,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       'limit_stok',
       'created_at',
       'updated_at',
+      'deleted_at',
       'stokSebelum',
       'stokAwal',
       'pengali',
