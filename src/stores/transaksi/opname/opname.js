@@ -43,7 +43,7 @@ export const useStokOpnameStore = defineStore('stok_opname', {
       // this.setParams('page', 1)
       this.getListOpname()
     },
-    sebleumSipan() {
+    seblumSimpan() {
       const date1 = new Date(date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss'))
       const date2 = new Date(date.formatDate(Date.now(), 'YYYY-MM-DD 21:00:00'))
 

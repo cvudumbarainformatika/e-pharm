@@ -35,7 +35,7 @@
             rounded
             :loading="store.loadingSimpan"
             :disable="store.loading || store.loadingSimpan"
-            @click="store.sebleumSipan"
+            @click="store.seblumSimpan"
           />
         </template>
         <!-- column -->
