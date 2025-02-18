@@ -129,8 +129,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       {
         name: 'racikan',
         align: 'left',
-        label: 'Racikan',
-        field: 'racikan',
+        label: 'Nilai R',
+        field: 'nilai_r',
         format: (val) => val ? 'racikan' : ''
       }
     ],
@@ -251,18 +251,22 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         switch (this.harga) {
           case 'dokter':
             this.form.harga = this.form.harga_jual_resep
+            this.form.nilai_r = 1000
             break
 
           case 'priCash':
             this.form.harga = this.form.harga_jual_cust
+            this.form.nilai_r = 0
             break
 
           case 'priKredit':
             this.form.harga = this.form.harga_jual_prem
+            this.form.nilai_r = 0
             break
 
           default:
             this.form.harga = this.form.harga_jual_umum
+            this.form.nilai_r = this.form.hv === '1' ? 0 : 1000
             break
         }
       }
@@ -279,6 +283,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         return data.id === val
       })
 
+      console.log('selected', val, produk, produk1)
+
       if (produk.length) {
         this.produk = produk[0]
         // console.log('selected', val, produk[0])
@@ -290,6 +296,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.form.harga_jual_resep = produk[0].harga_jual_resep
         this.form.harga_jual_prem = produk[0].harga_jual_prem
         this.form.harga_jual_rac = produk[0].harga_jual_rac
+        this.form.hv = produk[0].hv
         this.form.qty = 1
         this.setHarga()
         // if (this.priCash) {
@@ -317,6 +324,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         this.form.harga_jual_resep = produk1[0].harga_jual_resep
         this.form.harga_jual_prem = produk1[0].harga_jual_prem
         this.form.harga_jual_rac = produk1[0].harga_jual_rac
+        this.form.hv = produk1[0].hv
         this.form.qty = 1
         this.setHarga()
         // if (this.priCash) {

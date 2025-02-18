@@ -231,16 +231,15 @@
           </q-td>
           <q-td>
             <div class="row justify-between q-col-gutter-md items-center">
-              <div class="col-3">
+              <!-- <div class="col-3">
                 <q-checkbox
                   v-model="table.form.racikan"
                   label=""
                   dense
                   @update:model-value="updateRacikan"
                 />
-              </div>
+              </div> -->
               <div
-                v-if="table.form.racikan"
                 class="col-9"
               >
                 <app-input
@@ -251,8 +250,9 @@
                   type="number"
                   valid
                   @update:model-value="updateNilaiR"
-                  @keyup.enter="table.onEnter()"
+                  @keyup.enter="updateQty"
                 />
+                <!-- @keyup.enter="table.onEnter()" -->
               </div>
             </div>
           </q-td>
@@ -443,21 +443,21 @@ function updateNilaiR(val) {
   store.setForm('sub_total', (parseFloat(table.form.qty) * parseFloat(table.form.harga) + parseFloat(val)))
   store.setForm('harga', parseFloat(table.form.harga))
 }
-function updateRacikan(val) {
-  if (val) table.form.harga = table.form.harga_jual_rac
-  else {
-    table.form.nilai_r = 0
-    // if (table.harga) table.form.harga = table.form.harga_jual_cust
-    // else if (table.priKredit) table.form.harga = table.form.harga_jual_prem
-    // else if (table.form.dokter_id !== null) table.form.harga = table.form.harga_jual_resep
-    // else table.form.harga = table.form.harga_jual_umum
-    table.setHarga()
-  }
+// function updateRacikan(val) {
+//   if (val) table.form.harga = table.form.harga_jual_rac
+//   else {
+//     table.form.nilai_r = 0
+//     // if (table.harga) table.form.harga = table.form.harga_jual_cust
+//     // else if (table.priKredit) table.form.harga = table.form.harga_jual_prem
+//     // else if (table.form.dokter_id !== null) table.form.harga = table.form.harga_jual_resep
+//     // else table.form.harga = table.form.harga_jual_umum
+//     table.setHarga()
+//   }
 
-  store.setForm('harga', parseFloat(table.form.harga))
-  console.log('racikan', val)
-  console.log('racikan ta', table.form)
-}
+//   store.setForm('harga', parseFloat(table.form.harga))
+//   console.log('racikan', val)
+//   console.log('racikan ta', table.form)
+// }
 const refNoka = ref(null)
 const refNore = ref(null)
 const refNapa = ref(null)

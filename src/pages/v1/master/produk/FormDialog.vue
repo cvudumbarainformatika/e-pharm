@@ -177,9 +177,11 @@ function updateHargaBeli(val) {
   const hargaBeli = olahUang(val)
   const sepuluh = hargaBeli * (10 / 100)
   const duapuluh = hargaBeli * (20 / 100)
-  if (!store.form.hv) store.setForm('harga_jual_umum', parseInt(hargaBeli + duapuluh + 1000))
+  // if (!store.form.hv) store.setForm('harga_jual_umum', parseInt(hargaBeli + duapuluh + 1000)) 1000 itu r di transaksi
+  if (!store.form.hv) store.setForm('harga_jual_umum', parseInt(hargaBeli + duapuluh))
   if (store.form.hv) store.setForm('harga_jual_umum', parseInt(hargaBeli + sepuluh))
-  store.setForm('harga_jual_resep', parseInt(hargaBeli + sepuluh + 1000))
+  // store.setForm('harga_jual_resep', parseInt(hargaBeli + sepuluh + 1000))
+  store.setForm('harga_jual_resep', parseInt(hargaBeli + sepuluh))
   store.setForm('harga_jual_cust', parseInt(hargaBeli))
   store.setForm('harga_jual_prem', parseInt(hargaBeli))
   store.setForm('harga_jual_rac', parseInt(hargaBeli + duapuluh))
@@ -194,9 +196,9 @@ function updateHv(val) {
     const duapuluh = olahUang(store.form.harga_beli) * (20 / 100)
     if (val) {
       console.log('val true', val)
-      store.setForm('harga_jual_umum', hargaBeli + sepuluh)
+      store.setForm('harga_jual_umum', parseInt(hargaBeli + sepuluh))
     } else {
-      store.setForm('harga_jual_umum', hargaBeli + duapuluh + 1000)
+      store.setForm('harga_jual_umum', parseInt(hargaBeli + duapuluh))
     }
   }
 }
