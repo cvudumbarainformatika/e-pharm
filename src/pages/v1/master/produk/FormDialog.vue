@@ -177,12 +177,12 @@ function updateHargaBeli(val) {
   const hargaBeli = olahUang(val)
   const sepuluh = hargaBeli * (10 / 100)
   const duapuluh = hargaBeli * (20 / 100)
-  if (!store.form.hv) store.setForm('harga_jual_umum', hargaBeli + duapuluh + 1000)
-  if (store.form.hv) store.setForm('harga_jual_umum', hargaBeli + sepuluh)
-  store.setForm('harga_jual_resep', hargaBeli + sepuluh + 1000)
-  store.setForm('harga_jual_cust', hargaBeli)
-  store.setForm('harga_jual_prem', hargaBeli)
-  store.setForm('harga_jual_rac', hargaBeli + duapuluh)
+  if (!store.form.hv) store.setForm('harga_jual_umum', parseInt(hargaBeli + duapuluh + 1000))
+  if (store.form.hv) store.setForm('harga_jual_umum', parseInt(hargaBeli + sepuluh))
+  store.setForm('harga_jual_resep', parseInt(hargaBeli + sepuluh + 1000))
+  store.setForm('harga_jual_cust', parseInt(hargaBeli))
+  store.setForm('harga_jual_prem', parseInt(hargaBeli))
+  store.setForm('harga_jual_rac', parseInt(hargaBeli + duapuluh))
   console.log('harbel', val, olahUang(val), sepuluh, duapuluh, hargaBeli + duapuluh + 1000)
 }
 function updateHv(val) {

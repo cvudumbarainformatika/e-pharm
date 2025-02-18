@@ -30,9 +30,9 @@
             :options="table.hargas"
             color="primary"
             dense
-            :disable="table.rows.length > 0"
             @update:model-value="table.setHarga()"
           />
+          <!-- :disable="table.rows.length > 0" -->
           <!-- <div class="row ">
             <q-checkbox
               v-model="table.priKredit"
