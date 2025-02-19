@@ -67,13 +67,13 @@ export const useSettingStore = defineStore('setting', {
           //   value: 'master.supplier',
           //   roles: ' root owner '
           // },
-          {
-            icon: 'icon-mat-medication',
-            name: 'Dokter',
-            link: 'master/dokter',
-            value: 'master.dokter',
-            roles: ' root owner kasir '
-          },
+          // {
+          //   icon: 'icon-mat-medication',
+          //   name: 'Dokter',
+          //   link: 'master/dokter',
+          //   value: 'master.dokter',
+          //   roles: ' root owner kasir '
+          // },
           {
             icon: 'icon-mat-workspaces',
             name: 'Produk',
