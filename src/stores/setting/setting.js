@@ -217,18 +217,18 @@ export const useSettingStore = defineStore('setting', {
             value: 'PENJUALAN',
             roles: ' root owner kasir '
           },
-          {
-            icon: 'icon-mat-account_balance_wallet',
-            name: 'Pendapatan',
-            value: 'PENDAPATAN',
-            roles: ' root owner '
-          },
-          {
-            icon: 'icon-mat-payment',
-            name: 'Pengeluaran',
-            value: 'PENGELUARAN',
-            roles: ' root owner '
-          },
+          // {
+          //   icon: 'icon-mat-account_balance_wallet',
+          //   name: 'Pendapatan',
+          //   value: 'PENDAPATAN',
+          //   roles: ' root owner '
+          // },
+          // {
+          //   icon: 'icon-mat-payment',
+          //   name: 'Pengeluaran',
+          //   value: 'PENGELUARAN',
+          //   roles: ' root owner '
+          // },
           {
             icon: 'icon-mat-assignment_return',
             name: 'Retur Pembelian',
