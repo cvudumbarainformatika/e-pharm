@@ -45,6 +45,14 @@
             </div>
           </div>
         </div>
+        <div class="row text-weight-bold">
+          <div class="col-2">
+            Total Kas Hari Ini
+          </div>
+          <div class="col-auto">
+            {{ formatRp(store.items?.reduce((a,b)=>parseFloat(a)+parseFloat(b.sisaHariIni),0)) }}
+          </div>
+        </div>
       </div>
       <div v-if="!store.items?.length">
         <app-no-data />
