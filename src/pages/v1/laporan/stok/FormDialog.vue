@@ -117,7 +117,7 @@
                 Stok Awal : {{ table.penyesuaian.stok_awal }}
               </div>
             </div>
-            <div class="col-md-3 col-xs-12">
+            <!-- <div class="col-md-3 col-xs-12">
               <div v-if="setting.penyesuaianProduk.rak">
                 <div class="row items-center">
                   <app-autocomplete-new
@@ -154,7 +154,7 @@
               <div v-else>
                 Rak : {{ table.penyesuaian.rak }}
               </div>
-            </div>
+            </div> -->
           </div>
 
           <q-separator class="q-my-md" />
@@ -177,13 +177,14 @@
 </template>
 
 <script setup>
+import { uniqueId } from 'src/modules/utils'
 import { useLaporanStokTable } from 'src/stores/laporan/stok/table'
-import { useRakFormStore } from 'src/stores/master/rak/form'
+// import { useRakFormStore } from 'src/stores/master/rak/form'
 import { useSettingStore } from 'src/stores/setting/setting'
 import { ref } from 'vue'
 
 const table = useLaporanStokTable()
-const rak = useRakFormStore()
+// const rak = useRakFormStore()
 const setting = useSettingStore()
 const stokTersedia = ref(0)
 const rekom = () => {
@@ -195,6 +196,7 @@ const onSubmit = () => {
   table.savePenyesuaian()
     .then(() => {
       table.setOpen()
+      table.penyesuaian.reff = 'FPST-' + uniqueId()
       //   // console.log('form', formReff)
       //   if (formReff.value != null) { formReff.value.resetValidation() }
     })

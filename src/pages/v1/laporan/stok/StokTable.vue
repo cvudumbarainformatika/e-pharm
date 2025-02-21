@@ -3,6 +3,37 @@
     <div>
       <app-card :is-header="false">
         <template #content>
+          <div
+            v-if="table.loadingNilai"
+            class="row items-center"
+          >
+            <div class="col-auto">
+              <q-spinner-hourglass
+                color="primary"
+                size="2em"
+              />
+            </div>
+            <div class="col-auto q-mx-md">
+              sedang mengambil data total nilai obat
+            </div>
+            <div class="col-auto">
+              <q-spinner-hourglass
+                color="primary"
+                size="2em"
+              />
+            </div>
+          </div>
+          <div
+            v-else
+            class="row text-weight-bold f-16"
+          >
+            <div class="col-2">
+              Total Nilai Obat
+            </div>
+            <div class="col-grow">
+              Rp. {{ formatMoney(table.totalNilai,2,',','.') }}
+            </div>
+          </div>
           <!-- <q-card-section> -->
           <app-table-stok
             title="Data Stok"
@@ -75,6 +106,22 @@
                 {{ row.stokSekarang }}
               </div>
             </template>
+            <template #cell-nilai="{row}">
+              <div>
+                {{ formatMoney(row.nilai,0,',','.') }}
+              </div>
+            </template>
+            <template #col-hv>
+              <div>HV</div>
+            </template>
+            <template #cell-hv="{row}">
+              <div>
+                {{ row?.hv=='1'?'Ya':'Tidak' }}
+              </div>
+            </template>
+            <template #col-nilai>
+              <div>Nilai</div>
+            </template>
             <template #col-returPenjualan>
               <div>Retur Penjualan</div>
             </template>
@@ -98,6 +145,7 @@ import formDialog from './FormDialog.vue'
 import DialogSeeMore from './DialogSeeMore.vue'
 import { useLaporanMoreProduct } from 'src/stores/laporan/stok/more'
 import { date } from 'quasar'
+import { formatMoney } from 'src/modules/formatter'
 
 const awalBulan = date.formatDate(Date.now(), 'YYYY-MM-' + '01')
 const table = useLaporanStokTable()
@@ -108,4 +156,5 @@ table.setForm('from', awalBulan)
 table.setForm('selection', 'tillToday')
 table.setPeriode()
 table.getDataStok()
+table.getNilaiProduct()
 </script>

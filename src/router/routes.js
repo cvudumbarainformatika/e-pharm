@@ -23,6 +23,7 @@ const routes = [
         path: '/master',
         name: 'master',
         component: () => import('pages/v1/master/IndexPage.vue'),
+        redirect: '/master/produk',
         meta: { requireAuth: true },
         children: [
           {

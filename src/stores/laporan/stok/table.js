@@ -6,6 +6,7 @@ import { useLaporanMoreProduct } from './more'
 
 export const useLaporanStokTable = defineStore('laporan_stok', {
   state: () => ({
+    loadingNilai: false,
     isOpen: false,
     spesifik: false,
     range: false,
@@ -31,11 +32,13 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
     columnHide: [
       'id',
       'uuid',
+      'barcode',
       'harga_beli',
       'harga_jual_umum',
       'harga_jual_cust',
       'harga_jual_resep',
       'harga_jual_prem',
+      'harga_jual_rac',
       'merk_id',
       'satuan_id',
       'satuan_besar_id',
@@ -53,6 +56,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
       'returPenjualan',
       'penyesuaian',
       'distribusi',
+      'rak',
       'stokBerjalan'
     ],
     nomer: [],
@@ -67,7 +71,8 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
     params: {
       q: ''
     },
-    raks: []
+    raks: [],
+    totalNilai: 0
   }),
   actions: {
     resetData() {
@@ -318,6 +323,7 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
             data.Keluar = data.keluar.periode + data.returPembelian.periode + data.distribusi.keluarP
             data.stok_awal += data.stokSebelum
             data.stokSekarang = data.stok_awal + data.stokBerjalan
+            data.nilai = data.stokSekarang * data.harga_beli
           })
           console.log('prod', product)
           this.items = product
@@ -412,6 +418,19 @@ export const useLaporanStokTable = defineStore('laporan_stok', {
           .catch((err) => {
             this.loading = false
             reject(err)
+          })
+      })
+    },
+    getNilaiProduct() {
+      this.loadingNilai = true
+      return new Promise(resolve => {
+        api.get('v1/laporan/baru/nilai-product').then(resp => {
+          // console.log('Nilai produk', resp)
+          this.totalNilai = resp?.data ?? 0
+          this.loadingNilai = false
+        })
+          .catch(() => {
+            this.loadingNilai = false
           })
       })
     }
