@@ -12,9 +12,9 @@
     <div class="toko text-left">
       {{ store.info.alamat }}
     </div>
-    <!-- <div class="toko text-left">
-      {{ setting.info.tlp }}
-    </div> -->
+    <div class="toko text-left">
+      {{ store.info.tlp }}
+    </div>
     <div class="top-line-dash" />
     <div class="q-px-sm">
       NOTA: {{ store.form.nota? store.form.nota:'-' }}
@@ -111,8 +111,14 @@
       Item : {{ store.produks.length }}
     </div>
     <div class="top-line-dash" />
-    <div class="text-left q-pb-xl">
-      Barang yang sudah dibeli tidak bisa ditukar / dikembalikan. Terima Kasih
+    <div class="text-left f-12 q-pt-sm">
+      Terima Kasih
+    </div>
+    <div class="text-left q-py-sm">
+      Semoga Lekas Sembuh
+    </div>
+    <div class="text-left q-pb-xl text-italic">
+      Maaf barang yang sudah dibeli tidak bisa ditukar / dikembalikan.
     </div>
   </div>
 </template>
