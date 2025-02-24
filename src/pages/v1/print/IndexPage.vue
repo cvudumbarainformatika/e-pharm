@@ -1,21 +1,23 @@
 <template>
   <div
     id="printMe"
-    class="column f-12"
+    class="column f-18"
   >
     <!-- {{ info }}
     {{ form }}
     {{ produks }} -->
-    <div class="toko text-left text-weight-bold">
+    <div class="toko q-my-xs text-center text-weight-bold">
       {{ store.info.nama }}
     </div>
-    <div class="toko text-left">
+    <div class="toko q-my-xs text-center">
       {{ store.info.alamat }}
     </div>
-    <div class="toko text-left">
+    <div class="toko text-center q-my-xs">
       {{ store.info.tlp }}
     </div>
-    <div class="top-line-dash" />
+    <br>
+    <br>
+    <br>
     <div class="q-px-sm">
       NOTA: {{ store.form.nota? store.form.nota:'-' }}
     </div>
@@ -112,6 +114,7 @@
       Item : {{ store.produks.length }}
     </div>
     <div class="top-line-dash" />
+    <br>
     <div class="text-center  q-pt-sm">
       Terima Kasih
     </div>
@@ -119,7 +122,7 @@
       Semoga Cepat Sembuh
     </div>
     <div class="text-center q-pb-xl text-italic">
-      Maaf obat yang sudah dibeli tidak bisa ditukar / dikembalikan.
+      Maaf obat yang sudah dibeli tidak dapat ditukar / dikembalikan.
     </div>
   </div>
 </template>
