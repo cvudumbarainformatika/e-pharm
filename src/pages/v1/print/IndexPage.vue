@@ -1,7 +1,7 @@
 <template>
   <div
     id="printMe"
-    class="column f-10"
+    class="column f-12"
   >
     <!-- {{ info }}
     {{ form }}
@@ -31,7 +31,7 @@
     <div
       v-if="store.form.faktur !== null"
     >
-      TANGGALF: {{ dateFormat(store.form.tanggal_faktur) }}
+      TANGGAL: {{ dateFormat(store.form.tanggal_faktur) }}
     </div>
     <div class="top-line-dash" />
     <div
@@ -54,11 +54,12 @@
 
     <div class="top-line-dash" />
     <div class="text-right q-px-xs text-weight-bold">
+      {{ store.totalSemua }}
       TOTAL : {{ store.totalSemua ? formatRp(store.totalSemua) : formatRp(olahUang(store.form.total)) }}
     </div>
     <div
       v-if="store.form.embalase"
-      class="text-right q-px-xs"
+      class="text-right q-px-xs print-hide"
     >
       Embalase : {{ typeof store.form.embalase==='string'? 'Rp. '+ store.form.embalase : formatRp(store.form.embalase) }}
     </div>
@@ -111,14 +112,14 @@
       Item : {{ store.produks.length }}
     </div>
     <div class="top-line-dash" />
-    <div class="text-left f-12 q-pt-sm">
+    <div class="text-center  q-pt-sm">
       Terima Kasih
     </div>
-    <div class="text-left q-py-sm">
-      Semoga Lekas Sembuh
+    <div class="text-center q-py-sm">
+      Semoga Cepat Sembuh
     </div>
-    <div class="text-left q-pb-xl text-italic">
-      Maaf barang yang sudah dibeli tidak bisa ditukar / dikembalikan.
+    <div class="text-center q-pb-xl text-italic">
+      Maaf obat yang sudah dibeli tidak bisa ditukar / dikembalikan.
     </div>
   </div>
 </template>
