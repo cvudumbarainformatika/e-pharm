@@ -43,7 +43,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       { label: 'Umum', value: 'umum' },
       { label: 'Pri Cash', value: 'priCash' },
       { label: 'Pri Kredit', value: 'priKredit' },
-      { label: 'Dokter', value: 'dokter' }
+      { label: 'Dokter', value: 'dokter' },
+      { label: 'Racikan', value: 'racikan' }
     ],
     form: {
       reff: '',
@@ -261,6 +262,11 @@ export const usePenjualanTable = defineStore('penjualan_table', {
 
           case 'priKredit':
             this.form.harga = this.form.harga_jual_prem
+            this.form.nilai_r = 0
+            break
+
+          case 'racikan':
+            this.form.harga = this.form.harga_jual_rac
             this.form.nilai_r = 0
             break
 
