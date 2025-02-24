@@ -131,8 +131,8 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         name: 'racikan',
         align: 'left',
         label: 'Nilai R',
-        field: 'nilai_r',
-        format: (val) => val ? 'racikan' : ''
+        field: 'nilai_r'
+        // format: (val) => val ? 'racikan' : ''
       }
     ],
     visbleColumns: [
