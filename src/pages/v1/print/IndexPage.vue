@@ -1,7 +1,7 @@
 <template>
   <div
     id="printMe"
-    class="column f-18"
+    class="column f-14"
   >
     <!-- {{ info }}
     {{ form }}
@@ -15,14 +15,15 @@
     <div class="toko text-center q-my-xs">
       {{ store.info.tlp }}
     </div>
+
     <br>
     <br>
-    <br>
+
     <div class="q-px-sm">
       NOTA: {{ store.form.nota? store.form.nota:'-' }}
     </div>
     <div class="q-px-sm">
-      TANGGAL:{{ dateFormat(store.form.tanggal) }}
+      TGL :{{ dateFormat(store.form.tanggal) }}
     </div>
     <div
       v-if="store.form.faktur !== null"
@@ -35,6 +36,9 @@
     >
       TANGGAL: {{ dateFormat(store.form.tanggal_faktur) }}
     </div>
+
+    <br>
+
     <div class="top-line-dash" />
     <div
       v-for="(produk, i) in store.produks"
