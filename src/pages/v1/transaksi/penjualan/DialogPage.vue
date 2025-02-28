@@ -291,6 +291,8 @@ const formReff = ref(null)
 const store = usePenjualanDialog()
 store.setToday()
 const onSubmit = () => {
+  // console.log('form', store.form)
+
   if (parseFloat(olahUang(store.form.bayar)) < parseFloat(olahUang(store.totalSemua))) {
     return notifErrVue('periksa kembali jumlah pembayaran')
   }

@@ -102,6 +102,12 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       this.form.kembali = bayar - olahUang(this.totalSemua)
     },
     openDialog() {
+      if (this.form.product_id) delete this.form.product_id
+      if (this.form.harga) delete this.form.harga
+      if (this.form.qty) delete this.form.qty
+      if (this.form.nilai_r) delete this.form.nilai_r
+      if (this.form.sub_total) delete this.form.sub_total
+
       const table = usePenjualanTable()
       table.setDokterOrDistributor()
       this.form.reff = table.form.reff

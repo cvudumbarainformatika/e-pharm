@@ -219,6 +219,7 @@
               label=" "
               type="number"
               @keyup.enter="updateQty"
+              @focus="qtyFocus()"
             />
           </q-td>
           <q-td>
@@ -409,7 +410,10 @@ const refNilaiR = ref(null)
 const pagination = ref({
   rowsPerPage: 0
 })
-
+function qtyFocus() {
+  refJumlah.value.$refs.refInput.select()
+  // console.log('focus')
+}
 const produk = val => {
   // console.log('key', val.key)
   if (val.key === 'ArrowRight') {
@@ -566,6 +570,7 @@ const updateQty = val => {
   store.setForm('product_id', table.produk1.id)
   store.setForm('harga', parseFloat(table.form.harga))
   store.setForm('qty', parseFloat(table.form.qty))
+  store.setForm('nilai_r', parseFloat(table.form.nilai_r))
   store.setForm('sub_total', (parseFloat(table.form.qty) * parseFloat(table.form.harga) + parseFloat(table.form.nilai_r)))
   if (table.dataPasien.nokartu || table.dataPasien.noresep || table.dataPasien.nama || table.dataPasien.alamat) {
     store.form.pasien = table.dataPasien
@@ -586,6 +591,7 @@ const cekRequired = () => {
     store.form.jenis = 'piutang'
     store.piutang = true
   }
+
   store.openDialog()
   // const tableReff = ref(null)
 

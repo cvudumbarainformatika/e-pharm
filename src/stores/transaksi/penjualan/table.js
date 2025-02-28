@@ -246,7 +246,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.pasien = val
     },
     setHarga() {
-      console.log('set harga')
+      console.log('set harga', this.harga, this.form)
 
       if (this.form.product_id) {
         switch (this.harga) {
@@ -270,6 +270,11 @@ export const usePenjualanTable = defineStore('penjualan_table', {
             this.form.nilai_r = 0
             break
 
+          case 'umum':
+            this.form.harga = this.form.harga_jual_umum
+            this.form.nilai_r = this.form.hv === '1' ? 0 : 1000
+            break
+
           default:
             this.form.harga = this.form.harga_jual_umum
             this.form.nilai_r = this.form.hv === '1' ? 0 : 1000
@@ -278,77 +283,21 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       }
     },
     produkSelected(val) {
-      // satu
-      const apem = this.produks
-      const produk = apem.filter((data) => {
-        return data.id === val
-      })
-
-      const apem2 = this.produk2s
-      const produk1 = apem2.filter((data) => {
-        return data.id === val
-      })
-
-      console.log('selected', val, produk, produk1)
-
-      if (produk.length) {
-        this.produk = produk[0]
-        // console.log('selected', val, produk[0])
-        this.form.product_id = produk[0].id
-        this.form.kode_produk = produk[0].kode_produk
-        this.form.harga_beli = produk[0].harga_beli
-        this.form.harga_jual_cust = produk[0].harga_jual_cust
-        this.form.harga_jual_umum = produk[0].harga_jual_umum
-        this.form.harga_jual_resep = produk[0].harga_jual_resep
-        this.form.harga_jual_prem = produk[0].harga_jual_prem
-        this.form.harga_jual_rac = produk[0].harga_jual_rac
-        this.form.hv = produk[0].hv
-        this.form.qty = 1
-        this.setHarga()
-        // if (this.priCash) {
-        //   this.form.harga = this.form.harga_jual_cust
-        // } else if (this.priKredit) {
-        //   this.form.harga = this.form.harga_jual_prem
-        // } else {
-        //   // if (this.form.dokter_id !== null) {
-        //   if (this.hargaDokter) {
-        //     this.form.harga = this.form.harga_jual_resep
-        //   } if (this.form.racikan) {
-        //     this.form.harga = this.form.harga_jual_rac
-        //   } else {
-        //     this.form.harga = this.form.harga_jual_umum
-        //   }
-        // }
-      } else if (produk1.length) {
-        this.produk1 = produk1[0]
-        // console.log('selected', val, produk1[0])
-        this.form.product_id = produk1[0].id
-        this.form.kode_produk = produk1[0]?.kode_produk
-        this.form.harga_beli = produk1[0].harga_beli
-        this.form.harga_jual_cust = produk1[0].harga_jual_cust
-        this.form.harga_jual_umum = produk1[0].harga_jual_umum
-        this.form.harga_jual_resep = produk1[0].harga_jual_resep
-        this.form.harga_jual_prem = produk1[0].harga_jual_prem
-        this.form.harga_jual_rac = produk1[0].harga_jual_rac
-        this.form.hv = produk1[0].hv
-        this.form.qty = 1
-        this.setHarga()
-        // if (this.priCash) {
-        //   this.form.harga = this.form.harga_jual_cust
-        // } else if (this.priKredit) {
-        //   this.form.harga = this.form.harga_jual_prem
-        // } else {
-        //   // if (this.form.dokter_id !== null) {
-        //   if (this.hargaDokter) {
-        //     this.form.harga = this.form.harga_jual_resep
-        //   } else if (this.form.racikan) {
-        //     this.form.harga = this.form.harga_jual_rac
-        //   } else {
-        //     this.form.harga = this.form.harga_jual_umum
-        //   }
-        // }
-      }
-      // console.log('Product ', this.form)
+      const produk1 = this.produk2s.find((data) => data.id === val)
+      this.produk1 = produk1
+      console.log('selected', val, produk1)
+      this.form.product_id = produk1.id
+      this.form.kode_produk = produk1?.kode_produk
+      this.form.harga_beli = produk1.harga_beli
+      this.form.harga_jual_cust = produk1.harga_jual_cust
+      this.form.harga_jual_umum = produk1.harga_jual_umum
+      this.form.harga_jual_resep = produk1.harga_jual_resep
+      this.form.harga_jual_prem = produk1.harga_jual_prem
+      this.form.harga_jual_rac = produk1.harga_jual_rac
+      this.form.hv = produk1.hv
+      this.form.qty = 1
+      this.setHarga()
+      console.log('Product ', this.form)
     },
     resetInput() {
       this.form.product_id = ''
@@ -392,27 +341,6 @@ export const usePenjualanTable = defineStore('penjualan_table', {
         })
       this.resetInput()
 
-      // old ------
-      // const index = findWithAttr(this.produks, 'id', this.form.product_id)
-      // this.simpanDetailTransaksi(data).then(() => {
-      //   return new Promise(resolve => {
-      //     this.getSingleProduct().then(resp => {
-      //       this.produks[index] = resp
-      //       resolve(resp)
-      //     })
-      //   })
-      // })
-      // this.resetInput()
-      // const produk = this.produks[index]
-      // if (produk.limit_stok > produk.stokSekarang) {
-      //     notifErrVue(`stok ${produk.nama} sejumlah ${produk.stokSekarang}, kurang dari limit_stok ${produk.limit_stok}`)
-      //   }
-      // old ------
-
-      // produk.keluar.periode = this.form.qty
-
-      // console.log('produk', produk)
-      // produk.stokSekarang -= this.form.qty
       const index = findWithAttr(this.produk2s, 'id', this.form.product_id)
       if (index >= 0) {
         const produk = this.produk2s[index]

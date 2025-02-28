@@ -50,10 +50,10 @@
       </div>
       <div class="flex items-center justify-between">
         <div>
-          <div>{{ produk.qty }} x {{ formatRp(produk.harga) }}</div>
+          <div>{{ produk.qty }} </div>
         </div>
         <div>
-          <div>{{ formatRp(produk.harga * produk.qty + produk.nilai_r) }}</div>
+          <div>{{ formatRp((produk.harga * produk.qty) + produk.nilai_r) }}</div>
         </div>
       </div>
     </div>
@@ -154,7 +154,7 @@ onMounted(() => {
   const slug = routerInstance.currentRoute.value.params.slug
   // console.log('slug', slug)
   store.getPrint(slug).then(() => {
-    myPrinting()
+    // myPrinting()
   })
   // setTimeout(() => {
   // }, 500)
@@ -170,6 +170,7 @@ function afterPrint () {
   // }
 }
 
+// eslint-disable-next-line no-unused-vars
 function myPrinting () {
   // console.log('print ', store.form)
   window.print()
