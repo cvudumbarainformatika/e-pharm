@@ -154,7 +154,7 @@ onMounted(() => {
   const slug = routerInstance.currentRoute.value.params.slug
   // console.log('slug', slug)
   store.getPrint(slug).then(() => {
-    // myPrinting()
+    myPrinting()
   })
   // setTimeout(() => {
   // }, 500)

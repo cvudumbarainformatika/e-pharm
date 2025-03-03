@@ -606,7 +606,7 @@ const newTransaction = () => {
   // store.resetData()
   const slug = 'PJL-' + uniqueId()
   const newRoute = routerInstance.resolve({
-    name: 'penjualan',
+    name: 'transaksi.penjualan',
     params: { slug }
   })
   window.open(newRoute.href, '_blank')
