@@ -38,6 +38,7 @@ export const useAuthStore = defineStore('auth', {
           }
           this.loading = false
           waitLoad('done')
+          window.location.reload()
           return new Promise(resolve => { resolve(resp) })
           // eslint-disable-next-line no-undef
           // redirect({ path: '/dashboard' })

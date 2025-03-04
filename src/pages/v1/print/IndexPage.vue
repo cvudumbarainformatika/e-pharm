@@ -1,7 +1,7 @@
 <template>
   <div
     id="printMe"
-    class="column f-14"
+    class="column f-13"
   >
     <!-- {{ info }}
     {{ form }}
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <div class="top-line-dash" />
+    <div class="top-line-dash q-mb-md" />
     <div class="text-right q-px-xs text-weight-bold">
       {{ store.totalSemua }}
       TOTAL : {{ store.totalSemua ? formatRp(store.totalSemua) : formatRp(olahUang(store.form.total)) }}
