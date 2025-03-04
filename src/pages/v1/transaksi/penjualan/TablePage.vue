@@ -312,17 +312,35 @@
         v-if="table.rows"
         #bottom
       >
-        <div class="q-mx-xs">
-          <app-btn
-            label="Lanjutkan Pembayaran"
-            @click="cekRequired"
-          />
-        </div>
-        <div class="q-mx-xs">
-          <app-btn
-            label="Buka Transaksi Baru"
-            @click="newTransaction"
-          />
+        <div style="width: 100%;">
+          <div class="row justify-between">
+            <div class="col-grow">
+              <div class="row">
+                <div class="q-mx-xs">
+                  <app-btn
+                    label="Lanjutkan Pembayaran"
+                    @click="cekRequired"
+                  />
+                </div>
+                <div class="q-mx-xs">
+                  <app-btn
+                    label="Buka Transaksi Baru"
+                    @click="newTransaction"
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="q-mx-xs">
+                <app-btn
+                  color="negative"
+                  label="Batal"
+                  :loading="store.loading"
+                  @click="store.batalNota"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </template>
       <!-- </template>

@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { api } from 'src/boot/axios'
 import { routerInstance } from 'src/boot/router'
 import { olahUang } from 'src/modules/formatter'
-import { notifErrVue, uniqueId } from 'src/modules/utils'
+import { notifErrVue, notifSuccess, uniqueId } from 'src/modules/utils'
 import { useAuthStore } from 'src/stores/auth'
 import { useDashboardStore } from 'src/stores/dashboard'
 import { usePrintStore } from 'src/stores/print'
@@ -149,29 +149,6 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
       const user = useAuthStore()
       this.kasirs = [user.user]
     },
-    // ambilDataSupplier(val) {
-    //   if (val !== '') {
-    //     this.params.q = val
-    //   }
-    //   this.loading = true
-    //   const params = { params: this.params }
-    //   return new Promise((resolve, reject) => {
-    //     api
-    //       .get('v1/supplier/index', params)
-    //       .then((resp) => {
-    //         this.loading = false
-    //         console.log('suppliers ', resp)
-    //         if (resp.status === 200) {
-    //           this.suppliers = resp.data.data
-    //           resolve(resp.data)
-    //         }
-    //       })
-    //       .catch((err) => {
-    //         this.loading = false
-    //         reject(err)
-    //       })
-    //   })
-    // },
     simpanTransaksi() {
       const user = useAuthStore()
       const kasir = user.user
@@ -263,6 +240,37 @@ export const usePenjualanDialog = defineStore('penjualan_store', {
             this.isOpen = false
             reject(err)
           })
+      })
+    },
+    batalNota() {
+      console.log('batal', this.form)
+      this.loading = true
+      const form = {
+        id: this.form?.id
+
+      }
+      return new Promise((resolve, reject) => {
+        api
+          .post('v1/transaksi/destroy', form)
+          .then((resp) => {
+            this.loading = false
+            if (resp.status === 200) {
+              const table = usePenjualanTable()
+              const reff = table.form.reff
+              table.resetData()
+              this.resetData()
+              table.form.reff = reff
+              this.form.reff = reff
+              notifSuccess(resp)
+              resolve(resp.data)
+            }
+          })
+          .catch((err) => {
+            this.loading = false
+
+            reject(err)
+          }
+          )
       })
     }
   }
