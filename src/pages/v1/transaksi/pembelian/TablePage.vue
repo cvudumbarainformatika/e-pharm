@@ -124,10 +124,27 @@
               </template>
             </q-input>
           </div>
+          <div class="row items-center q-mt-sm">
+            <app-autocomplete
+              ref="refPerusahaan"
+              v-model="store.form.perusahaan_id"
+              label="pilih Perusahaan"
+              autocomplete="nama"
+              option-value="id"
+              option-label="nama"
+              :source="store.perusahaans"
+              outlined
+              :loading="store.loading || store.loadingPerusahaan"
+              @set-model="store.searchPerusahaan"
+              @on-select="store.setPerusahaan"
+              @buang="store.searchPerusahaan"
+              @on-enter="store.addPerusahaan"
+            />
+          </div>
         </div>
         <div class="col-6 text-center">
           <div class="text-h6">
-            Nomor Nota - {{ table.form.reff }}
+            Nomor Nota : {{ table.form.reff }}
           </div>
         </div>
         <div class="col-3">
@@ -257,7 +274,8 @@
         #bottom
       >
         <app-btn
-          label="Lanjutkan Pembayaran"
+          label="Selesai"
+          :loading="store.loading"
           @click="cekRequired"
         />
       </template>
@@ -307,6 +325,7 @@ const refFaktur = ref(null)
 // const refDiskon = ref(null)
 
 const table = usePembelianTable()
+
 onMounted(() => {
   table.refProduk = refProduk.value.$refs.refAuto
   table.refTanggal = refTanggal.value
@@ -398,11 +417,16 @@ const resetValidation = () => {
 const store = usePembelianDialog()
 // table.getDetailTransaksi()
 const cekRequired = () => {
-  if (table.form.faktur) {
+  if (table.form.faktur && store.form.perusahaan_id) {
     store.openDialog()
+    // store.simpanTransaksi()
     resetValidation()
-  } else {
+  } else if (!table.form.faktur) {
     notifErrVue('Faktur harus di isi')
+  } else if (!store.form.perusahaan_id) {
+    notifErrVue('Perusahaan harus di isi')
+  } else {
+    notifErrVue('Cek Perusahaan dan faktur')
   }
 
   // const tableReff = ref(null)

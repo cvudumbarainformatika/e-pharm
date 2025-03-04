@@ -46,7 +46,7 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       sort: 'desc'
     },
     loading: false,
-    printChek: true,
+    printChek: false,
     print: usePrintStore()
   }),
   actions: {
@@ -120,7 +120,8 @@ export const usePembelianDialog = defineStore('pembelian_store', {
       this.form.total = table.form.total
       this.totalSeluruhnya()
       this.print.form = this.form
-      this.setOpen()
+      // this.setOpen()
+      this.simpanTransaksi()
     },
     setOpen() {
       this.isOpen = !this.isOpen
