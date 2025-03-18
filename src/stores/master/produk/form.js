@@ -14,7 +14,7 @@ export const useProdukFormStore = defineStore('produk_form', {
   state: () => ({
     isOpen: false,
     form: {
-      hv: false,
+      harga_jual_hv: 0,
       harga_beli: 0,
       harga_jual_umum: 0,
       harga_jual_resep: 0,
@@ -76,6 +76,7 @@ export const useProdukFormStore = defineStore('produk_form', {
         'nama',
         'harga_beli',
         'harga_jual_umum',
+        'harga_jual_hv',
         'harga_jual_resep',
         'harga_jual_cust',
         'harga_jual_prem',
@@ -86,7 +87,6 @@ export const useProdukFormStore = defineStore('produk_form', {
       for (let i = 0; i < columns.length; i++) {
         this.setForm(columns[i], '')
       }
-      this.setForm('hv', false)
     },
     setToday() {
       const date = new Date()
@@ -133,6 +133,7 @@ export const useProdukFormStore = defineStore('produk_form', {
     saveForm() {
       const beli = olahUang(this.form.harga_beli)
       const umum = olahUang(this.form.harga_jual_umum)
+      const hv = olahUang(this.form.harga_jual_hv)
       const resep = olahUang(this.form.harga_jual_resep)
       const cust = olahUang(this.form.harga_jual_cust)
       const prem = olahUang(this.form.harga_jual_prem)
@@ -143,6 +144,7 @@ export const useProdukFormStore = defineStore('produk_form', {
       this.form.harga_jual_cust = cust
       this.form.harga_jual_resep = resep
       this.form.harga_jual_umum = umum
+      this.form.harga_jual_hv = hv
       this.form.harga_jual_prem = prem
       this.form.harga_jual_rac = rac
       this.loading = true

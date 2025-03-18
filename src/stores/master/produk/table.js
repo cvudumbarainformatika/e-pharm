@@ -23,6 +23,7 @@ export const useProdukTable = defineStore('produk_table', {
       'hv',
       'created_at',
       'satuan_besar_id',
+      'harga_jual_hv',
       'harga_jual_resep',
       'harga_jual_cust',
       'harga_jual_prem',

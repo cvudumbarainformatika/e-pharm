@@ -13,24 +13,14 @@
           @reset="onReset"
         >
           <div class="row q-col-gutter-md">
-            <div class="col-md-10 col-xs-12">
+            <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.nama"
                 label="Nama*"
                 outlined
               />
             </div>
-            <div class="col-md-2 col-xs-12">
-              <div>
-                <q-checkbox
-                  v-model="store.form.hv"
-                  label="HV"
-                  @update:model-value="updateHv"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="row q-col-gutter-md q-mt-sm">
+
             <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.harga_beli"
@@ -58,8 +48,23 @@
                 </q-badge>
               </div>
             </div>
-          </div>
-          <div class="row q-col-gutter-md q-mt-sm">
+            <div class="col-md-6 col-xs-12">
+              <div class="row">
+                <app-input
+                  v-model="store.form.harga_jual_hv"
+                  style="width:80%"
+                  label="Harga Jual hv*"
+                  outlined
+                  number
+                  currency
+                  prefix="Rp"
+                />
+                <q-badge>
+                  {{ parseInt((olahUang(store.form.harga_jual_hv) - olahUang(store.form.harga_beli))/olahUang(store.form.harga_beli) * 100) }} %
+                </q-badge>
+              </div>
+            </div>
+
             <div class="col-md-6 col-xs-12">
               <div class="row">
                 <app-input
@@ -80,7 +85,7 @@
               <div class="row">
                 <app-input
                   v-model="store.form.harga_jual_resep"
-                  label="Harga Jual Dokter*"
+                  label="Harga Jual Resep*"
                   style="width:80%"
                   outlined
                   number
@@ -92,8 +97,7 @@
                 </q-badge>
               </div>
             </div>
-          </div>
-          <div class="row q-col-gutter-md q-mt-sm">
+
             <div class="col-md-6 col-xs-12">
               <div class="row">
                 <app-input
@@ -126,8 +130,7 @@
                 </q-badge>
               </div>
             </div>
-          </div>
-          <div class="row q-col-gutter-md q-mt-sm">
+
             <div class="col-md-6 col-xs-12">
               <app-input
                 v-model="store.form.stok_awal"
@@ -178,30 +181,30 @@ function updateHargaBeli(val) {
   const sepuluh = hargaBeli * (10 / 100)
   const duapuluh = hargaBeli * (20 / 100)
   // if (!store.form.hv) store.setForm('harga_jual_umum', parseInt(hargaBeli + duapuluh + 1000)) 1000 itu r di transaksi
-  if (!store.form.hv) store.setForm('harga_jual_umum', parseInt(hargaBeli + duapuluh))
-  if (store.form.hv) store.setForm('harga_jual_umum', parseInt(hargaBeli + sepuluh))
   // store.setForm('harga_jual_resep', parseInt(hargaBeli + sepuluh + 1000))
+  store.setForm('harga_jual_hv', parseInt(hargaBeli + sepuluh))
+  store.setForm('harga_jual_umum', parseInt(hargaBeli + duapuluh))
   store.setForm('harga_jual_resep', parseInt(hargaBeli + sepuluh))
   store.setForm('harga_jual_cust', parseInt(hargaBeli))
   store.setForm('harga_jual_prem', parseInt(hargaBeli))
   store.setForm('harga_jual_rac', parseInt(hargaBeli + duapuluh))
-  console.log('harbel', val, olahUang(val), sepuluh, duapuluh, hargaBeli + duapuluh + 1000)
+  // console.log('harbel', val, olahUang(val), sepuluh, duapuluh, hargaBeli + duapuluh + 1000)
 }
-function updateHv(val) {
-  console.log('val hv', val)
-  if (olahUang(store.form.harga_beli) > 0) {
-    console.log('har', val)
-    const hargaBeli = olahUang(store.form.harga_beli)
-    const sepuluh = olahUang(store.form.harga_beli) * (10 / 100)
-    const duapuluh = olahUang(store.form.harga_beli) * (20 / 100)
-    if (val) {
-      console.log('val true', val)
-      store.setForm('harga_jual_umum', parseInt(hargaBeli + sepuluh))
-    } else {
-      store.setForm('harga_jual_umum', parseInt(hargaBeli + duapuluh))
-    }
-  }
-}
+// function updateHv(val) {
+//   console.log('val hv', val)
+//   if (olahUang(store.form.harga_beli) > 0) {
+//     console.log('har', val)
+//     const hargaBeli = olahUang(store.form.harga_beli)
+//     const sepuluh = olahUang(store.form.harga_beli) * (10 / 100)
+//     const duapuluh = olahUang(store.form.harga_beli) * (20 / 100)
+//     if (val) {
+//       console.log('val true', val)
+//       store.setForm('harga_jual_umum', parseInt(hargaBeli + sepuluh))
+//     } else {
+//       store.setForm('harga_jual_umum', parseInt(hargaBeli + duapuluh))
+//     }
+//   }
+// }
 const formReff = ref(null)
 const onSubmit = () => {
   store.saveForm().then(() => {
