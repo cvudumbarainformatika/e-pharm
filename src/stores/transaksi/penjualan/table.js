@@ -41,6 +41,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
     hargaDokter: false,
     hargas: [
       { label: 'Umum', value: 'umum' },
+      { label: 'Hv', value: 'hv' },
       { label: 'Pri Cash', value: 'priCash' },
       { label: 'Pri Kredit', value: 'priKredit' },
       { label: 'Dokter', value: 'dokter' },
@@ -51,6 +52,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       product_id: '',
       harga_beli: 0,
       harga_jual_umum: 0,
+      harga_jual_hv: 0,
       harga_jual_resep: 0,
       harga_jual_cust: 0,
       harga_jual_prem: 0,
@@ -172,6 +174,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.product_id = ''
       this.form.harga_beli = 0
       this.form.harga_jual_umum = 0
+      this.form.harga_jual_hv = 0
       this.form.harga_jual_resep = 0
       this.form.harga_jual_cust = 0
       this.form.harga_jual_prem = 0
@@ -189,6 +192,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.pasien = 'umum'
       this.priCash = false
       this.priKredit = false
+      this.harga = 'umum'
       this.dataPasien = {
 
       }
@@ -272,12 +276,16 @@ export const usePenjualanTable = defineStore('penjualan_table', {
 
           case 'umum':
             this.form.harga = this.form.harga_jual_umum
-            this.form.nilai_r = this.form.hv === '1' ? 0 : 1000
+            this.form.nilai_r = 1000
+            break
+          case 'hv':
+            this.form.harga = this.form.harga_jual_hv
+            this.form.nilai_r = 0
             break
 
           default:
             this.form.harga = this.form.harga_jual_umum
-            this.form.nilai_r = this.form.hv === '1' ? 0 : 1000
+            this.form.nilai_r = 1000
             break
         }
       }
@@ -289,12 +297,13 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.product_id = produk1.id
       this.form.kode_produk = produk1?.kode_produk
       this.form.harga_beli = produk1.harga_beli
+      this.form.harga_jual_hv = produk1.harga_jual_hv
       this.form.harga_jual_cust = produk1.harga_jual_cust
       this.form.harga_jual_umum = produk1.harga_jual_umum
       this.form.harga_jual_resep = produk1.harga_jual_resep
       this.form.harga_jual_prem = produk1.harga_jual_prem
       this.form.harga_jual_rac = produk1.harga_jual_rac
-      this.form.hv = produk1.hv
+      this.form.hv = produk1?.hv
       this.form.qty = 1
       this.setHarga()
       console.log('Product ', this.form)
@@ -303,6 +312,7 @@ export const usePenjualanTable = defineStore('penjualan_table', {
       this.form.product_id = ''
       this.form.harga = 0
       this.form.harga_jual_prem = 0
+      this.form.harga_jual_hv = 0
       this.form.harga_jual_cust = 0
       this.form.harga_jual_umum = 0
       this.form.harga_jual_resep = 0
