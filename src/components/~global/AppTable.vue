@@ -12,10 +12,12 @@
             v-model="search"
             class="search-big"
             borderless
-            debounce="500"
+            debounce="1000"
             clearable
+            autofocus
             dense
             placeholder="Search..."
+            @keyup.enter="setCari($event)"
           >
             <template #prepend>
               <q-icon
@@ -445,6 +447,10 @@ const search = computed({
   set (newVal) { emits('find', newVal) }
 })
 
+function setCari(evt) {
+  // console.log('evt', evt?.target?.value)
+  emits('find', evt?.target?.value)
+}
 const filterColumn = computed(() => {
   const cols = props.columns ? props.columns : []
   if (cols.length > 0) {
