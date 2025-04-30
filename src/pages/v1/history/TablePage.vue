@@ -368,7 +368,8 @@
                 {{ formatRp(item.sub_total) }}
               </div>
             </q-tr>
-            <q-tr><strong>Total : </strong> {{ formatRp(getTotal(props.row.detail_transaction)) }}</q-tr>
+            <!-- <q-tr><strong>Total : </strong> {{ formatRp(getTotal(props.row.detail_transaction)) }}</q-tr> -->
+            <q-tr><strong>Total : </strong> {{ formatRp(isNaN(props.row.detail_transaction?.reduce((a,b)=>parseFloat(a)+parseFloat(b.sub_total),0)) ? 0 : props.row.detail_transaction?.reduce((a,b)=>parseFloat(a)+parseFloat(b.sub_total),0)) }}</q-tr>
           </q-td>
         </q-tr>
         <q-tr
@@ -595,12 +596,13 @@ const print = val => {
   // }, 500)
   // // model.value = false
 }
+// eslint-disable-next-line no-unused-vars
 const getTotal = (val) => {
-  if (val === undefined) { return }
+  if (val === undefined) return 0
   if (val.length >= 1) {
     const subTotal = []
     val.forEach((data, index) => {
-      subTotal[index] = data.harga * data.qty
+      subTotal[index] = (data.harga * data.qty) + data.nilai_r
     })
     const total = subTotal.reduce((total, num) => {
       return total + num
