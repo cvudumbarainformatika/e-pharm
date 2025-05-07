@@ -293,9 +293,9 @@ export const useReturDetailTable = defineStore('retur_detail_table', {
       data.reff = reff
       const auth = useAuthStore()
       // console.log('kasir transaksi', auth.user)
-      if (auth.user.role === 'kasir') {
-        data.kasir_id = auth.user.id
-      }
+      data.kasir_id = auth.user.id
+      // if (auth.user.role === 'kasir' || auth.user.role === 'owner' || auth.user.role === 'root') {
+      // }
 
       // console.log('total ', this.form.total)
       // console.log('form ', this.form)
