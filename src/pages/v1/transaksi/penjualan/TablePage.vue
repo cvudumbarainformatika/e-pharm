@@ -319,6 +319,8 @@
                 <div class="q-mx-xs">
                   <app-btn
                     label="Lanjutkan Pembayaran"
+                    :loading="table.detailLoading || table.simpanDetailLoading || table.hapusDetailLoading || table.produkUpdateLoading || table.produkLoading"
+                    :disable="table.detailLoading || table.simpanDetailLoading || table.hapusDetailLoading || table.produkUpdateLoading || table.produkLoading"
                     @click="cekRequired"
                   />
                 </div>
@@ -417,7 +419,7 @@ const table = usePenjualanTable()
 const store = usePenjualanDialog()
 const keyCheck = val => {
   // console.log('key', val.key)
-  if (val.key === 'F2') {
+  if (val.key === 'F2' && !(table.detailLoading || table.simpanDetailLoading || table.hapusDetailLoading || table.produkUpdateLoading || table.produkLoading)) {
     cekRequired()
   }
 }
